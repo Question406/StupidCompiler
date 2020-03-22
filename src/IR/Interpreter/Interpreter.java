@@ -1,9 +1,6 @@
 package IR.Interpreter;
 
 import Utils.Exception.SemanticException;
-import org.apache.commons.text.StringEscapeUtils;
-
-import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.io.*;
 import java.util.*;
 
