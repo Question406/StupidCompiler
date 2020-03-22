@@ -1,0 +1,1366 @@
+ @constStr_0 = ""
+ @constStr_1 = "Invalid input"
+ @constStr_2 = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+ @constStr_3 = "Not Found!"
+ @constStr_4 = "nChunk > MAXCHUNK!"
+ @outputBuffer 
+ @asciiTable 
+ @inputBuffer 
+ @MAXCHUNK 
+ @chunks 
+ @MAXLENGTH 
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 jump %whileCondBB1
+ 
+ %whileCondBB1:
+ preds:  %main.entryBB1  %if_end1  
+ doms:  %main.entryBB1  %whileCondBB1  
+ 		 br  1  %whileBodyBB1 %afterWhileBB1 
+ 		 jump %whileBodyBB1
+ 
+ %whileBodyBB1:
+ preds:  %whileCondBB1  
+ doms:  %main.entryBB1  %whileBodyBB1  %whileCondBB1  
+ 		 %t1  =  call getInt  
+ 		 %op1  = move  %t1 
+ 		 %t2  = seq  %op1   0 
+ 		 br  %t2  %if_thenBB1 %if_end2 
+ 
+ %if_thenBB1:
+ preds:  %whileBodyBB1  
+ doms:  %main.entryBB1  %if_thenBB1  %whileBodyBB1  %whileCondBB1  
+ 		 jump %afterWhileBB1
+ 
+ %if_end2:
+ preds:  %whileBodyBB1  
+ doms:  %if_end2  %main.entryBB1  %whileBodyBB1  %whileCondBB1  
+ 		 %t3  = seq  %op1   1 
+ 		 br  %t3  %if_thenBB2 %if_elseBB1 
+ 
+ %if_thenBB2:
+ preds:  %if_end2  
+ doms:  %if_end2  %if_thenBB2  %main.entryBB1  %whileBodyBB1  %whileCondBB1  
+ 		 %t4  =  call getString  
+ 		 %input1  = move  %t4 
+ 		 call computeSHA1  %input1   
+ 		 jump %if_end1
+ 
+ %if_elseBB1:
+ preds:  %if_end2  
+ doms:  %if_end2  %if_elseBB1  %main.entryBB1  %whileBodyBB1  %whileCondBB1  
+ 		 %t5  = seq  %op1   2 
+ 		 br  %t5  %if_thenBB3 %if_end3 
+ 
+ %if_thenBB3:
+ preds:  %if_elseBB1  
+ doms:  %if_end2  %if_elseBB1  %main.entryBB1  %whileBodyBB1  %whileCondBB1  %if_thenBB3  
+ 		 %t6  =  call getString  
+ 		 %input1  = move  %t6 
+ 		 call crackSHA1  %input1   
+ 		 jump %if_end3
+ 
+ %if_end3:
+ preds:  %if_elseBB1  %if_thenBB3  
+ doms:  %if_end2  %if_elseBB1  %main.entryBB1  %if_end3  %whileBodyBB1  %whileCondBB1  
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB2  %if_end3  
+ doms:  %if_end2  %main.entryBB1  %if_end1  %whileBodyBB1  %whileCondBB1  
+ 		 jump %whileCondBB1
+ 
+ %afterWhileBB1:
+ preds:  %if_thenBB1  %whileCondBB1  
+ doms:  %main.entryBB1  %afterWhileBB1  %whileCondBB1  
+ 		 ret  0 
+ 
+ }
+ define i32 @hex2int  %x1  {
+ %hex2int.entryBB1:
+ preds:  
+ doms:  %hex2int.entryBB1  
+ 		 %result1  = move  0 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %hex2int.entryBB1  
+ doms:  %hex2int.entryBB1  %forcondBB1  
+ 		 %t1  =  call string.length  %x1 
+ 		 %t2  = slt  %i1   %t1 
+ 		 br  %t2  %forbodyBB1 %afterForBB1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %hex2int.entryBB1  %forbodyBB1  
+ 		 %t3  =  call string.ord  %x1 %i1   
+ 		 %digit1  = move  %t3 
+ 		 %t4  = sge  %digit1   48 
+ 		 br  %t4  %ifTrue1 %if_elseBB1 
+ 
+ %ifTrue1:
+ preds:  %forbodyBB1  
+ doms:  %forcondBB1  %hex2int.entryBB1  %ifTrue1  %forbodyBB1  
+ 		 %t5  = sle  %digit1   57 
+ 		 br  %t5  %if_thenBB1 %if_elseBB1 
+ 
+ %if_thenBB1:
+ preds:  %ifTrue1  
+ doms:  %if_thenBB1  %forcondBB1  %hex2int.entryBB1  %ifTrue1  %forbodyBB1  
+ 		 %t6  =   mul  %result1   16 
+ 		 %t7  =   add  %t6   %digit1 
+ 		 %t8  =   sub  %t7   48 
+ 		 %result1  = move  %t8 
+ 		 jump %if_end1
+ 
+ %if_elseBB1:
+ preds:  %ifTrue1  %forbodyBB1  
+ doms:  %if_elseBB1  %forcondBB1  %hex2int.entryBB1  %forbodyBB1  
+ 		 %t9  = sge  %digit1   65 
+ 		 br  %t9  %ifTrue2 %if_elseBB2 
+ 
+ %ifTrue2:
+ preds:  %if_elseBB1  
+ doms:  %if_elseBB1  %forcondBB1  %ifTrue2  %hex2int.entryBB1  %forbodyBB1  
+ 		 %t10  = sle  %digit1   70 
+ 		 br  %t10  %if_thenBB2 %if_elseBB2 
+ 
+ %if_thenBB2:
+ preds:  %ifTrue2  
+ doms:  %if_elseBB1  %forcondBB1  %ifTrue2  %hex2int.entryBB1  %forbodyBB1  %if_thenBB2  
+ 		 %t11  =   mul  %result1   16 
+ 		 %t12  =   add  %t11   %digit1 
+ 		 %t13  =   sub  %t12   65 
+ 		 %t14  =   add  %t13   10 
+ 		 %result1  = move  %t14 
+ 		 jump %if_end2
+ 
+ %if_elseBB2:
+ preds:  %if_elseBB1  %ifTrue2  
+ doms:  %if_elseBB2  %if_elseBB1  %forcondBB1  %hex2int.entryBB1  %forbodyBB1  
+ 		 %t15  = sge  %digit1   97 
+ 		 br  %t15  %ifTrue3 %if_elseBB3 
+ 
+ %ifTrue3:
+ preds:  %if_elseBB2  
+ doms:  %if_elseBB2  %if_elseBB1  %ifTrue3  %forcondBB1  %hex2int.entryBB1  %forbodyBB1  
+ 		 %t16  = sle  %digit1   102 
+ 		 br  %t16  %if_thenBB3 %if_elseBB3 
+ 
+ %if_elseBB3:
+ preds:  %if_elseBB2  %ifTrue3  
+ doms:  %if_elseBB2  %if_elseBB1  %forcondBB1  %if_elseBB3  %hex2int.entryBB1  %forbodyBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %hex2int.exitBB1
+ 
+ %if_thenBB3:
+ preds:  %ifTrue3  
+ doms:  %if_elseBB2  %if_elseBB1  %ifTrue3  %forcondBB1  %if_thenBB3  %hex2int.entryBB1  %forbodyBB1  
+ 		 %t17  =   mul  %result1   16 
+ 		 %t18  =   add  %t17   %digit1 
+ 		 %t19  =   sub  %t18   97 
+ 		 %t20  =   add  %t19   10 
+ 		 %result1  = move  %t20 
+ 		 jump %if_end3
+ 
+ %if_end3:
+ preds:  %if_thenBB3  
+ doms:  %if_elseBB2  %if_elseBB1  %ifTrue3  %forcondBB1  %if_thenBB3  %hex2int.entryBB1  %forbodyBB1  %if_end3  
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %if_thenBB2  %if_end3  
+ doms:  %if_elseBB1  %forcondBB1  %hex2int.entryBB1  %if_end2  %forbodyBB1  
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB1  %if_end2  
+ doms:  %forcondBB1  %hex2int.entryBB1  %if_end1  %forbodyBB1  
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %if_end1  
+ doms:  %forupdateBB1  %forcondBB1  %hex2int.entryBB1  %if_end1  %forbodyBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %hex2int.entryBB1  %afterForBB1  
+ 		 %mergedretVal1  = move  %result1 
+ 		 jump %hex2int.exitBB1
+ 
+ %hex2int.exitBB1:
+ preds:  %if_elseBB3  %afterForBB1  
+ doms:  %forcondBB1  %hex2int.entryBB1  %hex2int.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define void @computeSHA1  %input1  {
+ %computeSHA1.entryBB1:
+ preds:  
+ doms:  %computeSHA1.entryBB1  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %computeSHA1.entryBB1  %forupdateBB1  
+ doms:  %forcondBB1  %computeSHA1.entryBB1  
+ 		 %t1  =  call string.length  %input1 
+ 		 %t2  = slt  %i1   %t1 
+ 		 br  %t2  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %afterForBB1  %forcondBB1  %computeSHA1.entryBB1  
+ 		 %t3  =  call string.length  %input1 
+ 		 %t4  =  call sha1  @inputBuffer   %t3   
+ 		 %result1  = move  %t4 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %afterForBB1  %forupdateBB2  
+ doms:  %afterForBB1  %forcondBB1  %computeSHA1.entryBB1  %forcondBB2  
+ 		 %t5  =  call array.size  %result1 
+ 		 %t6  = slt  %i1   %t5 
+ 		 br  %t6  %forbodyBB2 %afterForBB2 
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %afterForBB2  %afterForBB1  %forcondBB1  %computeSHA1.entryBB1  %forcondBB2  
+ 		 %t7  =  call println  @constStr_0   
+ 		 ret  
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %forbodyBB2  %afterForBB1  %forcondBB1  %computeSHA1.entryBB1  %forcondBB2  
+ 		 %t8  =   mul  %i1   4 
+ 		 %t9  =   add  %t8   4 
+ 		 %t10  =   add  %result1   %t9 
+ 		 %t11  = load  %t10 
+ 		 %t12  =  call toStringHex  %t11   
+ 		 %t13  =  call print  %t12   
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %forbodyBB2  
+ doms:  %forbodyBB2  %afterForBB1  %forcondBB1  %forupdateBB2  %computeSHA1.entryBB1  %forcondBB2  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB2
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forbodyBB1  %forcondBB1  %computeSHA1.entryBB1  
+ 		 %t14  =   mul  %i1   4 
+ 		 %t15  =   add  %t14   4 
+ 		 %t16  =   add  @inputBuffer   %t15 
+ 		 %t17  =  call string.ord  %input1 %i1   
+ 		 store  %t16   %t17 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forbodyBB1  %forcondBB1  %computeSHA1.entryBB1  %forupdateBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ }
+ define i32 @array_equal  %a1 %b1  {
+ %array_equal.entryBB1:
+ preds:  
+ doms:  %array_equal.entryBB1  
+ 		 %t1  =  call array.size  %a1 
+ 		 %t2  =  call array.size  %b1 
+ 		 %t3  = sne  %t1   %t2 
+ 		 br  %t3  %if_thenBB1 %if_end1 
+ 
+ %if_end1:
+ preds:  %array_equal.entryBB1  
+ doms:  %if_end1  %array_equal.entryBB1  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %if_end1  
+ doms:  %forcondBB1  %if_end1  %array_equal.entryBB1  
+ 		 %t4  =  call array.size  %a1 
+ 		 %t5  = slt  %i1   %t4 
+ 		 br  %t5  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %if_end1  %afterForBB1  %array_equal.entryBB1  
+ 		 %mergedretVal1  = move  1 
+ 		 jump %array_equal.exitBB1
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forbodyBB1  %forcondBB1  %if_end1  %array_equal.entryBB1  
+ 		 %t6  =   mul  %i1   4 
+ 		 %t7  =   add  %t6   4 
+ 		 %t8  =   add  %a1   %t7 
+ 		 %t9  =   mul  %i1   4 
+ 		 %t10  =   add  %t9   4 
+ 		 %t11  =   add  %b1   %t10 
+ 		 %t12  = load  %t8 
+ 		 %t13  = load  %t11 
+ 		 %t14  = sne  %t12   %t13 
+ 		 br  %t14  %if_thenBB2 %if_end2 
+ 
+ %if_end2:
+ preds:  %forbodyBB1  
+ doms:  %forbodyBB1  %if_end2  %forcondBB1  %if_end1  %array_equal.entryBB1  
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %if_end2  
+ doms:  %forbodyBB1  %forupdateBB1  %if_end2  %forcondBB1  %if_end1  %array_equal.entryBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %if_thenBB2:
+ preds:  %forbodyBB1  
+ doms:  %forbodyBB1  %if_thenBB2  %forcondBB1  %if_end1  %array_equal.entryBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %array_equal.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %array_equal.entryBB1  
+ doms:  %if_thenBB1  %array_equal.entryBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %array_equal.exitBB1
+ 
+ %array_equal.exitBB1:
+ preds:  %if_thenBB1  %if_thenBB2  %afterForBB1  
+ doms:  %array_equal.entryBB1  %array_equal.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @nextLetter  %now1  {
+ %nextLetter.entryBB1:
+ preds:  
+ doms:  %nextLetter.entryBB1  
+ 		 %t1  = seq  %now1   122 
+ 		 br  %t1  %if_thenBB1 %if_end1 
+ 
+ %if_end1:
+ preds:  %nextLetter.entryBB1  
+ doms:  %nextLetter.entryBB1  %if_end1  
+ 		 %t2  = seq  %now1   90 
+ 		 br  %t2  %if_thenBB2 %if_end2 
+ 
+ %if_thenBB2:
+ preds:  %if_end1  
+ doms:  %nextLetter.entryBB1  %if_thenBB2  %if_end1  
+ 		 %mergedretVal1  = move  97 
+ 		 jump %nextLetter.exitBB1
+ 
+ %if_end2:
+ preds:  %if_end1  
+ doms:  %nextLetter.entryBB1  %if_end2  %if_end1  
+ 		 %t3  = seq  %now1   57 
+ 		 br  %t3  %if_thenBB3 %if_end3 
+ 
+ %if_end3:
+ preds:  %if_end2  
+ doms:  %nextLetter.entryBB1  %if_end2  %if_end1  %if_end3  
+ 		 %t4  =   add  %now1   1 
+ 		 %mergedretVal1  = move  %t4 
+ 		 jump %nextLetter.exitBB1
+ 
+ %if_thenBB3:
+ preds:  %if_end2  
+ doms:  %nextLetter.entryBB1  %if_end2  %if_thenBB3  %if_end1  
+ 		 %mergedretVal1  = move  65 
+ 		 jump %nextLetter.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %nextLetter.entryBB1  
+ doms:  %nextLetter.entryBB1  %if_thenBB1  
+ 		 %t5  =   sub  0   1 
+ 		 %mergedretVal1  = move  %t5 
+ 		 jump %nextLetter.exitBB1
+ 
+ %nextLetter.exitBB1:
+ preds:  %if_thenBB1  %if_thenBB2  %if_thenBB3  %if_end3  
+ doms:  %nextLetter.entryBB1  %nextLetter.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @add  %x1 %y1  {
+ %add.entryBB1:
+ preds:  
+ doms:  %add.entryBB1  
+ 		 %t1  =   and  %x1   65535 
+ 		 %t2  =   and  %y1   65535 
+ 		 %t3  =   add  %t1   %t2 
+ 		 %low1  = move  %t3 
+ 		 %t4  =   shr  %x1   16 
+ 		 %t5  =   and  %t4   65535 
+ 		 %t6  =   shr  %y1   16 
+ 		 %t7  =   and  %t6   65535 
+ 		 %t8  =   add  %t5   %t7 
+ 		 %t9  =   shr  %low1   16 
+ 		 %t10  =   add  %t8   %t9 
+ 		 %t11  =   and  %t10   65535 
+ 		 %high1  = move  %t11 
+ 		 %t12  =   shl  %high1   16 
+ 		 %t13  =   and  %low1   65535 
+ 		 %t14  =   or  %t12   %t13 
+ 		 ret  %t14 
+ 
+ }
+ define i32 @nextText  %now1 %length1  {
+ %nextText.entryBB1:
+ preds:  
+ doms:  %nextText.entryBB1  
+ 		 %t1  =   sub  %length1   1 
+ 		 %i1  = move  %t1 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %nextText.entryBB1  %forupdateBB1  
+ doms:  %forcondBB1  %nextText.entryBB1  
+ 		 %t2  = sge  %i1   0 
+ 		 br  %t2  %forbodyBB1 %afterForBB1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %forbodyBB1  %nextText.entryBB1  
+ 		 %t3  =   mul  %i1   4 
+ 		 %t4  =   add  %t3   4 
+ 		 %t5  =   add  %now1   %t4 
+ 		 %t6  =   mul  %i1   4 
+ 		 %t7  =   add  %t6   4 
+ 		 %t8  =   add  %now1   %t7 
+ 		 %t9  = load  %t8 
+ 		 %t10  =  call nextLetter  %t9   
+ 		 store  %t5   %t10 
+ 		 %t11  =   mul  %i1   4 
+ 		 %t12  =   add  %t11   4 
+ 		 %t13  =   add  %now1   %t12 
+ 		 %t14  =   sub  0   1 
+ 		 %t15  = load  %t13 
+ 		 %t16  = seq  %t15   %t14 
+ 		 br  %t16  %if_thenBB1 %if_elseBB1 
+ 
+ %if_thenBB1:
+ preds:  %forbodyBB1  
+ doms:  %forcondBB1  %if_thenBB1  %forbodyBB1  %nextText.entryBB1  
+ 		 %t17  =   mul  %i1   4 
+ 		 %t18  =   add  %t17   4 
+ 		 %t19  =   add  %now1   %t18 
+ 		 store  %t19   48 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB1  
+ doms:  %forcondBB1  %if_thenBB1  %if_end1  %forbodyBB1  %nextText.entryBB1  
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %if_end1  
+ doms:  %forcondBB1  %if_thenBB1  %if_end1  %forbodyBB1  %nextText.entryBB1  %forupdateBB1  
+ 		 %i1  =   sub  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %if_elseBB1:
+ preds:  %forbodyBB1  
+ doms:  %if_elseBB1  %forcondBB1  %forbodyBB1  %nextText.entryBB1  
+ 		 %mergedretVal1  = move  1 
+ 		 jump %nextText.exitBB1
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %afterForBB1  %forcondBB1  %nextText.entryBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %nextText.exitBB1
+ 
+ %nextText.exitBB1:
+ preds:  %if_elseBB1  %afterForBB1  
+ doms:  %forcondBB1  %nextText.exitBB1  %nextText.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define void @crackSHA1  %input1  {
+ %crackSHA1.entryBB1:
+ preds:  
+ doms:  %crackSHA1.entryBB1  
+ 		 %t1  =   mul  5   4 
+ 		 %t1  =   add  %t1   4 
+ 		 %t2  = alloc  %t1 
+ 		 store  %t2   5 
+ 		 %target1  = move  %t2 
+ 		 %t3  =  call string.length  %input1 
+ 		 %t4  = sne  %t3   40 
+ 		 br  %t4  %if_thenBB1 %if_end1 
+ 
+ %if_end1:
+ preds:  %crackSHA1.entryBB1  
+ doms:  %crackSHA1.entryBB1  %if_end1  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %if_end1  %forupdateBB1  
+ doms:  %crackSHA1.entryBB1  %if_end1  %forcondBB1  
+ 		 %t5  = slt  %i1   5 
+ 		 br  %t5  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %crackSHA1.entryBB1  %afterForBB1  %if_end1  %forcondBB1  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %afterForBB1  %forupdateBB2  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %afterForBB1  %if_end1  %forcondBB1  
+ 		 %t6  = slt  %i1   40 
+ 		 br  %t6  %forbodyBB2 %afterForBB2 
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %afterForBB1  %forbodyBB2  %if_end1  %forcondBB1  
+ 		 %t7  =   div  %i1   8 
+ 		 %t8  =   mul  %t7   4 
+ 		 %t9  =   add  %t8   4 
+ 		 %t10  =   add  %target1   %t9 
+ 		 %t11  =   div  %i1   8 
+ 		 %t12  =   mul  %t11   4 
+ 		 %t13  =   add  %t12   4 
+ 		 %t14  =   add  %target1   %t13 
+ 		 %t15  =   add  %i1   4 
+ 		 %t16  =  call string.substring  %input1 %i1   %t15   
+ 		 %t17  =  call hex2int  %t16   
+ 		 %t18  =   div  %i1   4 
+ 		 %t19  =   mod  %t18   2 
+ 		 %t20  =   sub  1   %t19 
+ 		 %t21  =   mul  %t20   16 
+ 		 %t22  =   shl  %t17   %t21 
+ 		 %t23  = load  %t14 
+ 		 %t24  =   or  %t23   %t22 
+ 		 store  %t10   %t24 
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %forbodyBB2  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %afterForBB1  %forbodyBB2  %if_end1  %forcondBB1  %forupdateBB2  
+ 		 %t25  =   add  %i1   4 
+ 		 %i1  = move  %t25 
+ 		 jump %forcondBB2
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %afterForBB2  %afterForBB1  %if_end1  %forcondBB1  
+ 		 %MAXDIGIT1  = move  4 
+ 		 %digit1  = move  1 
+ 		 jump %forcondBB3
+ 
+ %forcondBB3:
+ preds:  %forupdateBB3  %afterForBB2  
+ doms:  %crackSHA1.entryBB1  %if_end1  %forcondBB1  %forcondBB2  %afterForBB2  %afterForBB1  %forcondBB3  
+ 		 %t26  = sle  %digit1   %MAXDIGIT1 
+ 		 br  %t26  %forbodyBB3 %afterForBB3 
+ 
+ %forbodyBB3:
+ preds:  %forcondBB3  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %afterForBB2  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %forcondBB3  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB4
+ 
+ %forcondBB4:
+ preds:  %forupdateBB4  %forbodyBB3  
+ doms:  %crackSHA1.entryBB1  %if_end1  %forcondBB1  %forcondBB2  %forcondBB4  %afterForBB2  %afterForBB1  %forbodyBB3  %forcondBB3  
+ 		 %t27  = slt  %i1   %digit1 
+ 		 br  %t27  %forbodyBB4 %afterForBB4 
+ 
+ %forbodyBB4:
+ preds:  %forcondBB4  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %forcondBB4  %afterForBB2  %afterForBB1  %forbodyBB4  %if_end1  %forbodyBB3  %forcondBB1  %forcondBB3  
+ 		 %t28  =   mul  %i1   4 
+ 		 %t29  =   add  %t28   4 
+ 		 %t30  =   add  @inputBuffer   %t29 
+ 		 store  %t30   48 
+ 		 jump %forupdateBB4
+ 
+ %forupdateBB4:
+ preds:  %forbodyBB4  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %forcondBB4  %afterForBB2  %afterForBB1  %forbodyBB4  %if_end1  %forupdateBB4  %forbodyBB3  %forcondBB1  %forcondBB3  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB4
+ 
+ %afterForBB4:
+ preds:  %forcondBB4  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %forcondBB4  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %forcondBB3  
+ 		 jump %whileCondBB1
+ 
+ %whileCondBB1:
+ preds:  %afterForBB4  %if_end2  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %forcondBB4  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  
+ 		 br  1  %whileBodyBB1 %afterWhileBB1 
+ 		 jump %whileBodyBB1
+ 
+ %whileBodyBB1:
+ preds:  %whileCondBB1  
+ doms:  %forcondBB2  %crackSHA1.entryBB1  %whileBodyBB1  %forcondBB4  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  
+ 		 %t31  =  call sha1  @inputBuffer   %digit1   
+ 		 %out1  = move  %t31 
+ 		 %t32  =  call array_equal  %out1   %target1   
+ 		 br  %t32  %if_thenBB2 %if_end3 
+ 
+ %if_thenBB2:
+ preds:  %whileBodyBB1  
+ doms:  %crackSHA1.entryBB1  %whileBodyBB1  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  %if_thenBB2  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB5
+ 
+ %forcondBB5:
+ preds:  %if_thenBB2  %forupdateBB5  
+ doms:  %crackSHA1.entryBB1  %whileBodyBB1  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  %if_thenBB2  %forcondBB5  
+ 		 %t33  = slt  %i1   %digit1 
+ 		 br  %t33  %forbodyBB5 %afterForBB5 
+ 
+ %forbodyBB5:
+ preds:  %forcondBB5  
+ doms:  %crackSHA1.entryBB1  %whileBodyBB1  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  %if_thenBB2  %forcondBB5  %forbodyBB5  
+ 		 %t34  =   mul  %i1   4 
+ 		 %t35  =   add  %t34   4 
+ 		 %t36  =   add  @inputBuffer   %t35 
+ 		 %t37  = load  %t36 
+ 		 %t38  =  call int2chr  %t37   
+ 		 %t39  =  call print  %t38   
+ 		 jump %forupdateBB5
+ 
+ %forupdateBB5:
+ preds:  %forbodyBB5  
+ doms:  %crackSHA1.entryBB1  %whileBodyBB1  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forupdateBB5  %forcondBB2  %forcondBB4  %if_thenBB2  %forcondBB5  %forbodyBB5  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB5
+ 
+ %afterForBB5:
+ preds:  %forcondBB5  
+ doms:  %crackSHA1.entryBB1  %whileBodyBB1  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %afterForBB5  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  %if_thenBB2  %forcondBB5  
+ 		 %t40  =  call println  @constStr_0   
+ 		 jump %crackSHA1.exitBB1
+ 
+ %if_end3:
+ preds:  %whileBodyBB1  
+ doms:  %crackSHA1.entryBB1  %whileBodyBB1  %if_end3  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  
+ 		 %t41  =  call nextText  @inputBuffer   %digit1   
+ 		 br  %t41  %if_end2 %if_thenBB3 
+ 
+ %if_end2:
+ preds:  %if_end3  
+ doms:  %crackSHA1.entryBB1  %whileBodyBB1  %if_end3  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  %if_end2  
+ 		 jump %whileCondBB1
+ 
+ %if_thenBB3:
+ preds:  %if_end3  
+ doms:  %crackSHA1.entryBB1  %whileBodyBB1  %if_end3  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  %if_thenBB3  
+ 		 jump %afterWhileBB1
+ 
+ %afterWhileBB1:
+ preds:  %if_thenBB3  %whileCondBB1  
+ doms:  %crackSHA1.entryBB1  %afterWhileBB1  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  
+ 		 jump %forupdateBB3
+ 
+ %forupdateBB3:
+ preds:  %afterWhileBB1  
+ doms:  %forupdateBB3  %crackSHA1.entryBB1  %afterWhileBB1  %afterForBB2  %afterForBB4  %afterForBB1  %if_end1  %forbodyBB3  %forcondBB1  %whileCondBB1  %forcondBB3  %forcondBB2  %forcondBB4  
+ 		 %digit1  =   add  %digit1   1 
+ 		 jump %forcondBB3
+ 
+ %afterForBB3:
+ preds:  %forcondBB3  
+ doms:  %forcondBB2  %afterForBB3  %crackSHA1.entryBB1  %afterForBB2  %afterForBB1  %if_end1  %forcondBB1  %forcondBB3  
+ 		 %t42  =  call println  @constStr_3   
+ 		 jump %crackSHA1.exitBB1
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forbodyBB1  %crackSHA1.entryBB1  %if_end1  %forcondBB1  
+ 		 %t43  =   mul  %i1   4 
+ 		 %t44  =   add  %t43   4 
+ 		 %t45  =   add  %target1   %t44 
+ 		 store  %t45   0 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forbodyBB1  %crackSHA1.entryBB1  %if_end1  %forcondBB1  %forupdateBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %if_thenBB1:
+ preds:  %crackSHA1.entryBB1  
+ doms:  %crackSHA1.entryBB1  %if_thenBB1  
+ 		 %t46  =  call println  @constStr_1   
+ 		 jump %crackSHA1.exitBB1
+ 
+ %crackSHA1.exitBB1:
+ preds:  %afterForBB3  %if_thenBB1  %afterForBB5  
+ doms:  %crackSHA1.entryBB1  %crackSHA1.exitBB1  
+ 		 ret  
+ 
+ }
+ define i32 @toStringHex  %x1  {
+ %toStringHex.entryBB1:
+ preds:  
+ doms:  %toStringHex.entryBB1  
+ 		 %ret1  = move  @constStr_0 
+ 		 %i1  = move  28 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %toStringHex.entryBB1  
+ doms:  %toStringHex.entryBB1  %forcondBB1  
+ 		 %t1  = sge  %i1   0 
+ 		 br  %t1  %forbodyBB1 %afterForBB1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %toStringHex.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t2  =   shr  %x1   %i1 
+ 		 %t3  =   and  %t2   15 
+ 		 %digit1  = move  %t3 
+ 		 %t4  = slt  %digit1   10 
+ 		 br  %t4  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %forbodyBB1  
+ doms:  %if_elseBB1  %toStringHex.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t5  =   add  65   %digit1 
+ 		 %t6  =   sub  %t5   10 
+ 		 %t7  =  call int2chr  %t6   
+ 		 %t8  =  call string.add  %ret1   %t7   
+ 		 %ret1  = move  %t8 
+ 		 jump %if_end1
+ 
+ %if_thenBB1:
+ preds:  %forbodyBB1  
+ doms:  %if_thenBB1  %toStringHex.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t9  =   add  48   %digit1 
+ 		 %t10  =  call int2chr  %t9   
+ 		 %t11  =  call string.add  %ret1   %t10   
+ 		 %ret1  = move  %t11 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB1  %if_elseBB1  
+ doms:  %if_end1  %toStringHex.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %if_end1  
+ doms:  %forupdateBB1  %if_end1  %toStringHex.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t12  =   sub  %i1   4 
+ 		 %i1  = move  %t12 
+ 		 jump %forcondBB1
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %afterForBB1  %toStringHex.entryBB1  %forcondBB1  
+ 		 ret  %ret1 
+ 
+ }
+ define i32 @sha1  %input1 %length1  {
+ %sha1.entryBB1:
+ preds:  
+ doms:  %sha1.entryBB1  
+ 		 %t1  =   add  %length1   64 
+ 		 %t2  =   sub  %t1   56 
+ 		 %t3  =   div  %t2   64 
+ 		 %t4  =   add  %t3   1 
+ 		 %nChunk1  = move  %t4 
+ 		 %t5  = sgt  %nChunk1   @MAXCHUNK 
+ 		 br  %t5  %if_thenBB1 %if_end1 
+ 
+ %if_end1:
+ preds:  %sha1.entryBB1  
+ doms:  %if_end1  %sha1.entryBB1  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %if_end1  %forupdateBB1  
+ doms:  %if_end1  %forcondBB1  %sha1.entryBB1  
+ 		 %t6  = slt  %i1   %nChunk1 
+ 		 br  %t6  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %if_end1  %forcondBB1  %afterForBB1  %sha1.entryBB1  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %forupdateBB2  %afterForBB1  
+ doms:  %afterForBB1  %forcondBB1  %forcondBB2  %if_end1  %sha1.entryBB1  
+ 		 %t7  = slt  %i1   %length1 
+ 		 br  %t7  %forbodyBB2 %afterForBB2 
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %forcondBB2  %if_end1  %forcondBB1  %afterForBB2  %afterForBB1  %sha1.entryBB1  
+ 		 %t8  =   div  %i1   64 
+ 		 %t9  =   mul  %t8   4 
+ 		 %t10  =   add  %t9   4 
+ 		 %t11  =   add  @chunks   %t10 
+ 		 %t12  =   mod  %i1   64 
+ 		 %t13  =   div  %t12   4 
+ 		 %t14  = load  %t11 
+ 		 %t15  =   mul  %t13   4 
+ 		 %t16  =   add  %t15   4 
+ 		 %t17  =   add  %t14   %t16 
+ 		 %t18  =   div  %i1   64 
+ 		 %t19  =   mul  %t18   4 
+ 		 %t20  =   add  %t19   4 
+ 		 %t21  =   add  @chunks   %t20 
+ 		 %t22  =   mod  %i1   64 
+ 		 %t23  =   div  %t22   4 
+ 		 %t24  = load  %t21 
+ 		 %t25  =   mul  %t23   4 
+ 		 %t26  =   add  %t25   4 
+ 		 %t27  =   add  %t24   %t26 
+ 		 %t28  =   mod  %i1   4 
+ 		 %t29  =   sub  3   %t28 
+ 		 %t30  =   mul  %t29   8 
+ 		 %t31  =   shl  128   %t30 
+ 		 %t32  = load  %t27 
+ 		 %t33  =   or  %t32   %t31 
+ 		 store  %t17   %t33 
+ 		 %t34  =   sub  %nChunk1   1 
+ 		 %t35  =   mul  %t34   4 
+ 		 %t36  =   add  %t35   4 
+ 		 %t37  =   add  @chunks   %t36 
+ 		 %t38  = load  %t37 
+ 		 %t39  =   mul  15   4 
+ 		 %t40  =   add  %t39   4 
+ 		 %t41  =   add  %t38   %t40 
+ 		 %t42  =   shl  %length1   3 
+ 		 store  %t41   %t42 
+ 		 %t43  =   sub  %nChunk1   1 
+ 		 %t44  =   mul  %t43   4 
+ 		 %t45  =   add  %t44   4 
+ 		 %t46  =   add  @chunks   %t45 
+ 		 %t47  = load  %t46 
+ 		 %t48  =   mul  14   4 
+ 		 %t49  =   add  %t48   4 
+ 		 %t50  =   add  %t47   %t49 
+ 		 %t51  =   shr  %length1   29 
+ 		 %t52  =   and  %t51   7 
+ 		 store  %t50   %t52 
+ 		 %h01  = move  1732584193 
+ 		 %t53  =  call lohi  43913   61389   
+ 		 %h11  = move  %t53 
+ 		 %t54  =  call lohi  56574   39098   
+ 		 %h21  = move  %t54 
+ 		 %h31  = move  271733878 
+ 		 %t55  =  call lohi  57840   50130   
+ 		 %h41  = move  %t55 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB3
+ 
+ %forcondBB3:
+ preds:  %afterForBB2  %forupdateBB3  
+ doms:  %forcondBB2  %forcondBB3  %if_end1  %forcondBB1  %afterForBB2  %afterForBB1  %sha1.entryBB1  
+ 		 %t56  = slt  %i1   %nChunk1 
+ 		 br  %t56  %forbodyBB3 %afterForBB3 
+ 
+ %afterForBB3:
+ preds:  %forcondBB3  
+ doms:  %forcondBB2  %forcondBB3  %if_end1  %forcondBB1  %afterForBB2  %afterForBB1  %afterForBB3  %sha1.entryBB1  
+ 		 %t57  =   mul  0   4 
+ 		 %t58  =   add  %t57   4 
+ 		 %t59  =   add  @outputBuffer   %t58 
+ 		 store  %t59   %h01 
+ 		 %t60  =   mul  1   4 
+ 		 %t61  =   add  %t60   4 
+ 		 %t62  =   add  @outputBuffer   %t61 
+ 		 store  %t62   %h11 
+ 		 %t63  =   mul  2   4 
+ 		 %t64  =   add  %t63   4 
+ 		 %t65  =   add  @outputBuffer   %t64 
+ 		 store  %t65   %h21 
+ 		 %t66  =   mul  3   4 
+ 		 %t67  =   add  %t66   4 
+ 		 %t68  =   add  @outputBuffer   %t67 
+ 		 store  %t68   %h31 
+ 		 %t69  =   mul  4   4 
+ 		 %t70  =   add  %t69   4 
+ 		 %t71  =   add  @outputBuffer   %t70 
+ 		 store  %t71   %h41 
+ 		 %mergedretVal1  = move  @outputBuffer 
+ 		 jump %sha1.exitBB1
+ 
+ %forbodyBB3:
+ preds:  %forcondBB3  
+ doms:  %forcondBB2  %forcondBB3  %if_end1  %forbodyBB3  %forcondBB1  %afterForBB2  %afterForBB1  %sha1.entryBB1  
+ 		 %j1  = move  16 
+ 		 jump %forcondBB4
+ 
+ %forcondBB4:
+ preds:  %forbodyBB3  %forupdateBB4  
+ doms:  %forcondBB2  %forcondBB3  %if_end1  %forbodyBB3  %forcondBB4  %forcondBB1  %afterForBB2  %afterForBB1  %sha1.entryBB1  
+ 		 %t72  = slt  %j1   80 
+ 		 br  %t72  %forbodyBB4 %afterForBB4 
+ 
+ %afterForBB4:
+ preds:  %forcondBB4  
+ doms:  %forcondBB2  %forcondBB3  %afterForBB4  %if_end1  %forbodyBB3  %forcondBB4  %forcondBB1  %afterForBB2  %afterForBB1  %sha1.entryBB1  
+ 		 %a1  = move  %h01 
+ 		 %b1  = move  %h11 
+ 		 %c1  = move  %h21 
+ 		 %d1  = move  %h31 
+ 		 %e1  = move  %h41 
+ 		 %j1  = move  0 
+ 		 jump %forcondBB5
+ 
+ %forcondBB5:
+ preds:  %afterForBB4  %forupdateBB5  
+ doms:  %forcondBB2  %forcondBB3  %afterForBB4  %if_end1  %forbodyBB3  %forcondBB4  %forcondBB1  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  
+ 		 %t73  = slt  %j1   80 
+ 		 br  %t73  %forbodyBB5 %afterForBB5 
+ 
+ %afterForBB5:
+ preds:  %forcondBB5  
+ doms:  %forcondBB2  %forcondBB3  %afterForBB4  %if_end1  %forbodyBB3  %forcondBB4  %afterForBB5  %forcondBB1  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  
+ 		 %t74  =  call add  %h01   %a1   
+ 		 %h01  = move  %t74 
+ 		 %t75  =  call add  %h11   %b1   
+ 		 %h11  = move  %t75 
+ 		 %t76  =  call add  %h21   %c1   
+ 		 %h21  = move  %t76 
+ 		 %t77  =  call add  %h31   %d1   
+ 		 %h31  = move  %t77 
+ 		 %t78  =  call add  %h41   %e1   
+ 		 %h41  = move  %t78 
+ 		 jump %forupdateBB3
+ 
+ %forupdateBB3:
+ preds:  %afterForBB5  
+ doms:  %forcondBB2  %forcondBB3  %afterForBB4  %if_end1  %forcondBB4  %afterForBB5  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %forbodyBB3  %forcondBB1  %forupdateBB3  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB3
+ 
+ %forbodyBB5:
+ preds:  %forcondBB5  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forbodyBB3  %forcondBB4  %forcondBB1  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  
+ 		 %t79  = slt  %j1   20 
+ 		 br  %t79  %if_thenBB2 %if_elseBB1 
+ 
+ %if_thenBB2:
+ preds:  %forbodyBB5  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %if_thenBB2  %forbodyBB3  %forcondBB1  
+ 		 %t80  =   and  %b1   %c1 
+ 		 %t81  =  not  %b1 
+ 		 %t82  =   and  %t81   %d1 
+ 		 %t83  =   or  %t80   %t82 
+ 		 %f1  = move  %t83 
+ 		 %k1  = move  1518500249 
+ 		 jump %if_end2
+ 
+ %if_elseBB1:
+ preds:  %forbodyBB5  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %forbodyBB3  %forcondBB1  %if_elseBB1  
+ 		 %t84  = slt  %j1   40 
+ 		 br  %t84  %if_thenBB3 %if_elseBB2 
+ 
+ %if_thenBB3:
+ preds:  %if_elseBB1  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %forbodyBB3  %forcondBB1  %if_elseBB1  %if_thenBB3  
+ 		 %t85  =   xor  %b1   %c1 
+ 		 %t86  =   xor  %t85   %d1 
+ 		 %f1  = move  %t86 
+ 		 %k1  = move  1859775393 
+ 		 jump %if_end3
+ 
+ %if_elseBB2:
+ preds:  %if_elseBB1  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %if_elseBB2  %forbodyBB3  %forcondBB1  %if_elseBB1  
+ 		 %t87  = slt  %j1   60 
+ 		 br  %t87  %if_thenBB4 %if_elseBB3 
+ 
+ %if_thenBB4:
+ preds:  %if_elseBB2  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %if_thenBB4  %sha1.entryBB1  %if_elseBB2  %forbodyBB3  %forcondBB1  %if_elseBB1  
+ 		 %t88  =   and  %b1   %c1 
+ 		 %t89  =   and  %b1   %d1 
+ 		 %t90  =   or  %t88   %t89 
+ 		 %t91  =   and  %c1   %d1 
+ 		 %t92  =   or  %t90   %t91 
+ 		 %f1  = move  %t92 
+ 		 %t93  =  call lohi  48348   36635   
+ 		 %k1  = move  %t93 
+ 		 jump %if_end4
+ 
+ %if_elseBB3:
+ preds:  %if_elseBB2  
+ doms:  %forcondBB2  %if_elseBB3  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %if_elseBB2  %forbodyBB3  %forcondBB1  %if_elseBB1  
+ 		 %t94  =   xor  %b1   %c1 
+ 		 %t95  =   xor  %t94   %d1 
+ 		 %f1  = move  %t95 
+ 		 %t96  =  call lohi  49622   51810   
+ 		 %k1  = move  %t96 
+ 		 jump %if_end4
+ 
+ %if_end4:
+ preds:  %if_elseBB3  %if_thenBB4  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %if_end4  %sha1.entryBB1  %if_elseBB2  %forbodyBB3  %forcondBB1  %if_elseBB1  
+ 		 jump %if_end3
+ 
+ %if_end3:
+ preds:  %if_end4  %if_thenBB3  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %forbodyBB3  %if_end3  %forcondBB1  %if_elseBB1  
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %if_end3  %if_thenBB2  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %forbodyBB3  %forcondBB1  %if_end2  
+ 		 %t97  =  call rotate_left  %a1   5   
+ 		 %t98  =  call add  %t97   %e1   
+ 		 %t99  =  call add  %f1   %k1   
+ 		 %t100  =  call add  %t98   %t99   
+ 		 %t101  =   mul  %i1   4 
+ 		 %t102  =   add  %t101   4 
+ 		 %t103  =   add  @chunks   %t102 
+ 		 %t104  = load  %t103 
+ 		 %t105  =   mul  %j1   4 
+ 		 %t106  =   add  %t105   4 
+ 		 %t107  =   add  %t104   %t106 
+ 		 %t108  = load  %t107 
+ 		 %t109  =  call add  %t100   %t108   
+ 		 %temp1  = move  %t109 
+ 		 %e1  = move  %d1 
+ 		 %d1  = move  %c1 
+ 		 %t110  =  call rotate_left  %b1   30   
+ 		 %c1  = move  %t110 
+ 		 %b1  = move  %a1 
+ 		 %a1  = move  %temp1 
+ 		 jump %forupdateBB5
+ 
+ %forupdateBB5:
+ preds:  %if_end2  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB5  %afterForBB4  %if_end1  %forcondBB4  %afterForBB2  %forcondBB5  %afterForBB1  %sha1.entryBB1  %forbodyBB3  %forcondBB1  %if_end2  %forupdateBB5  
+ 		 %j1  =   add  %j1   1 
+ 		 jump %forcondBB5
+ 
+ %forbodyBB4:
+ preds:  %forcondBB4  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB4  %if_end1  %forbodyBB3  %forcondBB4  %forcondBB1  %afterForBB2  %afterForBB1  %sha1.entryBB1  
+ 		 %t111  =   mul  %i1   4 
+ 		 %t112  =   add  %t111   4 
+ 		 %t113  =   add  @chunks   %t112 
+ 		 %t114  = load  %t113 
+ 		 %t115  =   mul  %j1   4 
+ 		 %t116  =   add  %t115   4 
+ 		 %t117  =   add  %t114   %t116 
+ 		 %t118  =   mul  %i1   4 
+ 		 %t119  =   add  %t118   4 
+ 		 %t120  =   add  @chunks   %t119 
+ 		 %t121  =   sub  %j1   3 
+ 		 %t122  = load  %t120 
+ 		 %t123  =   mul  %t121   4 
+ 		 %t124  =   add  %t123   4 
+ 		 %t125  =   add  %t122   %t124 
+ 		 %t126  =   mul  %i1   4 
+ 		 %t127  =   add  %t126   4 
+ 		 %t128  =   add  @chunks   %t127 
+ 		 %t129  =   sub  %j1   8 
+ 		 %t130  = load  %t128 
+ 		 %t131  =   mul  %t129   4 
+ 		 %t132  =   add  %t131   4 
+ 		 %t133  =   add  %t130   %t132 
+ 		 %t134  = load  %t125 
+ 		 %t135  = load  %t133 
+ 		 %t136  =   xor  %t134   %t135 
+ 		 %t137  =   mul  %i1   4 
+ 		 %t138  =   add  %t137   4 
+ 		 %t139  =   add  @chunks   %t138 
+ 		 %t140  =   sub  %j1   14 
+ 		 %t141  = load  %t139 
+ 		 %t142  =   mul  %t140   4 
+ 		 %t143  =   add  %t142   4 
+ 		 %t144  =   add  %t141   %t143 
+ 		 %t145  = load  %t144 
+ 		 %t146  =   xor  %t136   %t145 
+ 		 %t147  =   mul  %i1   4 
+ 		 %t148  =   add  %t147   4 
+ 		 %t149  =   add  @chunks   %t148 
+ 		 %t150  =   sub  %j1   16 
+ 		 %t151  = load  %t149 
+ 		 %t152  =   mul  %t150   4 
+ 		 %t153  =   add  %t152   4 
+ 		 %t154  =   add  %t151   %t153 
+ 		 %t155  = load  %t154 
+ 		 %t156  =   xor  %t146   %t155 
+ 		 %t157  =  call rotate_left  %t156   1   
+ 		 store  %t117   %t157 
+ 		 jump %forupdateBB4
+ 
+ %forupdateBB4:
+ preds:  %forbodyBB4  
+ doms:  %forcondBB2  %forcondBB3  %forbodyBB4  %if_end1  %forbodyBB3  %forcondBB4  %forcondBB1  %afterForBB2  %afterForBB1  %forupdateBB4  %sha1.entryBB1  
+ 		 %j1  =   add  %j1   1 
+ 		 jump %forcondBB4
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %forcondBB2  %forbodyBB2  %if_end1  %forcondBB1  %afterForBB1  %sha1.entryBB1  
+ 		 %t158  =   div  %i1   64 
+ 		 %t159  =   mul  %t158   4 
+ 		 %t160  =   add  %t159   4 
+ 		 %t161  =   add  @chunks   %t160 
+ 		 %t162  =   mod  %i1   64 
+ 		 %t163  =   div  %t162   4 
+ 		 %t164  = load  %t161 
+ 		 %t165  =   mul  %t163   4 
+ 		 %t166  =   add  %t165   4 
+ 		 %t167  =   add  %t164   %t166 
+ 		 %t168  =   div  %i1   64 
+ 		 %t169  =   mul  %t168   4 
+ 		 %t170  =   add  %t169   4 
+ 		 %t171  =   add  @chunks   %t170 
+ 		 %t172  =   mod  %i1   64 
+ 		 %t173  =   div  %t172   4 
+ 		 %t174  = load  %t171 
+ 		 %t175  =   mul  %t173   4 
+ 		 %t176  =   add  %t175   4 
+ 		 %t177  =   add  %t174   %t176 
+ 		 %t178  =   mul  %i1   4 
+ 		 %t179  =   add  %t178   4 
+ 		 %t180  =   add  %input1   %t179 
+ 		 %t181  =   mod  %i1   4 
+ 		 %t182  =   sub  3   %t181 
+ 		 %t183  =   mul  %t182   8 
+ 		 %t184  = load  %t180 
+ 		 %t185  =   shl  %t184   %t183 
+ 		 %t186  = load  %t177 
+ 		 %t187  =   or  %t186   %t185 
+ 		 store  %t167   %t187 
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %forbodyBB2  
+ doms:  %forcondBB2  %forbodyBB2  %forupdateBB2  %if_end1  %forcondBB1  %afterForBB1  %sha1.entryBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB2
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forbodyBB1  %if_end1  %forcondBB1  %sha1.entryBB1  
+ 		 %j1  = move  0 
+ 		 jump %forcondBB6
+ 
+ %forcondBB6:
+ preds:  %forbodyBB1  %forupdateBB6  
+ doms:  %forbodyBB1  %if_end1  %forcondBB1  %forcondBB6  %sha1.entryBB1  
+ 		 %t188  = slt  %j1   80 
+ 		 br  %t188  %forbodyBB6 %afterForBB6 
+ 
+ %afterForBB6:
+ preds:  %forcondBB6  
+ doms:  %forbodyBB1  %if_end1  %forcondBB1  %forcondBB6  %afterForBB6  %sha1.entryBB1  
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %afterForBB6  
+ doms:  %forbodyBB1  %if_end1  %forcondBB1  %forcondBB6  %afterForBB6  %forupdateBB1  %sha1.entryBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %forbodyBB6:
+ preds:  %forcondBB6  
+ doms:  %forbodyBB1  %forbodyBB6  %if_end1  %forcondBB1  %forcondBB6  %sha1.entryBB1  
+ 		 %t189  =   mul  %i1   4 
+ 		 %t190  =   add  %t189   4 
+ 		 %t191  =   add  @chunks   %t190 
+ 		 %t192  = load  %t191 
+ 		 %t193  =   mul  %j1   4 
+ 		 %t194  =   add  %t193   4 
+ 		 %t195  =   add  %t192   %t194 
+ 		 store  %t195   0 
+ 		 jump %forupdateBB6
+ 
+ %forupdateBB6:
+ preds:  %forbodyBB6  
+ doms:  %forbodyBB1  %forbodyBB6  %if_end1  %forcondBB1  %forcondBB6  %sha1.entryBB1  %forupdateBB6  
+ 		 %j1  =   add  %j1   1 
+ 		 jump %forcondBB6
+ 
+ %if_thenBB1:
+ preds:  %sha1.entryBB1  
+ doms:  %if_thenBB1  %sha1.entryBB1  
+ 		 %t196  =  call println  @constStr_4   
+ 		 %mergedretVal1  = move  0 
+ 		 jump %sha1.exitBB1
+ 
+ %sha1.exitBB1:
+ preds:  %if_thenBB1  %afterForBB3  
+ doms:  %sha1.exitBB1  %sha1.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @int2chr  %x1  {
+ %int2chr.entryBB1:
+ preds:  
+ doms:  %int2chr.entryBB1  
+ 		 %t1  = sge  %x1   32 
+ 		 br  %t1  %ifTrue1 %if_end1 
+ 
+ %ifTrue1:
+ preds:  %int2chr.entryBB1  
+ doms:  %ifTrue1  %int2chr.entryBB1  
+ 		 %t2  = sle  %x1   126 
+ 		 br  %t2  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %ifTrue1  
+ doms:  %ifTrue1  %if_thenBB1  %int2chr.entryBB1  
+ 		 %t3  =   sub  %x1   32 
+ 		 %t4  =   sub  %x1   31 
+ 		 %t5  =  call string.substring  @asciiTable %t3   %t4   
+ 		 %mergedretVal1  = move  %t5 
+ 		 jump %int2chr.exitBB1
+ 
+ %if_end1:
+ preds:  %ifTrue1  %int2chr.entryBB1  
+ doms:  %if_end1  %int2chr.entryBB1  
+ 		 %mergedretVal1  = move  @constStr_0 
+ 		 jump %int2chr.exitBB1
+ 
+ %int2chr.exitBB1:
+ preds:  %if_end1  %if_thenBB1  
+ doms:  %int2chr.entryBB1  %int2chr.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @rotate_left  %x1 %shift1  {
+ %rotate_left.entryBB1:
+ preds:  
+ doms:  %rotate_left.entryBB1  
+ 		 %t1  = seq  %shift1   1 
+ 		 br  %t1  %if_thenBB1 %if_end1 
+ 
+ %if_end1:
+ preds:  %rotate_left.entryBB1  
+ doms:  %if_end1  %rotate_left.entryBB1  
+ 		 %t2  = seq  %shift1   31 
+ 		 br  %t2  %if_thenBB2 %if_end2 
+ 
+ %if_end2:
+ preds:  %if_end1  
+ doms:  %if_end1  %rotate_left.entryBB1  %if_end2  
+ 		 %t3  =   sub  32   %shift1 
+ 		 %t4  =   shl  1   %t3 
+ 		 %t5  =   sub  %t4   1 
+ 		 %t6  =   and  %x1   %t5 
+ 		 %t7  =   shl  %t6   %shift1 
+ 		 %t8  =   sub  32   %shift1 
+ 		 %t9  =   shr  %x1   %t8 
+ 		 %t10  =   shl  1   %shift1 
+ 		 %t11  =   sub  %t10   1 
+ 		 %t12  =   and  %t9   %t11 
+ 		 %t13  =   or  %t7   %t12 
+ 		 %mergedretVal1  = move  %t13 
+ 		 jump %rotate_left.exitBB1
+ 
+ %if_thenBB2:
+ preds:  %if_end1  
+ doms:  %if_end1  %if_thenBB2  %rotate_left.entryBB1  
+ 		 %t14  =   and  %x1   1 
+ 		 %t15  =   shl  %t14   31 
+ 		 %t16  =   shr  %x1   1 
+ 		 %t17  =   and  %t16   2147483647 
+ 		 %t18  =   or  %t15   %t17 
+ 		 %mergedretVal1  = move  %t18 
+ 		 jump %rotate_left.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %rotate_left.entryBB1  
+ doms:  %if_thenBB1  %rotate_left.entryBB1  
+ 		 %t19  =   and  %x1   2147483647 
+ 		 %t20  =   shl  %t19   1 
+ 		 %t21  =   shr  %x1   31 
+ 		 %t22  =   and  %t21   1 
+ 		 %t23  =   or  %t20   %t22 
+ 		 %mergedretVal1  = move  %t23 
+ 		 jump %rotate_left.exitBB1
+ 
+ %rotate_left.exitBB1:
+ preds:  %if_thenBB1  %if_thenBB2  %if_end2  
+ doms:  %rotate_left.exitBB1  %rotate_left.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @lohi  %lo1 %hi1  {
+ %lohi.entryBB1:
+ preds:  
+ doms:  %lohi.entryBB1  
+ 		 %t1  =   shl  %hi1   16 
+ 		 %t2  =   or  %lo1   %t1 
+ 		 ret  %t2 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 @asciiTable  = move  @constStr_2 
+ 		 @MAXCHUNK  = move  100 
+ 		 %t1  =   sub  @MAXCHUNK   1 
+ 		 %t2  =   mul  %t1   64 
+ 		 %t3  =   sub  %t2   16 
+ 		 @MAXLENGTH  = move  %t3 
+ 		 %t4  =   mul  @MAXCHUNK   4 
+ 		 %t4  =   add  %t4   4 
+ 		 %t5  = alloc  %t4 
+ 		 store  %t5   @MAXCHUNK 
+ 		 %t6  = move  %t5 
+ 		 %t6  =   add  %t6   4 
+ 		 %t7  = move  4 
+ 		 %t7  =   mul  %t7   @MAXCHUNK 
+ 		 %t8  = move  %t5 
+ 		 %t8  =   add  %t8   %t7 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %__init.entryBB1  
+ doms:  %__init.entryBB1  %forcondBB1  
+ 		 %t9  = sle  %t6   %t8 
+ 		 br  %t9  %forupdateBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %__init.entryBB1  %forcondBB1  %afterForBB1  
+ 		 @chunks  = move  %t5 
+ 		 %t10  =   mul  @MAXLENGTH   4 
+ 		 %t10  =   add  %t10   4 
+ 		 %t11  = alloc  %t10 
+ 		 store  %t11   @MAXLENGTH 
+ 		 @inputBuffer  = move  %t11 
+ 		 %t12  =   mul  5   4 
+ 		 %t12  =   add  %t12   4 
+ 		 %t13  = alloc  %t12 
+ 		 store  %t13   5 
+ 		 @outputBuffer  = move  %t13 
+ 		 %t14  =  call main  
+ 		 ret  
+ 
+ %forupdateBB1:
+ preds:  %forcondBB1  
+ doms:  %forupdateBB1  %__init.entryBB1  %forcondBB1  
+ 		 %t15  =   mul  80   4 
+ 		 %t15  =   add  %t15   4 
+ 		 %t16  = alloc  %t15 
+ 		 store  %t16   80 
+ 		 store  %t6   %t16 
+ 		 %t6  =   add  %t6   4 
+ 		 jump %forcondBB1
+ 
+ }

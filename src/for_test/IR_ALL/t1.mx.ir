@@ -1,0 +1,914 @@
+ @constStr_0 = "no solution!\n"
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  =  call getInt  
+ 		 %N1  = move  %t1 
+ 		 %head1  = move  0 
+ 		 %tail1  = move  0 
+ 		 %startx1  = move  0 
+ 		 %starty1  = move  0 
+ 		 %t2  =   sub  %N1   1 
+ 		 %targetx1  = move  %t2 
+ 		 %t3  =   sub  %N1   1 
+ 		 %targety1  = move  %t3 
+ 		 %x1  = move  0 
+ 		 %y1  = move  0 
+ 		 %now1  = move  0 
+ 		 %ok1  = move  0 
+ 		 %t4  =   mul  %N1   %N1 
+ 		 %t5  =   mul  %t4   4 
+ 		 %t5  =   add  %t5   4 
+ 		 %t6  = alloc  %t5 
+ 		 store  %t6   %t4 
+ 		 %xlist1  = move  %t6 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %main.entryBB1  %forupdateBB1  
+ doms:  %forcondBB1  %main.entryBB1  
+ 		 %t7  =   mul  %N1   %N1 
+ 		 %t8  = slt  %i1   %t7 
+ 		 br  %t8  %forbodyBB1 %afterForBB1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forbodyBB1  %forcondBB1  %main.entryBB1  
+ 		 %t9  =   mul  %i1   4 
+ 		 %t10  =   add  %t9   4 
+ 		 %t11  =   add  %xlist1   %t10 
+ 		 store  %t11   0 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forbodyBB1  %forcondBB1  %main.entryBB1  %forupdateBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %afterForBB1  %forcondBB1  %main.entryBB1  
+ 		 %t12  =   mul  %N1   %N1 
+ 		 %t13  =   mul  %t12   4 
+ 		 %t13  =   add  %t13   4 
+ 		 %t14  = alloc  %t13 
+ 		 store  %t14   %t12 
+ 		 %ylist1  = move  %t14 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %afterForBB1  %forupdateBB2  
+ doms:  %afterForBB1  %forcondBB2  %forcondBB1  %main.entryBB1  
+ 		 %t15  =   mul  %N1   %N1 
+ 		 %t16  = slt  %i1   %t15 
+ 		 br  %t16  %forbodyBB2 %afterForBB2 
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %afterForBB1  %forcondBB2  %forcondBB1  %main.entryBB1  %afterForBB2  
+ 		 %t17  =   mul  %N1   4 
+ 		 %t17  =   add  %t17   4 
+ 		 %t18  = alloc  %t17 
+ 		 store  %t18   %N1 
+ 		 %step1  = move  %t18 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB3
+ 
+ %forcondBB3:
+ preds:  %forupdateBB3  %afterForBB2  
+ doms:  %forcondBB2  %afterForBB2  %main.entryBB1  %forcondBB3  %forcondBB1  %afterForBB1  
+ 		 %t19  = slt  %i1   %N1 
+ 		 br  %t19  %forbodyBB3 %afterForBB3 
+ 
+ %afterForBB3:
+ preds:  %forcondBB3  
+ doms:  %afterForBB1  %forcondBB2  %forcondBB3  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t20  =   mul  0   4 
+ 		 %t21  =   add  %t20   4 
+ 		 %t22  =   add  %xlist1   %t21 
+ 		 store  %t22   %startx1 
+ 		 %t23  =   mul  0   4 
+ 		 %t24  =   add  %t23   4 
+ 		 %t25  =   add  %ylist1   %t24 
+ 		 store  %t25   %starty1 
+ 		 %t26  =   mul  %startx1   4 
+ 		 %t27  =   add  %t26   4 
+ 		 %t28  =   add  %step1   %t27 
+ 		 %t29  = load  %t28 
+ 		 %t30  =   mul  %starty1   4 
+ 		 %t31  =   add  %t30   4 
+ 		 %t32  =   add  %t29   %t31 
+ 		 store  %t32   0 
+ 		 jump %whileCondBB1
+ 
+ %whileCondBB1:
+ preds:  %if_end1  %afterForBB3  
+ doms:  %forcondBB2  %whileCondBB1  %afterForBB2  %main.entryBB1  %afterForBB3  %forcondBB3  %forcondBB1  %afterForBB1  
+ 		 %t33  = sle  %head1   %tail1 
+ 		 br  %t33  %whileBodyBB1 %afterWhileBB1 
+ 		 jump %whileBodyBB1
+ 
+ %whileBodyBB1:
+ preds:  %whileCondBB1  
+ doms:  %afterForBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t34  =   mul  %head1   4 
+ 		 %t35  =   add  %t34   4 
+ 		 %t36  =   add  %xlist1   %t35 
+ 		 %t37  = load  %t36 
+ 		 %t38  =   mul  %t37   4 
+ 		 %t39  =   add  %t38   4 
+ 		 %t40  =   add  %step1   %t39 
+ 		 %t41  =   mul  %head1   4 
+ 		 %t42  =   add  %t41   4 
+ 		 %t43  =   add  %ylist1   %t42 
+ 		 %t44  = load  %t40 
+ 		 %t45  = load  %t43 
+ 		 %t46  =   mul  %t45   4 
+ 		 %t47  =   add  %t46   4 
+ 		 %t48  =   add  %t44   %t47 
+ 		 %t49  = load  %t48 
+ 		 %now1  = move  %t49 
+ 		 %t50  =   mul  %head1   4 
+ 		 %t51  =   add  %t50   4 
+ 		 %t52  =   add  %xlist1   %t51 
+ 		 %t53  = load  %t52 
+ 		 %t54  =   sub  %t53   1 
+ 		 %x1  = move  %t54 
+ 		 %t55  =   mul  %head1   4 
+ 		 %t56  =   add  %t55   4 
+ 		 %t57  =   add  %ylist1   %t56 
+ 		 %t58  = load  %t57 
+ 		 %t59  =   sub  %t58   2 
+ 		 %y1  = move  %t59 
+ 		 %t60  =  call check  %x1   %N1   
+ 		 br  %t60  %ifTrue1 %if_end2 
+ 
+ %ifTrue1:
+ preds:  %whileBodyBB1  
+ doms:  %afterForBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %ifTrue1  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t61  =  call check  %y1   %N1   
+ 		 br  %t61  %ifTrue2 %if_end2 
+ 
+ %ifTrue2:
+ preds:  %ifTrue1  
+ doms:  %afterForBB1  %ifTrue2  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %ifTrue1  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t62  =   mul  %x1   4 
+ 		 %t63  =   add  %t62   4 
+ 		 %t64  =   add  %step1   %t63 
+ 		 %t65  = load  %t64 
+ 		 %t66  =   mul  %y1   4 
+ 		 %t67  =   add  %t66   4 
+ 		 %t68  =   add  %t65   %t67 
+ 		 %t69  =   sub  0   1 
+ 		 %t70  = load  %t68 
+ 		 %t71  = seq  %t70   %t69 
+ 		 br  %t71  %if_thenBB1 %if_end2 
+ 
+ %if_thenBB1:
+ preds:  %ifTrue2  
+ doms:  %afterForBB1  %ifTrue2  %if_thenBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %ifTrue1  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t72  =   add  %tail1   1 
+ 		 %tail1  = move  %t72 
+ 		 %t73  =   mul  %tail1   4 
+ 		 %t74  =   add  %t73   4 
+ 		 %t75  =   add  %xlist1   %t74 
+ 		 store  %t75   %x1 
+ 		 %t76  =   mul  %tail1   4 
+ 		 %t77  =   add  %t76   4 
+ 		 %t78  =   add  %ylist1   %t77 
+ 		 store  %t78   %y1 
+ 		 %t79  =   mul  %x1   4 
+ 		 %t80  =   add  %t79   4 
+ 		 %t81  =   add  %step1   %t80 
+ 		 %t82  = load  %t81 
+ 		 %t83  =   mul  %y1   4 
+ 		 %t84  =   add  %t83   4 
+ 		 %t85  =   add  %t82   %t84 
+ 		 %t86  =   add  %now1   1 
+ 		 store  %t85   %t86 
+ 		 %t87  = seq  %x1   %targetx1 
+ 		 br  %t87  %ifTrue3 %if_end3 
+ 
+ %ifTrue3:
+ preds:  %if_thenBB1  
+ doms:  %ifTrue2  %if_thenBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue1  %ifTrue3  %main.entryBB1  %afterForBB3  
+ 		 %t88  = seq  %y1   %targety1 
+ 		 br  %t88  %if_thenBB2 %if_end3 
+ 
+ %if_thenBB2:
+ preds:  %ifTrue3  
+ doms:  %ifTrue2  %if_thenBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %forcondBB1  %afterForBB2  %afterForBB1  %if_thenBB2  %ifTrue1  %ifTrue3  %main.entryBB1  %afterForBB3  
+ 		 %ok1  = move  1 
+ 		 jump %if_end3
+ 
+ %if_end3:
+ preds:  %if_thenBB1  %if_thenBB2  %ifTrue3  
+ doms:  %ifTrue2  %if_thenBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end3  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue1  %main.entryBB1  %afterForBB3  
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %ifTrue2  %whileBodyBB1  %ifTrue1  %if_end3  
+ doms:  %afterForBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t89  =   mul  %head1   4 
+ 		 %t90  =   add  %t89   4 
+ 		 %t91  =   add  %xlist1   %t90 
+ 		 %t92  = load  %t91 
+ 		 %t93  =   sub  %t92   1 
+ 		 %x1  = move  %t93 
+ 		 %t94  =   mul  %head1   4 
+ 		 %t95  =   add  %t94   4 
+ 		 %t96  =   add  %ylist1   %t95 
+ 		 %t97  = load  %t96 
+ 		 %t98  =   add  %t97   2 
+ 		 %y1  = move  %t98 
+ 		 %t99  =  call check  %x1   %N1   
+ 		 br  %t99  %ifTrue4 %if_end4 
+ 
+ %ifTrue4:
+ preds:  %if_end2  
+ doms:  %afterForBB1  %ifTrue4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t100  =  call check  %y1   %N1   
+ 		 br  %t100  %ifTrue5 %if_end4 
+ 
+ %ifTrue5:
+ preds:  %ifTrue4  
+ doms:  %afterForBB1  %ifTrue4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %ifTrue5  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t101  =   mul  %x1   4 
+ 		 %t102  =   add  %t101   4 
+ 		 %t103  =   add  %step1   %t102 
+ 		 %t104  = load  %t103 
+ 		 %t105  =   mul  %y1   4 
+ 		 %t106  =   add  %t105   4 
+ 		 %t107  =   add  %t104   %t106 
+ 		 %t108  =   sub  0   1 
+ 		 %t109  = load  %t107 
+ 		 %t110  = seq  %t109   %t108 
+ 		 br  %t110  %if_thenBB3 %if_end4 
+ 
+ %if_thenBB3:
+ preds:  %ifTrue5  
+ doms:  %ifTrue4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %afterForBB1  %if_thenBB3  %ifTrue5  %main.entryBB1  %afterForBB3  
+ 		 %t111  =   add  %tail1   1 
+ 		 %tail1  = move  %t111 
+ 		 %t112  =   mul  %tail1   4 
+ 		 %t113  =   add  %t112   4 
+ 		 %t114  =   add  %xlist1   %t113 
+ 		 store  %t114   %x1 
+ 		 %t115  =   mul  %tail1   4 
+ 		 %t116  =   add  %t115   4 
+ 		 %t117  =   add  %ylist1   %t116 
+ 		 store  %t117   %y1 
+ 		 %t118  =   mul  %x1   4 
+ 		 %t119  =   add  %t118   4 
+ 		 %t120  =   add  %step1   %t119 
+ 		 %t121  = load  %t120 
+ 		 %t122  =   mul  %y1   4 
+ 		 %t123  =   add  %t122   4 
+ 		 %t124  =   add  %t121   %t123 
+ 		 %t125  =   add  %now1   1 
+ 		 store  %t124   %t125 
+ 		 %t126  = seq  %x1   %targetx1 
+ 		 br  %t126  %ifTrue6 %if_end5 
+ 
+ %ifTrue6:
+ preds:  %if_thenBB3  
+ doms:  %ifTrue4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %afterForBB1  %if_thenBB3  %ifTrue5  %main.entryBB1  %afterForBB3  %ifTrue6  
+ 		 %t127  = seq  %y1   %targety1 
+ 		 br  %t127  %if_thenBB4 %if_end5 
+ 
+ %if_thenBB4:
+ preds:  %ifTrue6  
+ doms:  %ifTrue4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %if_thenBB4  %afterForBB1  %if_thenBB3  %ifTrue5  %main.entryBB1  %afterForBB3  %ifTrue6  
+ 		 %ok1  = move  1 
+ 		 jump %if_end5
+ 
+ %if_end5:
+ preds:  %if_thenBB3  %if_thenBB4  %ifTrue6  
+ doms:  %ifTrue4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %if_end5  %afterForBB2  %afterForBB1  %if_thenBB3  %ifTrue5  %main.entryBB1  %afterForBB3  
+ 		 jump %if_end4
+ 
+ %if_end4:
+ preds:  %ifTrue4  %if_end2  %ifTrue5  %if_end5  
+ doms:  %afterForBB1  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t128  =   mul  %head1   4 
+ 		 %t129  =   add  %t128   4 
+ 		 %t130  =   add  %xlist1   %t129 
+ 		 %t131  = load  %t130 
+ 		 %t132  =   add  %t131   1 
+ 		 %x1  = move  %t132 
+ 		 %t133  =   mul  %head1   4 
+ 		 %t134  =   add  %t133   4 
+ 		 %t135  =   add  %ylist1   %t134 
+ 		 %t136  = load  %t135 
+ 		 %t137  =   sub  %t136   2 
+ 		 %y1  = move  %t137 
+ 		 %t138  =  call check  %x1   %N1   
+ 		 br  %t138  %ifTrue7 %if_end6 
+ 
+ %ifTrue7:
+ preds:  %if_end4  
+ doms:  %afterForBB1  %if_end4  %ifTrue7  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t139  =  call check  %y1   %N1   
+ 		 br  %t139  %ifTrue8 %if_end6 
+ 
+ %ifTrue8:
+ preds:  %ifTrue7  
+ doms:  %if_end4  %ifTrue7  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue8  %main.entryBB1  %afterForBB3  
+ 		 %t140  =   mul  %x1   4 
+ 		 %t141  =   add  %t140   4 
+ 		 %t142  =   add  %step1   %t141 
+ 		 %t143  = load  %t142 
+ 		 %t144  =   mul  %y1   4 
+ 		 %t145  =   add  %t144   4 
+ 		 %t146  =   add  %t143   %t145 
+ 		 %t147  =   sub  0   1 
+ 		 %t148  = load  %t146 
+ 		 %t149  = seq  %t148   %t147 
+ 		 br  %t149  %if_thenBB5 %if_end6 
+ 
+ %if_thenBB5:
+ preds:  %ifTrue8  
+ doms:  %if_end4  %ifTrue7  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_thenBB5  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue8  %main.entryBB1  %afterForBB3  
+ 		 %t150  =   add  %tail1   1 
+ 		 %tail1  = move  %t150 
+ 		 %t151  =   mul  %tail1   4 
+ 		 %t152  =   add  %t151   4 
+ 		 %t153  =   add  %xlist1   %t152 
+ 		 store  %t153   %x1 
+ 		 %t154  =   mul  %tail1   4 
+ 		 %t155  =   add  %t154   4 
+ 		 %t156  =   add  %ylist1   %t155 
+ 		 store  %t156   %y1 
+ 		 %t157  =   mul  %x1   4 
+ 		 %t158  =   add  %t157   4 
+ 		 %t159  =   add  %step1   %t158 
+ 		 %t160  = load  %t159 
+ 		 %t161  =   mul  %y1   4 
+ 		 %t162  =   add  %t161   4 
+ 		 %t163  =   add  %t160   %t162 
+ 		 %t164  =   add  %now1   1 
+ 		 store  %t163   %t164 
+ 		 %t165  = seq  %x1   %targetx1 
+ 		 br  %t165  %ifTrue9 %if_end7 
+ 
+ %ifTrue9:
+ preds:  %if_thenBB5  
+ doms:  %if_end4  %ifTrue7  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_thenBB5  %forcondBB1  %ifTrue9  %afterForBB2  %afterForBB1  %ifTrue8  %main.entryBB1  %afterForBB3  
+ 		 %t166  = seq  %y1   %targety1 
+ 		 br  %t166  %if_thenBB6 %if_end7 
+ 
+ %if_thenBB6:
+ preds:  %ifTrue9  
+ doms:  %if_end4  %ifTrue7  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_thenBB5  %forcondBB1  %ifTrue9  %afterForBB2  %afterForBB1  %ifTrue8  %if_thenBB6  %main.entryBB1  %afterForBB3  
+ 		 %ok1  = move  1 
+ 		 jump %if_end7
+ 
+ %if_end7:
+ preds:  %if_thenBB5  %if_thenBB6  %ifTrue9  
+ doms:  %if_end4  %ifTrue7  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_thenBB5  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue8  %main.entryBB1  %afterForBB3  %if_end7  
+ 		 jump %if_end6
+ 
+ %if_end6:
+ preds:  %ifTrue8  %if_end4  %ifTrue7  %if_end7  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t167  =   mul  %head1   4 
+ 		 %t168  =   add  %t167   4 
+ 		 %t169  =   add  %xlist1   %t168 
+ 		 %t170  = load  %t169 
+ 		 %t171  =   add  %t170   1 
+ 		 %x1  = move  %t171 
+ 		 %t172  =   mul  %head1   4 
+ 		 %t173  =   add  %t172   4 
+ 		 %t174  =   add  %ylist1   %t173 
+ 		 %t175  = load  %t174 
+ 		 %t176  =   add  %t175   2 
+ 		 %y1  = move  %t176 
+ 		 %t177  =  call check  %x1   %N1   
+ 		 br  %t177  %ifTrue10 %if_end8 
+ 
+ %ifTrue10:
+ preds:  %if_end6  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %ifTrue10  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t178  =  call check  %y1   %N1   
+ 		 br  %t178  %ifTrue11 %if_end8 
+ 
+ %ifTrue11:
+ preds:  %ifTrue10  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %ifTrue10  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  %ifTrue11  
+ 		 %t179  =   mul  %x1   4 
+ 		 %t180  =   add  %t179   4 
+ 		 %t181  =   add  %step1   %t180 
+ 		 %t182  = load  %t181 
+ 		 %t183  =   mul  %y1   4 
+ 		 %t184  =   add  %t183   4 
+ 		 %t185  =   add  %t182   %t184 
+ 		 %t186  =   sub  0   1 
+ 		 %t187  = load  %t185 
+ 		 %t188  = seq  %t187   %t186 
+ 		 br  %t188  %if_thenBB7 %if_end8 
+ 
+ %if_thenBB7:
+ preds:  %ifTrue11  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %ifTrue10  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %afterForBB1  %if_thenBB7  %main.entryBB1  %afterForBB3  %ifTrue11  
+ 		 %t189  =   add  %tail1   1 
+ 		 %tail1  = move  %t189 
+ 		 %t190  =   mul  %tail1   4 
+ 		 %t191  =   add  %t190   4 
+ 		 %t192  =   add  %xlist1   %t191 
+ 		 store  %t192   %x1 
+ 		 %t193  =   mul  %tail1   4 
+ 		 %t194  =   add  %t193   4 
+ 		 %t195  =   add  %ylist1   %t194 
+ 		 store  %t195   %y1 
+ 		 %t196  =   mul  %x1   4 
+ 		 %t197  =   add  %t196   4 
+ 		 %t198  =   add  %step1   %t197 
+ 		 %t199  = load  %t198 
+ 		 %t200  =   mul  %y1   4 
+ 		 %t201  =   add  %t200   4 
+ 		 %t202  =   add  %t199   %t201 
+ 		 %t203  =   add  %now1   1 
+ 		 store  %t202   %t203 
+ 		 %t204  = seq  %x1   %targetx1 
+ 		 br  %t204  %ifTrue12 %if_end9 
+ 
+ %ifTrue12:
+ preds:  %if_thenBB7  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %ifTrue10  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %afterForBB2  %ifTrue12  %afterForBB1  %if_thenBB7  %main.entryBB1  %afterForBB3  %ifTrue11  
+ 		 %t205  = seq  %y1   %targety1 
+ 		 br  %t205  %if_thenBB8 %if_end9 
+ 
+ %if_thenBB8:
+ preds:  %ifTrue12  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %ifTrue10  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %if_thenBB8  %afterForBB2  %ifTrue12  %afterForBB1  %if_thenBB7  %main.entryBB1  %afterForBB3  %ifTrue11  
+ 		 %ok1  = move  1 
+ 		 jump %if_end9
+ 
+ %if_end9:
+ preds:  %if_thenBB7  %if_thenBB8  %ifTrue12  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %ifTrue10  %forcondBB3  %whileBodyBB1  %if_end2  %forcondBB1  %if_end9  %afterForBB2  %afterForBB1  %if_thenBB7  %main.entryBB1  %afterForBB3  %ifTrue11  
+ 		 jump %if_end8
+ 
+ %if_end8:
+ preds:  %if_end6  %ifTrue10  %if_end9  %ifTrue11  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t206  =   mul  %head1   4 
+ 		 %t207  =   add  %t206   4 
+ 		 %t208  =   add  %xlist1   %t207 
+ 		 %t209  = load  %t208 
+ 		 %t210  =   sub  %t209   2 
+ 		 %x1  = move  %t210 
+ 		 %t211  =   mul  %head1   4 
+ 		 %t212  =   add  %t211   4 
+ 		 %t213  =   add  %ylist1   %t212 
+ 		 %t214  = load  %t213 
+ 		 %t215  =   sub  %t214   1 
+ 		 %y1  = move  %t215 
+ 		 %t216  =  call check  %x1   %N1   
+ 		 br  %t216  %ifTrue13 %if_end10 
+ 
+ %ifTrue13:
+ preds:  %if_end8  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue13  %main.entryBB1  %afterForBB3  
+ 		 %t217  =  call check  %y1   %N1   
+ 		 br  %t217  %ifTrue14 %if_end10 
+ 
+ %ifTrue14:
+ preds:  %ifTrue13  
+ doms:  %if_end6  %ifTrue14  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue13  %main.entryBB1  %afterForBB3  
+ 		 %t218  =   mul  %x1   4 
+ 		 %t219  =   add  %t218   4 
+ 		 %t220  =   add  %step1   %t219 
+ 		 %t221  = load  %t220 
+ 		 %t222  =   mul  %y1   4 
+ 		 %t223  =   add  %t222   4 
+ 		 %t224  =   add  %t221   %t223 
+ 		 %t225  =   sub  0   1 
+ 		 %t226  = load  %t224 
+ 		 %t227  = seq  %t226   %t225 
+ 		 br  %t227  %if_thenBB9 %if_end10 
+ 
+ %if_thenBB9:
+ preds:  %ifTrue14  
+ doms:  %if_end6  %ifTrue14  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue13  %if_thenBB9  %main.entryBB1  %afterForBB3  
+ 		 %t228  =   add  %tail1   1 
+ 		 %tail1  = move  %t228 
+ 		 %t229  =   mul  %tail1   4 
+ 		 %t230  =   add  %t229   4 
+ 		 %t231  =   add  %xlist1   %t230 
+ 		 store  %t231   %x1 
+ 		 %t232  =   mul  %tail1   4 
+ 		 %t233  =   add  %t232   4 
+ 		 %t234  =   add  %ylist1   %t233 
+ 		 store  %t234   %y1 
+ 		 %t235  =   mul  %x1   4 
+ 		 %t236  =   add  %t235   4 
+ 		 %t237  =   add  %step1   %t236 
+ 		 %t238  = load  %t237 
+ 		 %t239  =   mul  %y1   4 
+ 		 %t240  =   add  %t239   4 
+ 		 %t241  =   add  %t238   %t240 
+ 		 %t242  =   add  %now1   1 
+ 		 store  %t241   %t242 
+ 		 %t243  = seq  %x1   %targetx1 
+ 		 br  %t243  %ifTrue15 %if_end11 
+ 
+ %ifTrue15:
+ preds:  %if_thenBB9  
+ doms:  %if_end6  %ifTrue14  %ifTrue15  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue13  %if_thenBB9  %main.entryBB1  %afterForBB3  
+ 		 %t244  = seq  %y1   %targety1 
+ 		 br  %t244  %if_thenBB10 %if_end11 
+ 
+ %if_thenBB10:
+ preds:  %ifTrue15  
+ doms:  %if_end6  %ifTrue14  %ifTrue15  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %if_thenBB10  %afterForBB1  %ifTrue13  %if_thenBB9  %main.entryBB1  %afterForBB3  
+ 		 %ok1  = move  1 
+ 		 jump %if_end11
+ 
+ %if_end11:
+ preds:  %ifTrue15  %if_thenBB9  %if_thenBB10  
+ doms:  %if_end6  %ifTrue14  %if_end4  %forcondBB2  %whileCondBB1  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue13  %if_thenBB9  %if_end11  %main.entryBB1  %afterForBB3  
+ 		 jump %if_end10
+ 
+ %if_end10:
+ preds:  %ifTrue13  %ifTrue14  %if_end11  %if_end8  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t245  =   mul  %head1   4 
+ 		 %t246  =   add  %t245   4 
+ 		 %t247  =   add  %xlist1   %t246 
+ 		 %t248  = load  %t247 
+ 		 %t249  =   sub  %t248   2 
+ 		 %x1  = move  %t249 
+ 		 %t250  =   mul  %head1   4 
+ 		 %t251  =   add  %t250   4 
+ 		 %t252  =   add  %ylist1   %t251 
+ 		 %t253  = load  %t252 
+ 		 %t254  =   add  %t253   1 
+ 		 %y1  = move  %t254 
+ 		 %t255  =  call check  %x1   %N1   
+ 		 br  %t255  %ifTrue16 %if_end12 
+ 
+ %ifTrue16:
+ preds:  %if_end10  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %ifTrue16  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t256  =  call check  %y1   %N1   
+ 		 br  %t256  %ifTrue17 %if_end12 
+ 
+ %ifTrue17:
+ preds:  %ifTrue16  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end10  %forcondBB3  %whileBodyBB1  %ifTrue17  %if_end2  %if_end8  %forcondBB1  %ifTrue16  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t257  =   mul  %x1   4 
+ 		 %t258  =   add  %t257   4 
+ 		 %t259  =   add  %step1   %t258 
+ 		 %t260  = load  %t259 
+ 		 %t261  =   mul  %y1   4 
+ 		 %t262  =   add  %t261   4 
+ 		 %t263  =   add  %t260   %t262 
+ 		 %t264  =   sub  0   1 
+ 		 %t265  = load  %t263 
+ 		 %t266  = seq  %t265   %t264 
+ 		 br  %t266  %if_thenBB11 %if_end12 
+ 
+ %if_thenBB11:
+ preds:  %ifTrue17  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end10  %if_thenBB11  %forcondBB3  %whileBodyBB1  %ifTrue17  %if_end2  %if_end8  %forcondBB1  %ifTrue16  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t267  =   add  %tail1   1 
+ 		 %tail1  = move  %t267 
+ 		 %t268  =   mul  %tail1   4 
+ 		 %t269  =   add  %t268   4 
+ 		 %t270  =   add  %xlist1   %t269 
+ 		 store  %t270   %x1 
+ 		 %t271  =   mul  %tail1   4 
+ 		 %t272  =   add  %t271   4 
+ 		 %t273  =   add  %ylist1   %t272 
+ 		 store  %t273   %y1 
+ 		 %t274  =   mul  %x1   4 
+ 		 %t275  =   add  %t274   4 
+ 		 %t276  =   add  %step1   %t275 
+ 		 %t277  = load  %t276 
+ 		 %t278  =   mul  %y1   4 
+ 		 %t279  =   add  %t278   4 
+ 		 %t280  =   add  %t277   %t279 
+ 		 %t281  =   add  %now1   1 
+ 		 store  %t280   %t281 
+ 		 %t282  = seq  %x1   %targetx1 
+ 		 br  %t282  %ifTrue18 %if_end13 
+ 
+ %ifTrue18:
+ preds:  %if_thenBB11  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end10  %if_thenBB11  %ifTrue18  %forcondBB3  %whileBodyBB1  %ifTrue17  %if_end2  %if_end8  %forcondBB1  %ifTrue16  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t283  = seq  %y1   %targety1 
+ 		 br  %t283  %if_thenBB12 %if_end13 
+ 
+ %if_thenBB12:
+ preds:  %ifTrue18  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end10  %if_thenBB11  %ifTrue18  %forcondBB3  %whileBodyBB1  %ifTrue17  %if_end2  %if_end8  %forcondBB1  %if_thenBB12  %ifTrue16  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %ok1  = move  1 
+ 		 jump %if_end13
+ 
+ %if_end13:
+ preds:  %if_thenBB11  %ifTrue18  %if_thenBB12  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end10  %if_thenBB11  %forcondBB3  %whileBodyBB1  %ifTrue17  %if_end2  %if_end8  %forcondBB1  %ifTrue16  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  %if_end13  
+ 		 jump %if_end12
+ 
+ %if_end12:
+ preds:  %if_end10  %ifTrue17  %ifTrue16  %if_end13  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t284  =   mul  %head1   4 
+ 		 %t285  =   add  %t284   4 
+ 		 %t286  =   add  %xlist1   %t285 
+ 		 %t287  = load  %t286 
+ 		 %t288  =   add  %t287   2 
+ 		 %x1  = move  %t288 
+ 		 %t289  =   mul  %head1   4 
+ 		 %t290  =   add  %t289   4 
+ 		 %t291  =   add  %ylist1   %t290 
+ 		 %t292  = load  %t291 
+ 		 %t293  =   sub  %t292   1 
+ 		 %y1  = move  %t293 
+ 		 %t294  =  call check  %x1   %N1   
+ 		 br  %t294  %ifTrue19 %if_end14 
+ 
+ %ifTrue19:
+ preds:  %if_end12  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  %ifTrue19  
+ 		 %t295  =  call check  %y1   %N1   
+ 		 br  %t295  %ifTrue20 %if_end14 
+ 
+ %ifTrue20:
+ preds:  %ifTrue19  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue20  %main.entryBB1  %afterForBB3  %ifTrue19  
+ 		 %t296  =   mul  %x1   4 
+ 		 %t297  =   add  %t296   4 
+ 		 %t298  =   add  %step1   %t297 
+ 		 %t299  = load  %t298 
+ 		 %t300  =   mul  %y1   4 
+ 		 %t301  =   add  %t300   4 
+ 		 %t302  =   add  %t299   %t301 
+ 		 %t303  =   sub  0   1 
+ 		 %t304  = load  %t302 
+ 		 %t305  = seq  %t304   %t303 
+ 		 br  %t305  %if_thenBB13 %if_end14 
+ 
+ %if_thenBB13:
+ preds:  %ifTrue20  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue20  %if_thenBB13  %main.entryBB1  %afterForBB3  %ifTrue19  
+ 		 %t306  =   add  %tail1   1 
+ 		 %tail1  = move  %t306 
+ 		 %t307  =   mul  %tail1   4 
+ 		 %t308  =   add  %t307   4 
+ 		 %t309  =   add  %xlist1   %t308 
+ 		 store  %t309   %x1 
+ 		 %t310  =   mul  %tail1   4 
+ 		 %t311  =   add  %t310   4 
+ 		 %t312  =   add  %ylist1   %t311 
+ 		 store  %t312   %y1 
+ 		 %t313  =   mul  %x1   4 
+ 		 %t314  =   add  %t313   4 
+ 		 %t315  =   add  %step1   %t314 
+ 		 %t316  = load  %t315 
+ 		 %t317  =   mul  %y1   4 
+ 		 %t318  =   add  %t317   4 
+ 		 %t319  =   add  %t316   %t318 
+ 		 %t320  =   add  %now1   1 
+ 		 store  %t319   %t320 
+ 		 %t321  = seq  %x1   %targetx1 
+ 		 br  %t321  %ifTrue21 %if_end15 
+ 
+ %ifTrue21:
+ preds:  %if_thenBB13  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue20  %if_thenBB13  %main.entryBB1  %ifTrue21  %afterForBB3  %ifTrue19  
+ 		 %t322  = seq  %y1   %targety1 
+ 		 br  %t322  %if_thenBB14 %if_end15 
+ 
+ %if_thenBB14:
+ preds:  %ifTrue21  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %ifTrue20  %if_thenBB13  %main.entryBB1  %if_thenBB14  %ifTrue21  %afterForBB3  %ifTrue19  
+ 		 %ok1  = move  1 
+ 		 jump %if_end15
+ 
+ %if_end15:
+ preds:  %if_thenBB13  %if_thenBB14  %ifTrue21  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %if_end15  %afterForBB2  %afterForBB1  %ifTrue20  %if_thenBB13  %main.entryBB1  %afterForBB3  %ifTrue19  
+ 		 jump %if_end14
+ 
+ %if_end14:
+ preds:  %ifTrue20  %if_end12  %if_end15  %ifTrue19  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t323  =   mul  %head1   4 
+ 		 %t324  =   add  %t323   4 
+ 		 %t325  =   add  %xlist1   %t324 
+ 		 %t326  = load  %t325 
+ 		 %t327  =   add  %t326   2 
+ 		 %x1  = move  %t327 
+ 		 %t328  =   mul  %head1   4 
+ 		 %t329  =   add  %t328   4 
+ 		 %t330  =   add  %ylist1   %t329 
+ 		 %t331  = load  %t330 
+ 		 %t332  =   add  %t331   1 
+ 		 %y1  = move  %t332 
+ 		 %t333  =  call check  %x1   %N1   
+ 		 br  %t333  %ifTrue22 %if_end16 
+ 
+ %ifTrue22:
+ preds:  %if_end14  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %ifTrue22  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t334  =  call check  %y1   %N1   
+ 		 br  %t334  %ifTrue23 %if_end16 
+ 
+ %ifTrue23:
+ preds:  %ifTrue22  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %ifTrue22  %afterForBB1  %ifTrue23  %main.entryBB1  %afterForBB3  
+ 		 %t335  =   mul  %x1   4 
+ 		 %t336  =   add  %t335   4 
+ 		 %t337  =   add  %step1   %t336 
+ 		 %t338  = load  %t337 
+ 		 %t339  =   mul  %y1   4 
+ 		 %t340  =   add  %t339   4 
+ 		 %t341  =   add  %t338   %t340 
+ 		 %t342  =   sub  0   1 
+ 		 %t343  = load  %t341 
+ 		 %t344  = seq  %t343   %t342 
+ 		 br  %t344  %if_thenBB15 %if_end16 
+ 
+ %if_thenBB15:
+ preds:  %ifTrue23  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %ifTrue22  %afterForBB1  %if_thenBB15  %ifTrue23  %main.entryBB1  %afterForBB3  
+ 		 %t345  =   add  %tail1   1 
+ 		 %tail1  = move  %t345 
+ 		 %t346  =   mul  %tail1   4 
+ 		 %t347  =   add  %t346   4 
+ 		 %t348  =   add  %xlist1   %t347 
+ 		 store  %t348   %x1 
+ 		 %t349  =   mul  %tail1   4 
+ 		 %t350  =   add  %t349   4 
+ 		 %t351  =   add  %ylist1   %t350 
+ 		 store  %t351   %y1 
+ 		 %t352  =   mul  %x1   4 
+ 		 %t353  =   add  %t352   4 
+ 		 %t354  =   add  %step1   %t353 
+ 		 %t355  = load  %t354 
+ 		 %t356  =   mul  %y1   4 
+ 		 %t357  =   add  %t356   4 
+ 		 %t358  =   add  %t355   %t357 
+ 		 %t359  =   add  %now1   1 
+ 		 store  %t358   %t359 
+ 		 %t360  = seq  %x1   %targetx1 
+ 		 br  %t360  %ifTrue24 %if_end17 
+ 
+ %ifTrue24:
+ preds:  %if_thenBB15  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %ifTrue24  %afterForBB2  %ifTrue22  %afterForBB1  %if_thenBB15  %ifTrue23  %main.entryBB1  %afterForBB3  
+ 		 %t361  = seq  %y1   %targety1 
+ 		 br  %t361  %if_thenBB16 %if_end17 
+ 
+ %if_thenBB16:
+ preds:  %ifTrue24  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %ifTrue24  %afterForBB2  %ifTrue22  %afterForBB1  %if_thenBB15  %ifTrue23  %main.entryBB1  %if_thenBB16  %afterForBB3  
+ 		 %ok1  = move  1 
+ 		 jump %if_end17
+ 
+ %if_end17:
+ preds:  %if_thenBB15  %ifTrue24  %if_thenBB16  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %ifTrue22  %afterForBB1  %if_end17  %if_thenBB15  %ifTrue23  %main.entryBB1  %afterForBB3  
+ 		 jump %if_end16
+ 
+ %if_end16:
+ preds:  %if_end17  %if_end14  %ifTrue23  %ifTrue22  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end16  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t362  = seq  %ok1   1 
+ 		 br  %t362  %if_thenBB17 %if_end1 
+ 
+ %if_end1:
+ preds:  %if_end16  
+ doms:  %if_end6  %if_end4  %if_end1  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end16  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %main.entryBB1  %afterForBB3  
+ 		 %t363  =   add  %head1   1 
+ 		 %head1  = move  %t363 
+ 		 jump %whileCondBB1
+ 
+ %if_thenBB17:
+ preds:  %if_end16  
+ doms:  %if_end6  %if_end4  %forcondBB2  %whileCondBB1  %if_end12  %if_end14  %if_end16  %if_end10  %forcondBB3  %whileBodyBB1  %if_end2  %if_end8  %forcondBB1  %afterForBB2  %afterForBB1  %if_thenBB17  %main.entryBB1  %afterForBB3  
+ 		 jump %afterWhileBB1
+ 
+ %afterWhileBB1:
+ preds:  %if_thenBB17  %whileCondBB1  
+ doms:  %forcondBB2  %whileCondBB1  %forcondBB3  %forcondBB1  %afterForBB2  %afterForBB1  %afterWhileBB1  %main.entryBB1  %afterForBB3  
+ 		 %t364  = seq  %ok1   1 
+ 		 br  %t364  %if_thenBB18 %if_elseBB1 
+ 
+ %if_thenBB18:
+ preds:  %afterWhileBB1  
+ doms:  %afterForBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %forcondBB1  %afterWhileBB1  %main.entryBB1  %if_thenBB18  %afterForBB2  %afterForBB3  
+ 		 %t365  =   mul  %targetx1   4 
+ 		 %t366  =   add  %t365   4 
+ 		 %t367  =   add  %step1   %t366 
+ 		 %t368  = load  %t367 
+ 		 %t369  =   mul  %targety1   4 
+ 		 %t370  =   add  %t369   4 
+ 		 %t371  =   add  %t368   %t370 
+ 		 %t372  = load  %t371 
+ 		 %t373  =  call toString  %t372   
+ 		 %t374  =  call println  %t373   
+ 		 jump %if_end18
+ 
+ %if_elseBB1:
+ preds:  %afterWhileBB1  
+ doms:  %afterForBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %if_elseBB1  %forcondBB1  %afterWhileBB1  %main.entryBB1  %afterForBB2  %afterForBB3  
+ 		 %t375  =  call print  @constStr_0   
+ 		 jump %if_end18
+ 
+ %if_end18:
+ preds:  %if_elseBB1  %if_thenBB18  
+ doms:  %afterForBB1  %forcondBB2  %whileCondBB1  %forcondBB3  %forcondBB1  %afterWhileBB1  %main.entryBB1  %afterForBB2  %afterForBB3  %if_end18  
+ 		 ret  0 
+ 
+ %forbodyBB3:
+ preds:  %forcondBB3  
+ doms:  %afterForBB1  %forcondBB2  %forcondBB3  %forcondBB1  %main.entryBB1  %forbodyBB3  %afterForBB2  
+ 		 %t376  =   mul  %i1   4 
+ 		 %t377  =   add  %t376   4 
+ 		 %t378  =   add  %step1   %t377 
+ 		 %t379  =   mul  %N1   4 
+ 		 %t379  =   add  %t379   4 
+ 		 %t380  = alloc  %t379 
+ 		 store  %t380   %N1 
+ 		 store  %t378   %t380 
+ 		 %j1  = move  0 
+ 		 jump %forcondBB4
+ 
+ %forcondBB4:
+ preds:  %forupdateBB4  %forbodyBB3  
+ doms:  %forcondBB2  %forbodyBB3  %afterForBB2  %main.entryBB1  %forcondBB4  %forcondBB3  %forcondBB1  %afterForBB1  
+ 		 %t381  = slt  %j1   %N1 
+ 		 br  %t381  %forbodyBB4 %afterForBB4 
+ 
+ %forbodyBB4:
+ preds:  %forcondBB4  
+ doms:  %afterForBB1  %forcondBB4  %forcondBB2  %forcondBB3  %forbodyBB4  %forcondBB1  %forbodyBB3  %main.entryBB1  %afterForBB2  
+ 		 %t382  =   mul  %i1   4 
+ 		 %t383  =   add  %t382   4 
+ 		 %t384  =   add  %step1   %t383 
+ 		 %t385  = load  %t384 
+ 		 %t386  =   mul  %j1   4 
+ 		 %t387  =   add  %t386   4 
+ 		 %t388  =   add  %t385   %t387 
+ 		 %t389  =   sub  0   1 
+ 		 store  %t388   %t389 
+ 		 jump %forupdateBB4
+ 
+ %forupdateBB4:
+ preds:  %forbodyBB4  
+ doms:  %afterForBB1  %forcondBB4  %forcondBB2  %forupdateBB4  %forcondBB3  %forbodyBB4  %forcondBB1  %forbodyBB3  %main.entryBB1  %afterForBB2  
+ 		 %j1  =   add  %j1   1 
+ 		 jump %forcondBB4
+ 
+ %afterForBB4:
+ preds:  %forcondBB4  
+ doms:  %afterForBB1  %forcondBB4  %afterForBB4  %forcondBB2  %forcondBB3  %forcondBB1  %forbodyBB3  %main.entryBB1  %afterForBB2  
+ 		 jump %forupdateBB3
+ 
+ %forupdateBB3:
+ preds:  %afterForBB4  
+ doms:  %afterForBB1  %forcondBB4  %afterForBB4  %forcondBB2  %forcondBB3  %forcondBB1  %forbodyBB3  %main.entryBB1  %forupdateBB3  %afterForBB2  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB3
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %afterForBB1  %forcondBB2  %forcondBB1  %main.entryBB1  %forbodyBB2  
+ 		 %t390  =   mul  %i1   4 
+ 		 %t391  =   add  %t390   4 
+ 		 %t392  =   add  %ylist1   %t391 
+ 		 store  %t392   0 
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %forbodyBB2  
+ doms:  %afterForBB1  %forcondBB2  %forupdateBB2  %forcondBB1  %main.entryBB1  %forbodyBB2  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB2
+ 
+ }
+ define i32 @check  %a1 %N1  {
+ %check.entryBB1:
+ preds:  
+ doms:  %check.entryBB1  
+ 		 %t1  = slt  %a1   %N1 
+ 		 %t2  = sge  %a1   0 
+ 		 %t3  =   and  %t1   %t2 
+ 		 ret  %t3 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

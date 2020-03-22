@@ -125,6 +125,9 @@ public class IRInterpreter {
     }
 
     private void readInstruction() throws SemanticError {
+        if (line.startsWith("preds:"))
+            return;
+
         // basic block
         if (line.endsWith(":")) {
             curBB = new BasicBlock();

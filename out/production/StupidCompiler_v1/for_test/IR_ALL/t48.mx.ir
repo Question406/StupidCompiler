@@ -1,0 +1,18 @@
+ @x 
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 @x  = move  20 
+ 		 ret  @x 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 @x  = move  10 
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

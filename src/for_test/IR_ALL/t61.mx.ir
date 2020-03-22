@@ -1,0 +1,564 @@
+ @constStr_0 = "x * y: "
+ @constStr_1 = "x + y: "
+ @constStr_2 = "( "
+ @constStr_3 = " )"
+ @constStr_4 = ", "
+ @constStr_5 = "excited!"
+ @constStr_6 = "vector y: "
+ @constStr_7 = "vector x: "
+ @constStr_8 = "(1 << 3) * y: "
+ define void @vector.init  %this1 %vec1  {
+ %vector.init.entryBB1:
+ preds:  
+ doms:  %vector.init.entryBB1  
+ 		 %t1  = seq  %vec1   0 
+ 		 br  %t1  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %vector.init.entryBB1  
+ doms:  %if_thenBB1  %vector.init.entryBB1  
+ 		 jump %vector.init.exitBB1
+ 
+ %if_end1:
+ preds:  %vector.init.entryBB1  
+ doms:  %if_end1  %vector.init.entryBB1  
+ 		 %t2  =   add  0   %this1 
+ 		 %t3  =  call array.size  %vec1 
+ 		 %t4  =   mul  %t3   4 
+ 		 %t4  =   add  %t4   4 
+ 		 %t5  = alloc  %t4 
+ 		 store  %t5   %t3 
+ 		 store  %t2   %t5 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %if_end1  
+ doms:  %if_end1  %vector.init.entryBB1  %forcondBB1  
+ 		 %t6  =  call array.size  %vec1 
+ 		 %t7  = slt  %i1   %t6 
+ 		 br  %t7  %forbodyBB1 %afterForBB1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %if_end1  %vector.init.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t8  =   add  0   %this1 
+ 		 %t9  = load  %t8 
+ 		 %t10  =   mul  %i1   4 
+ 		 %t11  =   add  %t10   4 
+ 		 %t12  =   add  %t9   %t11 
+ 		 %t13  =   mul  %i1   4 
+ 		 %t14  =   add  %t13   4 
+ 		 %t15  =   add  %vec1   %t14 
+ 		 %t16  = load  %t15 
+ 		 store  %t12   %t16 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forupdateBB1  %if_end1  %vector.init.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %if_end1  %afterForBB1  %vector.init.entryBB1  %forcondBB1  
+ 		 jump %vector.init.exitBB1
+ 
+ %vector.init.exitBB1:
+ preds:  %if_thenBB1  %afterForBB1  
+ doms:  %vector.init.entryBB1  %vector.init.exitBB1  
+ 		 ret  
+ 
+ }
+ define i32 @vector.scalarInPlaceMultiply  %this1 %c1  {
+ %vector.scalarInPlaceMultiply.entryBB1:
+ preds:  
+ doms:  %vector.scalarInPlaceMultiply.entryBB1  
+ 		 %t1  =   add  0   %this1 
+ 		 %t2  = load  %t1 
+ 		 %t3  = seq  %t2   0 
+ 		 br  %t3  %if_thenBB1 %if_end1 
+ 
+ %if_end1:
+ preds:  %vector.scalarInPlaceMultiply.entryBB1  
+ doms:  %vector.scalarInPlaceMultiply.entryBB1  %if_end1  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %if_end1  
+ doms:  %forcondBB1  %vector.scalarInPlaceMultiply.entryBB1  %if_end1  
+ 		 %t4  =  call vector.getDim  %this1 
+ 		 %t5  = slt  %i1   %t4 
+ 		 br  %t5  %forbodyBB1 %afterForBB1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %vector.scalarInPlaceMultiply.entryBB1  %if_end1  %forbodyBB1  
+ 		 %t6  =   add  %this1   0 
+ 		 %t7  = load  %t6 
+ 		 %t8  =   mul  %i1   4 
+ 		 %t9  =   add  %t8   4 
+ 		 %t10  =   add  %t7   %t9 
+ 		 %t11  =   add  %this1   0 
+ 		 %t12  = load  %t11 
+ 		 %t13  =   mul  %i1   4 
+ 		 %t14  =   add  %t13   4 
+ 		 %t15  =   add  %t12   %t14 
+ 		 %t16  = load  %t15 
+ 		 %t17  =   mul  %c1   %t16 
+ 		 store  %t10   %t17 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forcondBB1  %forupdateBB1  %vector.scalarInPlaceMultiply.entryBB1  %if_end1  %forbodyBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %afterForBB1  %forcondBB1  %vector.scalarInPlaceMultiply.entryBB1  %if_end1  
+ 		 %mergedretVal1  = move  %this1 
+ 		 jump %vector.scalarInPlaceMultiply.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %vector.scalarInPlaceMultiply.entryBB1  
+ doms:  %if_thenBB1  %vector.scalarInPlaceMultiply.entryBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %vector.scalarInPlaceMultiply.exitBB1
+ 
+ %vector.scalarInPlaceMultiply.exitBB1:
+ preds:  %if_thenBB1  %afterForBB1  
+ doms:  %vector.scalarInPlaceMultiply.exitBB1  %vector.scalarInPlaceMultiply.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  = alloc  4 
+ 		 %x1  = move  %t1 
+ 		 %t2  =   mul  10   4 
+ 		 %t2  =   add  %t2   4 
+ 		 %t3  = alloc  %t2 
+ 		 store  %t3   10 
+ 		 %a1  = move  %t3 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %main.entryBB1  %forupdateBB1  
+ doms:  %main.entryBB1  %forcondBB1  
+ 		 %t4  = slt  %i1   10 
+ 		 br  %t4  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %afterForBB1  %forcondBB1  
+ 		 call vector.init  %x1 %a1   
+ 		 %t5  =  call print  @constStr_7   
+ 		 %t6  =  call vector.tostring  %x1 
+ 		 %t7  =  call println  %t6   
+ 		 %t8  = alloc  4 
+ 		 %y1  = move  %t8 
+ 		 %t9  =  call vector.copy  %y1 %x1   
+ 		 %t10  =  call vector.set  %y1 3   817   
+ 		 br  %t10  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %afterForBB1  
+ doms:  %if_thenBB1  %main.entryBB1  %afterForBB1  %forcondBB1  
+ 		 %t11  =  call println  @constStr_5   
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB1  %afterForBB1  
+ doms:  %main.entryBB1  %afterForBB1  %forcondBB1  %if_end1  
+ 		 %t12  =  call print  @constStr_6   
+ 		 %t13  =  call vector.tostring  %y1 
+ 		 %t14  =  call println  %t13   
+ 		 %t15  =  call print  @constStr_1   
+ 		 %t16  =  call vector.add  %x1 %y1   
+ 		 %t17  =  call vector.tostring  %t16 
+ 		 %t18  =  call println  %t17   
+ 		 %t19  =  call print  @constStr_0   
+ 		 %t20  =  call vector.dot  %x1 %y1   
+ 		 %t21  =  call toString  %t20   
+ 		 %t22  =  call println  %t21   
+ 		 %t23  =  call print  @constStr_8   
+ 		 %t24  =   shl  1   3 
+ 		 %t25  =  call vector.scalarInPlaceMultiply  %y1 %t24   
+ 		 %t26  =  call vector.tostring  %t25 
+ 		 %t27  =  call println  %t26   
+ 		 ret  0 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %forbodyBB1  %forcondBB1  
+ 		 %t28  =   mul  %i1   4 
+ 		 %t29  =   add  %t28   4 
+ 		 %t30  =   add  %a1   %t29 
+ 		 %t31  =   sub  9   %i1 
+ 		 store  %t30   %t31 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %main.entryBB1  %forbodyBB1  %forupdateBB1  %forcondBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ }
+ define i32 @vector.getDim  %this1  {
+ %vector.getDim.entryBB1:
+ preds:  
+ doms:  %vector.getDim.entryBB1  
+ 		 %t1  =   add  0   %this1 
+ 		 %t2  = load  %t1 
+ 		 %t3  = seq  %t2   0 
+ 		 br  %t3  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %vector.getDim.entryBB1  
+ doms:  %if_thenBB1  %vector.getDim.entryBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %vector.getDim.exitBB1
+ 
+ %if_end1:
+ preds:  %vector.getDim.entryBB1  
+ doms:  %if_end1  %vector.getDim.entryBB1  
+ 		 %t4  =   add  0   %this1 
+ 		 %t5  = load  %t4 
+ 		 %t6  =  call array.size  %t5 
+ 		 %mergedretVal1  = move  %t6 
+ 		 jump %vector.getDim.exitBB1
+ 
+ %vector.getDim.exitBB1:
+ preds:  %if_end1  %if_thenBB1  
+ doms:  %vector.getDim.exitBB1  %vector.getDim.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @vector.add  %this1 %rhs1  {
+ %vector.add.entryBB1:
+ preds:  
+ doms:  %vector.add.entryBB1  
+ 		 %t1  =  call vector.getDim  %this1 
+ 		 %t2  =  call vector.getDim  %rhs1 
+ 		 %t3  = sne  %t1   %t2 
+ 		 br  %t3  %if_thenBB1 %iffalse1 
+ 
+ %iffalse1:
+ preds:  %vector.add.entryBB1  
+ doms:  %vector.add.entryBB1  %iffalse1  
+ 		 %t4  =  call vector.getDim  %this1 
+ 		 %t5  = seq  %t4   0 
+ 		 br  %t5  %if_thenBB1 %if_end1 
+ 
+ %if_end1:
+ preds:  %iffalse1  
+ doms:  %vector.add.entryBB1  %iffalse1  %if_end1  
+ 		 %t6  = alloc  4 
+ 		 %temp1  = move  %t6 
+ 		 %t7  =   add  %temp1   0 
+ 		 %t8  =  call vector.getDim  %this1 
+ 		 %t9  =   mul  %t8   4 
+ 		 %t9  =   add  %t9   4 
+ 		 %t10  = alloc  %t9 
+ 		 store  %t10   %t8 
+ 		 store  %t7   %t10 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %if_end1  
+ doms:  %vector.add.entryBB1  %iffalse1  %forcondBB1  %if_end1  
+ 		 %t11  =  call vector.getDim  %this1 
+ 		 %t12  = slt  %i1   %t11 
+ 		 br  %t12  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %vector.add.entryBB1  %iffalse1  %forcondBB1  %if_end1  %afterForBB1  
+ 		 %mergedretVal1  = move  %temp1 
+ 		 jump %vector.add.exitBB1
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %vector.add.entryBB1  %forbodyBB1  %iffalse1  %forcondBB1  %if_end1  
+ 		 %t13  =   add  %temp1   0 
+ 		 %t14  = load  %t13 
+ 		 %t15  =   mul  %i1   4 
+ 		 %t16  =   add  %t15   4 
+ 		 %t17  =   add  %t14   %t16 
+ 		 %t18  =   add  0   %this1 
+ 		 %t19  = load  %t18 
+ 		 %t20  =   mul  %i1   4 
+ 		 %t21  =   add  %t20   4 
+ 		 %t22  =   add  %t19   %t21 
+ 		 %t23  =   add  %rhs1   0 
+ 		 %t24  = load  %t23 
+ 		 %t25  =   mul  %i1   4 
+ 		 %t26  =   add  %t25   4 
+ 		 %t27  =   add  %t24   %t26 
+ 		 %t28  = load  %t22 
+ 		 %t29  = load  %t27 
+ 		 %t30  =   add  %t28   %t29 
+ 		 store  %t17   %t30 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %vector.add.entryBB1  %forbodyBB1  %forupdateBB1  %iffalse1  %forcondBB1  %if_end1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %if_thenBB1:
+ preds:  %vector.add.entryBB1  %iffalse1  
+ doms:  %if_thenBB1  %vector.add.entryBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %vector.add.exitBB1
+ 
+ %vector.add.exitBB1:
+ preds:  %if_thenBB1  %afterForBB1  
+ doms:  %vector.add.entryBB1  %vector.add.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @vector.copy  %this1 %rhs1  {
+ %vector.copy.entryBB1:
+ preds:  
+ doms:  %vector.copy.entryBB1  
+ 		 %t1  = seq  %rhs1   0 
+ 		 br  %t1  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %vector.copy.entryBB1  
+ doms:  %if_thenBB1  %vector.copy.entryBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %vector.copy.exitBB1
+ 
+ %if_end1:
+ preds:  %vector.copy.entryBB1  
+ doms:  %if_end1  %vector.copy.entryBB1  
+ 		 %t2  =  call vector.getDim  %rhs1 
+ 		 %t3  = seq  %t2   0 
+ 		 br  %t3  %if_thenBB2 %if_elseBB1 
+ 
+ %if_thenBB2:
+ preds:  %if_end1  
+ doms:  %if_end1  %if_thenBB2  %vector.copy.entryBB1  
+ 		 %t4  =   add  0   %this1 
+ 		 store  %t4   0 
+ 		 jump %if_end2
+ 
+ %if_elseBB1:
+ preds:  %if_end1  
+ doms:  %if_end1  %if_elseBB1  %vector.copy.entryBB1  
+ 		 %t5  =   add  0   %this1 
+ 		 %t6  =  call vector.getDim  %rhs1 
+ 		 %t7  =   mul  %t6   4 
+ 		 %t7  =   add  %t7   4 
+ 		 %t8  = alloc  %t7 
+ 		 store  %t8   %t6 
+ 		 store  %t5   %t8 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %if_elseBB1  
+ doms:  %if_end1  %if_elseBB1  %forcondBB1  %vector.copy.entryBB1  
+ 		 %t9  =  call vector.getDim  %this1 
+ 		 %t10  = slt  %i1   %t9 
+ 		 br  %t10  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %if_end1  %if_elseBB1  %forcondBB1  %afterForBB1  %vector.copy.entryBB1  
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %afterForBB1  %if_thenBB2  
+ doms:  %if_end1  %if_end2  %vector.copy.entryBB1  
+ 		 %mergedretVal1  = move  1 
+ 		 jump %vector.copy.exitBB1
+ 
+ %vector.copy.exitBB1:
+ preds:  %if_end2  %if_thenBB1  
+ doms:  %vector.copy.exitBB1  %vector.copy.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %if_end1  %if_elseBB1  %forcondBB1  %forbodyBB1  %vector.copy.entryBB1  
+ 		 %t11  =   add  0   %this1 
+ 		 %t12  = load  %t11 
+ 		 %t13  =   mul  %i1   4 
+ 		 %t14  =   add  %t13   4 
+ 		 %t15  =   add  %t12   %t14 
+ 		 %t16  =   add  %rhs1   0 
+ 		 %t17  = load  %t16 
+ 		 %t18  =   mul  %i1   4 
+ 		 %t19  =   add  %t18   4 
+ 		 %t20  =   add  %t17   %t19 
+ 		 %t21  = load  %t20 
+ 		 store  %t15   %t21 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forupdateBB1  %if_end1  %if_elseBB1  %forcondBB1  %forbodyBB1  %vector.copy.entryBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }
+ define i32 @vector.dot  %this1 %rhs1  {
+ %vector.dot.entryBB1:
+ preds:  
+ doms:  %vector.dot.entryBB1  
+ 		 %i1  = move  0 
+ 		 %result1  = move  0 
+ 		 jump %whileCondBB1
+ 
+ %whileCondBB1:
+ preds:  %whileBodyBB1  %vector.dot.entryBB1  
+ doms:  %whileCondBB1  %vector.dot.entryBB1  
+ 		 %t1  =  call vector.getDim  %this1 
+ 		 %t2  = slt  %i1   %t1 
+ 		 br  %t2  %whileBodyBB1 %afterWhileBB1 
+ 		 jump %whileBodyBB1
+ 
+ %afterWhileBB1:
+ preds:  %whileCondBB1  
+ doms:  %whileCondBB1  %afterWhileBB1  %vector.dot.entryBB1  
+ 		 ret  %result1 
+ 
+ %whileBodyBB1:
+ preds:  %whileCondBB1  
+ doms:  %whileCondBB1  %whileBodyBB1  %vector.dot.entryBB1  
+ 		 %t3  =   add  0   %this1 
+ 		 %t4  = load  %t3 
+ 		 %t5  =   mul  %i1   4 
+ 		 %t6  =   add  %t5   4 
+ 		 %t7  =   add  %t4   %t6 
+ 		 %t8  =   add  %rhs1   0 
+ 		 %t9  = load  %t8 
+ 		 %t10  =   mul  %i1   4 
+ 		 %t11  =   add  %t10   4 
+ 		 %t12  =   add  %t9   %t11 
+ 		 %t13  = load  %t7 
+ 		 %t14  = load  %t12 
+ 		 %t15  =   mul  %t13   %t14 
+ 		 %result1  = move  %t15 
+ 		 %i1  =   add  %i1   1 
+ 		 jump %whileCondBB1
+ 
+ }
+ define i32 @vector.tostring  %this1  {
+ %vector.tostring.entryBB1:
+ preds:  
+ doms:  %vector.tostring.entryBB1  
+ 		 %temp1  = move  @constStr_2 
+ 		 %t1  =  call vector.getDim  %this1 
+ 		 %t2  = sgt  %t1   0 
+ 		 br  %t2  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %vector.tostring.entryBB1  
+ doms:  %vector.tostring.entryBB1  %if_thenBB1  
+ 		 %t3  =   add  0   %this1 
+ 		 %t4  = load  %t3 
+ 		 %t5  =   mul  0   4 
+ 		 %t6  =   add  %t5   4 
+ 		 %t7  =   add  %t4   %t6 
+ 		 %t8  = load  %t7 
+ 		 %t9  =  call toString  %t8   
+ 		 %t10  =  call string.add  %temp1   %t9   
+ 		 %temp1  = move  %t10 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %vector.tostring.entryBB1  %if_thenBB1  
+ doms:  %vector.tostring.entryBB1  %if_end1  
+ 		 %i1  = move  1 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %if_end1  
+ doms:  %forcondBB1  %vector.tostring.entryBB1  %if_end1  
+ 		 %t11  =  call vector.getDim  %this1 
+ 		 %t12  = slt  %i1   %t11 
+ 		 br  %t12  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %afterForBB1  %vector.tostring.entryBB1  %if_end1  
+ 		 %t13  =  call string.add  %temp1   @constStr_3   
+ 		 %temp1  = move  %t13 
+ 		 ret  %temp1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %forbodyBB1  %vector.tostring.entryBB1  %if_end1  
+ 		 %t14  =  call string.add  %temp1   @constStr_4   
+ 		 %t15  =   add  0   %this1 
+ 		 %t16  = load  %t15 
+ 		 %t17  =   mul  %i1   4 
+ 		 %t18  =   add  %t17   4 
+ 		 %t19  =   add  %t16   %t18 
+ 		 %t20  = load  %t19 
+ 		 %t21  =  call toString  %t20   
+ 		 %t22  =  call string.add  %t14   %t21   
+ 		 %temp1  = move  %t22 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forupdateBB1  %forcondBB1  %forbodyBB1  %vector.tostring.entryBB1  %if_end1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ }
+ define i32 @vector.set  %this1 %idx1 %value1  {
+ %vector.set.entryBB1:
+ preds:  
+ doms:  %vector.set.entryBB1  
+ 		 %t1  =  call vector.getDim  %this1 
+ 		 %t2  = slt  %t1   %idx1 
+ 		 br  %t2  %if_thenBB1 %if_end1 
+ 
+ %if_end1:
+ preds:  %vector.set.entryBB1  
+ doms:  %vector.set.entryBB1  %if_end1  
+ 		 %t3  =   add  0   %this1 
+ 		 %t4  = load  %t3 
+ 		 %t5  =   mul  %idx1   4 
+ 		 %t6  =   add  %t5   4 
+ 		 %t7  =   add  %t4   %t6 
+ 		 store  %t7   %value1 
+ 		 %mergedretVal1  = move  1 
+ 		 jump %vector.set.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %vector.set.entryBB1  
+ doms:  %if_thenBB1  %vector.set.entryBB1  
+ 		 %mergedretVal1  = move  0 
+ 		 jump %vector.set.exitBB1
+ 
+ %vector.set.exitBB1:
+ preds:  %if_thenBB1  %if_end1  
+ doms:  %vector.set.exitBB1  %vector.set.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }

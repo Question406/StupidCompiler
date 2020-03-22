@@ -210,6 +210,7 @@ public class IRBuilder implements ASTVisitor {
         }
         // collect all return stat into an entryBB
         curFunc.ResolveRetInst();
+        curFunc.NaiveRMUnreachableBB();
         curFunc = null;
     }
 
@@ -322,7 +323,8 @@ public class IRBuilder implements ASTVisitor {
         }
 
         // change to loopbody
-        curBB.endBB(new JumpInst(curBB, bodyBB));
+        //curBB.endBB(new JumpInst(curBB, bodyBB));
+
         curBB = bodyBB;
         if (node.getWhile_body() != null)
             node.getWhile_body().accept(this);
@@ -938,7 +940,8 @@ public class IRBuilder implements ASTVisitor {
             cond.accept(this);
         }
 
-        curBB.endBB(new JumpInst(curBB, bodyBB));
+//        curBB.endBB(new JumpInst(curBB, bodyBB));
+
         curBB = bodyBB;
         if (node.getWhile_body() != null)
             node.getWhile_body().accept(this);

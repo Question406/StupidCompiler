@@ -1,0 +1,57 @@
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  =  call getInt  
+ 		 %a1  = move  %t1 
+ 		 %t2  =  call getInt  
+ 		 %b1  = move  %t2 
+ 		 %t3  =  call getInt  
+ 		 %c1  = move  %t3 
+ 		 %t4  =  call tak  %a1   %b1   %c1   
+ 		 %t5  =  call toString  %t4   
+ 		 %t6  =  call println  %t5   
+ 		 ret  0 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }
+ define i32 @tak  %x1 %y1 %z1  {
+ %tak.entryBB1:
+ preds:  
+ doms:  %tak.entryBB1  
+ 		 %t1  = slt  %y1   %x1 
+ 		 br  %t1  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %tak.entryBB1  
+ doms:  %tak.entryBB1  %if_elseBB1  
+ 		 %mergedretVal1  = move  %z1 
+ 		 jump %tak.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %tak.entryBB1  
+ doms:  %if_thenBB1  %tak.entryBB1  
+ 		 %t2  =   sub  %x1   1 
+ 		 %t3  =  call tak  %t2   %y1   %z1   
+ 		 %t4  =   sub  %y1   1 
+ 		 %t5  =  call tak  %t4   %z1   %x1   
+ 		 %t6  =   sub  %z1   1 
+ 		 %t7  =  call tak  %t6   %x1   %y1   
+ 		 %t8  =  call tak  %t3   %t5   %t7   
+ 		 %t9  =   add  1   %t8 
+ 		 %mergedretVal1  = move  %t9 
+ 		 jump %tak.exitBB1
+ 
+ %tak.exitBB1:
+ preds:  %if_thenBB1  %if_end1  %if_elseBB1  
+ doms:  %tak.entryBB1  %tak.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }

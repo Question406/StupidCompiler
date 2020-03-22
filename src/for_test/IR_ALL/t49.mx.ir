@@ -1,0 +1,19 @@
+ @constStr_0 = "hahaha"
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %s1  = move  @constStr_0 
+ 		 %t1  =  call string.substring  %s1 2   4   
+ 		 %t2  =  call string.length  %t1 
+ 		 ret  %t2 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

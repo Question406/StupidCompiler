@@ -1,0 +1,45 @@
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %n1  = move  10 
+ 		 %f01  = move  0 
+ 		 %f11  = move  1 
+ 		 %i1  = move  1 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %main.entryBB1  %forupdateBB1  
+ doms:  %main.entryBB1  %forcondBB1  
+ 		 %t1  = slt  %i1   %n1 
+ 		 br  %t1  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %forcondBB1  %afterForBB1  
+ 		 ret  %f21 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t2  =   add  %f01   %f11 
+ 		 %f21  = move  %t2 
+ 		 %f01  = move  %f11 
+ 		 %f11  = move  %f21 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %main.entryBB1  %forupdateBB1  %forcondBB1  %forbodyBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

@@ -1,0 +1,151 @@
+ @constStr_0 = "eternal!"
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  = alloc  4 
+ 		 %mrJiang1  = move  %t1 
+ 		 call older.solveAge  %mrJiang1 
+ 		 %t2  =   add  %mrJiang1   0 
+ 		 %t3  = load  %t2 
+ 		 %t4  = sgt  %t3   10000 
+ 		 br  %t4  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %main.entryBB1  
+ doms:  %if_thenBB1  %main.entryBB1  
+ 		 %t5  =  call println  @constStr_0   
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB1  %main.entryBB1  
+ doms:  %main.entryBB1  %if_end1  
+ 		 ret  0 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }
+ define void @older.solveAge  %this1  {
+ %older.solveAge.entryBB1:
+ preds:  
+ doms:  %older.solveAge.entryBB1  
+ 		 %i1  = move  1 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %older.solveAge.entryBB1  %forupdateBB1  
+ doms:  %older.solveAge.entryBB1  %forcondBB1  
+ 		 %t1  = slt  %i1   100 
+ 		 br  %t1  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %older.solveAge.entryBB1  %afterForBB1  %forcondBB1  
+ 		 ret  
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forbodyBB1  %older.solveAge.entryBB1  %forcondBB1  
+ 		 %t2  =   add  %i1   1 
+ 		 %j1  = move  %t2 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %forbodyBB1  %forupdateBB2  
+ doms:  %forbodyBB1  %older.solveAge.entryBB1  %forcondBB2  %forcondBB1  
+ 		 %t3  = slt  %j1   100 
+ 		 br  %t3  %forbodyBB2 %afterForBB2 
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %forbodyBB1  %older.solveAge.entryBB1  %afterForBB2  %forcondBB2  %forcondBB1  
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %afterForBB2  
+ doms:  %forbodyBB1  %older.solveAge.entryBB1  %afterForBB2  %forcondBB2  %forupdateBB1  %forcondBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %forbodyBB1  %older.solveAge.entryBB1  %forbodyBB2  %forcondBB2  %forcondBB1  
+ 		 %t4  =   add  %j1   1 
+ 		 %k1  = move  %t4 
+ 		 jump %forcondBB3
+ 
+ %forcondBB3:
+ preds:  %forbodyBB2  %forupdateBB3  
+ doms:  %forbodyBB1  %older.solveAge.entryBB1  %forbodyBB2  %forcondBB2  %forcondBB1  %forcondBB3  
+ 		 %t5  = slt  %k1   100 
+ 		 br  %t5  %forbodyBB3 %afterForBB3 
+ 
+ %afterForBB3:
+ preds:  %forcondBB3  
+ doms:  %forbodyBB1  %older.solveAge.entryBB1  %forbodyBB2  %afterForBB3  %forcondBB2  %forcondBB1  %forcondBB3  
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %afterForBB3  
+ doms:  %forbodyBB1  %older.solveAge.entryBB1  %forbodyBB2  %forupdateBB2  %afterForBB3  %forcondBB2  %forcondBB1  %forcondBB3  
+ 		 %j1  =   add  %j1   1 
+ 		 jump %forcondBB2
+ 
+ %forbodyBB3:
+ preds:  %forcondBB3  
+ doms:  %forbodyBB1  %forbodyBB3  %older.solveAge.entryBB1  %forbodyBB2  %forcondBB2  %forcondBB1  %forcondBB3  
+ 		 %t6  =   sub  %i1   %i1 
+ 		 %t7  =   add  %t6   %i1 
+ 		 %t8  =   add  %t7   %j1 
+ 		 %t9  =   sub  %t8   %j1 
+ 		 %t10  =   add  %t9   %j1 
+ 		 %t11  =   add  %t10   %k1 
+ 		 %t12  =   sub  %t11   %k1 
+ 		 %t13  =   add  %t12   %k1 
+ 		 %t14  =   mul  100   %i1 
+ 		 %t15  =   mul  10   %j1 
+ 		 %t16  =   add  %t14   %t15 
+ 		 %t17  =   add  %t16   %k1 
+ 		 %t18  =   mul  %t13   %t17 
+ 		 %t19  =   mod  %t18   1926 
+ 		 %t20  = seq  %t19   0 
+ 		 br  %t20  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %forbodyBB3  
+ doms:  %forbodyBB1  %forbodyBB3  %older.solveAge.entryBB1  %forbodyBB2  %if_thenBB1  %forcondBB2  %forcondBB1  %forcondBB3  
+ 		 %t21  =   add  0   %this1 
+ 		 %t22  =   sub  %i1   %i1 
+ 		 %t23  =   add  %t22   %i1 
+ 		 %t24  =   add  %t23   %j1 
+ 		 %t25  =   sub  %t24   %j1 
+ 		 %t26  =   add  %t25   %j1 
+ 		 %t27  =   add  %t26   %k1 
+ 		 %t28  =   sub  %t27   %k1 
+ 		 %t29  =   add  %t28   %k1 
+ 		 %t30  =   mul  100   %i1 
+ 		 %t31  =   mul  10   %j1 
+ 		 %t32  =   add  %t30   %t31 
+ 		 %t33  =   add  %t32   %k1 
+ 		 %t34  =   mul  %t29   %t33 
+ 		 store  %t21   %t34 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %forbodyBB3  %if_thenBB1  
+ doms:  %forbodyBB1  %forbodyBB3  %older.solveAge.entryBB1  %forbodyBB2  %if_end1  %forcondBB2  %forcondBB1  %forcondBB3  
+ 		 jump %forupdateBB3
+ 
+ %forupdateBB3:
+ preds:  %if_end1  
+ doms:  %forbodyBB1  %forbodyBB3  %older.solveAge.entryBB1  %forbodyBB2  %if_end1  %forupdateBB3  %forcondBB2  %forcondBB1  %forcondBB3  
+ 		 %k1  =   add  %k1   1 
+ 		 jump %forcondBB3
+ 
+ }

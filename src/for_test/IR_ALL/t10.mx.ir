@@ -1,0 +1,192 @@
+ define i32 @gcd  %x1 %y1  {
+ %gcd.entryBB1:
+ preds:  
+ doms:  %gcd.entryBB1  
+ 		 %t1  =   mod  %x1   %y1 
+ 		 %t2  = seq  %t1   0 
+ 		 br  %t2  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %gcd.entryBB1  
+ doms:  %gcd.entryBB1  %if_elseBB1  
+ 		 %t3  =   mod  %x1   %y1 
+ 		 %t4  =  call gcd5  %y1   %t3   
+ 		 %mergedretVal1  = move  %t4 
+ 		 jump %gcd.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %gcd.entryBB1  
+ doms:  %gcd.entryBB1  %if_thenBB1  
+ 		 %mergedretVal1  = move  %y1 
+ 		 jump %gcd.exitBB1
+ 
+ %gcd.exitBB1:
+ preds:  %if_thenBB1  %if_elseBB1  %if_end1  
+ doms:  %gcd.entryBB1  %gcd.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  =  call gcd  10   1   
+ 		 %t2  =  call toString  %t1   
+ 		 %t3  =  call println  %t2   
+ 		 %t4  =  call gcd  34986   3087   
+ 		 %t5  =  call toString  %t4   
+ 		 %t6  =  call println  %t5   
+ 		 %t7  =  call gcd  2907   1539   
+ 		 %t8  =  call toString  %t7   
+ 		 %t9  =  call println  %t8   
+ 		 ret  0 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }
+ define i32 @gcd1  %x1 %y1  {
+ %gcd1.entryBB1:
+ preds:  
+ doms:  %gcd1.entryBB1  
+ 		 %t1  =   mod  %x1   %y1 
+ 		 %t2  = seq  %t1   0 
+ 		 br  %t2  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %gcd1.entryBB1  
+ doms:  %gcd1.entryBB1  %if_elseBB1  
+ 		 %t3  =   mod  %x1   %y1 
+ 		 %t4  =  call gcd  %y1   %t3   
+ 		 %mergedretVal1  = move  %t4 
+ 		 jump %gcd1.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %gcd1.entryBB1  
+ doms:  %gcd1.entryBB1  %if_thenBB1  
+ 		 %mergedretVal1  = move  %y1 
+ 		 jump %gcd1.exitBB1
+ 
+ %gcd1.exitBB1:
+ preds:  %if_end1  %if_thenBB1  %if_elseBB1  
+ doms:  %gcd1.exitBB1  %gcd1.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @gcd2  %x1 %y1  {
+ %gcd2.entryBB1:
+ preds:  
+ doms:  %gcd2.entryBB1  
+ 		 %t1  =   mod  %x1   %y1 
+ 		 %t2  = seq  %t1   0 
+ 		 br  %t2  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %gcd2.entryBB1  
+ doms:  %gcd2.entryBB1  %if_elseBB1  
+ 		 %t3  =   mod  %x1   %y1 
+ 		 %t4  =  call gcd1  %y1   %t3   
+ 		 %mergedretVal1  = move  %t4 
+ 		 jump %gcd2.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %gcd2.entryBB1  
+ doms:  %if_thenBB1  %gcd2.entryBB1  
+ 		 %mergedretVal1  = move  %y1 
+ 		 jump %gcd2.exitBB1
+ 
+ %gcd2.exitBB1:
+ preds:  %if_thenBB1  %if_end1  %if_elseBB1  
+ doms:  %gcd2.exitBB1  %gcd2.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @gcd3  %x1 %y1  {
+ %gcd3.entryBB1:
+ preds:  
+ doms:  %gcd3.entryBB1  
+ 		 %t1  =   mod  %x1   %y1 
+ 		 %t2  = seq  %t1   0 
+ 		 br  %t2  %if_thenBB1 %if_elseBB1 
+ 
+ %if_thenBB1:
+ preds:  %gcd3.entryBB1  
+ doms:  %gcd3.entryBB1  %if_thenBB1  
+ 		 %mergedretVal1  = move  %y1 
+ 		 jump %gcd3.exitBB1
+ 
+ %if_elseBB1:
+ preds:  %gcd3.entryBB1  
+ doms:  %gcd3.entryBB1  %if_elseBB1  
+ 		 %t3  =   mod  %x1   %y1 
+ 		 %t4  =  call gcd2  %y1   %t3   
+ 		 %mergedretVal1  = move  %t4 
+ 		 jump %gcd3.exitBB1
+ 
+ %gcd3.exitBB1:
+ preds:  %if_elseBB1  %if_end1  %if_thenBB1  
+ doms:  %gcd3.entryBB1  %gcd3.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @gcd4  %x1 %y1  {
+ %gcd4.entryBB1:
+ preds:  
+ doms:  %gcd4.entryBB1  
+ 		 %t1  =   mod  %x1   %y1 
+ 		 %t2  = seq  %t1   0 
+ 		 br  %t2  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %gcd4.entryBB1  
+ doms:  %gcd4.entryBB1  %if_elseBB1  
+ 		 %t3  =   mod  %x1   %y1 
+ 		 %t4  =  call gcd  %y1   %t3   
+ 		 %mergedretVal1  = move  %t4 
+ 		 jump %gcd4.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %gcd4.entryBB1  
+ doms:  %gcd4.entryBB1  %if_thenBB1  
+ 		 %mergedretVal1  = move  %y1 
+ 		 jump %gcd4.exitBB1
+ 
+ %gcd4.exitBB1:
+ preds:  %if_end1  %if_thenBB1  %if_elseBB1  
+ doms:  %gcd4.exitBB1  %gcd4.entryBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }
+ define i32 @gcd5  %x1 %y1  {
+ %gcd5.entryBB1:
+ preds:  
+ doms:  %gcd5.entryBB1  
+ 		 %t1  =   mod  %x1   %y1 
+ 		 %t2  = seq  %t1   0 
+ 		 br  %t2  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %gcd5.entryBB1  
+ doms:  %if_elseBB1  %gcd5.entryBB1  
+ 		 %t3  =   mod  %x1   %y1 
+ 		 %t4  =  call gcd2  %y1   %t3   
+ 		 %mergedretVal1  = move  %t4 
+ 		 jump %gcd5.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %gcd5.entryBB1  
+ doms:  %if_thenBB1  %gcd5.entryBB1  
+ 		 %mergedretVal1  = move  %y1 
+ 		 jump %gcd5.exitBB1
+ 
+ %gcd5.exitBB1:
+ preds:  %if_thenBB1  %if_elseBB1  %if_end1  
+ doms:  %gcd5.entryBB1  %gcd5.exitBB1  
+ 		 ret  %mergedretVal1 
+ 
+ }

@@ -1,0 +1,31 @@
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  = alloc  12 
+ 		 %obj1  = move  %t1 
+ 		 %t2  =   add  %obj1   0 
+ 		 store  %t2   10 
+ 		 %t3  =   add  %obj1   4 
+ 		 store  %t3   20 
+ 		 %t4  =   add  %obj1   8 
+ 		 store  %t4   40 
+ 		 %t5  =   add  %obj1   0 
+ 		 %t6  =   add  %obj1   4 
+ 		 %t7  = load  %t5 
+ 		 %t8  = load  %t6 
+ 		 %t9  =   add  %t7   %t8 
+ 		 %t10  =   add  %obj1   8 
+ 		 %t11  = load  %t10 
+ 		 %t12  =   add  %t9   %t11 
+ 		 ret  %t12 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

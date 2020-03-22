@@ -1,0 +1,68 @@
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %n1  = move  10 
+ 		 %sum1  = move  0 
+ 		 %i1  = move  1 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %main.entryBB1  %forupdateBB1  
+ doms:  %main.entryBB1  %forcondBB1  
+ 		 %t1  = sle  %i1   %n1 
+ 		 br  %t1  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %forcondBB1  %afterForBB1  
+ 		 %j1  = move  1 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %afterForBB1  %forupdateBB2  
+ doms:  %main.entryBB1  %forcondBB2  %forcondBB1  %afterForBB1  
+ 		 %t2  = sle  %j1   %n1 
+ 		 br  %t2  %forbodyBB2 %afterForBB2 
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %main.entryBB1  %forcondBB2  %forcondBB1  %afterForBB1  %forbodyBB2  
+ 		 %t3  =   add  %sum1   10 
+ 		 %t4  =   add  %t3   %j1 
+ 		 %sum1  = move  %t4 
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %forbodyBB2  
+ doms:  %main.entryBB1  %forcondBB2  %forcondBB1  %afterForBB1  %forbodyBB2  %forupdateBB2  
+ 		 %j1  =   add  %j1   1 
+ 		 jump %forcondBB2
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %afterForBB2  %main.entryBB1  %forcondBB2  %forcondBB1  %afterForBB1  
+ 		 ret  %sum1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t5  =   add  %sum1   %i1 
+ 		 %sum1  = move  %t5 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %main.entryBB1  %forcondBB1  %forbodyBB1  %forupdateBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

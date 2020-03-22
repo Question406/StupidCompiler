@@ -36,4 +36,8 @@ public abstract class Instruction {
     }
 
     abstract public void accept(IRVisitor visitor);
+
+    public boolean isBranchInst() {
+        return this instanceof BranchInst || this instanceof JumpInst;
+    }
 }

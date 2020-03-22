@@ -1,0 +1,28 @@
+ @c 
+ @x 
+ define i32 @lol  %x1  {
+ %lol.entryBB1:
+ preds:  
+ doms:  %lol.entryBB1  
+ 		 %t1  =   add  %x1   1 
+ 		 ret  %t1 
+ 
+ }
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 ret  @x 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 @c  = move  123 
+ 		 %t1  =  call lol  @c   
+ 		 @x  = move  %t1 
+ 		 %t2  =  call main  
+ 		 ret  
+ 
+ }

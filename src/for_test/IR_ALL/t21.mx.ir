@@ -1,0 +1,217 @@
+ @constStr_0 = " "
+ @constStr_1 = "\n"
+ @a 
+ @n 
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %i1  = move  1 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %main.entryBB1  
+ doms:  %forcondBB1  %main.entryBB1  
+ 		 %t1  = sle  %i1   @n 
+ 		 br  %t1  %forbodyBB1 %afterForBB1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forbodyBB1  %forcondBB1  %main.entryBB1  
+ 		 %t2  =   mul  %i1   4 
+ 		 %t3  =   add  %t2   4 
+ 		 %t4  =   add  @a   %t3 
+ 		 %t5  =   add  @n   1 
+ 		 %t6  =   sub  %t5   %i1 
+ 		 store  %t4   %t6 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forupdateBB1  %forbodyBB1  %forcondBB1  %main.entryBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %afterForBB1  %forcondBB1  %main.entryBB1  
+ 		 %t7  =  call qsrt  1   @n   
+ 		 %i1  = move  1 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %afterForBB1  %forupdateBB2  
+ doms:  %afterForBB1  %forcondBB2  %forcondBB1  %main.entryBB1  
+ 		 %t8  = sle  %i1   @n 
+ 		 br  %t8  %forbodyBB2 %afterForBB2 
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %afterForBB1  %forcondBB2  %forbodyBB2  %forcondBB1  %main.entryBB1  
+ 		 %t9  =   mul  %i1   4 
+ 		 %t10  =   add  %t9   4 
+ 		 %t11  =   add  @a   %t10 
+ 		 %t12  = load  %t11 
+ 		 %t13  =  call toString  %t12   
+ 		 %t14  =  call print  %t13   
+ 		 %t15  =  call print  @constStr_0   
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %forbodyBB2  
+ doms:  %afterForBB1  %forcondBB2  %forbodyBB2  %forcondBB1  %main.entryBB1  %forupdateBB2  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB2
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %afterForBB2  %afterForBB1  %forcondBB2  %forcondBB1  %main.entryBB1  
+ 		 %t16  =  call print  @constStr_1   
+ 		 ret  0 
+ 
+ }
+ define i32 @qsrt  %l1 %r1  {
+ %qsrt.entryBB1:
+ preds:  
+ doms:  %qsrt.entryBB1  
+ 		 %i1  = move  %l1 
+ 		 %j1  = move  %r1 
+ 		 %t1  =   add  %l1   %r1 
+ 		 %t2  =   div  %t1   2 
+ 		 %t3  =   mul  %t2   4 
+ 		 %t4  =   add  %t3   4 
+ 		 %t5  =   add  @a   %t4 
+ 		 %t6  = load  %t5 
+ 		 %x1  = move  %t6 
+ 		 jump %whileCondBB1
+ 
+ %whileCondBB1:
+ preds:  %if_end1  %qsrt.entryBB1  
+ doms:  %whileCondBB1  %qsrt.entryBB1  
+ 		 %t7  = sle  %i1   %j1 
+ 		 br  %t7  %whileBodyBB1 %afterWhileBB1 
+ 		 jump %whileBodyBB1
+ 
+ %whileBodyBB1:
+ preds:  %whileCondBB1  
+ doms:  %whileCondBB1  %whileBodyBB1  %qsrt.entryBB1  
+ 		 jump %whileCondBB2
+ 
+ %whileCondBB2:
+ preds:  %whileBodyBB2  %whileBodyBB1  
+ doms:  %whileCondBB2  %whileCondBB1  %whileBodyBB1  %qsrt.entryBB1  
+ 		 %t8  =   mul  %i1   4 
+ 		 %t9  =   add  %t8   4 
+ 		 %t10  =   add  @a   %t9 
+ 		 %t11  = load  %t10 
+ 		 %t12  = slt  %t11   %x1 
+ 		 br  %t12  %whileBodyBB2 %afterWhileBB2 
+ 		 jump %whileBodyBB2
+ 
+ %whileBodyBB2:
+ preds:  %whileCondBB2  
+ doms:  %whileCondBB2  %whileCondBB1  %whileBodyBB2  %whileBodyBB1  %qsrt.entryBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %whileCondBB2
+ 
+ %afterWhileBB2:
+ preds:  %whileCondBB2  
+ doms:  %whileCondBB2  %whileCondBB1  %afterWhileBB2  %whileBodyBB1  %qsrt.entryBB1  
+ 		 jump %whileCondBB3
+ 
+ %whileCondBB3:
+ preds:  %afterWhileBB2  %whileBodyBB3  
+ doms:  %whileCondBB2  %whileCondBB1  %afterWhileBB2  %whileCondBB3  %whileBodyBB1  %qsrt.entryBB1  
+ 		 %t13  =   mul  %j1   4 
+ 		 %t14  =   add  %t13   4 
+ 		 %t15  =   add  @a   %t14 
+ 		 %t16  = load  %t15 
+ 		 %t17  = sgt  %t16   %x1 
+ 		 br  %t17  %whileBodyBB3 %afterWhileBB3 
+ 		 jump %whileBodyBB3
+ 
+ %afterWhileBB3:
+ preds:  %whileCondBB3  
+ doms:  %whileCondBB2  %whileCondBB1  %afterWhileBB2  %afterWhileBB3  %whileCondBB3  %whileBodyBB1  %qsrt.entryBB1  
+ 		 %t18  = sle  %i1   %j1 
+ 		 br  %t18  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %afterWhileBB3  
+ doms:  %whileCondBB2  %whileCondBB1  %afterWhileBB2  %if_thenBB1  %afterWhileBB3  %whileCondBB3  %whileBodyBB1  %qsrt.entryBB1  
+ 		 %t19  =   mul  %i1   4 
+ 		 %t20  =   add  %t19   4 
+ 		 %t21  =   add  @a   %t20 
+ 		 %t22  = load  %t21 
+ 		 %temp1  = move  %t22 
+ 		 %t23  =   mul  %i1   4 
+ 		 %t24  =   add  %t23   4 
+ 		 %t25  =   add  @a   %t24 
+ 		 %t26  =   mul  %j1   4 
+ 		 %t27  =   add  %t26   4 
+ 		 %t28  =   add  @a   %t27 
+ 		 %t29  = load  %t28 
+ 		 store  %t25   %t29 
+ 		 %t30  =   mul  %j1   4 
+ 		 %t31  =   add  %t30   4 
+ 		 %t32  =   add  @a   %t31 
+ 		 store  %t32   %temp1 
+ 		 %i1  =   add  %i1   1 
+ 		 %j1  =   sub  %j1   1 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB1  %afterWhileBB3  
+ doms:  %whileCondBB2  %whileCondBB1  %afterWhileBB2  %if_end1  %afterWhileBB3  %whileCondBB3  %whileBodyBB1  %qsrt.entryBB1  
+ 		 jump %whileCondBB1
+ 
+ %whileBodyBB3:
+ preds:  %whileCondBB3  
+ doms:  %whileCondBB2  %whileCondBB1  %afterWhileBB2  %whileBodyBB3  %whileCondBB3  %whileBodyBB1  %qsrt.entryBB1  
+ 		 %j1  =   sub  %j1   1 
+ 		 jump %whileCondBB3
+ 
+ %afterWhileBB1:
+ preds:  %whileCondBB1  
+ doms:  %afterWhileBB1  %whileCondBB1  %qsrt.entryBB1  
+ 		 %t33  = slt  %l1   %j1 
+ 		 br  %t33  %if_thenBB2 %if_end2 
+ 
+ %if_thenBB2:
+ preds:  %afterWhileBB1  
+ doms:  %afterWhileBB1  %whileCondBB1  %qsrt.entryBB1  %if_thenBB2  
+ 		 %t34  =  call qsrt  %l1   %j1   
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %afterWhileBB1  %if_thenBB2  
+ doms:  %afterWhileBB1  %whileCondBB1  %if_end2  %qsrt.entryBB1  
+ 		 %t35  = slt  %i1   %r1 
+ 		 br  %t35  %if_thenBB3 %if_end3 
+ 
+ %if_thenBB3:
+ preds:  %if_end2  
+ doms:  %afterWhileBB1  %whileCondBB1  %if_end2  %if_thenBB3  %qsrt.entryBB1  
+ 		 %t36  =  call qsrt  %i1   %r1   
+ 		 jump %if_end3
+ 
+ %if_end3:
+ preds:  %if_end2  %if_thenBB3  
+ doms:  %afterWhileBB1  %whileCondBB1  %if_end3  %if_end2  %qsrt.entryBB1  
+ 		 ret  0 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =   mul  10100   4 
+ 		 %t1  =   add  %t1   4 
+ 		 %t2  = alloc  %t1 
+ 		 store  %t2   10100 
+ 		 @a  = move  %t2 
+ 		 @n  = move  10000 
+ 		 %t3  =  call main  
+ 		 ret  
+ 
+ }

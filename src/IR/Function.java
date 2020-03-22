@@ -11,6 +11,9 @@ import IR.Operand.VirReg;
 import java.io.PipedOutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Function {
     String funcname;
@@ -18,7 +21,7 @@ public class Function {
     public VirReg thisPointer;
     public boolean isVoid;
 
-    BasicBlock entryBB;
+    public BasicBlock entryBB;
     BasicBlock exitBB;
 
     ArrayList<RetInst> retInsts;
@@ -72,11 +75,43 @@ public class Function {
         this.exitBB = exitBB;
     }
 
-    public ArrayList<BasicBlock> getReverseOrderBBs() {
-        if (reversePostOrderBBs == null) {
-            return null;
+    public void PostOrderDFS(Set<BasicBlock> visited, BasicBlock curBB) {
+        visited.add(curBB);
+        for (var bb : curBB.succBBs)
+            if (!visited.contains(bb)) {
+                PostOrderDFS(visited, bb);
+            }
+        reversePostOrderBBs.add(curBB);
+    }
+
+    public ArrayList<BasicBlock> getReversePostOrderBBs() {
+        if (reversePostOrderBBs == null)
+            CalcReversePostOrderBBs();
+        return reversePostOrderBBs;
+    }
+
+    public void CalcReversePostOrderBBs(){
+        reversePostOrderBBs = new ArrayList<BasicBlock>();
+        Set<BasicBlock> visited = new HashSet<BasicBlock>();
+        PostOrderDFS(visited, entryBB);
+        for (int i = 0; i < reversePostOrderBBs.size(); i++)
+            reversePostOrderBBs.get(i).RPOnum = i;
+        Collections.reverse(reversePostOrderBBs);
+    }
+
+    public void NaiveRMUnreachableBB(){
+        boolean changed = true;
+        while (changed) {
+            changed = false;
+
+            CalcReversePostOrderBBs();
+            for (var bb : BBs)
+                if (!reversePostOrderBBs.contains(bb)) {
+                    bb.RMSelf();
+                    BBs.remove(bb);
+                    changed = true;
+                }
         }
-        return null;
     }
 
 
@@ -113,4 +148,6 @@ public class Function {
         if (func.funcname.equals("string.length")) return true;
         return func.funcname.equals("array.size");
     }
+
+
 }

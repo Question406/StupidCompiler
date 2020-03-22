@@ -1,0 +1,179 @@
+ @constStr_0 = "str2"
+ @constStr_1 = "str3"
+ @constStr_2 = "str4"
+ @constStr_3 = "str5"
+ @constStr_4 = "str6"
+ @constStr_5 = "str7"
+ @constStr_6 = "str8"
+ @constStr_7 = "str9"
+ @constStr_8 = "str10"
+ @constStr_9 = "str1"
+ @str 
+ @a 
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %main.entryBB1  
+ doms:  %main.entryBB1  %forcondBB1  
+ 		 %t1  = sle  %i1   29 
+ 		 br  %t1  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %forcondBB1  %afterForBB1  
+ 		 ret  0 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %sum1  = move  0 
+ 		 %t2  =   mul  %i1   4 
+ 		 %t3  =   add  %t2   4 
+ 		 %t4  =   add  @str   %t3 
+ 		 %t5  =   mul  %i1   4 
+ 		 %t6  =   add  %t5   4 
+ 		 %t7  =   add  @a   %t6 
+ 		 %t8  = load  %t7 
+ 		 %t9  =   mul  0   4 
+ 		 %t10  =   add  %t9   4 
+ 		 %t11  =   add  %t8   %t10 
+ 		 %t12  = load  %t11 
+ 		 %t13  =  call toString  %t12   
+ 		 store  %t4   %t13 
+ 		 %j1  = move  0 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %forupdateBB2  %forbodyBB1  
+ doms:  %forcondBB2  %main.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t14  = slt  %j1   %i1 
+ 		 br  %t14  %forbodyBB2 %afterForBB2 
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %forcondBB2  %main.entryBB1  %forcondBB1  %afterForBB2  %forbodyBB1  
+ 		 %t15  =  call string.add  @constStr_9   @constStr_0   
+ 		 %t16  =  call string.add  %t15   @constStr_1   
+ 		 %t17  =  call string.add  %t16   @constStr_2   
+ 		 %t18  =  call string.add  %t17   @constStr_3   
+ 		 %t19  =  call string.add  %t18   @constStr_4   
+ 		 %t20  =  call string.add  %t19   @constStr_5   
+ 		 %t21  =  call string.add  %t20   @constStr_6   
+ 		 %t22  =  call string.add  %t21   @constStr_7   
+ 		 %t23  =  call string.add  %t22   @constStr_8   
+ 		 %t24  =  call println  %t23   
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %afterForBB2  
+ doms:  %forcondBB2  %forupdateBB1  %main.entryBB1  %forcondBB1  %afterForBB2  %forbodyBB1  
+ 		 %i1  =   add  %i1   1 
+ 		 jump %forcondBB1
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %forcondBB2  %forbodyBB2  %main.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t25  =   and  %j1   1 
+ 		 %t26  = seq  %t25   0 
+ 		 br  %t26  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %forbodyBB2  
+ doms:  %forcondBB2  %forbodyBB2  %main.entryBB1  %if_thenBB1  %forcondBB1  %forbodyBB1  
+ 		 %t27  =   mul  %i1   4 
+ 		 %t28  =   add  %t27   4 
+ 		 %t29  =   add  @a   %t28 
+ 		 %t30  = load  %t29 
+ 		 %t31  =   mul  0   4 
+ 		 %t32  =   add  %t31   4 
+ 		 %t33  =   add  %t30   %t32 
+ 		 %t34  = load  %t33 
+ 		 %t35  =   add  %sum1   %t34 
+ 		 %sum1  = move  %t35 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %forbodyBB2  %if_thenBB1  
+ doms:  %forcondBB2  %forbodyBB2  %main.entryBB1  %if_end1  %forcondBB1  %forbodyBB1  
+ 		 %t36  =   and  %j1   1 
+ 		 %t37  = seq  %t36   1 
+ 		 br  %t37  %if_thenBB2 %if_end2 
+ 
+ %if_thenBB2:
+ preds:  %if_end1  
+ doms:  %forcondBB2  %if_thenBB2  %forbodyBB2  %main.entryBB1  %if_end1  %forcondBB1  %forbodyBB1  
+ 		 %t38  =   mul  %i1   4 
+ 		 %t39  =   add  %t38   4 
+ 		 %t40  =   add  @a   %t39 
+ 		 %t41  = load  %t40 
+ 		 %t42  =   mul  29   4 
+ 		 %t43  =   add  %t42   4 
+ 		 %t44  =   add  %t41   %t43 
+ 		 %t45  = load  %t44 
+ 		 %t46  =   add  %sum1   %t45 
+ 		 %sum1  = move  %t46 
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %if_thenBB2  %if_end1  
+ doms:  %forcondBB2  %forbodyBB2  %main.entryBB1  %if_end1  %forcondBB1  %forbodyBB1  %if_end2  
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %if_end2  
+ doms:  %forcondBB2  %forbodyBB2  %forupdateBB2  %main.entryBB1  %if_end1  %forcondBB1  %forbodyBB1  %if_end2  
+ 		 %j1  =   add  %j1   1 
+ 		 jump %forcondBB2
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =   mul  30   4 
+ 		 %t1  =   add  %t1   4 
+ 		 %t2  = alloc  %t1 
+ 		 store  %t2   30 
+ 		 %t3  = move  %t2 
+ 		 %t3  =   add  %t3   4 
+ 		 %t4  = move  4 
+ 		 %t4  =   mul  %t4   30 
+ 		 %t5  = move  %t2 
+ 		 %t5  =   add  %t5   %t4 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %__init.entryBB1  
+ doms:  %forcondBB1  %__init.entryBB1  
+ 		 %t6  = sle  %t3   %t5 
+ 		 br  %t6  %forupdateBB1 %afterForBB1 
+ 
+ %forupdateBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %forupdateBB1  %__init.entryBB1  
+ 		 %t7  =   mul  30   4 
+ 		 %t7  =   add  %t7   4 
+ 		 %t8  = alloc  %t7 
+ 		 store  %t8   30 
+ 		 store  %t3   %t8 
+ 		 %t3  =   add  %t3   4 
+ 		 jump %forcondBB1
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %afterForBB1  %__init.entryBB1  
+ 		 @a  = move  %t2 
+ 		 %t9  =   mul  30   4 
+ 		 %t9  =   add  %t9   4 
+ 		 %t10  = alloc  %t9 
+ 		 store  %t10   30 
+ 		 @str  = move  %t10 
+ 		 %t11  =  call main  
+ 		 ret  
+ 
+ }

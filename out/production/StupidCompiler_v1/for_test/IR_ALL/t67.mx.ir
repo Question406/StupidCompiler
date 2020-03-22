@@ -1,0 +1,121 @@
+ @constStr_0 = "\\ab\nac\"\"add\n\"\nac\ndb\""
+ @constStr_1 = "\"\nbda\\\"\ndbd\\c\"\\\"c\\c\""
+ @constStr_2 = "\nabbdbdd\\\\\"d\"c\\adc\"c"
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %a1  = move  @constStr_1 
+ 		 %b1  = move  @constStr_0 
+ 		 %c1  = move  @constStr_2 
+ 		 %t1  =  call string.add  %c1   %b1   
+ 		 %t2  =  call string.add  %t1   %b1   
+ 		 %t3  =  call string.add  %t2   %c1   
+ 		 %t4  =  call string.add  %t3   %c1   
+ 		 %t5  =  call string.add  %t4   %a1   
+ 		 %t6  =  call string.add  %t5   %c1   
+ 		 %t7  =  call string.add  %t6   %b1   
+ 		 %t8  =  call string.add  %t7   %c1   
+ 		 %t9  =  call string.add  %t8   %b1   
+ 		 %t10  =  call print  %t9   
+ 		 %t11  =  call string.add  %c1   %c1   
+ 		 %t12  =  call string.add  %t11   %a1   
+ 		 %t13  =  call string.add  %t12   %a1   
+ 		 %t14  =  call string.add  %t13   %a1   
+ 		 %t15  =  call string.add  %t14   %c1   
+ 		 %t16  =  call string.add  %t15   %c1   
+ 		 %t17  =  call string.add  %t16   %b1   
+ 		 %t18  =  call string.add  %t17   %b1   
+ 		 %t19  =  call string.add  %t18   %b1   
+ 		 %t20  =  call print  %t19   
+ 		 %t21  =  call string.add  %b1   %a1   
+ 		 %t22  =  call string.add  %t21   %c1   
+ 		 %t23  =  call string.add  %t22   %b1   
+ 		 %t24  =  call string.add  %t23   %c1   
+ 		 %t25  =  call string.add  %t24   %c1   
+ 		 %t26  =  call string.add  %t25   %b1   
+ 		 %t27  =  call string.add  %t26   %b1   
+ 		 %t28  =  call string.add  %t27   %a1   
+ 		 %t29  =  call string.add  %t28   %c1   
+ 		 %t30  =  call print  %t29   
+ 		 %t31  =  call string.add  %b1   %a1   
+ 		 %t32  =  call string.add  %t31   %c1   
+ 		 %t33  =  call string.add  %t32   %a1   
+ 		 %t34  =  call string.add  %t33   %a1   
+ 		 %t35  =  call string.add  %t34   %a1   
+ 		 %t36  =  call string.add  %t35   %b1   
+ 		 %t37  =  call string.add  %t36   %b1   
+ 		 %t38  =  call string.add  %t37   %b1   
+ 		 %t39  =  call string.add  %t38   %c1   
+ 		 %t40  =  call print  %t39   
+ 		 %t41  =  call string.add  %b1   %a1   
+ 		 %t42  =  call string.add  %t41   %b1   
+ 		 %t43  =  call string.add  %t42   %a1   
+ 		 %t44  =  call string.add  %t43   %c1   
+ 		 %t45  =  call string.add  %t44   %c1   
+ 		 %t46  =  call string.add  %t45   %c1   
+ 		 %t47  =  call string.add  %t46   %b1   
+ 		 %t48  =  call string.add  %t47   %c1   
+ 		 %t49  =  call string.add  %t48   %a1   
+ 		 %t50  =  call print  %t49   
+ 		 %t51  =  call string.add  %a1   %a1   
+ 		 %t52  =  call string.add  %t51   %c1   
+ 		 %t53  =  call string.add  %t52   %c1   
+ 		 %t54  =  call string.add  %t53   %a1   
+ 		 %t55  =  call string.add  %t54   %c1   
+ 		 %t56  =  call string.add  %t55   %b1   
+ 		 %t57  =  call string.add  %t56   %c1   
+ 		 %t58  =  call string.add  %t57   %c1   
+ 		 %t59  =  call string.add  %t58   %a1   
+ 		 %t60  =  call print  %t59   
+ 		 %t61  =  call string.add  %b1   %b1   
+ 		 %t62  =  call string.add  %t61   %b1   
+ 		 %t63  =  call string.add  %t62   %b1   
+ 		 %t64  =  call string.add  %t63   %c1   
+ 		 %t65  =  call string.add  %t64   %a1   
+ 		 %t66  =  call string.add  %t65   %c1   
+ 		 %t67  =  call string.add  %t66   %b1   
+ 		 %t68  =  call string.add  %t67   %a1   
+ 		 %t69  =  call string.add  %t68   %a1   
+ 		 %t70  =  call print  %t69   
+ 		 %t71  =  call string.add  %a1   %a1   
+ 		 %t72  =  call string.add  %t71   %c1   
+ 		 %t73  =  call string.add  %t72   %b1   
+ 		 %t74  =  call string.add  %t73   %a1   
+ 		 %t75  =  call string.add  %t74   %b1   
+ 		 %t76  =  call string.add  %t75   %c1   
+ 		 %t77  =  call string.add  %t76   %c1   
+ 		 %t78  =  call string.add  %t77   %b1   
+ 		 %t79  =  call string.add  %t78   %b1   
+ 		 %t80  =  call print  %t79   
+ 		 %t81  =  call string.add  %c1   %b1   
+ 		 %t82  =  call string.add  %t81   %a1   
+ 		 %t83  =  call string.add  %t82   %a1   
+ 		 %t84  =  call string.add  %t83   %c1   
+ 		 %t85  =  call string.add  %t84   %b1   
+ 		 %t86  =  call string.add  %t85   %a1   
+ 		 %t87  =  call string.add  %t86   %a1   
+ 		 %t88  =  call string.add  %t87   %c1   
+ 		 %t89  =  call string.add  %t88   %b1   
+ 		 %t90  =  call print  %t89   
+ 		 %t91  =  call string.add  %a1   %c1   
+ 		 %t92  =  call string.add  %t91   %b1   
+ 		 %t93  =  call string.add  %t92   %b1   
+ 		 %t94  =  call string.add  %t93   %b1   
+ 		 %t95  =  call string.add  %t94   %c1   
+ 		 %t96  =  call string.add  %t95   %c1   
+ 		 %t97  =  call string.add  %t96   %c1   
+ 		 %t98  =  call string.add  %t97   %b1   
+ 		 %t99  =  call string.add  %t98   %c1   
+ 		 %t100  =  call print  %t99   
+ 		 ret  0 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

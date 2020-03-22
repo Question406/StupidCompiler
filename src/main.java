@@ -1,20 +1,23 @@
-import IR.Interpreter.IRInterpreter;
-import IR.Interpreter.Interpreter;
-import Test.TestAST;
-import Utils.BinaryOperator;
+import Test.RealRunner;
+
+import static java.lang.System.exit;
 
 public class main {
     public static void main(String[] args) {
         // to avoid race between error stream && out stream
-        System.setErr(System.out);
-        TestAST test = new TestAST();//
+//        System.setErr(System.out);
+        RealRunner test = new RealRunner();//
         try {
-            test.run();
+            test.SemanticTest();
+//            test.run();
 //            test.runAll();
 
         } catch(Exception e) {
-            System.out.println("Exception:");
-            System.out.println(e.toString());
+//            System.out.println("Exception:");
+//            System.out.println(e.toString());
+            System.err.println("Exception: ");
+            System.err.println(e.toString());
+            exit(1);
         };
     }
 

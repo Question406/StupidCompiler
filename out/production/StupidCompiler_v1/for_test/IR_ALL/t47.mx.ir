@@ -1,0 +1,67 @@
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %a1  = move  5 
+ 		 %b1  = move  0 
+ 		 %t1  = sne  %b1   0 
+ 		 br  %t1  %ifTrue1 %if_elseBB1 
+ 
+ %ifTrue1:
+ preds:  %main.entryBB1  
+ doms:  %ifTrue1  %main.entryBB1  
+ 		 %t2  =   div  %a1   %b1 
+ 		 %t3  = sne  %t2   1 
+ 		 br  %t3  %if_thenBB1 %if_elseBB1 
+ 
+ %if_thenBB1:
+ preds:  %ifTrue1  
+ doms:  %ifTrue1  %if_thenBB1  %main.entryBB1  
+ 		 %c1  = move  10 
+ 		 jump %if_end1
+ 
+ %if_elseBB1:
+ preds:  %ifTrue1  %main.entryBB1  
+ doms:  %if_elseBB1  %main.entryBB1  
+ 		 %c1  = move  20 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_elseBB1  %if_thenBB1  
+ doms:  %if_end1  %main.entryBB1  
+ 		 %t4  = seq  %c1   10 
+ 		 br  %t4  %ifTrue2 %if_thenBB2 
+ 
+ %ifTrue2:
+ preds:  %if_end1  
+ doms:  %ifTrue2  %if_end1  %main.entryBB1  
+ 		 %t5  =   div  %a1   %b1 
+ 		 %t6  = seq  %t5   0 
+ 		 br  %t6  %ifTrue3 %if_thenBB2 
+ 
+ %ifTrue3:
+ preds:  %ifTrue2  
+ doms:  %ifTrue2  %if_end1  %ifTrue3  %main.entryBB1  
+ 		 %t7  = seq  %a1   5 
+ 		 br  %t7  %if_end2 %if_thenBB2 
+ 
+ %if_thenBB2:
+ preds:  %ifTrue2  %if_end1  %ifTrue3  
+ doms:  %if_end1  %if_thenBB2  %main.entryBB1  
+ 		 %c1  = move  30 
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %if_thenBB2  %ifTrue3  
+ doms:  %if_end1  %if_end2  %main.entryBB1  
+ 		 ret  %c1 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

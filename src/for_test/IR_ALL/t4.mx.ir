@@ -1,0 +1,362 @@
+ @constStr_0 = " "
+ @constStr_1 = "\n"
+ @a 
+ @n 
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  =  call getString  
+ 		 %t2  =  call string.parseInt  %t1 
+ 		 @n  = move  %t2 
+ 		 %t3  =   mul  @n   4 
+ 		 %t3  =   add  %t3   4 
+ 		 %t4  = alloc  %t3 
+ 		 store  %t4   @n 
+ 		 @a  = move  %t4 
+ 		 %i1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %main.entryBB1  %forupdateBB1  
+ doms:  %main.entryBB1  %forcondBB1  
+ 		 %t5  =  call array.size  @a 
+ 		 %t6  = slt  %i1   %t5 
+ 		 br  %t6  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %afterForBB1  %forcondBB1  
+ 		 %t7  =  call makeHeap  
+ 		 %t8  =  call heapSort  
+ 		 %i1  = move  0 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %forupdateBB2  %afterForBB1  
+ doms:  %main.entryBB1  %afterForBB1  %forcondBB2  %forcondBB1  
+ 		 %t9  =  call array.size  @a 
+ 		 %t10  = slt  %i1   %t9 
+ 		 br  %t10  %forbodyBB2 %afterForBB2 
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %main.entryBB1  %forbodyBB2  %afterForBB1  %forcondBB2  %forcondBB1  
+ 		 %t11  =   mul  %i1   4 
+ 		 %t12  =   add  %t11   4 
+ 		 %t13  =   add  @a   %t12 
+ 		 %t14  = load  %t13 
+ 		 %t15  =  call toString  %t14   
+ 		 %t16  =  call string.add  %t15   @constStr_0   
+ 		 %t17  =  call print  %t16   
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %forbodyBB2  
+ doms:  %forupdateBB2  %main.entryBB1  %forbodyBB2  %afterForBB1  %forcondBB2  %forcondBB1  
+ 		 %t18  =   add  %i1   1 
+ 		 %i1  = move  %t18 
+ 		 jump %forcondBB2
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %main.entryBB1  %afterForBB2  %afterForBB1  %forcondBB2  %forcondBB1  
+ 		 %t19  =  call print  @constStr_1   
+ 		 ret  0 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %main.entryBB1  %forbodyBB1  %forcondBB1  
+ 		 %t20  =   mul  %i1   4 
+ 		 %t21  =   add  %t20   4 
+ 		 %t22  =   add  @a   %t21 
+ 		 store  %t22   %i1 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %main.entryBB1  %forbodyBB1  %forupdateBB1  %forcondBB1  
+ 		 %t23  =   add  %i1   1 
+ 		 %i1  = move  %t23 
+ 		 jump %forcondBB1
+ 
+ }
+ define i32 @heapSort   {
+ %heapSort.entryBB1:
+ preds:  
+ doms:  %heapSort.entryBB1  
+ 		 %t1  = move  0 
+ 		 %k1  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %heapSort.entryBB1  %forupdateBB1  
+ doms:  %heapSort.entryBB1  %forcondBB1  
+ 		 %t2  = slt  %k1   @n 
+ 		 br  %t2  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %heapSort.entryBB1  %forcondBB1  %afterForBB1  
+ 		 ret  0 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %heapSort.entryBB1  %forcondBB1  %forbodyBB1  
+ 		 %t3  =   mul  0   4 
+ 		 %t4  =   add  %t3   4 
+ 		 %t5  =   add  @a   %t4 
+ 		 %t6  = load  %t5 
+ 		 %t1  = move  %t6 
+ 		 %t7  =   mul  0   4 
+ 		 %t8  =   add  %t7   4 
+ 		 %t9  =   add  @a   %t8 
+ 		 %t10  =   sub  @n   %k1 
+ 		 %t11  =   sub  %t10   1 
+ 		 %t12  =   mul  %t11   4 
+ 		 %t13  =   add  %t12   4 
+ 		 %t14  =   add  @a   %t13 
+ 		 %t15  = load  %t14 
+ 		 store  %t9   %t15 
+ 		 %t16  =   sub  @n   %k1 
+ 		 %t17  =   sub  %t16   1 
+ 		 %t18  =   mul  %t17   4 
+ 		 %t19  =   add  %t18   4 
+ 		 %t20  =   add  @a   %t19 
+ 		 store  %t20   %t1 
+ 		 %t21  =   sub  @n   %k1 
+ 		 %t22  =   sub  %t21   1 
+ 		 %t23  =  call adjustHeap  %t22   
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %heapSort.entryBB1  %forupdateBB1  %forcondBB1  %forbodyBB1  
+ 		 %t24  =   add  %k1   1 
+ 		 %k1  = move  %t24 
+ 		 jump %forcondBB1
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }
+ define void @exchange  %x1 %y1  {
+ %exchange.entryBB1:
+ preds:  
+ doms:  %exchange.entryBB1  
+ 		 %t1  =   mul  %x1   4 
+ 		 %t2  =   add  %t1   4 
+ 		 %t3  =   add  @a   %t2 
+ 		 %t4  = load  %t3 
+ 		 %t5  = move  %t4 
+ 		 %t6  =   mul  %x1   4 
+ 		 %t7  =   add  %t6   4 
+ 		 %t8  =   add  @a   %t7 
+ 		 %t9  =   mul  %y1   4 
+ 		 %t10  =   add  %t9   4 
+ 		 %t11  =   add  @a   %t10 
+ 		 %t12  = load  %t11 
+ 		 store  %t8   %t12 
+ 		 %t13  =   mul  %y1   4 
+ 		 %t14  =   add  %t13   4 
+ 		 %t15  =   add  @a   %t14 
+ 		 store  %t15   %t5 
+ 		 ret  
+ 
+ }
+ define i32 @adjustHeap  %n1  {
+ %adjustHeap.entryBB1:
+ preds:  
+ doms:  %adjustHeap.entryBB1  
+ 		 %i1  = move  0 
+ 		 %j1  = move  0 
+ 		 %t1  = move  0 
+ 		 jump %whileCondBB1
+ 
+ %whileCondBB1:
+ preds:  %if_end1  %adjustHeap.entryBB1  
+ doms:  %whileCondBB1  %adjustHeap.entryBB1  
+ 		 %t2  =   mul  %i1   2 
+ 		 %t3  = slt  %t2   %n1 
+ 		 br  %t3  %whileBodyBB1 %afterWhileBB1 
+ 		 jump %whileBodyBB1
+ 
+ %whileBodyBB1:
+ preds:  %whileCondBB1  
+ doms:  %whileCondBB1  %whileBodyBB1  %adjustHeap.entryBB1  
+ 		 %t4  =   mul  %i1   2 
+ 		 %j1  = move  %t4 
+ 		 %t5  =   mul  %i1   2 
+ 		 %t6  =   add  %t5   1 
+ 		 %t7  = slt  %t6   %n1 
+ 		 br  %t7  %ifTrue1 %if_end2 
+ 
+ %ifTrue1:
+ preds:  %whileBodyBB1  
+ doms:  %whileCondBB1  %whileBodyBB1  %adjustHeap.entryBB1  %ifTrue1  
+ 		 %t8  =   mul  %i1   2 
+ 		 %t9  =   add  %t8   1 
+ 		 %t10  =   mul  %t9   4 
+ 		 %t11  =   add  %t10   4 
+ 		 %t12  =   add  @a   %t11 
+ 		 %t13  =   mul  %i1   2 
+ 		 %t14  =   mul  %t13   4 
+ 		 %t15  =   add  %t14   4 
+ 		 %t16  =   add  @a   %t15 
+ 		 %t17  = load  %t12 
+ 		 %t18  = load  %t16 
+ 		 %t19  = slt  %t17   %t18 
+ 		 br  %t19  %if_thenBB1 %if_end2 
+ 
+ %if_thenBB1:
+ preds:  %ifTrue1  
+ doms:  %whileCondBB1  %whileBodyBB1  %adjustHeap.entryBB1  %ifTrue1  %if_thenBB1  
+ 		 %t20  =   mul  %i1   2 
+ 		 %t21  =   add  %t20   1 
+ 		 %j1  = move  %t21 
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %whileBodyBB1  %ifTrue1  %if_thenBB1  
+ doms:  %whileCondBB1  %whileBodyBB1  %adjustHeap.entryBB1  %if_end2  
+ 		 %t22  =   mul  %i1   4 
+ 		 %t23  =   add  %t22   4 
+ 		 %t24  =   add  @a   %t23 
+ 		 %t25  =   mul  %j1   4 
+ 		 %t26  =   add  %t25   4 
+ 		 %t27  =   add  @a   %t26 
+ 		 %t28  = load  %t24 
+ 		 %t29  = load  %t27 
+ 		 %t30  = sgt  %t28   %t29 
+ 		 br  %t30  %if_thenBB2 %if_elseBB1 
+ 
+ %if_thenBB2:
+ preds:  %if_end2  
+ doms:  %whileCondBB1  %whileBodyBB1  %adjustHeap.entryBB1  %if_thenBB2  %if_end2  
+ 		 %t31  =   mul  %i1   4 
+ 		 %t32  =   add  %t31   4 
+ 		 %t33  =   add  @a   %t32 
+ 		 %t34  = load  %t33 
+ 		 %t35  = move  %t34 
+ 		 %t36  =   mul  %i1   4 
+ 		 %t37  =   add  %t36   4 
+ 		 %t38  =   add  @a   %t37 
+ 		 %t39  =   mul  %j1   4 
+ 		 %t40  =   add  %t39   4 
+ 		 %t41  =   add  @a   %t40 
+ 		 %t42  = load  %t41 
+ 		 store  %t38   %t42 
+ 		 %t43  =   mul  %j1   4 
+ 		 %t44  =   add  %t43   4 
+ 		 %t45  =   add  @a   %t44 
+ 		 store  %t45   %t35 
+ 		 %i1  = move  %j1 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB2  
+ doms:  %if_end1  %whileCondBB1  %whileBodyBB1  %adjustHeap.entryBB1  %if_thenBB2  %if_end2  
+ 		 jump %whileCondBB1
+ 
+ %if_elseBB1:
+ preds:  %if_end2  
+ doms:  %if_elseBB1  %whileCondBB1  %whileBodyBB1  %adjustHeap.entryBB1  %if_end2  
+ 		 jump %afterWhileBB1
+ 
+ %afterWhileBB1:
+ preds:  %if_elseBB1  %whileCondBB1  
+ doms:  %whileCondBB1  %adjustHeap.entryBB1  %afterWhileBB1  
+ 		 ret  0 
+ 
+ }
+ define i32 @makeHeap   {
+ %makeHeap.entryBB1:
+ preds:  
+ doms:  %makeHeap.entryBB1  
+ 		 %t1  =   sub  @n   1 
+ 		 %t2  =   div  %t1   2 
+ 		 %i1  = move  %t2 
+ 		 %t3  = move  0 
+ 		 %j1  = move  0 
+ 		 jump %whileCondBB1
+ 
+ %whileCondBB1:
+ preds:  %makeHeap.entryBB1  %if_end1  
+ doms:  %makeHeap.entryBB1  %whileCondBB1  
+ 		 %t4  = sge  %i1   0 
+ 		 br  %t4  %whileBodyBB1 %afterWhileBB1 
+ 		 jump %whileBodyBB1
+ 
+ %afterWhileBB1:
+ preds:  %whileCondBB1  
+ doms:  %makeHeap.entryBB1  %whileCondBB1  %afterWhileBB1  
+ 		 ret  0 
+ 
+ %whileBodyBB1:
+ preds:  %whileCondBB1  
+ doms:  %makeHeap.entryBB1  %whileBodyBB1  %whileCondBB1  
+ 		 %t5  =   mul  %i1   2 
+ 		 %j1  = move  %t5 
+ 		 %t6  =   mul  %i1   2 
+ 		 %t7  =   add  %t6   1 
+ 		 %t8  = slt  %t7   @n 
+ 		 br  %t8  %ifTrue1 %if_end2 
+ 
+ %ifTrue1:
+ preds:  %whileBodyBB1  
+ doms:  %makeHeap.entryBB1  %whileBodyBB1  %ifTrue1  %whileCondBB1  
+ 		 %t9  =   mul  %i1   2 
+ 		 %t10  =   add  %t9   1 
+ 		 %t11  =   mul  %t10   4 
+ 		 %t12  =   add  %t11   4 
+ 		 %t13  =   add  @a   %t12 
+ 		 %t14  =   mul  %i1   2 
+ 		 %t15  =   mul  %t14   4 
+ 		 %t16  =   add  %t15   4 
+ 		 %t17  =   add  @a   %t16 
+ 		 %t18  = load  %t13 
+ 		 %t19  = load  %t17 
+ 		 %t20  = slt  %t18   %t19 
+ 		 br  %t20  %if_thenBB1 %if_end2 
+ 
+ %if_thenBB1:
+ preds:  %ifTrue1  
+ doms:  %makeHeap.entryBB1  %whileBodyBB1  %ifTrue1  %whileCondBB1  %if_thenBB1  
+ 		 %t21  =   mul  %i1   2 
+ 		 %t22  =   add  %t21   1 
+ 		 %j1  = move  %t22 
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %whileBodyBB1  %ifTrue1  %if_thenBB1  
+ doms:  %makeHeap.entryBB1  %whileBodyBB1  %whileCondBB1  %if_end2  
+ 		 %t23  =   mul  %i1   4 
+ 		 %t24  =   add  %t23   4 
+ 		 %t25  =   add  @a   %t24 
+ 		 %t26  =   mul  %j1   4 
+ 		 %t27  =   add  %t26   4 
+ 		 %t28  =   add  @a   %t27 
+ 		 %t29  = load  %t25 
+ 		 %t30  = load  %t28 
+ 		 %t31  = sgt  %t29   %t30 
+ 		 br  %t31  %if_thenBB2 %if_end1 
+ 
+ %if_thenBB2:
+ preds:  %if_end2  
+ doms:  %makeHeap.entryBB1  %if_thenBB2  %whileBodyBB1  %whileCondBB1  %if_end2  
+ 		 call exchange  %i1   %j1   
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB2  %if_end2  
+ doms:  %makeHeap.entryBB1  %whileBodyBB1  %if_end1  %whileCondBB1  %if_end2  
+ 		 %t32  =   sub  %i1   1 
+ 		 %i1  = move  %t32 
+ 		 jump %whileCondBB1
+ 
+ }

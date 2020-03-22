@@ -1,0 +1,420 @@
+ @total 
+ @h 
+ @i 
+ @j 
+ @k 
+ @N 
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  =  call getInt  
+ 		 @N  = move  %t1 
+ 		 %a1  = move  1 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %main.entryBB1  
+ doms:  %forcondBB1  %main.entryBB1  
+ 		 %t2  = sle  %a1   @N 
+ 		 br  %t2  %forbodyBB1 %afterForBB1 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %forbodyBB1  %main.entryBB1  
+ 		 %b1  = move  1 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %forupdateBB2  %forbodyBB1  
+ doms:  %forcondBB1  %main.entryBB1  %forbodyBB1  %forcondBB2  
+ 		 %t3  = sle  %b1   @N 
+ 		 br  %t3  %forbodyBB2 %afterForBB2 
+ 
+ %afterForBB2:
+ preds:  %forcondBB2  
+ doms:  %forcondBB1  %forbodyBB1  %forcondBB2  %main.entryBB1  %afterForBB2  
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %afterForBB2  
+ doms:  %forcondBB1  %forupdateBB1  %forbodyBB1  %forcondBB2  %main.entryBB1  %afterForBB2  
+ 		 %a1  =   add  %a1   1 
+ 		 jump %forcondBB1
+ 
+ %forbodyBB2:
+ preds:  %forcondBB2  
+ doms:  %forcondBB1  %forbodyBB2  %forbodyBB1  %forcondBB2  %main.entryBB1  
+ 		 %c1  = move  1 
+ 		 jump %forcondBB3
+ 
+ %forcondBB3:
+ preds:  %forbodyBB2  %forupdateBB3  
+ doms:  %forcondBB1  %forbodyBB2  %forbodyBB1  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %t4  = sle  %c1   @N 
+ 		 br  %t4  %forbodyBB3 %afterForBB3 
+ 
+ %afterForBB3:
+ preds:  %forcondBB3  
+ doms:  %forcondBB1  %forbodyBB2  %forbodyBB1  %forcondBB2  %afterForBB3  %main.entryBB1  %forcondBB3  
+ 		 jump %forupdateBB2
+ 
+ %forupdateBB2:
+ preds:  %afterForBB3  
+ doms:  %forcondBB1  %forbodyBB2  %forupdateBB2  %forbodyBB1  %forcondBB2  %afterForBB3  %main.entryBB1  %forcondBB3  
+ 		 %b1  =   add  %b1   1 
+ 		 jump %forcondBB2
+ 
+ %forbodyBB3:
+ preds:  %forcondBB3  
+ doms:  %forcondBB1  %forbodyBB2  %forbodyBB1  %forcondBB2  %forbodyBB3  %main.entryBB1  %forcondBB3  
+ 		 %d1  = move  1 
+ 		 jump %forcondBB4
+ 
+ %forcondBB4:
+ preds:  %forupdateBB4  %forbodyBB3  
+ doms:  %forcondBB4  %forcondBB1  %main.entryBB1  %forbodyBB2  %forbodyBB3  %forcondBB3  %forbodyBB1  %forcondBB2  
+ 		 %t5  = sle  %d1   @N 
+ 		 br  %t5  %forbodyBB4 %afterForBB4 
+ 
+ %forbodyBB4:
+ preds:  %forcondBB4  
+ doms:  %forcondBB4  %forbodyBB4  %forcondBB1  %forbodyBB2  %forbodyBB3  %forbodyBB1  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %e1  = move  1 
+ 		 jump %forcondBB5
+ 
+ %forcondBB5:
+ preds:  %forbodyBB4  %forupdateBB5  
+ doms:  %forcondBB4  %forbodyBB4  %forcondBB1  %forcondBB5  %forbodyBB2  %forbodyBB3  %forbodyBB1  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %t6  = sle  %e1   @N 
+ 		 br  %t6  %forbodyBB5 %afterForBB5 
+ 
+ %forbodyBB5:
+ preds:  %forcondBB5  
+ doms:  %forcondBB4  %forbodyBB4  %forcondBB1  %forcondBB5  %forbodyBB2  %forbodyBB3  %forbodyBB1  %forcondBB2  %forbodyBB5  %main.entryBB1  %forcondBB3  
+ 		 %f1  = move  1 
+ 		 jump %forcondBB6
+ 
+ %forcondBB6:
+ preds:  %forupdateBB6  %forbodyBB5  
+ doms:  %forcondBB4  %forbodyBB4  %forcondBB1  %main.entryBB1  %forbodyBB2  %forbodyBB3  %forcondBB5  %forcondBB3  %forcondBB6  %forbodyBB1  %forbodyBB5  %forcondBB2  
+ 		 %t7  = sle  %f1   @N 
+ 		 br  %t7  %forbodyBB6 %afterForBB6 
+ 
+ %afterForBB6:
+ preds:  %forcondBB6  
+ doms:  %forcondBB4  %forbodyBB4  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %afterForBB6  %forbodyBB2  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 jump %forupdateBB5
+ 
+ %forupdateBB5:
+ preds:  %afterForBB6  
+ doms:  %forcondBB4  %forbodyBB4  %forcondBB6  %forupdateBB5  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %afterForBB6  %forbodyBB2  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %e1  =   add  %e1   1 
+ 		 jump %forcondBB5
+ 
+ %forbodyBB6:
+ preds:  %forcondBB6  
+ doms:  %forcondBB4  %forbodyBB4  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %t8  = sne  %a1   %b1 
+ 		 br  %t8  %ifTrue1 %if_end1 
+ 
+ %ifTrue1:
+ preds:  %forbodyBB6  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %t9  = sne  %a1   %c1 
+ 		 br  %t9  %ifTrue2 %if_end1 
+ 
+ %ifTrue2:
+ preds:  %ifTrue1  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue2  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %t10  = sne  %a1   %d1 
+ 		 br  %t10  %ifTrue3 %if_end1 
+ 
+ %ifTrue3:
+ preds:  %ifTrue2  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue2  %ifTrue3  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %t11  = sne  %a1   %e1 
+ 		 br  %t11  %ifTrue4 %if_end1 
+ 
+ %ifTrue4:
+ preds:  %ifTrue3  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue2  %ifTrue3  %forcondBB2  %main.entryBB1  %ifTrue4  %forcondBB3  
+ 		 %t12  = sne  %a1   %f1 
+ 		 br  %t12  %ifTrue5 %if_end1 
+ 
+ %ifTrue5:
+ preds:  %ifTrue4  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue2  %ifTrue3  %forcondBB2  %ifTrue5  %main.entryBB1  %ifTrue4  %forcondBB3  
+ 		 %t13  = sne  %a1   @h 
+ 		 br  %t13  %ifTrue6 %if_end1 
+ 
+ %ifTrue6:
+ preds:  %ifTrue5  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue2  %ifTrue3  %forcondBB2  %ifTrue5  %main.entryBB1  %ifTrue4  %forcondBB3  
+ 		 %t14  = sne  %a1   @i 
+ 		 br  %t14  %ifTrue7 %if_end1 
+ 
+ %ifTrue7:
+ preds:  %ifTrue6  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue2  %ifTrue3  %forcondBB2  %ifTrue5  %main.entryBB1  %ifTrue4  %ifTrue7  %forcondBB3  
+ 		 %t15  = sne  %a1   @j 
+ 		 br  %t15  %ifTrue8 %if_end1 
+ 
+ %ifTrue8:
+ preds:  %ifTrue7  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue2  %ifTrue3  %forcondBB2  %ifTrue5  %main.entryBB1  %ifTrue4  %ifTrue7  %forcondBB3  
+ 		 %t16  = sne  %a1   @k 
+ 		 br  %t16  %ifTrue9 %if_end1 
+ 
+ %ifTrue9:
+ preds:  %ifTrue8  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue2  %ifTrue3  %forcondBB2  %ifTrue5  %main.entryBB1  %ifTrue4  %ifTrue7  %ifTrue9  %forcondBB3  
+ 		 %t17  = sne  %b1   %c1 
+ 		 br  %t17  %ifTrue10 %if_end1 
+ 
+ %ifTrue10:
+ preds:  %ifTrue9  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forcondBB6  %ifTrue10  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue2  %ifTrue3  %forcondBB2  %ifTrue5  %main.entryBB1  %ifTrue4  %ifTrue7  %ifTrue9  %forcondBB3  
+ 		 %t18  = sne  %b1   %d1 
+ 		 br  %t18  %ifTrue11 %if_end1 
+ 
+ %ifTrue11:
+ preds:  %ifTrue10  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forcondBB6  %ifTrue10  %forbodyBB3  %forbodyBB1  %forbodyBB5  %ifTrue11  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue2  %ifTrue3  %forcondBB2  %ifTrue5  %main.entryBB1  %ifTrue4  %ifTrue7  %ifTrue9  %forcondBB3  
+ 		 %t19  = sne  %b1   %e1 
+ 		 br  %t19  %ifTrue12 %if_end1 
+ 
+ %ifTrue12:
+ preds:  %ifTrue11  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %main.entryBB1  %forcondBB3  %ifTrue12  %forcondBB6  %ifTrue10  %forbodyBB1  %forbodyBB5  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  
+ 		 %t20  = sne  %b1   %f1 
+ 		 br  %t20  %ifTrue13 %if_end1 
+ 
+ %ifTrue13:
+ preds:  %ifTrue12  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %main.entryBB1  %forcondBB3  %ifTrue12  %forcondBB6  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  
+ 		 %t21  = sne  %b1   @h 
+ 		 br  %t21  %ifTrue14 %if_end1 
+ 
+ %ifTrue14:
+ preds:  %ifTrue13  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue12  %forcondBB6  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  
+ 		 %t22  = sne  %b1   @i 
+ 		 br  %t22  %ifTrue15 %if_end1 
+ 
+ %ifTrue15:
+ preds:  %ifTrue14  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  
+ 		 %t23  = sne  %b1   @j 
+ 		 br  %t23  %ifTrue16 %if_end1 
+ 
+ %ifTrue16:
+ preds:  %ifTrue15  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t24  = sne  %b1   @k 
+ 		 br  %t24  %ifTrue17 %if_end1 
+ 
+ %ifTrue17:
+ preds:  %ifTrue16  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %ifTrue17  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t25  = sne  %c1   %d1 
+ 		 br  %t25  %ifTrue18 %if_end1 
+ 
+ %ifTrue18:
+ preds:  %ifTrue17  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %ifTrue17  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t26  = sne  %c1   %e1 
+ 		 br  %t26  %ifTrue19 %if_end1 
+ 
+ %ifTrue19:
+ preds:  %ifTrue18  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %ifTrue17  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t27  = sne  %c1   %f1 
+ 		 br  %t27  %ifTrue20 %if_end1 
+ 
+ %ifTrue20:
+ preds:  %ifTrue19  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %ifTrue17  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t28  = sne  %c1   @h 
+ 		 br  %t28  %ifTrue21 %if_end1 
+ 
+ %ifTrue21:
+ preds:  %ifTrue20  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %ifTrue17  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %forbodyBB5  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t29  = sne  %c1   @i 
+ 		 br  %t29  %ifTrue22 %if_end1 
+ 
+ %ifTrue22:
+ preds:  %ifTrue21  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %ifTrue17  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t30  = sne  %c1   @j 
+ 		 br  %t30  %ifTrue23 %if_end1 
+ 
+ %ifTrue23:
+ preds:  %ifTrue22  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %ifTrue17  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t31  = sne  %c1   @k 
+ 		 br  %t31  %ifTrue24 %if_end1 
+ 
+ %ifTrue24:
+ preds:  %ifTrue23  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %forbodyBB3  %ifTrue11  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t32  = sne  %d1   %e1 
+ 		 br  %t32  %ifTrue25 %if_end1 
+ 
+ %ifTrue25:
+ preds:  %ifTrue24  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %forbodyBB3  %ifTrue11  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t33  = sne  %d1   %f1 
+ 		 br  %t33  %ifTrue26 %if_end1 
+ 
+ %ifTrue26:
+ preds:  %ifTrue25  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %forbodyBB3  %ifTrue11  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t34  = sne  %d1   @h 
+ 		 br  %t34  %ifTrue27 %if_end1 
+ 
+ %ifTrue27:
+ preds:  %ifTrue26  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %forbodyBB3  %ifTrue11  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t35  = sne  %d1   @i 
+ 		 br  %t35  %ifTrue28 %if_end1 
+ 
+ %ifTrue28:
+ preds:  %ifTrue27  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %forbodyBB3  %ifTrue28  %ifTrue11  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t36  = sne  %d1   @j 
+ 		 br  %t36  %ifTrue29 %if_end1 
+ 
+ %ifTrue29:
+ preds:  %ifTrue28  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue11  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t37  = sne  %d1   @k 
+ 		 br  %t37  %ifTrue30 %if_end1 
+ 
+ %ifTrue30:
+ preds:  %ifTrue29  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue11  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t38  = sne  %e1   %f1 
+ 		 br  %t38  %ifTrue31 %if_end1 
+ 
+ %ifTrue31:
+ preds:  %ifTrue30  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue11  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t39  = sne  %e1   @h 
+ 		 br  %t39  %ifTrue32 %if_end1 
+ 
+ %ifTrue32:
+ preds:  %ifTrue31  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue11  %ifTrue32  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t40  = sne  %e1   @i 
+ 		 br  %t40  %ifTrue33 %if_end1 
+ 
+ %ifTrue33:
+ preds:  %ifTrue32  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue11  %ifTrue32  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue13  %ifTrue21  %ifTrue20  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t41  = sne  %e1   @j 
+ 		 br  %t41  %ifTrue34 %if_end1 
+ 
+ %ifTrue34:
+ preds:  %ifTrue33  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue11  %ifTrue32  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue13  %ifTrue21  %ifTrue20  %ifTrue34  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t42  = sne  %e1   @k 
+ 		 br  %t42  %ifTrue35 %if_end1 
+ 
+ %ifTrue35:
+ preds:  %ifTrue34  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue11  %ifTrue32  %ifTrue17  %ifTrue24  %forcondBB1  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue18  %main.entryBB1  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue27  %ifTrue12  %forcondBB6  %ifTrue15  %ifTrue10  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue13  %ifTrue21  %ifTrue20  %ifTrue34  %forbodyBB6  %forbodyBB2  %ifTrue35  %ifTrue8  %ifTrue31  %forcondBB2  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ 		 %t43  = sne  %f1   @h 
+ 		 br  %t43  %ifTrue36 %if_end1 
+ 
+ %ifTrue36:
+ preds:  %ifTrue35  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue11  %forcondBB1  %ifTrue18  %main.entryBB1  %ifTrue27  %ifTrue15  %ifTrue10  %ifTrue13  %ifTrue21  %ifTrue34  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue32  %ifTrue17  %ifTrue24  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue36  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue20  %ifTrue35  %forcondBB2  %ifTrue26  %ifTrue9  %ifTrue16  
+ 		 %t44  = sne  %f1   @i 
+ 		 br  %t44  %ifTrue37 %if_end1 
+ 
+ %ifTrue37:
+ preds:  %ifTrue36  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue11  %forcondBB1  %ifTrue18  %main.entryBB1  %ifTrue27  %ifTrue15  %ifTrue10  %ifTrue13  %ifTrue21  %ifTrue34  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue32  %ifTrue37  %ifTrue17  %ifTrue24  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue36  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue20  %ifTrue35  %forcondBB2  %ifTrue26  %ifTrue9  %ifTrue16  
+ 		 %t45  = sne  %f1   @j 
+ 		 br  %t45  %ifTrue38 %if_end1 
+ 
+ %ifTrue38:
+ preds:  %ifTrue37  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue11  %forcondBB1  %ifTrue18  %main.entryBB1  %ifTrue27  %ifTrue15  %ifTrue10  %ifTrue13  %ifTrue21  %ifTrue34  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue38  %ifTrue32  %ifTrue37  %ifTrue17  %ifTrue24  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue36  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue20  %ifTrue35  %forcondBB2  %ifTrue26  %ifTrue9  %ifTrue16  
+ 		 %t46  = sne  %f1   @k 
+ 		 br  %t46  %ifTrue39 %if_end1 
+ 
+ %ifTrue39:
+ preds:  %ifTrue38  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue11  %forcondBB1  %ifTrue18  %main.entryBB1  %ifTrue27  %ifTrue15  %ifTrue10  %ifTrue13  %ifTrue21  %ifTrue34  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue38  %ifTrue39  %ifTrue32  %ifTrue37  %ifTrue17  %ifTrue24  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue36  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue20  %ifTrue35  %forcondBB2  %ifTrue26  %ifTrue9  %ifTrue16  
+ 		 %t47  = sne  @i   @j 
+ 		 br  %t47  %ifTrue40 %if_end1 
+ 
+ %ifTrue40:
+ preds:  %ifTrue39  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue11  %forcondBB1  %ifTrue18  %main.entryBB1  %ifTrue27  %ifTrue15  %ifTrue10  %ifTrue13  %ifTrue21  %ifTrue34  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue38  %ifTrue39  %ifTrue32  %ifTrue37  %ifTrue17  %ifTrue24  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue36  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue40  %ifTrue20  %ifTrue35  %forcondBB2  %ifTrue26  %ifTrue9  %ifTrue16  
+ 		 %t48  = sne  @h   @k 
+ 		 br  %t48  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %ifTrue40  
+ doms:  %forcondBB4  %forbodyBB4  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue11  %forcondBB1  %ifTrue18  %main.entryBB1  %ifTrue27  %ifTrue15  %ifTrue10  %ifTrue13  %ifTrue21  %ifTrue34  %forbodyBB6  %forbodyBB2  %ifTrue8  %ifTrue31  %ifTrue5  %ifTrue4  %ifTrue7  %ifTrue29  %forbodyBB3  %ifTrue28  %ifTrue30  %ifTrue38  %ifTrue39  %ifTrue32  %ifTrue37  %ifTrue17  %ifTrue24  %forcondBB5  %ifTrue2  %ifTrue3  %ifTrue36  %ifTrue14  %forcondBB3  %ifTrue19  %ifTrue12  %forcondBB6  %forbodyBB1  %ifTrue22  %forbodyBB5  %ifTrue23  %ifTrue33  %ifTrue40  %ifTrue20  %if_thenBB1  %ifTrue35  %forcondBB2  %ifTrue26  %ifTrue9  %ifTrue16  
+ 		 @total  =   add  @total   1 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %ifTrue6  %ifTrue1  %ifTrue25  %ifTrue29  %ifTrue28  %ifTrue30  %ifTrue38  %ifTrue39  %ifTrue11  %ifTrue32  %ifTrue37  %ifTrue17  %ifTrue24  %ifTrue2  %ifTrue3  %ifTrue36  %ifTrue18  %ifTrue14  %ifTrue19  %ifTrue27  %ifTrue12  %ifTrue15  %ifTrue10  %ifTrue22  %ifTrue23  %ifTrue33  %ifTrue40  %ifTrue13  %ifTrue21  %ifTrue20  %ifTrue34  %if_thenBB1  %forbodyBB6  %ifTrue35  %ifTrue8  %ifTrue31  %ifTrue5  %ifTrue4  %ifTrue26  %ifTrue7  %ifTrue9  %ifTrue16  
+ doms:  %forcondBB4  %forbodyBB4  %if_end1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 jump %forupdateBB6
+ 
+ %forupdateBB6:
+ preds:  %if_end1  
+ doms:  %forcondBB4  %forbodyBB4  %if_end1  %forcondBB6  %forbodyBB3  %forbodyBB1  %forbodyBB5  %forupdateBB6  %forcondBB1  %forcondBB5  %forbodyBB6  %forbodyBB2  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %f1  =   add  %f1   1 
+ 		 jump %forcondBB6
+ 
+ %afterForBB5:
+ preds:  %forcondBB5  
+ doms:  %forcondBB4  %forbodyBB4  %afterForBB5  %forcondBB1  %forcondBB5  %forbodyBB2  %forbodyBB3  %forbodyBB1  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 jump %forupdateBB4
+ 
+ %forupdateBB4:
+ preds:  %afterForBB5  
+ doms:  %forcondBB4  %forbodyBB4  %afterForBB5  %forcondBB1  %forcondBB5  %forbodyBB2  %forupdateBB4  %forbodyBB3  %forbodyBB1  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 %d1  =   add  %d1   1 
+ 		 jump %forcondBB4
+ 
+ %afterForBB4:
+ preds:  %forcondBB4  
+ doms:  %afterForBB4  %forcondBB4  %forcondBB1  %forbodyBB2  %forbodyBB3  %forbodyBB1  %forcondBB2  %main.entryBB1  %forcondBB3  
+ 		 jump %forupdateBB3
+ 
+ %forupdateBB3:
+ preds:  %afterForBB4  
+ doms:  %afterForBB4  %forcondBB4  %forcondBB1  %forbodyBB2  %forbodyBB3  %forbodyBB1  %forcondBB2  %main.entryBB1  %forupdateBB3  %forcondBB3  
+ 		 %c1  =   add  %c1   1 
+ 		 jump %forcondBB3
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %afterForBB1  %forcondBB1  %main.entryBB1  
+ 		 %t49  =  call toString  @total   
+ 		 %t50  =  call println  %t49   
+ 		 ret  0 
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 @h  = move  99 
+ 		 @i  = move  100 
+ 		 @j  = move  101 
+ 		 @k  = move  102 
+ 		 @total  = move  0 
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

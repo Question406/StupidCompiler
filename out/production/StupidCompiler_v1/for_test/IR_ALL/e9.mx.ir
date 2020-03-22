@@ -1,0 +1,95 @@
+ @constStr_0 = "YES"
+ @constStr_1 = "NO"
+ @p 
+ @q 
+ @r 
+ @x 
+ @y 
+ @i 
+ @z 
+ @n 
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  =  call getInt  
+ 		 @n  = move  %t1 
+ 		 @i  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forupdateBB1  %main.entryBB1  
+ doms:  %forcondBB1  %main.entryBB1  
+ 		 %t2  = slt  @i   @n 
+ 		 br  %t2  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %forcondBB1  %afterForBB1  %main.entryBB1  
+ 		 %t3  = seq  @x   0 
+ 		 br  %t3  %ifTrue1 %if_elseBB1 
+ 
+ %ifTrue1:
+ preds:  %afterForBB1  
+ doms:  %forcondBB1  %ifTrue1  %afterForBB1  %main.entryBB1  
+ 		 %t4  = seq  @y   0 
+ 		 br  %t4  %ifTrue2 %if_elseBB1 
+ 
+ %ifTrue2:
+ preds:  %ifTrue1  
+ doms:  %forcondBB1  %ifTrue1  %afterForBB1  %ifTrue2  %main.entryBB1  
+ 		 %t5  = seq  @z   0 
+ 		 br  %t5  %if_thenBB1 %if_elseBB1 
+ 
+ %if_thenBB1:
+ preds:  %ifTrue2  
+ doms:  %forcondBB1  %ifTrue1  %if_thenBB1  %afterForBB1  %ifTrue2  %main.entryBB1  
+ 		 %t6  =  call print  @constStr_0   
+ 		 jump %if_end1
+ 
+ %if_elseBB1:
+ preds:  %ifTrue1  %afterForBB1  %ifTrue2  
+ doms:  %forcondBB1  %afterForBB1  %if_elseBB1  %main.entryBB1  
+ 		 %t7  =  call print  @constStr_1   
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %if_thenBB1  %if_elseBB1  
+ doms:  %forcondBB1  %afterForBB1  %if_end1  %main.entryBB1  
+ 		 ret  0 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %forbodyBB1  %forcondBB1  %main.entryBB1  
+ 		 %t8  =  call getInt  
+ 		 @p  = move  %t8 
+ 		 %t9  =  call getInt  
+ 		 @q  = move  %t9 
+ 		 %t10  =  call getInt  
+ 		 @r  = move  %t10 
+ 		 %t11  =   add  @x   @p 
+ 		 @x  = move  %t11 
+ 		 %t12  =   add  @y   @q 
+ 		 @y  = move  %t12 
+ 		 %t13  =   add  @z   @r 
+ 		 @z  = move  %t13 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %forbodyBB1  
+ doms:  %forbodyBB1  %forcondBB1  %forupdateBB1  %main.entryBB1  
+ 		 @i  =   add  @i   1 
+ 		 jump %forcondBB1
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 @x  = move  0 
+ 		 @y  = move  0 
+ 		 @z  = move  0 
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }

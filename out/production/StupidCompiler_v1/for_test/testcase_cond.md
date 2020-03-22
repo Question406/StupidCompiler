@@ -77,10 +77,10 @@
     t61 good
     t62 good
     t63 good
-    t64 good (but string output escaped Java, \" not print out ")
-    t65 *fail SHA (output error)
+    t64 good 
+    t65 good *SHA-1 (but crackSHA-1 needs runs too many insts)
     t66 good
-    t67 good (string output err)
+    t67 good
     t68 good
     
     Found out the IRprinter mem size is not the same as mine,

@@ -13,9 +13,13 @@ public class BasicBlock {
     Function func;
     public Instruction insthead;
     public Instruction insttail;
+    public int RPOnum = 0;
 
-    Set<BasicBlock> predBBs;
-    Set<BasicBlock> succBBs;
+    public Set<BasicBlock> DomBBs;
+    public Set<BasicBlock> DomFros;
+    public Set<BasicBlock> predBBs;
+    public Set<BasicBlock> succBBs;
+    public BasicBlock IDom;
 
     boolean ended;
 
@@ -46,7 +50,7 @@ public class BasicBlock {
 
     public void linkNextBB(BasicBlock BB) {
         this.addSuccBB(BB);
-        BB.addPredBB(BB);
+        BB.addPredBB(this);
     }
 
     public void endBB(Instruction inst) {
@@ -83,6 +87,77 @@ public class BasicBlock {
             insttail = insttail.prev;
             insttail.next = null;
         }
+    }
+
+    public void removeTail() {
+        if (insttail == null)
+            throw  new RuntimeException("remove inst from empty block");
+        if (insthead == insttail) {
+            insthead = insttail = null;
+            for (var sucBB : succBBs)
+                sucBB.predBBs.remove(this);
+            
+        }
+        else {
+            insttail = insttail.prev;
+            insttail.next = null;
+        }
+    }
+
+    public boolean isEmpty() {
+        // only one inst and it's a branch inst
+        return (insthead == insttail) &&
+                (insthead instanceof JumpInst || insthead instanceof BranchInst);
+    }
+
+    public void newJumpTo(BasicBlock oldJumpBB, BasicBlock newJumpBB) {
+        if (!insttail.isBranchInst())
+            throw new RuntimeException("illegal newJumpTo Call");
+        if (insttail instanceof JumpInst) {
+            ((JumpInst) insttail).jumpTo = newJumpBB;
+            succBBs.remove(oldJumpBB);
+            succBBs.add(newJumpBB);
+        }
+        else if (insttail instanceof BranchInst) {
+            if (((BranchInst) insttail).trueBB == oldJumpBB)
+                ((BranchInst) insttail).trueBB = newJumpBB;
+            else if (((BranchInst) insttail).elseBB == oldJumpBB)
+                ((BranchInst) insttail).elseBB = newJumpBB;
+            else
+                throw new RuntimeException("illegal newJumpTo Call at branch inst");
+            succBBs.remove(oldJumpBB);
+            succBBs.add(newJumpBB);
+        }
+    }
+
+    public void CombineBB(BasicBlock toCombine) {
+        if (insttail == null && insthead == null) {
+            insthead = toCombine.insthead;
+            insttail = toCombine.insttail;
+        }else {
+            assert insttail != null;
+
+            // reset insts from toCombine
+            for (var inst = toCombine.insthead; inst != null; inst = inst.next)
+                inst.curBB = this;
+
+
+            // link Insts
+            insttail.next = toCombine.insthead;
+            toCombine.insthead.prev = insttail;
+            insttail = toCombine.insttail;
+
+            // RM from CFG
+            toCombine.insthead = toCombine.insttail = null;
+            toCombine.RMSelf();
+        }
+    }
+
+    public void RMSelf() {
+        for (var predBB : predBBs)
+            predBB.succBBs.remove(this);
+        for (var succBB : succBBs)
+            succBB.predBBs.remove(this);
     }
 
     public Set<BasicBlock> getSuccBBs() {

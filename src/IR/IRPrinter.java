@@ -75,9 +75,16 @@ public class IRPrinter implements IRVisitor {
         }
         printAnything(" {\n");
 
+
+//        node.ComputeDomBB();
+//        node.ComputeIDomBB();
+//        node.ComputeDomFrontier();
+
+
+        var RPOBBs = node.getReversePostOrderBBs();
 //        Set<BasicBlock> visited = new HashSet<BasicBlock>();
 //        Stack<BasicBlock> BBs = new Stack<BasicBlock>();
-        for (var BB : node.BBs)
+        for (var BB : RPOBBs)
             BB.accept(this);
 //        BBs.push(node.getEntryBB());
 //        while (!BBs.empty()) {
@@ -230,6 +237,27 @@ public class IRPrinter implements IRVisitor {
     @Override
     public void visit(BasicBlock node) {
         printAnything(BBgetName(node) + ":\n");
+
+        printAnything("preds: ");
+        node.predBBs.forEach(x->printAnything(BBgetName(x)+ " "));
+        printAnything("\n");
+
+//        printAnything("succs: ");
+//        node.succBBs.forEach(x->printAnything(BBgetName(x)+ " "));
+//        printAnything("\n");
+
+//        printAnything("doms: ");
+//        node.DomBBs.forEach(x -> printAnything(BBgetName(x) + " "));
+//        printAnything("\n");
+//
+//        printAnything("idom: ");
+//        printAnything(BBgetName(node.IDom) + " ");
+//        printAnything("\n");
+//
+//        printAnything("domsfros: ");
+//        node.DomFros.forEach(x -> printAnything(BBgetName(x) + " "));
+//        printAnything("\n");
+
         for (var inst = node.insthead; inst != null; inst = inst.next) {
             printAnything("\t\t");
             inst.accept(this);

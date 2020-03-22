@@ -1,0 +1,120 @@
+ @constStr_0 = " "
+ @constStr_1 = ">> "
+ @constStr_2 = ") "
+ @constStr_3 = "("
+ @constStr_4 = "<< "
+ @p 
+ @i 
+ @k 
+ @n 
+ define i32 @main   {
+ %main.entryBB1:
+ preds:  
+ doms:  %main.entryBB1  
+ 		 %t1  =  call getInt  
+ 		 @n  = move  %t1 
+ 		 %t2  =  call getInt  
+ 		 @p  = move  %t2 
+ 		 %t3  =  call getInt  
+ 		 @k  = move  %t3 
+ 		 %t4  =   sub  @p   @k 
+ 		 %t5  = sgt  %t4   1 
+ 		 br  %t5  %if_thenBB1 %if_end1 
+ 
+ %if_thenBB1:
+ preds:  %main.entryBB1  
+ doms:  %main.entryBB1  %if_thenBB1  
+ 		 %t6  =  call print  @constStr_4   
+ 		 jump %if_end1
+ 
+ %if_end1:
+ preds:  %main.entryBB1  %if_thenBB1  
+ doms:  %if_end1  %main.entryBB1  
+ 		 %t7  =   sub  @p   @k 
+ 		 @i  = move  %t7 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %if_end1  %forupdateBB1  
+ doms:  %if_end1  %main.entryBB1  %forcondBB1  
+ 		 %t8  =   add  @p   @k 
+ 		 %t9  = sle  @i   %t8 
+ 		 br  %t9  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ doms:  %if_end1  %main.entryBB1  %forcondBB1  %afterForBB1  
+ 		 %t10  =   add  @p   @k 
+ 		 %t11  = slt  %t10   @n 
+ 		 br  %t11  %if_thenBB2 %if_end2 
+ 
+ %if_thenBB2:
+ preds:  %afterForBB1  
+ doms:  %if_end1  %main.entryBB1  %forcondBB1  %afterForBB1  %if_thenBB2  
+ 		 %t12  =  call print  @constStr_1   
+ 		 jump %if_end2
+ 
+ %if_end2:
+ preds:  %afterForBB1  %if_thenBB2  
+ doms:  %if_end1  %main.entryBB1  %forcondBB1  %afterForBB1  %if_end2  
+ 		 ret  0 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ doms:  %if_end1  %main.entryBB1  %forbodyBB1  %forcondBB1  
+ 		 %t13  = sle  1   @i 
+ 		 br  %t13  %ifTrue1 %if_end3 
+ 
+ %ifTrue1:
+ preds:  %forbodyBB1  
+ doms:  %if_end1  %main.entryBB1  %forbodyBB1  %ifTrue1  %forcondBB1  
+ 		 %t14  = sle  @i   @n 
+ 		 br  %t14  %if_thenBB3 %if_end3 
+ 
+ %if_thenBB3:
+ preds:  %ifTrue1  
+ doms:  %if_end1  %main.entryBB1  %if_thenBB3  %forbodyBB1  %ifTrue1  %forcondBB1  
+ 		 %t15  = seq  @i   @p 
+ 		 br  %t15  %if_thenBB4 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %if_thenBB3  
+ doms:  %if_end1  %main.entryBB1  %if_thenBB3  %forbodyBB1  %ifTrue1  %forcondBB1  %if_elseBB1  
+ 		 %t16  =  call printInt  @i   
+ 		 %t17  =  call print  @constStr_0   
+ 		 jump %if_end4
+ 
+ %if_thenBB4:
+ preds:  %if_thenBB3  
+ doms:  %if_end1  %main.entryBB1  %if_thenBB3  %if_thenBB4  %forbodyBB1  %ifTrue1  %forcondBB1  
+ 		 %t18  =  call print  @constStr_3   
+ 		 %t19  =  call toString  @i   
+ 		 %t20  =  call print  %t19   
+ 		 %t21  =  call print  @constStr_2   
+ 		 jump %if_end4
+ 
+ %if_end4:
+ preds:  %if_thenBB4  %if_elseBB1  
+ doms:  %if_end1  %main.entryBB1  %if_thenBB3  %forbodyBB1  %if_end4  %ifTrue1  %forcondBB1  
+ 		 jump %if_end3
+ 
+ %if_end3:
+ preds:  %forbodyBB1  %if_end4  %ifTrue1  
+ doms:  %if_end1  %main.entryBB1  %forbodyBB1  %if_end3  %forcondBB1  
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ preds:  %if_end3  
+ doms:  %if_end1  %main.entryBB1  %forbodyBB1  %forupdateBB1  %if_end3  %forcondBB1  
+ 		 @i  =   add  @i   1 
+ 		 jump %forcondBB1
+ 
+ }
+ define void @__init   {
+ %__init.entryBB1:
+ preds:  
+ doms:  %__init.entryBB1  
+ 		 %t1  =  call main  
+ 		 ret  
+ 
+ }
