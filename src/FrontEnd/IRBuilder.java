@@ -16,12 +16,9 @@ import Utils.CompileOption;
 import Utils.Location;
 import Utils.UnaryOperator;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Stack;
 import static Utils.BinaryOperator.*;
-import static Utils.CommonFunc.printAnything;
 
 public class IRBuilder implements ASTVisitor {
     Module program;
@@ -59,7 +56,7 @@ public class IRBuilder implements ASTVisitor {
         ArrayList<VarDefNode> defs = new ArrayList<VarDefNode>();
         ArrayList<StatNode> stats = new ArrayList<StatNode>();
         BlockStatNode blockStatNode = new BlockStatNode(loc, stats);
-        init = new FuncDefNode(loc, new VarTypeNode(loc, "void"),"__init", null,  blockStatNode);
+        init = new FuncDefNode(loc, new VarTypeNode(loc, "int"),"__init", null,  blockStatNode);
         for (var def : node.getProgram_defs()) {
             if (def instanceof VarDefNode) {
                 defs.add((VarDefNode) def);
@@ -68,7 +65,6 @@ public class IRBuilder implements ASTVisitor {
         }
         stats.add(new VarDefStatNode(loc, new VarDefsNode(loc, defs)));
         node.removeDef(toRm);
-//        node.getProgram_defs().add(init);
         MethodExprNode callmain = new MethodExprNode(loc, new IDExprNode(loc, "main"), null);
         stats.add(new ExprStatNode(loc, callmain));
         callmain.setWhoseEntity((FunctionEntity) globalScope.get("main"));
@@ -145,12 +141,14 @@ public class IRBuilder implements ASTVisitor {
         Entity entity = node.getScope().get(node.getID());
         if (isglobal) {
             Variable globalVar = new Variable(CastToType(node.getType()), node.getID());
+//            curBB.addInst(new AllocaInst(curBB, globalVar, new ConstInt(CompileOption.INTSIZE)));
             entity.setAddr(globalVar);
             program.addGlobalVar(globalVar);
             var init = node.getVarInit();
             if (init != null) {
                 init.accept(this);
                 curBB.addInst(new MoveInst(curBB, globalVar, init.getOperand()));
+//                curBB.addInst(new StoreInst(curBB, globalVar, init.getOperand()));
             }
         } else {
             VirReg virReg = new VirReg(node.getID());
@@ -243,7 +241,7 @@ public class IRBuilder implements ASTVisitor {
 
         curFunc = program.getGlobalFunction(name);
         if (isInClass) {
-            Pointer this_reg = new Pointer("this");
+            Pointer this_reg = new Pointer("this", 4);
             curFunc.setThisPointer(this_reg);
         }
 
@@ -426,7 +424,7 @@ public class IRBuilder implements ASTVisitor {
         if (entity == null) return;
         if (entity.isClassMember()) {
             //Pointer resAddr = new Pointer("classVar addr");
-            Pointer resAddr = new Pointer("t");
+            Pointer resAddr = new Pointer("t", 4);
             node.setOperand(resAddr);
             curBB.addInst(new BinOpInst(curBB, resAddr, BinaryOperator.ADD, new ConstInt(entity.getOffset()), curFunc.getThisPointer()));
             if (node.getTrueBB() != null) {
@@ -787,7 +785,7 @@ public class IRBuilder implements ASTVisitor {
         Entity entity = node.getWhoseEntity();
         if (entity instanceof VariableEntity) {
             // variable touch
-            Pointer resPointer = new Pointer("t");
+            Pointer resPointer = new Pointer("t", 4);
             curBB.addInst(new BinOpInst(curBB, resPointer, BinaryOperator.ADD, getVal(node.getWhose().getOperand()), new ConstInt(((VariableEntity) entity).getOffset())));
             node.setOperand(resPointer);
 
@@ -807,9 +805,6 @@ public class IRBuilder implements ASTVisitor {
     @Override
     public void visit(MethodExprNode node) throws Exception {
         var whose = node.getWhose();
-
-        if (whose instanceof MethodExprNode)
-            printAnything("123");
 
         whose.accept(this);
         FunctionEntity entity = node.getWhoseEntity();
@@ -837,6 +832,8 @@ public class IRBuilder implements ASTVisitor {
         if (node.getTrueBB() != null) {
             curBB.endBB(new BranchInst(curBB, res, node.getTrueBB(), node.getElseBB()));
         }
+        if (entity.name().equals("main"))
+            curBB.endBB(new RetInst(curBB, res));
     }
 
 
@@ -856,7 +853,7 @@ public class IRBuilder implements ASTVisitor {
         index.accept(this);
         ConstInt singleSize = new ConstInt(node.getType().allocSize());
         Operand startAddr = getVal(array.getOperand());
-        Pointer resPointer = new Pointer("t");
+        Pointer resPointer = new Pointer("t", 4);
         VirReg tmpreg = new VirReg("t");
         VirReg tmpreg2 = new VirReg("t");
         // get addr offset for a[6] to a;
@@ -881,16 +878,6 @@ public class IRBuilder implements ASTVisitor {
         rhs.accept(this);
         Operand rhsVal = rhs.getOperand();
         Operand res = null;
-//        if (rhs.getOperand() instanceof Pointer) {
-//            if (! (lhs.getOperand() instanceof Pointer)) {
-//                VirReg tmp = new VirReg("t");
-//                res = tmp;
-//                curBB.addInst(new LoadInst(curBB, tmp, (Pointer) rhs.getOperand()));
-//            }
-//            else
-//                res = rhs.getOperand();
-//        } else
-//            res = rhs.getOperand();
 
         if (rhsVal instanceof Pointer) {
             VirReg tmp = new VirReg("t");

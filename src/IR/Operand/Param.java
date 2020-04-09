@@ -7,4 +7,7 @@ public class Param extends Operand {
     String name;
 
 
+    public Param(String name) {
+        super(name);
+    }
 }

@@ -10,11 +10,13 @@ public class Addr extends Operand {
     Operand start;
 
     public Addr(Entity entity) {
+        super("null");
         this.entity = entity;
     }
 
     // FIXME:
     public Addr(Operand start, int offset) {
+        super("null");
         this.start = start;
         this.offset = offset;
     }

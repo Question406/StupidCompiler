@@ -21,7 +21,7 @@ public class BasicBlock {
     public Set<BasicBlock> succBBs;
     public BasicBlock IDom;
 
-    boolean ended;
+    public boolean ended;
 
     public BasicBlock(Function func, String name) {
         ended = false;
@@ -31,6 +31,10 @@ public class BasicBlock {
         succBBs = new HashSet<BasicBlock>();
     }
 
+    public Function getFunc() {
+        return func;
+    }
+
     public void addInst(Instruction inst) {
         if (insttail != null) {
             insttail.linkNext(inst);
@@ -38,6 +42,19 @@ public class BasicBlock {
         } else {
             insthead = insttail = inst;
         }
+    }
+
+    public void addInstPrev(Instruction inst) {
+        if (insthead != null) {
+            insthead.linkPrev(inst);
+            insthead = inst;
+        } else {
+            insthead = insttail = inst;
+        }
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void addPredBB(BasicBlock BB) {
@@ -54,7 +71,6 @@ public class BasicBlock {
     }
 
     public void endBB(Instruction inst) {
-        //
         if (! func.BBs.contains(this))
             func.BBs.add(this);
 
@@ -113,10 +129,15 @@ public class BasicBlock {
     public void newJumpTo(BasicBlock oldJumpBB, BasicBlock newJumpBB) {
         if (!insttail.isBranchInst())
             throw new RuntimeException("illegal newJumpTo Call");
+
         if (insttail instanceof JumpInst) {
+            if (((JumpInst) insttail).jumpTo != oldJumpBB)
+                throw new RuntimeException("illegal newJumpTo Call at jump inst");
             ((JumpInst) insttail).jumpTo = newJumpBB;
             succBBs.remove(oldJumpBB);
             succBBs.add(newJumpBB);
+            newJumpBB.predBBs.remove(oldJumpBB);
+            newJumpBB.predBBs.add(this);
         }
         else if (insttail instanceof BranchInst) {
             if (((BranchInst) insttail).trueBB == oldJumpBB)
@@ -127,6 +148,8 @@ public class BasicBlock {
                 throw new RuntimeException("illegal newJumpTo Call at branch inst");
             succBBs.remove(oldJumpBB);
             succBBs.add(newJumpBB);
+            newJumpBB.predBBs.remove(oldJumpBB);
+            newJumpBB.predBBs.add(this);
         }
     }
 
@@ -136,11 +159,9 @@ public class BasicBlock {
             insttail = toCombine.insttail;
         }else {
             assert insttail != null;
-
             // reset insts from toCombine
             for (var inst = toCombine.insthead; inst != null; inst = inst.next)
                 inst.curBB = this;
-
 
             // link Insts
             insttail.next = toCombine.insthead;
@@ -149,8 +170,7 @@ public class BasicBlock {
 
             // RM from CFG
             toCombine.insthead = toCombine.insttail = null;
-            toCombine.RMSelf();
-        }
+       }
     }
 
     public void RMSelf() {
@@ -162,5 +182,11 @@ public class BasicBlock {
 
     public Set<BasicBlock> getSuccBBs() {
         return succBBs;
+    }
+
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

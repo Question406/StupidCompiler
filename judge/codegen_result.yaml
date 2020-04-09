@@ -1,0 +1,858 @@
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e8.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t9.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t8.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e9.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t7.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t50.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t35.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t64.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e2.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t25.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t11.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t40.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t60.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e6.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t31.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t3.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t54.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t44.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t15.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t21.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t61.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e7.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t30.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t2.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t55.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t45.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t14.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t20.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t6.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t51.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t34.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t65.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e3.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t24.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t10.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t41.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t33.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t62.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e4.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t1.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t56.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t17.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t46.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t23.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t5.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t52.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t66.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t37.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t27.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t42.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t13.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t4.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t53.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t67.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e1.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t36.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t26.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t43.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t12.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t32.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t63.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e5.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t57.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t16.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t47.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t22.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t39.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t68.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t29.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t58.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t48.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t19.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t59.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t49.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t18.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./e10.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t38.mx
+  stage: codegen
+  verdict: Accepted
+- Compiler-ExitCode: 0
+  Compiler-Output: ''
+  Compiler-Stderr: "src/main.java:1: error: package Test does not exist\nimport Test.RealRunner;\n\
+    \           ^\nsrc/main.java:9: error: cannot find symbol\n        RealRunner\
+    \ test = new RealRunner();//\n        ^\n  symbol:   class RealRunner\n  location:\
+    \ class main\nsrc/main.java:9: error: cannot find symbol\n        RealRunner test\
+    \ = new RealRunner();//\n                              ^\n  symbol:   class RealRunner\n\
+    \  location: class main\n3 errors\nerror: compilation failed\n"
+  case: ./t28.mx
+  stage: codegen
+  verdict: 'Failed: Compiled Output Mismatch'

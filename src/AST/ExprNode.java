@@ -11,7 +11,6 @@ abstract public class ExprNode extends ASTNode {
     boolean isLvalue;
 
     Operand operand;
-    Addr addr;
     BasicBlock trueBB;
     BasicBlock elseBB;
 
@@ -56,13 +55,6 @@ abstract public class ExprNode extends ASTNode {
         return operand;
     }
 
-    public void setAddr(Addr addr) {
-        this.addr = addr;
-    }
-
-    public Addr getAddr() {
-        return addr;
-    }
 
     public BasicBlock getTrueBB() {
         return trueBB;

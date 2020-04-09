@@ -1,14 +1,22 @@
 package IR.Operand;
 
 public class Pointer extends VirReg {
-    VirReg pointTO;
+    public VirReg pointTO;
+    public int size;
 
-    public Pointer(String name, VirReg pointTO) {
+    public Pointer(String name, VirReg pointTO, int size) {
         super(name);
         this.pointTO = pointTO;
+        this.size = size;
     }
 
-    public Pointer(String name) {
+    public Pointer(String name, int size) {
         super(name);
+        this.size = size;
+    }
+
+    @Override
+    public Operand CopySelf() {
+        return new Pointer("_" + name, this.size);
     }
 }

@@ -118,25 +118,25 @@ public class GlobalScope extends Scope {
 
         // void print(string str)
         param.add(new VariableEntity(new VarTypeNode(loc, "string"), "str", null));
-        entity = new FunctionEntity(new VarTypeNode(loc, "void"), new String("print"), param, null, null);
+        entity = new FunctionEntity(new VoidTypeNode(loc, "void"), new String("print"), param, null, null);
         entityMap.put("print", entity);
 
         // void println(string str);
         param = new ArrayList<VariableEntity>();
         param.add(new VariableEntity(new VarTypeNode(loc, "string"), "str", null));
-        entity = new FunctionEntity(new VarTypeNode(loc, "void"), new String("println"), param, null, null);
+        entity = new FunctionEntity(new VoidTypeNode(loc, "void"), new String("println"), param, null, null);
         entityMap.put("println", entity);
 
         // void printInt(int n);
         param = new ArrayList<VariableEntity>();
         param.add(new VariableEntity(new VarTypeNode(loc, "int"), "n", null));
-        entity = new FunctionEntity(new VarTypeNode(loc, "void"), new String("printInt"), param, null, null);
+        entity = new FunctionEntity(new VoidTypeNode(loc, "void"), new String("printInt"), param, null, null);
         entityMap.put("printInt", entity);
 
         // void printIntln(int n);
         param = new ArrayList<VariableEntity>();
         param.add(new VariableEntity(new VarTypeNode(loc, "int"), "n", null));
-        entity = new FunctionEntity(new VarTypeNode(loc, "void"), new String("printIntln"), param, null, null);
+        entity = new FunctionEntity(new VoidTypeNode(loc, "void"), new String("printIntln"), param, null, null);
         entityMap.put("printlnInt", entity);
 
         // string toString(int i);

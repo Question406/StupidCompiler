@@ -1,123 +1,56 @@
- @constStr_0 = "\n"
- define i32 @main   {
- %main.entryBB1:
- preds:  
- 		 %a1  = move  10000 
- 		 %b1  = move  0 
- 		 %c1  = move  2800 
- 		 %d1  = move  0 
- 		 %e1  = move  0 
- 		 %t1  =   mul  2801   4 
- 		 %t1  =   add  %t1   4 
- 		 %t2  = alloc  %t1 
- 		 store  %t2   2801 
- 		 %f1  = move  %t2 
- 		 %g1  = move  0 
- 		 jump %forcondBB1
- 
- %forcondBB1:
- preds:  %main.entryBB1  %forupdateBB1  
- 		 %t3  =   sub  %b1   %c1 
- 		 %t4  = sne  %t3   0 
- 		 br  %t4  %forbodyBB1 %afterForBB1 
- 
- %forbodyBB1:
- preds:  %forcondBB1  
- 		 %t5  =   mul  %b1   4 
- 		 %t6  =   add  %t5   4 
- 		 %t7  =   add  %f1   %t6 
- 		 %t8  =   div  %a1   5 
- 		 store  %t7   %t8 
- 		 jump %forupdateBB1
- 
- %forupdateBB1:
- preds:  %forbodyBB1  
- 		 %b1  =   add  %b1   1 
- 		 jump %forcondBB1
- 
- %afterForBB1:
- preds:  %forcondBB1  
- 		 jump %forbodyBB2
- 
- %forbodyBB2:
- preds:  %forupdateBB2  %afterForBB1  
- 		 %d1  = move  0 
- 		 %t9  =   mul  %c1   2 
- 		 %g1  = move  %t9 
- 		 %t10  = seq  %g1   0 
- 		 br  %t10  %if_thenBB1 %if_end1 
- 
- %if_end1:
- preds:  %forbodyBB2  
- 		 %b1  = move  %c1 
- 		 jump %forbodyBB3
- 
- %forbodyBB3:
- preds:  %forupdateBB3  %if_end1  
- 		 %t11  =   mul  %b1   4 
- 		 %t12  =   add  %t11   4 
- 		 %t13  =   add  %f1   %t12 
- 		 %t14  = load  %t13 
- 		 %t15  =   mul  %t14   %a1 
- 		 %t16  =   add  %d1   %t15 
- 		 %d1  = move  %t16 
- 		 %t17  =   mul  %b1   4 
- 		 %t18  =   add  %t17   4 
- 		 %t19  =   add  %f1   %t18 
- 		 %g1  =   sub  %g1   1 
- 		 %t20  =   mod  %d1   %g1 
- 		 store  %t19   %t20 
- 		 %t21  =   div  %d1   %g1 
- 		 %d1  = move  %t21 
- 		 %g1  =   sub  %g1   1 
- 		 %b1  =   sub  %b1   1 
- 		 %t22  = seq  %b1   0 
- 		 br  %t22  %if_thenBB2 %if_end2 
- 
- %if_thenBB2:
- preds:  %forbodyBB3  
- 		 jump %afterForBB2
- 
- %afterForBB2:
- preds:  %if_thenBB2  
- 		 %t23  =   sub  %c1   14 
- 		 %c1  = move  %t23 
- 		 %t24  =   div  %d1   %a1 
- 		 %t25  =   add  %e1   %t24 
- 		 %t26  =  call toString  %t25   
- 		 %t27  =  call print  %t26   
- 		 jump %forupdateBB2
- 
- %forupdateBB2:
- preds:  %afterForBB2  
- 		 %t28  =   mod  %d1   %a1 
- 		 %e1  = move  %t28 
- 		 jump %forbodyBB2
- 
- %if_end2:
- preds:  %forbodyBB3  
- 		 jump %forupdateBB3
- 
- %forupdateBB3:
- preds:  %if_end2  
- 		 %t29  =   mul  %d1   %b1 
- 		 %d1  = move  %t29 
- 		 jump %forbodyBB3
- 
- %if_thenBB1:
- preds:  %forbodyBB2  
- 		 jump %afterForBB3
- 
- %afterForBB3:
- preds:  %if_thenBB1  
- 		 %t30  =  call print  @constStr_0   
- 		 ret  0 
- 
- }
- define void @__init   {
+ @constStr_0 = "YES"
+ @constStr_1 = "NO"
+ @w 
+ define i32 @__init   {
  %__init.entryBB1:
  preds:  
- 		 %t1  =  call main  
- 		 ret  
+ succs:  %_ifTrue1  %_if_elseBB1  
+ doms:  %_ifTrue1  %afterCallBB1  %_if_elseBB1  
+ idom:  %__init.entryBB1  
+ domfros:  
+ 		 @w  = alloc  4 
+ 		 %_gw1.0  = load  @w 
+ 		 %_t1.0  =  call getInt  
+ 		 %_gw1.1  = move  %_t1.0 
+ 		 %_t2.0  =   mod  %_gw1.1   2 
+ 		 %_t3.0  = seq  %_t2.0   0 
+ 		 br  %_t3.0  %_ifTrue1 %_if_elseBB1 
+ 
+ %_ifTrue1:
+ preds:  %__init.entryBB1  
+ succs:  %_if_elseBB1  %_if_thenBB1  
+ doms:  %_if_thenBB1  
+ idom:  %__init.entryBB1  
+ domfros:  %afterCallBB1  %_if_elseBB1  
+ 		 %_t4.0  = sgt  %_gw1.1   2 
+ 		 br  %_t4.0  %_if_thenBB1 %_if_elseBB1 
+ 
+ %_if_thenBB1:
+ preds:  %_ifTrue1  
+ succs:  %afterCallBB1  
+ doms:  
+ idom:  %_ifTrue1  
+ domfros:  %afterCallBB1  
+ 		 call print  @constStr_0   
+ 		 jump %afterCallBB1
+ 
+ %_if_elseBB1:
+ preds:  %__init.entryBB1  %_ifTrue1  
+ succs:  %afterCallBB1  
+ doms:  
+ idom:  %__init.entryBB1  
+ domfros:  %afterCallBB1  
+ 		 call print  @constStr_1   
+ 		 jump %afterCallBB1
+ 
+ %afterCallBB1:
+ preds:  %_if_elseBB1  %_if_thenBB1  
+ succs:  
+ doms:  
+ idom:  %__init.entryBB1  
+ domfros:  
+ 		 %t1.0  = move  0 
+ 		 store  @w   %_gw1.1 
+ 		 ret  %t1.0 
  
  }

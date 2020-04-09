@@ -3,9 +3,15 @@ package IR.Instruction;
 import IR.BasicBlock;
 import IR.Function;
 import IR.IRVisitor;
+import IR.Operand.ConstInt;
 import IR.Operand.Operand;
+import IR.Operand.Variable;
+import IR.Operand.VirReg;
+import Optim.SSAConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class FuncCallInst extends Instruction {
     public Function callTo;
@@ -16,7 +22,7 @@ public class FuncCallInst extends Instruction {
 
     public FuncCallInst(BasicBlock BB, Function callTo, ArrayList<Operand> params, Operand res) {
         super(BB);
-        this.callTo = callTo;
+        this.setCallTo(callTo);
         this.params = params;
         this.res = res;
     }
@@ -27,5 +33,74 @@ public class FuncCallInst extends Instruction {
 
     public void accept(IRVisitor visitor) {
         visitor.visit(this);
+    }
+
+    public Function getCallTo() {
+        return callTo;
+    }
+
+    public void setCallTo(Function callTo) {
+        this.callTo = callTo;
+    }
+
+
+    @Override
+    public Operand getDefReg() {
+        return res;
+    }
+
+    @Override
+    public List<Operand> getUseRegs() {
+        List<Operand> res = new ArrayList<Operand>();
+        if (thisPointer != null && (!(thisPointer instanceof ConstInt))) {
+            res.add(thisPointer);
+        }
+        for (var para : params) {
+            if (!(para instanceof ConstInt))
+                res.add(para);
+        }
+        return res;
+    }
+
+    @Override
+    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+        if (res instanceof Variable)
+            res = renameMap.get(res);
+        if (thisPointer instanceof Variable)
+            thisPointer = renameMap.get(thisPointer);
+        for (int i = 0; i < params.size(); i++) {
+            var para = params.get(i);
+            if (para instanceof Variable)
+                params.set(i, renameMap.get(para));
+        }
+    }
+
+    @Override
+    public Instruction CopySelfWithNewName(Map<Operand, Operand> regRenameMap, Map<BasicBlock, BasicBlock> BBRenameMap) {
+        var resOpr = (res != null) ? regRenameMap.get(res) : null;
+        ArrayList<Operand> copyPara = new ArrayList<Operand>();
+        for (var para : params)
+            copyPara.add(regRenameMap.getOrDefault(para, para));
+        FuncCallInst retInst = new FuncCallInst(BBRenameMap.get(curBB), callTo, copyPara, resOpr);
+        if (thisPointer != null)
+            retInst.thisPointer = regRenameMap.getOrDefault(thisPointer, thisPointer);
+        return retInst;
+    }
+
+    @Override
+    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
+        if (thisPointer instanceof VirReg)
+            thisPointer = NewNameForUse(reg_infoMap, (VirReg) thisPointer);
+        for (int i = 0; i < params.size(); i++) {
+            var old = params.get(i);
+            if (old instanceof VirReg)
+                params.set(i, NewNameForUse(reg_infoMap, (VirReg) old));
+        }
+    }
+
+    @Override
+    public void renameSSAForDef(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
+        if (res instanceof VirReg)
+            res = NewNameForDef(reg_infoMap, (VirReg) res);
     }
 }

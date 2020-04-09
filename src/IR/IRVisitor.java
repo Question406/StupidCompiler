@@ -43,4 +43,6 @@ public interface IRVisitor {
     void visit(BasicBlock node);
 
     void visit(Operand node);
+
+    void visit(PhiInst node);
 }

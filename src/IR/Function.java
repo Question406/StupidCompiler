@@ -22,7 +22,7 @@ public class Function {
     public boolean isVoid;
 
     public BasicBlock entryBB;
-    BasicBlock exitBB;
+    public BasicBlock exitBB;
 
     ArrayList<RetInst> retInsts;
 
@@ -75,6 +75,10 @@ public class Function {
         this.exitBB = exitBB;
     }
 
+    public String getFuncname() {
+        return funcname;
+    }
+
     public void PostOrderDFS(Set<BasicBlock> visited, BasicBlock curBB) {
         visited.add(curBB);
         for (var bb : curBB.succBBs)
@@ -105,12 +109,14 @@ public class Function {
             changed = false;
 
             CalcReversePostOrderBBs();
+            ArrayList<BasicBlock> toRM = new ArrayList<BasicBlock>();
             for (var bb : BBs)
                 if (!reversePostOrderBBs.contains(bb)) {
                     bb.RMSelf();
-                    BBs.remove(bb);
+                    toRM.add(bb);
                     changed = true;
                 }
+            BBs.removeAll(toRM);
         }
     }
 

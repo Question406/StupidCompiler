@@ -5,11 +5,10 @@ import IR.IRVisitor;
 
 public class Variable extends Operand {
     Type type;
-    String name;
 
     public Variable(Type type, String name) {
+        super(name);
         this.type = type;
-        this.name = name;
     }
 
     public String getName() {
@@ -22,5 +21,11 @@ public class Variable extends Operand {
 
     public void accept(IRVisitor visitor) {
         visitor.visit(this);
+    }
+
+
+    @Override
+    public Operand CopySelf() {
+        return new Variable(type, "_" + name);
     }
 }

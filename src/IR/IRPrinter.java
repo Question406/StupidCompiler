@@ -2,10 +2,10 @@ package IR;
 
 import IR.Instruction.*;
 import IR.Operand.*;
-import Utils.CommonFunc;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class IRPrinter implements IRVisitor {
     boolean isGlobal;
@@ -186,7 +186,7 @@ public class IRPrinter implements IRVisitor {
             node.res.accept(this);
             printAnything(" = ");
         }
-        printAnything("call " + node.callTo.funcname + " ");
+        printAnything("call " + node.getCallTo().funcname + " ");
         if (node.thisPointer != null)
             node.thisPointer.accept(this);
         for (var para : node.params) {
@@ -239,24 +239,30 @@ public class IRPrinter implements IRVisitor {
         printAnything(BBgetName(node) + ":\n");
 
         printAnything("preds: ");
-        node.predBBs.forEach(x->printAnything(BBgetName(x)+ " "));
+        node.predBBs.forEach(x -> printAnything(BBgetName(x) + " "));
         printAnything("\n");
 
-//        printAnything("succs: ");
-//        node.succBBs.forEach(x->printAnything(BBgetName(x)+ " "));
-//        printAnything("\n");
+        printAnything("succs: ");
+        node.succBBs.forEach(x -> printAnything(BBgetName(x) + " "));
+        printAnything("\n");
 
-//        printAnything("doms: ");
-//        node.DomBBs.forEach(x -> printAnything(BBgetName(x) + " "));
-//        printAnything("\n");
-//
-//        printAnything("idom: ");
-//        printAnything(BBgetName(node.IDom) + " ");
-//        printAnything("\n");
-//
-//        printAnything("domsfros: ");
-//        node.DomFros.forEach(x -> printAnything(BBgetName(x) + " "));
-//        printAnything("\n");
+        if (node.DomBBs != null){
+            printAnything("doms: ");
+            node.DomBBs.forEach(x -> printAnything(BBgetName(x) + " "));
+            printAnything("\n");
+        }
+
+        if (node.IDom != null) {
+            printAnything("idom: ");
+            printAnything(BBgetName(node.IDom) + " ");
+            printAnything("\n");
+        }
+
+        if (node.DomFros != null) {
+            printAnything("domfros: ");
+            node.DomFros.forEach(x -> printAnything(BBgetName(x) + " "));
+            printAnything("\n");
+        }
 
         for (var inst = node.insthead; inst != null; inst = inst.next) {
             printAnything("\t\t");
@@ -270,6 +276,23 @@ public class IRPrinter implements IRVisitor {
     @Override
     public void visit(Operand node) {
         // fake visit
+    }
+
+    @Override
+    public void visit(PhiInst node) {
+        node.res.accept(this);
+        printAnything(" = phi ");
+        for (var from : node.from.entrySet()) {
+            var fromBB = from.getKey();
+            var fromOpr = from.getValue();
+            printAnything(BBgetName(fromBB) + ": ");
+            if (fromOpr == null)
+                printAnything(" undef ");
+            else
+                fromOpr.accept(this);
+            printAnything(" ");
+        }
+        printAnything("\n");
     }
 
     private String BBgetName(BasicBlock asking) {
@@ -298,9 +321,14 @@ public class IRPrinter implements IRVisitor {
     private String getName(VirReg asking) {
         String name = varNameMap.get(asking);
         if (name == null) {
-            String newName = CreateName(asking.getName());
-            varNameMap.put(asking, newName);
-            return newName;
+            if (asking.getOldName() != null) {
+                name = getName(asking.getOldName()) + "." + asking.getSsaID();
+            } else {
+                name = CreateName(asking.getName());
+            }
+//            String newName = CreateName(asking.getName());
+            varNameMap.put(asking, name);
+            return name;
         }
         else
             return name;

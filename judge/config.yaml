@@ -1,0 +1,13 @@
+buildlimit: 10
+instlimit: -1
+memlimit: 512
+path:
+  compiler: /home/jiyi/IdeaProjects/StupidCompiler_v1
+  dataset: /home/jiyi/Documents/Mx/Compiler-2020-testcases-master
+
+  simulator: /Users/peterzheng/ravel/build/bin
+  simulator-executable: /Users/peterzheng/ravel/build/bin/ravel
+  built-in: /Users/peterzheng/Documents/Projects/OldProject/Compiler/localJudge/built-in.s
+# stage: semantic
+stage: codegen
+timelimit: 100
