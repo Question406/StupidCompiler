@@ -246,23 +246,42 @@ public class IRPrinter implements IRVisitor {
         node.succBBs.forEach(x -> printAnything(BBgetName(x) + " "));
         printAnything("\n");
 
-        if (node.DomBBs != null){
-            printAnything("doms: ");
-            node.DomBBs.forEach(x -> printAnything(BBgetName(x) + " "));
+//        if (node.DomBBs != null){
+//            printAnything("doms: ");
+//            node.DomBBs.forEach(x -> printAnything(BBgetName(x) + " "));
+//            printAnything("\n");
+//        }
+//
+//        if (node.IDom != null) {
+//            printAnything("idom: ");
+//            printAnything(BBgetName(node.IDom) + " ");
+//            printAnything("\n");
+//        }
+//
+//        if (node.DomFros != null) {
+//            printAnything("domfros: ");
+//            node.DomFros.forEach(x -> printAnything(BBgetName(x) + " "));
+//            printAnything("\n");
+//        }
+
+        if (node.PostDomBBs != null){
+            printAnything("postdoms: ");
+            node.PostDomBBs.forEach(x -> printAnything(BBgetName(x) + " "));
             printAnything("\n");
         }
 
-        if (node.IDom != null) {
-            printAnything("idom: ");
-            printAnything(BBgetName(node.IDom) + " ");
+        if (node.PostIDom != null) {
+            printAnything("postidom: ");
+            printAnything(BBgetName(node.PostIDom) + " ");
             printAnything("\n");
         }
 
-        if (node.DomFros != null) {
-            printAnything("domfros: ");
-            node.DomFros.forEach(x -> printAnything(BBgetName(x) + " "));
+        if (node.PostDomFros != null) {
+            printAnything("postdomfros: ");
+            node.PostDomFros.forEach(x -> printAnything(BBgetName(x) + " "));
             printAnything("\n");
         }
+
 
         for (var inst = node.insthead; inst != null; inst = inst.next) {
             printAnything("\t\t");
@@ -287,7 +306,8 @@ public class IRPrinter implements IRVisitor {
             var fromOpr = from.getValue();
             printAnything(BBgetName(fromBB) + ": ");
             if (fromOpr == null)
-                printAnything(" undef ");
+//                printAnything(" undef ");
+                printAnything(" 0 ");
             else
                 fromOpr.accept(this);
             printAnything(" ");

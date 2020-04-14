@@ -2,10 +2,7 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.ConstInt;
-import IR.Operand.Operand;
-import IR.Operand.Variable;
-import IR.Operand.VirReg;
+import IR.Operand.*;
 import Optim.SSAConstructor;
 
 import java.util.ArrayList;
@@ -62,16 +59,30 @@ public class AllocaInst extends Instruction {
     }
 
     @Override
-    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (allocSize instanceof VirReg)
+    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap, Instruction inInst) {
+        if (allocSize instanceof VirReg) {
             allocSize = NewNameForUse(reg_infoMap, (VirReg) allocSize);
+            ((VirReg) allocSize).usedInstructions.add(inInst);
+        }
     }
 
     @Override
     public void renameSSAForDef(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (reg instanceof VirReg)
+        if (reg instanceof VirReg) {
             reg = NewNameForDef(reg_infoMap, (VirReg) reg);
+            assert ((VirReg) reg).defInst == null;
+            ((VirReg) reg).defInst = this;
+        }
     }
 
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstInt constInt) {
+        if (allocSize == virReg)
+            allocSize = constInt;
+    }
 
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstString constString) {
+        assert false;
+    }
 }

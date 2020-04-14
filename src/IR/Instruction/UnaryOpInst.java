@@ -2,10 +2,7 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.ConstInt;
-import IR.Operand.Operand;
-import IR.Operand.Variable;
-import IR.Operand.VirReg;
+import IR.Operand.*;
 import Optim.SSAConstructor;
 import Utils.UnaryOperator;
 
@@ -13,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class UnaryOpInst extends Instruction{
+public class UnaryOpInst extends Instruction {
     public UnaryOperator op;
     public Operand res;
     public Operand src;
@@ -57,14 +54,30 @@ public class UnaryOpInst extends Instruction{
     }
 
     @Override
-    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (src instanceof VirReg)
+    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap, Instruction inInst) {
+        if (src instanceof VirReg) {
             src = NewNameForUse(reg_infoMap, (VirReg) src);
+            ((VirReg) src).usedInstructions.add(inInst);
+        }
     }
 
     @Override
     public void renameSSAForDef(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (res instanceof VirReg)
+        if (res instanceof VirReg) {
             res = NewNameForDef(reg_infoMap, (VirReg) res);
+            assert ((VirReg) res).defInst == null;
+            ((VirReg) res).defInst = this;
+        }
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstInt constInt) {
+        if (src == virReg)
+            src = constInt;
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstString constString) {
+        assert false;
     }
 }

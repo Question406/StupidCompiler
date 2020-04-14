@@ -114,16 +114,27 @@ public class RealRunner {
         globalVarResolver.run();
     }
 
-    private void Optimize() {
+    private void Optimize() throws Exception {
+        DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
+        SSAConstructor ssaConstructor = new SSAConstructor(IRRoot);
         SCCP SCCPAnalyzer = new SCCP(IRRoot);
         DeadCodeElim deadCodeElim = new DeadCodeElim(IRRoot);
         CFGSimplifier cfgSimplifier = new CFGSimplifier(IRRoot);
+        dominaceTreeBuilder.run();
+        ssaConstructor.run();
+
+//        PrintIR(false);
+
         boolean changed = true;
         while (changed) {
             changed = false;
             changed |= SCCPAnalyzer.run();
+            changed |= cfgSimplifier.run();
+            PrintIR(true);
+            dominaceTreeBuilder.run();
             changed |= deadCodeElim.run();
             changed |= cfgSimplifier.run();
+            PrintIR(true);
         }
     }
 
@@ -134,18 +145,11 @@ public class RealRunner {
         SemanticAnalyze();
         BuildIR();
         FuncInline();
-        // highlight: must do
-        GlobalVarResolve();
-//        CommonFunc.printlnAnything("_______________");
-//        PrintIR(false);
+        GlobalVarResolve(); // highlight: must do
         CFGSimplify();
-        PrintIR(true);
-
-        SSAConstruct();
-        PrintIR(true);
-
         Optimize();
 
+        PrintIR(true);
         InputStream in = new FileInputStream("ir_out.txt");
 //        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), false);
         IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), true);

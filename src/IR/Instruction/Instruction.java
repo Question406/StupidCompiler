@@ -2,9 +2,7 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.Operand;
-import IR.Operand.Variable;
-import IR.Operand.VirReg;
+import IR.Operand.*;
 import Optim.SSAConstructor;
 
 import java.util.List;
@@ -86,7 +84,11 @@ public abstract class Instruction {
 
     abstract public Instruction CopySelfWithNewName(Map<Operand, Operand> regRenameMap, Map<BasicBlock, BasicBlock> BBRenameMap);
 
-    abstract public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap);
+    abstract public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap, Instruction inInst);
 
     abstract public void renameSSAForDef(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap);
+
+    abstract public void modifyUseTOConst(VirReg virReg, ConstInt constInt);
+
+    abstract public void modifyUseTOConst(VirReg virReg, ConstString constString);
 }

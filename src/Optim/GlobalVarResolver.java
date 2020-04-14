@@ -3,7 +3,9 @@ package Optim;
 import IR.Function;
 import IR.Instruction.*;
 import IR.Module;
-import IR.Operand.*;
+import IR.Operand.ConstInt;
+import IR.Operand.Variable;
+import IR.Operand.VirReg;
 import Utils.CompileOption;
 
 import java.util.HashMap;

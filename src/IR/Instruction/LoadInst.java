@@ -2,9 +2,7 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.Operand;
-import IR.Operand.Variable;
-import IR.Operand.VirReg;
+import IR.Operand.*;
 import Optim.SSAConstructor;
 
 import java.util.ArrayList;
@@ -51,14 +49,30 @@ public class LoadInst extends Instruction {
     }
 
     @Override
-    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (from instanceof VirReg)
+    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap, Instruction inInst) {
+        if (from instanceof VirReg) {
             from = NewNameForUse(reg_infoMap, (VirReg) from);
+            ((VirReg) from).usedInstructions.add(inInst);
+        }
     }
 
     @Override
     public void renameSSAForDef(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (res instanceof VirReg)
+        if (res instanceof VirReg) {
             res = NewNameForDef(reg_infoMap, (VirReg) res);
+            assert ((VirReg) res).defInst == null;
+            ((VirReg) res).defInst = this;
+        }
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstInt constInt) {
+        if (from == virReg)
+            from = constInt;
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstString constString) {
+        assert false;
     }
 }

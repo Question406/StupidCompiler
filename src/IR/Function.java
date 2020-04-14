@@ -1,15 +1,10 @@
 package IR;
 
-import FrontEnd.Semantic.Type.FunctionType;
 import IR.Instruction.JumpInst;
 import IR.Instruction.MoveInst;
 import IR.Instruction.RetInst;
-import IR.Operand.Operand;
-import IR.Operand.Pointer;
 import IR.Operand.VirReg;
 
-import java.io.PipedOutputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,6 +22,7 @@ public class Function {
     ArrayList<RetInst> retInsts;
 
     ArrayList<BasicBlock> reversePostOrderBBs;
+    ArrayList<BasicBlock> reverseCFGPostOrderBBs;
 
 
     // FIXME: may be a temporary one, for IRprinter now
@@ -79,7 +75,7 @@ public class Function {
         return funcname;
     }
 
-    public void PostOrderDFS(Set<BasicBlock> visited, BasicBlock curBB) {
+    private void PostOrderDFS(Set<BasicBlock> visited, BasicBlock curBB) {
         visited.add(curBB);
         for (var bb : curBB.succBBs)
             if (!visited.contains(bb)) {
@@ -94,6 +90,12 @@ public class Function {
         return reversePostOrderBBs;
     }
 
+    public ArrayList<BasicBlock> getReverseCFGPostOrderBBs() {
+        if (reverseCFGPostOrderBBs == null)
+            CalcReverseCFGPostOrderBBs();
+        return reverseCFGPostOrderBBs;
+    }
+
     public void CalcReversePostOrderBBs(){
         reversePostOrderBBs = new ArrayList<BasicBlock>();
         Set<BasicBlock> visited = new HashSet<BasicBlock>();
@@ -101,6 +103,24 @@ public class Function {
         for (int i = 0; i < reversePostOrderBBs.size(); i++)
             reversePostOrderBBs.get(i).RPOnum = i;
         Collections.reverse(reversePostOrderBBs);
+    }
+
+    public void CalcReverseCFGPostOrderBBs() {
+        reverseCFGPostOrderBBs = new ArrayList<BasicBlock>();
+        Set<BasicBlock> visited = new HashSet<BasicBlock>();
+        ReverseCFGPostOrderDFS(visited, exitBB);
+        for (int i = 0; i < reverseCFGPostOrderBBs.size(); i++)
+            reverseCFGPostOrderBBs.get(i).ReverseRPOnum = i;
+        Collections.reverse(reverseCFGPostOrderBBs);
+    }
+
+    private void ReverseCFGPostOrderDFS(Set<BasicBlock> visited, BasicBlock curBB) {
+        visited.add(curBB);
+        for (var bb : curBB.predBBs) {
+            if (! visited.contains(bb))
+                ReverseCFGPostOrderDFS(visited, bb);
+        }
+        reverseCFGPostOrderBBs.add(curBB);
     }
 
     public void NaiveRMUnreachableBB(){
@@ -152,6 +172,12 @@ public class Function {
         if (func.funcname.equals("printlnInt")) return true;
         if (func.funcname.equals("toString")) return true;
         if (func.funcname.equals("string.length")) return true;
+        if (func.funcname.equals("string.gth")) return true;
+        if (func.funcname.equals("string.geq")) return true;
+        if (func.funcname.equals("string.leq")) return true;
+        if (func.funcname.equals("string.lth")) return true;
+        if (func.funcname.equals("string.neq")) return true;
+        if (func.funcname.equals("string.eq")) return true;
         return func.funcname.equals("array.size");
     }
 

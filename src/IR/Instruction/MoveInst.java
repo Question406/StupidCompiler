@@ -2,10 +2,7 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.ConstInt;
-import IR.Operand.Operand;
-import IR.Operand.Variable;
-import IR.Operand.VirReg;
+import IR.Operand.*;
 import Optim.SSAConstructor;
 
 import java.util.ArrayList;
@@ -53,14 +50,31 @@ public class MoveInst extends Instruction {
     }
 
     @Override
-    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (moveFrom instanceof VirReg)
+    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap, Instruction inInst) {
+        if (moveFrom instanceof VirReg) {
             moveFrom = NewNameForUse(reg_infoMap, (VirReg) moveFrom);
+            ((VirReg) moveFrom).usedInstructions.add(inInst);
+        }
     }
 
     @Override
     public void renameSSAForDef(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (moveTo instanceof VirReg)
+        if (moveTo instanceof VirReg) {
             moveTo = NewNameForDef(reg_infoMap, (VirReg) moveTo);
+            assert ((VirReg) moveTo).defInst == null;
+            ((VirReg) moveTo).defInst = this;
+        }
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstInt constInt) {
+        if (moveFrom == virReg)
+            moveFrom = constInt;
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstString constString) {
+        if (moveFrom == virReg)
+            moveFrom = constString;
     }
 }

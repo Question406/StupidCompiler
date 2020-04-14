@@ -2,10 +2,7 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.ConstInt;
-import IR.Operand.Operand;
-import IR.Operand.Variable;
-import IR.Operand.VirReg;
+import IR.Operand.*;
 import Optim.SSAConstructor;
 import Utils.BinaryOperator;
 
@@ -62,16 +59,36 @@ public class CmpInst extends Instruction {
     }
 
     @Override
-    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (lhs instanceof VirReg)
+    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap, Instruction inInst) {
+        if (lhs instanceof VirReg) {
             lhs = NewNameForUse(reg_infoMap, (VirReg) lhs);
-        if (rhs instanceof VirReg)
+            ((VirReg) lhs).usedInstructions.add(inInst);
+        }
+        if (rhs instanceof VirReg) {
             rhs = NewNameForUse(reg_infoMap, (VirReg) rhs);
+            ((VirReg) rhs).usedInstructions.add(inInst);
+        }
     }
 
     @Override
     public void renameSSAForDef(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (res instanceof VirReg)
+        if (res instanceof VirReg) {
             res = NewNameForDef(reg_infoMap, (VirReg) res);
+            assert ((VirReg) res).defInst == null;
+            ((VirReg) res).defInst = this;
+        }
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstInt constInt) {
+        if (lhs == virReg)
+            lhs = constInt;
+        if (rhs == virReg)
+            rhs = constInt;
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstString constString) {
+        assert false;
     }
 }

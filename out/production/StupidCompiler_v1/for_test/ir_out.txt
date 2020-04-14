@@ -1,56 +1,222 @@
- @constStr_0 = "YES"
- @constStr_1 = "NO"
- @w 
+ @a 
+ @i 
+ @n 
  define i32 @__init   {
  %__init.entryBB1:
  preds:  
- succs:  %_ifTrue1  %_if_elseBB1  
- doms:  %_ifTrue1  %_if_elseBB1  %afterCallBB1  
- idom:  %__init.entryBB1  
- domfros:  
- 		 @w  = alloc  4 
- 		 %_gw1.0  = load  @w 
+ succs:  %_forcondBB1  
+ postdoms:  
+ postidom:  %_forcondBB1  
+ postdomfros:  
+ 		 @n  = alloc  4 
+ 		 @i  = alloc  4 
+ 		 @a  = alloc  4 
+ 		 %_gi1.0  = load  @i 
+ 		 %_ga1.0  = load  @a 
+ 		 %_gn1.0  = load  @n 
+ 		 %t1.0  = alloc  84 
+ 		 store  %t1.0   20 
+ 		 %_ga1.1  = move  %t1.0 
  		 %_t1.0  =  call getInt  
- 		 %_gw1.1  = move  %_t1.0 
- 		 %_t2.0  =   mod  %_gw1.1   2 
- 		 %_t3.0  = seq  %_t2.0   0 
- 		 br  %_t3.0  %_ifTrue1 %_if_elseBB1 
+ 		 %_gn1.1  = move  %_t1.0 
+ 		 jump %_forcondBB1
  
- %_ifTrue1:
- preds:  %__init.entryBB1  
- succs:  %_if_thenBB1  %_if_elseBB1  
- doms:  %_if_thenBB1  
- idom:  %__init.entryBB1  
- domfros:  %_if_elseBB1  %afterCallBB1  
- 		 %_t4.0  = sgt  %_gw1.1   2 
- 		 br  %_t4.0  %_if_thenBB1 %_if_elseBB1 
+ %_forcondBB1:
+ preds:  %_forbodyBB1  %__init.entryBB1  
+ succs:  %_forbodyBB1  %_afterForBB1  
+ postdoms:  %_forbodyBB1  %__init.entryBB1  
+ postidom:  %_afterForBB1  
+ postdomfros:  %_forcondBB1  
+ 		 %_gi1.2  = phi  %_forbodyBB1:  %_gi1.3   %__init.entryBB1:  0   
+ 		 %_t2.0  = slt  %_gi1.2   %_gn1.1 
+ 		 br  %_t2.0  %_forbodyBB1 %_afterForBB1 
  
- %_if_elseBB1:
- preds:  %_ifTrue1  %__init.entryBB1  
- succs:  %afterCallBB1  
- doms:  
- idom:  %__init.entryBB1  
- domfros:  %afterCallBB1  
- 		 call print  @constStr_1   
- 		 jump %afterCallBB1
+ %_afterForBB1:
+ preds:  %_forcondBB1  
+ succs:  %_forcondBB2  
+ postdoms:  %_forcondBB1  
+ postidom:  %_forcondBB2  
+ postdomfros:  
+ 		 %_gi1.4  = move  %_gn1.1 
+ 		 jump %_forcondBB2
+ 
+ %_forcondBB2:
+ preds:  %_afterForBB1  %_forupdateBB1  
+ succs:  %afterCallBB1  %_forbodyBB2  
+ postdoms:  %_afterForBB1  %_forupdateBB1  
+ postidom:  %afterCallBB1  
+ postdomfros:  %_afterCallBB1  
+ 		 %_gi1.5  = phi  %_afterForBB1:  %_gi1.4   %_forupdateBB1:  %_gi1.6   
+ 		 %_t3.0  = sgt  %_gi1.5   0 
+ 		 br  %_t3.0  %_forbodyBB2 %afterCallBB1 
+ 
+ %_forbodyBB2:
+ preds:  %_forcondBB2  
+ succs:  %__forcondBB1  
+ postdoms:  
+ postidom:  %__forcondBB1  
+ postdomfros:  %_forcondBB2  
+ 		 %__x1.2  = move  %_gi1.5 
+ 		 jump %__forcondBB1
+ 
+ %__forcondBB1:
+ preds:  %__forupdateBB1  %_forbodyBB2  
+ succs:  %__forbodyBB1  %__afterForBB1  
+ postdoms:  %__forupdateBB1  %_forbodyBB2  
+ postidom:  %_afterCallBB1  
+ postdomfros:  %_forcondBB2  %__afterForBB2  
+ 		 %__i1.3  = phi  %__forupdateBB1:  %__i1.4   %_forbodyBB2:  0   
+ 		 %__t1.0  =   div  %_gn1.1   %__x1.2 
+ 		 %__t2.0  = slt  %__i1.3   %__t1.0 
+ 		 br  %__t2.0  %__forbodyBB1 %__afterForBB1 
+ 
+ %__afterForBB1:
+ preds:  %__forcondBB1  
+ succs:  %_afterCallBB1  
+ postdoms:  
+ postidom:  %_afterCallBB1  
+ postdomfros:  %__forcondBB1  
+ 		 jump %_afterCallBB1
+ 
+ %__forbodyBB1:
+ preds:  %__forcondBB1  
+ succs:  %__forcondBB2  
+ postdoms:  
+ postidom:  %__forcondBB2  
+ postdomfros:  %__forcondBB1  
+ 		 jump %__forcondBB2
+ 
+ %__forcondBB2:
+ preds:  %__forbodyBB1  %__forupdateBB2  
+ succs:  %__afterForBB2  %__forbodyBB2  
+ postdoms:  %__forbodyBB1  %__forupdateBB2  
+ postidom:  %__afterForBB2  
+ postdomfros:  %__forcondBB1  %__forcondBB2  
+ 		 %__j1.4  = phi  %__forbodyBB1:  0   %__forupdateBB2:  %__j1.5   
+ 		 %__flag1.4  = phi  %__forbodyBB1:  0   %__forupdateBB2:  %__flag1.6   
+ 		 %__t3.0  =   sub  %__x1.2   1 
+ 		 %__t4.0  = slt  %__j1.4   %__t3.0 
+ 		 br  %__t4.0  %__forbodyBB2 %__afterForBB2 
+ 
+ %__forbodyBB2:
+ preds:  %__forcondBB2  
+ succs:  %__if_thenBB1  %__forupdateBB2  
+ postdoms:  
+ postidom:  %__forupdateBB2  
+ postdomfros:  %__forcondBB2  
+ 		 %__t5.0  =   mul  %__i1.3   %__x1.2 
+ 		 %__t6.0  =   add  %__t5.0   %__j1.4 
+ 		 %__t7.0  =   mul  %__t6.0   4 
+ 		 %__t8.0  =   add  %__t7.0   4 
+ 		 %__t9.0  =   add  %_ga1.1   %__t8.0 
+ 		 %__t10.0  =   mul  %__i1.3   %__x1.2 
+ 		 %__t11.0  =   add  %__t10.0   %__j1.4 
+ 		 %__t12.0  =   add  %__t11.0   1 
+ 		 %__t13.0  =   mul  %__t12.0   4 
+ 		 %__t14.0  =   add  %__t13.0   4 
+ 		 %__t15.0  =   add  %_ga1.1   %__t14.0 
+ 		 %__t16.0  = load  %__t9.0 
+ 		 %__t17.0  = load  %__t15.0 
+ 		 %__t18.0  = sgt  %__t16.0   %__t17.0 
+ 		 br  %__t18.0  %__if_thenBB1 %__forupdateBB2 
+ 
+ %__if_thenBB1:
+ preds:  %__forbodyBB2  
+ succs:  %__forupdateBB2  
+ postdoms:  
+ postidom:  %__forupdateBB2  
+ postdomfros:  %__forbodyBB2  
+ 		 jump %__forupdateBB2
+ 
+ %__forupdateBB2:
+ preds:  %__if_thenBB1  %__forbodyBB2  
+ succs:  %__forcondBB2  
+ postdoms:  %__if_thenBB1  %__forbodyBB2  
+ postidom:  %__forcondBB2  
+ postdomfros:  %__forcondBB2  
+ 		 %__flag1.6  = phi  %__if_thenBB1:  1   %__forbodyBB2:  %__flag1.4   
+ 		 %__j1.5  =   add  %__j1.4   1 
+ 		 jump %__forcondBB2
+ 
+ %__afterForBB2:
+ preds:  %__forcondBB2  
+ succs:  %__forupdateBB1  %__if_thenBB2  
+ postdoms:  %__forcondBB2  
+ postidom:  %_afterCallBB1  
+ postdomfros:  %__forcondBB1  
+ 		 br  %__flag1.4  %__forupdateBB1 %__if_thenBB2 
+ 
+ %__if_thenBB2:
+ preds:  %__afterForBB2  
+ succs:  %_afterCallBB1  
+ postdoms:  
+ postidom:  %_afterCallBB1  
+ postdomfros:  %__afterForBB2  
+ 		 jump %_afterCallBB1
+ 
+ %_afterCallBB1:
+ preds:  %__afterForBB1  %__if_thenBB2  
+ succs:  %_forupdateBB1  %_if_thenBB1  
+ postdoms:  %__if_thenBB2  %__afterForBB1  %__forcondBB1  %__afterForBB2  
+ postidom:  %afterCallBB1  
+ postdomfros:  %_forcondBB2  
+ 		 %__mergedretVal1.4  = phi  %__if_thenBB2:  1   %__afterForBB1:  0   
+ 		 %_t4.0  = move  %__mergedretVal1.4 
+ 		 %_t5.0  = sgt  %_t4.0   0 
+ 		 br  %_t5.0  %_if_thenBB1 %_forupdateBB1 
  
  %_if_thenBB1:
- preds:  %_ifTrue1  
+ preds:  %_afterCallBB1  
  succs:  %afterCallBB1  
- doms:  
- idom:  %_ifTrue1  
- domfros:  %afterCallBB1  
- 		 call print  @constStr_0   
+ postdoms:  
+ postidom:  %afterCallBB1  
+ postdomfros:  %_afterCallBB1  
+ 		 %_t6.0  =  call toString  %_gi1.5   
+ 		 call print  %_t6.0   
  		 jump %afterCallBB1
  
+ %_forupdateBB1:
+ preds:  %_afterCallBB1  
+ succs:  %_forcondBB2  
+ postdoms:  
+ postidom:  %_forcondBB2  
+ postdomfros:  %_afterCallBB1  
+ 		 %_t7.0  =   div  %_gi1.5   2 
+ 		 %_gi1.6  = move  %_t7.0 
+ 		 jump %_forcondBB2
+ 
+ %__forupdateBB1:
+ preds:  %__afterForBB2  
+ succs:  %__forcondBB1  
+ postdoms:  
+ postidom:  %__forcondBB1  
+ postdomfros:  %__afterForBB2  
+ 		 %__i1.4  =   add  %__i1.3   1 
+ 		 jump %__forcondBB1
+ 
  %afterCallBB1:
- preds:  %_if_thenBB1  %_if_elseBB1  
+ preds:  %_forcondBB2  %_if_thenBB1  
  succs:  
- doms:  
- idom:  %__init.entryBB1  
- domfros:  
- 		 %t1.0  = move  0 
- 		 store  @w   %_gw1.1 
- 		 ret  %t1.0 
+ postdoms:  %_forcondBB2  %_if_thenBB1  %_afterCallBB1  
+ postidom:  %afterCallBB1  
+ postdomfros:  
+ 		 store  @i   %_gi1.5 
+ 		 store  @a   %_ga1.1 
+ 		 store  @n   %_gn1.1 
+ 		 ret  0 
+ 
+ %_forbodyBB1:
+ preds:  %_forcondBB1  
+ succs:  %_forcondBB1  
+ postdoms:  
+ postidom:  %_forcondBB1  
+ postdomfros:  %_forcondBB1  
+ 		 %_t8.0  =   mul  %_gi1.2   4 
+ 		 %_t9.0  =   add  %_t8.0   4 
+ 		 %_t10.0  =   add  %_ga1.1   %_t9.0 
+ 		 %_t11.0  =  call getInt  
+ 		 store  %_t10.0   %_t11.0 
+ 		 %_gi1.3  =   add  %_gi1.2   1 
+ 		 jump %_forcondBB1
  
  }

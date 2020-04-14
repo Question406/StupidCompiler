@@ -7,6 +7,8 @@ import IR.Module;
 import java.util.HashSet;
 import java.util.Set;
 
+// highlight:   used to compute Dominance Tree && Reverse Dominance Tree
+
 public class DominaceTreeBuilder extends Optimizer {
     public DominaceTreeBuilder(Module program) {
         super(program);
@@ -18,6 +20,9 @@ public class DominaceTreeBuilder extends Optimizer {
             if (Function.isBuiltIn(function)) continue;
             ComputeIDomBB(function);
             ComputeDomFrontier(function);
+
+            ComputePostIDomBB(function);
+            ComputePostDomFros(function);
         }
         return false;
     }
@@ -127,4 +132,70 @@ public class DominaceTreeBuilder extends Optimizer {
                 }
             }
     }
+
+
+    // highlight:   Compute Post-Dominance Tree
+    private void ComputePostIDomBB(Function function) {
+//        function.CalcReverseCFGPostOrderBBs();
+//        List<BasicBlock> RPOBBs = new LinkedList<BasicBlock>(function.getReversePostOrderBBs());
+//        Collections.reverse(RPOBBs);
+        var RPOBBs = function.getReverseCFGPostOrderBBs();
+        RPOBBs.forEach(bb -> bb.PostIDom = null);
+        function.exitBB.PostIDom = function.exitBB;
+        boolean changed = true;
+        while (changed) {
+            changed = false;
+            for (var bb : RPOBBs) {
+                if (bb == function.exitBB) continue;
+                BasicBlock newPostIDom = null;
+                for (var succbb : bb.succBBs)
+                    if (succbb.PostIDom != null) {
+                        newPostIDom = succbb;
+                        break;
+                    }
+                for (var succBB : bb.succBBs)
+                    if (succBB != newPostIDom && succBB.PostIDom != null)
+                        newPostIDom = intersectPost(newPostIDom, succBB);
+                if (bb.PostIDom != newPostIDom) {
+                    bb.PostIDom = newPostIDom;
+                    changed = true;
+                }
+            }
+        }
+
+        // this is building DomBBs
+        RPOBBs.forEach(bb -> bb.PostDomBBs = new HashSet<BasicBlock>());
+        for (var bb : RPOBBs) {
+            if (bb == function.exitBB) continue;
+            bb.PostIDom.PostDomBBs.add(bb);
+        }
+    }
+
+    private void ComputePostDomFros(Function function) {
+        var RPOBBs = function.getReversePostOrderBBs();
+        RPOBBs.forEach(bb -> bb.PostDomFros = new HashSet<BasicBlock>());
+        for (var bb : RPOBBs)
+            if (bb.succBBs.size() >= 2) {
+                for (var succbb : bb.succBBs) {
+                    var runner = succbb;
+                    while (runner != bb.PostIDom) {
+                        runner.PostDomFros.add(bb);
+                        runner = runner.PostIDom;
+                    }
+                }
+            }
+    }
+
+    private BasicBlock intersectPost(BasicBlock b1, BasicBlock b2) {
+        BasicBlock finger1 = b1;
+        BasicBlock finger2 = b2;
+        while (finger1 != finger2) {
+            while (finger1.ReverseRPOnum < finger2.ReverseRPOnum)
+                finger1 = finger1.PostIDom;
+            while (finger1.ReverseRPOnum > finger2.ReverseRPOnum)
+                finger2 = finger2.PostIDom;
+        }
+        return finger1;
+    }
+
 }

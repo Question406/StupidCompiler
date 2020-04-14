@@ -1,25 +1,23 @@
 /*
 Test Package: Codegen
-Author: Pikachu
+Author: Admin
 Time: 2020-02-02
 Input:
 === input ===
-1
 === end ===
 Output:
 === output ===
-NO
 === end ===
-ExitCode: 0
+ExitCode: 20
 InstLimit: -1
-Origin Package: Codeforces 4A #57460997
+Origin Package: Codegen Pretest-572
 */
-int w;
-int main(){
-    w = getInt();
-    if ((w%2==0)&& (w>2))
-        print("YES");
-    else
-        print("NO");
-    return 0;
+int main() {
+    int x = 10;
+    int y = x;
+    if (x == 10) {
+        int x = 20;
+        y = x;
+    }
+    return y;
 }

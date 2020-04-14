@@ -141,7 +141,10 @@ public class FuncInliner {
                 var funcCallTOSet = functionfunc_call_infoMap.get(func).callTOSet;
                 newRecursiveCallTOSet.clear();
                 newRecursiveCallTOSet.addAll(funcCallTOSet);
-                funcCallTOSet.forEach(toCall -> newRecursiveCallTOSet.addAll(functionfunc_call_infoMap.get(toCall).recursiveCallTOSet));
+                for (var toCall : funcCallTOSet) {
+                    if (Function.isBuiltIn(toCall)) continue;
+                    newRecursiveCallTOSet.addAll(functionfunc_call_infoMap.get(toCall).recursiveCallTOSet);
+                }
                 if (! newRecursiveCallTOSet.equals(funcRecursiveCallTOSet)) {
                     funcRecursiveCallTOSet.clear();
                     funcRecursiveCallTOSet.addAll(newRecursiveCallTOSet);

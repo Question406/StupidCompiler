@@ -1,19 +1,14 @@
 package IR.Operand;
 
 import IR.IRVisitor;
-import IR.Instruction.Instruction;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class VirReg extends Operand {
     int ssaID = -1;
     VirReg oldName = null;
     Map<Integer, VirReg> newNames = null;
-
-    Set<Instruction> usedInstructions = new HashSet<Instruction>();
 
     public VirReg(String name) {
         super(name);

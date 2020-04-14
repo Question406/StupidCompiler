@@ -5,6 +5,7 @@ import IR.Function;
 import IR.IRPrinter;
 import IR.Instruction.BranchInst;
 import IR.Instruction.JumpInst;
+import IR.Instruction.PhiInst;
 import IR.Module;
 import IR.Operand.ConstInt;
 
@@ -34,47 +35,18 @@ public class CFGSimplifier extends Optimizer {
             // one pass
             changed = false;
             // branch simplify
-//            var temp = branchSimplify(function);
             changed |= branchSimplify(function);
-//            changed |= temp;
-
-//            if (temp) {
-//                irPrinter.visit(function);
-//                CommonFunc.printlnAnything("------------------------");
-//            }
             // jump simplify
-//            temp = emptyBBElem(function);
             changed |= emptyBBElem(function);
-//            changed |= temp;
-
-//            if (temp) {
-//                irPrinter.visit(function);
-//                CommonFunc.printlnAnything("------------------------");
-//            }
-
-//            temp = mergeConsecutiveBB(function);
             changed |= mergeConsecutiveBB(function);
-//            changed |= temp;
-
-//            if (temp) {
-//                function.CalcReversePostOrderBBs();
-//                CommonFunc.printlnAnything("------------------------");
-//            }
-
-//            temp = branchFloatUp(function);
             changed |= branchFloatUp(function);
-//            changed |= temp;
-
-//            if (temp) {
-//                function.CalcReversePostOrderBBs();
-//                CommonFunc.printlnAnything("------------------------");
-//            }
-
             if (changed)
                 res = true;
         }
-//        if (res)
-//            unreachableBBElem(function);
+        if (res) {
+            unreachableBBElem(function);
+            function.CalcReverseCFGPostOrderBBs();
+        }
         return res;
     }
 
@@ -88,6 +60,10 @@ public class CFGSimplifier extends Optimizer {
                 var trueBB = ((BranchInst) inst).trueBB;
                 var elseBB = ((BranchInst) inst).elseBB;
                 BasicBlock toRMBB = null;
+                if (trueBB == elseBB) {
+                    bb.removeTail();
+                    bb.endBB(new JumpInst(bb, trueBB));
+                }
                 if (cond instanceof ConstInt) {
                     if (((ConstInt) cond).getVal() == 1) {
                         ((BranchInst) inst).elseBB = trueBB;
@@ -98,13 +74,16 @@ public class CFGSimplifier extends Optimizer {
                         toRMBB = trueBB;
                     }
                 }
-                if (trueBB == elseBB) {
+                if (((BranchInst) inst).trueBB == ((BranchInst) inst).elseBB) {
                     if (toRMBB != null) {
                         toRMBB.predBBs.remove(bb);
                         bb.succBBs.remove(toRMBB);
+                        // modify Phi Insts since we can know for sure no data flows form bb to toRMBB
+                        for (var toRMBBinst = toRMBB.insthead; toRMBBinst instanceof PhiInst; toRMBBinst = toRMBBinst.next)
+                            ((PhiInst) toRMBBinst).rmFrom(bb);
                     }
                     bb.removeTail();
-                    bb.endBB(new JumpInst(bb, trueBB));
+                    bb.endBB(new JumpInst(bb, ((BranchInst) inst).trueBB));
                     res = true;
                 }
             }
@@ -121,11 +100,24 @@ public class CFGSimplifier extends Optimizer {
             if (inst instanceof JumpInst) {
                 var jumpTo = ((JumpInst) inst).jumpTo;
                 if (bb.isEmpty()) {
-                    changed = true;
-                    for (var predBB : bb.predBBs)
-                        predBB.newJumpTo(bb, jumpTo);
-                    bb.predBBs.clear();
-                    bb.succBBs.clear();
+                    if (bb != function.entryBB) {
+                        boolean canMerge = true;
+                        // highlight: if some phi nodes need data flow from bb, this bb can't be merged
+                        for (var succBB : bb.succBBs) {
+                            for (var succinst = succBB.insthead; succinst instanceof PhiInst; succinst = succinst.next)
+                                if (((PhiInst) succinst).from.containsKey(bb)) {
+                                    canMerge =false;
+                                    break;
+                                }
+                        }
+                        if (canMerge) {
+                            changed = true;
+                            for (var predBB : bb.predBBs)
+                                predBB.newJumpTo(bb, jumpTo);
+                            bb.predBBs.clear();
+                            bb.succBBs.clear();
+                        }
+                    }
                 }
             }
         }
@@ -172,6 +164,12 @@ public class CFGSimplifier extends Optimizer {
                     BranchInst newBranchInst = new BranchInst(bb, oldBranch.cond, oldBranch.trueBB, oldBranch.elseBB);
                     bb.removeTail();
                     bb.endBB(newBranchInst);
+                    for (var succBB : bb.succBBs) {
+                        for (var succInst = succBB.insthead; succInst instanceof PhiInst; succInst = succInst.next) {
+                            if (((PhiInst) succInst).from.containsKey(jumpTo))
+                                ((PhiInst) succInst).replaceFrom(jumpTo, bb);
+                        }
+                    }
                     bb.succBBs.remove(jumpTo);
                     bb.succBBs.add(oldBranch.trueBB);
                     bb.succBBs.add(oldBranch.elseBB);

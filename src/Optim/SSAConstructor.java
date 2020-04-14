@@ -11,6 +11,9 @@ import IR.Operand.VirReg;
 
 import java.util.*;
 
+// SSA constructor in Engineering a Compiler
+// highlight:   during the visit of InsertPhiInsts, clear all regs used instruction set && add insts to it in rename phase
+
 public class SSAConstructor {
     Module program;
     IRPrinter irPrinter;
@@ -22,6 +25,7 @@ public class SSAConstructor {
     }
 
     Map<VirReg, ssa_reg_info> reg_infoMap = new HashMap<VirReg, ssa_reg_info>();
+    HashSet<VirReg> cur_globals;
 
     public SSAConstructor(Module program) {
         this.program = program;
@@ -62,6 +66,8 @@ public class SSAConstructor {
                     }
                 }
                 if (defReg instanceof VirReg) {
+                    ((VirReg) defReg).usedInstructions.clear();
+                    ((VirReg) defReg).defInst = null;
                     varKill.add(defReg);
                     var reg_info = reg_infoMap.get((VirReg) defReg);
                     if (reg_info == null) {
@@ -90,13 +96,7 @@ public class SSAConstructor {
                 }
             }
         }
-
-//        irPrinter.visit(function);
     }
-
-    // --------------------------------------------------- //
-    HashSet<VirReg> cur_globals;
-
 
     private void RenameVars(Function function) {
         // args also names in a function
@@ -130,10 +130,12 @@ public class SSAConstructor {
             if (! (inst instanceof PhiInst)) break;
             VirReg res = (VirReg) ((PhiInst) inst).res;
             ((PhiInst) inst).res = NewName(res);
+            assert ((VirReg) ((PhiInst) inst).res).defInst == null;
+            ((VirReg) ((PhiInst) inst).res).defInst = inst;
         }
 
         for (; inst != null; inst = inst.next) {
-            inst.renameSSAForUse(reg_infoMap);
+            inst.renameSSAForUse(reg_infoMap, inst);
             inst.renameSSAForDef(reg_infoMap);
         }
 
@@ -145,6 +147,9 @@ public class SSAConstructor {
                 var stack = reg_infoMap.get(oldName).name_Stack;
                 VirReg newName = (! stack.empty()) ? oldName.getSSANewName(stack.peek()) : null;
                 ((PhiInst) instInSucc).from.put(curBB, newName);
+
+                if (newName != null)
+                    newName.usedInstructions.add(instInSucc);
             }
         }
 

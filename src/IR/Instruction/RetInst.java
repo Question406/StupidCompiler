@@ -2,10 +2,7 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.ConstInt;
-import IR.Operand.Operand;
-import IR.Operand.Variable;
-import IR.Operand.VirReg;
+import IR.Operand.*;
 import Optim.SSAConstructor;
 
 import java.util.ArrayList;
@@ -54,13 +51,27 @@ public class RetInst extends Instruction {
     }
 
     @Override
-    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
-        if (retVal instanceof VirReg)
+    public void renameSSAForUse(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap, Instruction inInst) {
+        if (retVal instanceof VirReg) {
             retVal = NewNameForUse(reg_infoMap, (VirReg) retVal);
+            ((VirReg) retVal).usedInstructions.add(inInst);
+        }
     }
 
     @Override
     public void renameSSAForDef(Map<VirReg, SSAConstructor.ssa_reg_info> reg_infoMap) {
 
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstInt constInt) {
+        if (retVal == virReg)
+            retVal = constInt;
+    }
+
+    @Override
+    public void modifyUseTOConst(VirReg virReg, ConstString constString) {
+        if (retVal == virReg)
+            retVal = constString;
     }
 }

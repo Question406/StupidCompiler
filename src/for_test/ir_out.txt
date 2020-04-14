@@ -1,56 +1,10 @@
- @constStr_0 = "YES"
- @constStr_1 = "NO"
- @w 
  define i32 @__init   {
  %__init.entryBB1:
  preds:  
- succs:  %_ifTrue1  %_if_elseBB1  
- doms:  %_ifTrue1  %afterCallBB1  %_if_elseBB1  
- idom:  %__init.entryBB1  
- domfros:  
- 		 @w  = alloc  4 
- 		 %_gw1.0  = load  @w 
- 		 %_t1.0  =  call getInt  
- 		 %_gw1.1  = move  %_t1.0 
- 		 %_t2.0  =   mod  %_gw1.1   2 
- 		 %_t3.0  = seq  %_t2.0   0 
- 		 br  %_t3.0  %_ifTrue1 %_if_elseBB1 
- 
- %_ifTrue1:
- preds:  %__init.entryBB1  
- succs:  %_if_elseBB1  %_if_thenBB1  
- doms:  %_if_thenBB1  
- idom:  %__init.entryBB1  
- domfros:  %afterCallBB1  %_if_elseBB1  
- 		 %_t4.0  = sgt  %_gw1.1   2 
- 		 br  %_t4.0  %_if_thenBB1 %_if_elseBB1 
- 
- %_if_thenBB1:
- preds:  %_ifTrue1  
- succs:  %afterCallBB1  
- doms:  
- idom:  %_ifTrue1  
- domfros:  %afterCallBB1  
- 		 call print  @constStr_0   
- 		 jump %afterCallBB1
- 
- %_if_elseBB1:
- preds:  %__init.entryBB1  %_ifTrue1  
- succs:  %afterCallBB1  
- doms:  
- idom:  %__init.entryBB1  
- domfros:  %afterCallBB1  
- 		 call print  @constStr_1   
- 		 jump %afterCallBB1
- 
- %afterCallBB1:
- preds:  %_if_elseBB1  %_if_thenBB1  
  succs:  
- doms:  
- idom:  %__init.entryBB1  
- domfros:  
- 		 %t1.0  = move  0 
- 		 store  @w   %_gw1.1 
- 		 ret  %t1.0 
+ postdoms:  
+ postidom:  %afterCallBB1  
+ postdomfros:  
+ 		 ret  20 
  
  }

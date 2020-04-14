@@ -1,9 +1,6 @@
 package IR;
 
-import IR.Instruction.BranchInst;
-import IR.Instruction.Instruction;
-import IR.Instruction.JumpInst;
-import IR.Instruction.RetInst;
+import IR.Instruction.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,12 +11,17 @@ public class BasicBlock {
     public Instruction insthead;
     public Instruction insttail;
     public int RPOnum = 0;
+    public int ReverseRPOnum = 0;
 
-    public Set<BasicBlock> DomBBs;
-    public Set<BasicBlock> DomFros;
     public Set<BasicBlock> predBBs;
     public Set<BasicBlock> succBBs;
+
     public BasicBlock IDom;
+    public Set<BasicBlock> DomBBs;
+    public Set<BasicBlock> DomFros;
+    public BasicBlock PostIDom;
+    public Set<BasicBlock> PostDomBBs;
+    public Set<BasicBlock> PostDomFros;
 
     public boolean ended;
 
@@ -155,10 +157,14 @@ public class BasicBlock {
 
     public void CombineBB(BasicBlock toCombine) {
         if (insttail == null && insthead == null) {
+            assert !(toCombine.insthead instanceof PhiInst);
             insthead = toCombine.insthead;
             insttail = toCombine.insttail;
+            for (var inst = toCombine.insthead; inst != null; inst = inst.next)
+                inst.curBB = this;
         }else {
             assert insttail != null;
+            assert !(toCombine.insthead instanceof PhiInst);
             // reset insts from toCombine
             for (var inst = toCombine.insthead; inst != null; inst = inst.next)
                 inst.curBB = this;

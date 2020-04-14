@@ -1,5 +1,6 @@
 package IR.Interpreter;
 
+import Utils.CommonFunc;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.io.*;
@@ -125,7 +126,8 @@ public class IRInterpreter {
     private void readInstruction() throws SemanticError {
         if (line.startsWith("preds:") || line.startsWith("succs:")
             || line.startsWith("doms:") || line.startsWith("idom:")
-            || line.startsWith("domfros:"))
+            || line.startsWith("domfros:") || line.startsWith("postdoms:")
+                || line.startsWith("postdomfros:") || line.startsWith("postidom"))
             return;
 
         // basic block
@@ -198,8 +200,8 @@ public class IRInterpreter {
                     String reg = words.get(i + 1);
                     if (!label.endsWith(":")) throw new SemanticError("label should end with `:`");
                     label = label.substring(0, label.length() - 1);
-                    if (!reg.startsWith("%") && !reg.startsWith("@") && !reg.equals("undef"))
-                        throw new SemanticError("source of a phi node should be a register or `undef`");
+//                    if (!reg.startsWith("%") && !reg.startsWith("@")) // after SCCP phi inst may have a constant
+//                        throw new SemanticError("source of a phi node should be a register or `undef`");
                     phi.paths.put(label, reg);
                 }
                 curBB.phi.add(phi);
@@ -423,7 +425,7 @@ public class IRInterpreter {
                         stringObjects.put(staticStringCnt++, resStr);
                         return;
                     }
-                    case "string.lt": {
+                    case "string.lth": {
                         String str1 = stringObjects.get(readSrc(curInst.args.get(0)));
                         String str2 = stringObjects.get(readSrc(curInst.args.get(1)));
                         registerWrite(curInst.dest, str1.compareTo(str2) < 0 ? 1 : 0);
@@ -447,7 +449,7 @@ public class IRInterpreter {
                         registerWrite(curInst.dest, str1.compareTo(str2) >= 0 ? 1 : 0);
                         return;
                     }
-                    case "string.gt": {
+                    case "string.gth": {
                         String str1 = stringObjects.get(readSrc(curInst.args.get(0)));
                         String str2 = stringObjects.get(readSrc(curInst.args.get(1)));
                         registerWrite(curInst.dest, str1.compareTo(str2) > 0 ? 1 : 0);
@@ -634,6 +636,16 @@ public class IRInterpreter {
                 for (PhiNode phi : curBB.phi) {
                     curInst = phi;
                     String regName = phi.paths.get(lastBB.name);
+                    if (regName == null) {
+                        System.out.println(lastBB.name);
+                        System.out.println(curBB.name);
+
+                        throw new RuntimeError("unexpected phi income");
+                    }
+                    if (CommonFunc.isInteger(regName)) {
+                        tmpRegister.put(phi.dest, Integer.valueOf(regName));
+                        continue;
+                    }
                     if (regName == null) {
                         throw new RuntimeError("this phi node has no value from incoming block `" + lastBB.name + "`");
                     } else {
