@@ -5,6 +5,9 @@
 gcd:
 %gcd.entryBB1:
     mv	backup_ra,ra 
+    mv	back_s2,s2 
+    mv	back_s1,s1 
+    mv	back_s0,s0 
     mv	back_s11,s11 
     mv	back_s10,s10 
     mv	back_s9,s9 
@@ -14,9 +17,6 @@ gcd:
     mv	back_s5,s5 
     mv	back_s4,s4 
     mv	back_s3,s3 
-    mv	back_s2,s2 
-    mv	back_s1,s1 
-    mv	back_s0,s0 
     mv	j5.0,a7 
     mv	j4.0,a6 
     mv	j3.0,a5 
@@ -56,6 +56,46 @@ gcd:
     li t, 10
     ble	i.1,t,	%forbodyBB1
     j	%afterForBB1
+%forbodyBB1:
+    add t.0,j0.0,j1.0
+    add t.0,t.0,j2.0
+    add t.0,t.0,j3.0
+    add t.0,t.0,j4.0
+    add t.0,t.0,j5.0
+    add t.0,t.0,j6.0
+    add t.0,t.0,j7.0
+    add t.0,t.0,j8.0
+    add t.0,t.0,j9.0
+    add t.0,t.0,j10.0
+    add t.0,t.0,j11.0
+    add t.0,t.0,j12.0
+    add t.0,t.0,j13.0
+    add t.0,t.0,j14.0
+    add t.0,t.0,j15.0
+    add t.0,t.0,j16.0
+    add t.0,t.0,j17.0
+    add t.0,t.0,j18.0
+    add t.0,t.0,j19.0
+    add t.0,t.0,j20.0
+    add t.0,t.0,j21.0
+    add t.0,t.0,j22.0
+    add t.0,t.0,j23.0
+    add t.0,t.0,j24.0
+    add t.0,t.0,j25.0
+    add t.0,t.0,j26.0
+    add t.0,t.0,j27.0
+    add t.0,t.0,j28.0
+    add t.0,t.0,j29.0
+    li t, 100
+    rem t.0,t.0,t
+    mv	j.1,t.0 
+    addi i.2,i.1,    1
+    mv	i.1,i.2 
+    mv	j.0,j.1 
+    mv	breaker,i.1 
+    mv	i.1,i.1 
+    mv	breaker,j.0 
+    j	%forcondBB1
 %afterForBB1:
     rem t.0,x.0,y.0
     beq	t.0,zero,	%if_thenBB1
@@ -161,19 +201,16 @@ gcd:
     mv	a7,j5.0 
     call	gcd1
     mv	t.0,a0 
-    mv	mergedretVal.1,t.0 
-    mv	mergedretVal.2,mergedretVal.1 
-    mv	breaker,mergedretVal.2 
-    j	%gcd.exitBB1
-%if_thenBB1:
-    mv	mergedretVal.0,y.0 
+    mv	mergedretVal.0,t.0 
     mv	mergedretVal.2,mergedretVal.0 
     mv	breaker,mergedretVal.2 
     j	%gcd.exitBB1
+%if_thenBB1:
+    mv	mergedretVal.1,y.0 
+    mv	mergedretVal.2,mergedretVal.1 
+    mv	breaker,mergedretVal.2 
+    j	%gcd.exitBB1
 %gcd.exitBB1:
-    mv	s0,back_s0 
-    mv	s1,back_s1 
-    mv	s2,back_s2 
     mv	s3,back_s3 
     mv	s4,back_s4 
     mv	s5,back_s5 
@@ -183,49 +220,12 @@ gcd:
     mv	s9,back_s9 
     mv	s10,back_s10 
     mv	s11,back_s11 
+    mv	s0,back_s0 
+    mv	s1,back_s1 
+    mv	s2,back_s2 
     mv	ra,backup_ra 
     mv	a0,mergedretVal.2 
     ret
-%forbodyBB1:
-    add t.0,j0.0,j1.0
-    add t.0,t.0,j2.0
-    add t.0,t.0,j3.0
-    add t.0,t.0,j4.0
-    add t.0,t.0,j5.0
-    add t.0,t.0,j6.0
-    add t.0,t.0,j7.0
-    add t.0,t.0,j8.0
-    add t.0,t.0,j9.0
-    add t.0,t.0,j10.0
-    add t.0,t.0,j11.0
-    add t.0,t.0,j12.0
-    add t.0,t.0,j13.0
-    add t.0,t.0,j14.0
-    add t.0,t.0,j15.0
-    add t.0,t.0,j16.0
-    add t.0,t.0,j17.0
-    add t.0,t.0,j18.0
-    add t.0,t.0,j19.0
-    add t.0,t.0,j20.0
-    add t.0,t.0,j21.0
-    add t.0,t.0,j22.0
-    add t.0,t.0,j23.0
-    add t.0,t.0,j24.0
-    add t.0,t.0,j25.0
-    add t.0,t.0,j26.0
-    add t.0,t.0,j27.0
-    add t.0,t.0,j28.0
-    add t.0,t.0,j29.0
-    li t, 100
-    rem t.0,t.0,t
-    mv	j.1,t.0 
-    addi i.2,i.1,    1
-    mv	i.1,i.2 
-    mv	j.0,j.1 
-    mv	breaker,i.1 
-    mv	i.1,i.1 
-    mv	breaker,j.0 
-    j	%forcondBB1
 								 # func end
     .globl	main						 # func begin 
     .p2align	2
@@ -233,6 +233,9 @@ gcd:
 main:
 %__init.entryBB1:
     mv	backup_ra,ra 
+    mv	back_s2,s2 
+    mv	back_s1,s1 
+    mv	back_s0,s0 
     mv	back_s11,s11 
     mv	back_s10,s10 
     mv	back_s9,s9 
@@ -242,9 +245,6 @@ main:
     mv	back_s5,s5 
     mv	back_s4,s4 
     mv	back_s3,s3 
-    mv	back_s2,s2 
-    mv	back_s1,s1 
-    mv	back_s0,s0 
     li para, 12
     sw para, 0(sp) 
     li para, 14
@@ -316,9 +316,6 @@ main:
     mv	_t.0,a0 
     mv	a0,_t.0 
     call	println
-    mv	s0,back_s0 
-    mv	s1,back_s1 
-    mv	s2,back_s2 
     mv	s3,back_s3 
     mv	s4,back_s4 
     mv	s5,back_s5 
@@ -328,6 +325,9 @@ main:
     mv	s9,back_s9 
     mv	s10,back_s10 
     mv	s11,back_s11 
+    mv	s0,back_s0 
+    mv	s1,back_s1 
+    mv	s2,back_s2 
     mv	ra,backup_ra 
     mv	a0,zero 
     ret
@@ -338,6 +338,9 @@ main:
 gcd1:
 %gcd1.entryBB1:
     mv	backup_ra,ra 
+    mv	back_s2,s2 
+    mv	back_s1,s1 
+    mv	back_s0,s0 
     mv	back_s11,s11 
     mv	back_s10,s10 
     mv	back_s9,s9 
@@ -347,9 +350,6 @@ gcd1:
     mv	back_s5,s5 
     mv	back_s4,s4 
     mv	back_s3,s3 
-    mv	back_s2,s2 
-    mv	back_s1,s1 
-    mv	back_s0,s0 
     mv	j5.0,a7 
     mv	j4.0,a6 
     mv	j3.0,a5 
@@ -417,6 +417,11 @@ gcd1:
     rem t.0,x.0,y.0
     beq	t.0,zero,	%if_thenBB2
     j	%if_elseBB2
+%if_thenBB2:
+    mv	mergedretVal.1,y.0 
+    mv	mergedretVal.2,mergedretVal.1 
+    mv	breaker,mergedretVal.2 
+    j	%gcd1.exitBB1
 %if_elseBB2:
     rem t.0,x.0,y.0
     sw j6.0, 0(sp) 
@@ -453,19 +458,11 @@ gcd1:
     mv	a7,j5.0 
     call	gcd2
     mv	t.0,a0 
-    mv	mergedretVal.2,t.0 
-    mv	mergedretVal.0,mergedretVal.2 
-    mv	breaker,mergedretVal.0 
-    j	%gcd1.exitBB1
-%if_thenBB2:
-    mv	mergedretVal.1,y.0 
-    mv	mergedretVal.0,mergedretVal.1 
-    mv	breaker,mergedretVal.0 
+    mv	mergedretVal.0,t.0 
+    mv	mergedretVal.2,mergedretVal.0 
+    mv	breaker,mergedretVal.2 
     j	%gcd1.exitBB1
 %gcd1.exitBB1:
-    mv	s0,back_s0 
-    mv	s1,back_s1 
-    mv	s2,back_s2 
     mv	s3,back_s3 
     mv	s4,back_s4 
     mv	s5,back_s5 
@@ -475,8 +472,11 @@ gcd1:
     mv	s9,back_s9 
     mv	s10,back_s10 
     mv	s11,back_s11 
+    mv	s0,back_s0 
+    mv	s1,back_s1 
+    mv	s2,back_s2 
     mv	ra,backup_ra 
-    mv	a0,mergedretVal.0 
+    mv	a0,mergedretVal.2 
     ret
 								 # func end
     .globl	gcd2						 # func begin 
@@ -485,6 +485,9 @@ gcd1:
 gcd2:
 %gcd2.entryBB1:
     mv	backup_ra,ra 
+    mv	back_s2,s2 
+    mv	back_s1,s1 
+    mv	back_s0,s0 
     mv	back_s11,s11 
     mv	back_s10,s10 
     mv	back_s9,s9 
@@ -494,9 +497,6 @@ gcd2:
     mv	back_s5,s5 
     mv	back_s4,s4 
     mv	back_s3,s3 
-    mv	back_s2,s2 
-    mv	back_s1,s1 
-    mv	back_s0,s0 
     mv	j5.0,a7 
     mv	j4.0,a6 
     mv	j3.0,a5 
@@ -533,9 +533,9 @@ gcd2:
     beq	t.0,zero,	%if_thenBB3
     j	%if_elseBB3
 %if_thenBB3:
-    mv	mergedretVal.2,y.0 
-    mv	mergedretVal.0,mergedretVal.2 
-    mv	breaker,mergedretVal.0 
+    mv	mergedretVal.1,y.0 
+    mv	mergedretVal.2,mergedretVal.1 
+    mv	breaker,mergedretVal.2 
     j	%gcd2.exitBB1
 %if_elseBB3:
     rem t.0,x.0,y.0
@@ -573,14 +573,11 @@ gcd2:
     mv	a7,j5.0 
     call	gcd
     mv	t.0,a0 
-    mv	mergedretVal.1,t.0 
-    mv	mergedretVal.0,mergedretVal.1 
-    mv	breaker,mergedretVal.0 
+    mv	mergedretVal.0,t.0 
+    mv	mergedretVal.2,mergedretVal.0 
+    mv	breaker,mergedretVal.2 
     j	%gcd2.exitBB1
 %gcd2.exitBB1:
-    mv	s0,back_s0 
-    mv	s1,back_s1 
-    mv	s2,back_s2 
     mv	s3,back_s3 
     mv	s4,back_s4 
     mv	s5,back_s5 
@@ -590,8 +587,11 @@ gcd2:
     mv	s9,back_s9 
     mv	s10,back_s10 
     mv	s11,back_s11 
+    mv	s0,back_s0 
+    mv	s1,back_s1 
+    mv	s2,back_s2 
     mv	ra,backup_ra 
-    mv	a0,mergedretVal.0 
+    mv	a0,mergedretVal.2 
     ret
 								 # func end
     .section	.sdata,"aw",@progbits

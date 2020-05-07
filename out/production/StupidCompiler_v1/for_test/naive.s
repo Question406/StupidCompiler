@@ -5,18 +5,18 @@
 gcd:
 %gcd.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s0,s0 
-    mv	back_s1,s1 
-    mv	back_s2,s2 
-    mv	back_s3,s3 
-    mv	back_s4,s4 
-    mv	back_s5,s5 
-    mv	back_s6,s6 
-    mv	back_s7,s7 
-    mv	back_s8,s8 
-    mv	back_s9,s9 
-    mv	back_s10,s10 
     mv	back_s11,s11 
+    mv	back_s10,s10 
+    mv	back_s9,s9 
+    mv	back_s8,s8 
+    mv	back_s7,s7 
+    mv	back_s6,s6 
+    mv	back_s5,s5 
+    mv	back_s4,s4 
+    mv	back_s3,s3 
+    mv	back_s2,s2 
+    mv	back_s1,s1 
+    mv	back_s0,s0 
     mv	j5.0,a7 
     mv	j4.0,a6 
     mv	j3.0,a5 
@@ -171,18 +171,18 @@ gcd:
     mv	breaker,mergedretVal.2 
     j	%gcd.exitBB1
 %gcd.exitBB1:
-    mv	s11,back_s11 
-    mv	s10,back_s10 
-    mv	s9,back_s9 
-    mv	s8,back_s8 
-    mv	s7,back_s7 
-    mv	s6,back_s6 
-    mv	s5,back_s5 
-    mv	s4,back_s4 
-    mv	s3,back_s3 
-    mv	s2,back_s2 
-    mv	s1,back_s1 
     mv	s0,back_s0 
+    mv	s1,back_s1 
+    mv	s2,back_s2 
+    mv	s3,back_s3 
+    mv	s4,back_s4 
+    mv	s5,back_s5 
+    mv	s6,back_s6 
+    mv	s7,back_s7 
+    mv	s8,back_s8 
+    mv	s9,back_s9 
+    mv	s10,back_s10 
+    mv	s11,back_s11 
     mv	ra,backup_ra 
     mv	a0,mergedretVal.2 
     ret
@@ -233,18 +233,18 @@ gcd:
 main:
 %__init.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s0,s0 
-    mv	back_s1,s1 
-    mv	back_s2,s2 
-    mv	back_s3,s3 
-    mv	back_s4,s4 
-    mv	back_s5,s5 
-    mv	back_s6,s6 
-    mv	back_s7,s7 
-    mv	back_s8,s8 
-    mv	back_s9,s9 
-    mv	back_s10,s10 
     mv	back_s11,s11 
+    mv	back_s10,s10 
+    mv	back_s9,s9 
+    mv	back_s8,s8 
+    mv	back_s7,s7 
+    mv	back_s6,s6 
+    mv	back_s5,s5 
+    mv	back_s4,s4 
+    mv	back_s3,s3 
+    mv	back_s2,s2 
+    mv	back_s1,s1 
+    mv	back_s0,s0 
     li para, 12
     sw para, 0(sp) 
     li para, 14
@@ -316,18 +316,18 @@ main:
     mv	_t.0,a0 
     mv	a0,_t.0 
     call	println
-    mv	s11,back_s11 
-    mv	s10,back_s10 
-    mv	s9,back_s9 
-    mv	s8,back_s8 
-    mv	s7,back_s7 
-    mv	s6,back_s6 
-    mv	s5,back_s5 
-    mv	s4,back_s4 
-    mv	s3,back_s3 
-    mv	s2,back_s2 
-    mv	s1,back_s1 
     mv	s0,back_s0 
+    mv	s1,back_s1 
+    mv	s2,back_s2 
+    mv	s3,back_s3 
+    mv	s4,back_s4 
+    mv	s5,back_s5 
+    mv	s6,back_s6 
+    mv	s7,back_s7 
+    mv	s8,back_s8 
+    mv	s9,back_s9 
+    mv	s10,back_s10 
+    mv	s11,back_s11 
     mv	ra,backup_ra 
     mv	a0,zero 
     ret
@@ -338,18 +338,18 @@ main:
 gcd1:
 %gcd1.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s0,s0 
-    mv	back_s1,s1 
-    mv	back_s2,s2 
-    mv	back_s3,s3 
-    mv	back_s4,s4 
-    mv	back_s5,s5 
-    mv	back_s6,s6 
-    mv	back_s7,s7 
-    mv	back_s8,s8 
-    mv	back_s9,s9 
-    mv	back_s10,s10 
     mv	back_s11,s11 
+    mv	back_s10,s10 
+    mv	back_s9,s9 
+    mv	back_s8,s8 
+    mv	back_s7,s7 
+    mv	back_s6,s6 
+    mv	back_s5,s5 
+    mv	back_s4,s4 
+    mv	back_s3,s3 
+    mv	back_s2,s2 
+    mv	back_s1,s1 
+    mv	back_s0,s0 
     mv	j5.0,a7 
     mv	j4.0,a6 
     mv	j3.0,a5 
@@ -463,18 +463,18 @@ gcd1:
     mv	breaker,mergedretVal.0 
     j	%gcd1.exitBB1
 %gcd1.exitBB1:
-    mv	s11,back_s11 
-    mv	s10,back_s10 
-    mv	s9,back_s9 
-    mv	s8,back_s8 
-    mv	s7,back_s7 
-    mv	s6,back_s6 
-    mv	s5,back_s5 
-    mv	s4,back_s4 
-    mv	s3,back_s3 
-    mv	s2,back_s2 
-    mv	s1,back_s1 
     mv	s0,back_s0 
+    mv	s1,back_s1 
+    mv	s2,back_s2 
+    mv	s3,back_s3 
+    mv	s4,back_s4 
+    mv	s5,back_s5 
+    mv	s6,back_s6 
+    mv	s7,back_s7 
+    mv	s8,back_s8 
+    mv	s9,back_s9 
+    mv	s10,back_s10 
+    mv	s11,back_s11 
     mv	ra,backup_ra 
     mv	a0,mergedretVal.0 
     ret
@@ -485,18 +485,18 @@ gcd1:
 gcd2:
 %gcd2.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s0,s0 
-    mv	back_s1,s1 
-    mv	back_s2,s2 
-    mv	back_s3,s3 
-    mv	back_s4,s4 
-    mv	back_s5,s5 
-    mv	back_s6,s6 
-    mv	back_s7,s7 
-    mv	back_s8,s8 
-    mv	back_s9,s9 
-    mv	back_s10,s10 
     mv	back_s11,s11 
+    mv	back_s10,s10 
+    mv	back_s9,s9 
+    mv	back_s8,s8 
+    mv	back_s7,s7 
+    mv	back_s6,s6 
+    mv	back_s5,s5 
+    mv	back_s4,s4 
+    mv	back_s3,s3 
+    mv	back_s2,s2 
+    mv	back_s1,s1 
+    mv	back_s0,s0 
     mv	j5.0,a7 
     mv	j4.0,a6 
     mv	j3.0,a5 
@@ -578,18 +578,18 @@ gcd2:
     mv	breaker,mergedretVal.0 
     j	%gcd2.exitBB1
 %gcd2.exitBB1:
-    mv	s11,back_s11 
-    mv	s10,back_s10 
-    mv	s9,back_s9 
-    mv	s8,back_s8 
-    mv	s7,back_s7 
-    mv	s6,back_s6 
-    mv	s5,back_s5 
-    mv	s4,back_s4 
-    mv	s3,back_s3 
-    mv	s2,back_s2 
-    mv	s1,back_s1 
     mv	s0,back_s0 
+    mv	s1,back_s1 
+    mv	s2,back_s2 
+    mv	s3,back_s3 
+    mv	s4,back_s4 
+    mv	s5,back_s5 
+    mv	s6,back_s6 
+    mv	s7,back_s7 
+    mv	s8,back_s8 
+    mv	s9,back_s9 
+    mv	s10,back_s10 
+    mv	s11,back_s11 
     mv	ra,backup_ra 
     mv	a0,mergedretVal.0 
     ret
