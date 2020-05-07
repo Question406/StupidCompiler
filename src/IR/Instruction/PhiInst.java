@@ -2,7 +2,10 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.*;
+import IR.Operand.ConstInt;
+import IR.Operand.ConstString;
+import IR.Operand.Operand;
+import IR.Operand.VirReg;
 import Optim.SSAConstructor;
 
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ public class PhiInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
 
     }
 
@@ -71,6 +74,16 @@ public class PhiInst extends Instruction {
             if (opr == virReg)
                 entry.setValue(constString);
         }
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+
     }
 
     public void rmFrom(BasicBlock toRMbb) {

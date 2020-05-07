@@ -3,9 +3,7 @@ package Optim;
 import IR.Function;
 import IR.Instruction.*;
 import IR.Module;
-import IR.Operand.ConstInt;
-import IR.Operand.Variable;
-import IR.Operand.VirReg;
+import IR.Operand.*;
 import Utils.CompileOption;
 
 import java.util.HashMap;
@@ -28,14 +26,16 @@ public class GlobalVarResolver {
     Module program;
 
     private static class global_var_info {
-        Map<Variable, VirReg> global_rename_map = new HashMap<Variable, VirReg>();
-        Set<Variable> global_var_useset = new HashSet<Variable>();
+        Map<Operand, VirReg> global_rename_map = new HashMap<>();
+        Set<Operand> global_var_useset = new HashSet<>();
     }
 
     Map<Function, global_var_info> functionglobal_var_infoMap;
+    FuncInliner funcInliner;
 
-    public GlobalVarResolver(Module program) {
+    public GlobalVarResolver(Module program, FuncInliner funcInliner) {
         this.program = program;
+        this.funcInliner = funcInliner;
     }
 
     public void run() {
@@ -43,7 +43,7 @@ public class GlobalVarResolver {
         insert_loads();
         insert_stores();
         load_store_for_call();
-        insert_alloc_for_globals();
+//        insert_alloc_for_globals();
     }
 
     private void collect_use_info(){
@@ -69,20 +69,34 @@ public class GlobalVarResolver {
                         for (var reg : useRegs) {
                             if (reg instanceof Variable) { // global_var
                                 use_set.add((Variable) reg);
-                                if (! rename_map.containsKey(reg)) {
+                                if (!rename_map.containsKey(reg)) {
                                     VirReg tmp_global = new VirReg("_g" + reg.getName());
                                     rename_map.put((Variable) reg, tmp_global);
                                 }
                             }
+//                            } else if (reg instanceof ConstString) {
+//                                use_set.add(reg);
+//                                if (! rename_map.containsKey(reg)) {
+//                                    VirReg tmp_global = new VirReg("_constStr");
+//                                    rename_map.put(reg, tmp_global);
+//                                }
+//                            }
                         }
                     if (defReg != null) {
                         if (defReg instanceof Variable) {
                             func_var_info.global_var_useset.add((Variable) defReg);
-                            if (! rename_map.containsKey(defReg)) {
+                            if (!rename_map.containsKey(defReg)) {
                                 VirReg tmp_global = new VirReg("_g" + defReg.getName());
                                 rename_map.put((Variable) defReg, tmp_global);
                             }
                         }
+//                        } else if (defReg instanceof ConstString) {
+//                            func_var_info.global_var_useset.add(defReg);
+//                            if (! rename_map.containsKey(defReg)) {
+//                                VirReg tmp_global = new VirReg("_constStr");
+//                                rename_map.put(defReg, tmp_global);
+//                            }
+//                        }
                     }
                     inst.renameGlobal(rename_map);
                 }
@@ -115,11 +129,22 @@ public class GlobalVarResolver {
     private void insert_stores() {
         for (var func : program.getGlobalFuncMap().values()) {
             if (Function.isBuiltIn(func)) continue;
+
+            var func_info = funcInliner.functionfunc_call_infoMap.get(func);
+            Set<Operand> globalVarRecursiveUseSet = new HashSet<>();
+
+            for (var rec_func : func_info.recursiveCallTOSet) {
+                if (!Function.isBuiltIn(rec_func))
+                    globalVarRecursiveUseSet.addAll(functionglobal_var_infoMap.get(rec_func).global_var_useset);
+            }
+
             var func_val_info = functionglobal_var_infoMap.get(func);
             var use_set = func_val_info.global_var_useset;
             var rename_map = func_val_info.global_rename_map;
             var inst_tail = func.exitBB.insttail;
             for (var global_var : use_set) {
+                if (!globalVarRecursiveUseSet.contains(global_var) || global_var instanceof ConstString)
+                    continue;
                 var global_tmp_vir = rename_map.get(global_var);
                 inst_tail.linkPrev(new StoreInst(func.exitBB, global_var, global_tmp_vir));
             }
@@ -138,6 +163,7 @@ public class GlobalVarResolver {
                     if (inst instanceof FuncCallInst) {
                         var Calling = ((FuncCallInst) inst).callTo;
                         for (var global_var : use_set) {
+                            if (global_var instanceof ConstString) continue;
                             if (Function.isBuiltIn(Calling) || (!functionglobal_var_infoMap.get(Calling).global_var_useset.contains(global_var)))
                                 continue;
                             var global_tmp_vir = rename_map.get(global_var);

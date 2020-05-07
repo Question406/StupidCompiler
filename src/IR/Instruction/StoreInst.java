@@ -13,10 +13,22 @@ public class StoreInst extends Instruction {
     public Operand storeTo; // works as a pointer
     public Operand res;
 
+    // for riscv
+    public int byteSize;
+    public int offset;
+    public Operand helper;
+
     public StoreInst(BasicBlock BB, Operand storeTo, Operand res) {
         super(BB);
         this.storeTo = storeTo;
         this.res = res;
+    }
+
+    public StoreInst(BasicBlock BB, Operand storeTo, Operand res, int byteSize) {
+        super(BB);
+        this.storeTo = storeTo;
+        this.res = res;
+        this.byteSize = byteSize;
     }
 
     public void accept(IRVisitor visitor) {
@@ -39,7 +51,7 @@ public class StoreInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
         if (res instanceof Variable)
             res = renameMap.get(res);
         if (storeTo instanceof Variable)
@@ -82,5 +94,26 @@ public class StoreInst extends Instruction {
             storeTo = constString;
         if (res == virReg)
             res = constString;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+        Def.clear();
+        Use.clear();
+        if (storeTo instanceof VirReg)
+            Use.add((VirReg) storeTo);
+        Use.add((VirReg) res);
+        if (helper != null)
+            Use.add((VirReg) helper);
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+        if (storeTo == use)
+            storeTo = changeTo;
+        if (res == use)
+            res = changeTo;
+        if (helper == use)
+            helper = changeTo;
     }
 }

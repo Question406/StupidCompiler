@@ -2,6 +2,11 @@ package IR;
 
 import IR.Instruction.*;
 import IR.Operand.*;
+import RISCV.Insts.LA;
+import RISCV.Insts.LI;
+import RISCV.Insts.LUI;
+import RISCV.PhyReg;
+import RISCV.StackLoc;
 
 import java.io.PrintStream;
 import java.util.HashMap;
@@ -264,23 +269,23 @@ public class IRPrinter implements IRVisitor {
 //            printAnything("\n");
 //        }
 
-        if (node.PostDomBBs != null){
-            printAnything("postdoms: ");
-            node.PostDomBBs.forEach(x -> printAnything(BBgetName(x) + " "));
-            printAnything("\n");
-        }
-
-        if (node.PostIDom != null) {
-            printAnything("postidom: ");
-            printAnything(BBgetName(node.PostIDom) + " ");
-            printAnything("\n");
-        }
-
-        if (node.PostDomFros != null) {
-            printAnything("postdomfros: ");
-            node.PostDomFros.forEach(x -> printAnything(BBgetName(x) + " "));
-            printAnything("\n");
-        }
+//        if (node.PostDomBBs != null){
+//            printAnything("postdoms: ");
+//            node.PostDomBBs.forEach(x -> printAnything(BBgetName(x) + " "));
+//            printAnything("\n");
+//        }
+//
+//        if (node.PostIDom != null) {
+//            printAnything("postidom: ");
+//            printAnything(BBgetName(node.PostIDom) + " ");
+//            printAnything("\n");
+//        }
+//
+//        if (node.PostDomFros != null) {
+//            printAnything("postdomfros: ");
+//            node.PostDomFros.forEach(x -> printAnything(BBgetName(x) + " "));
+//            printAnything("\n");
+//        }
 
 
         for (var inst = node.insthead; inst != null; inst = inst.next) {
@@ -306,13 +311,38 @@ public class IRPrinter implements IRVisitor {
             var fromOpr = from.getValue();
             printAnything(BBgetName(fromBB) + ": ");
             if (fromOpr == null)
-//                printAnything(" undef ");
-                printAnything(" 0 ");
+                printAnything(" undef ");
+//                printAnything(" 0 ");
             else
                 fromOpr.accept(this);
             printAnything(" ");
         }
         printAnything("\n");
+    }
+
+    @Override
+    public void visit(LA node) {
+
+    }
+
+    @Override
+    public void visit(LUI node) {
+
+    }
+
+    @Override
+    public void visit(PhyReg node) {
+
+    }
+
+    @Override
+    public void visit(StackLoc node) {
+
+    }
+
+    @Override
+    public void visit(LI node) {
+
     }
 
     private String BBgetName(BasicBlock asking) {

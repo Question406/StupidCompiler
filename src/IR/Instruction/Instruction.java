@@ -2,16 +2,27 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.*;
+import IR.Operand.ConstInt;
+import IR.Operand.ConstString;
+import IR.Operand.Operand;
+import IR.Operand.VirReg;
 import Optim.SSAConstructor;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class Instruction {
     public BasicBlock curBB;
     public Instruction prev;
     public Instruction next;
+
+    // for reg allocate
+    public Set<VirReg> Use = new HashSet<VirReg>();
+    public Set<VirReg> Def = new HashSet<VirReg>();
+    public Set<VirReg> LiveIn = new HashSet<VirReg>();
+    public Set<VirReg> LiveOut = new HashSet<VirReg>();
 
     public Instruction(BasicBlock BB) {
         curBB = BB;
@@ -80,7 +91,7 @@ public abstract class Instruction {
 
     abstract public List<Operand> getUseRegs();
 
-    abstract public void renameGlobal(Map<Variable, VirReg> renameMap);
+    abstract public void renameGlobal(Map<Operand, VirReg> renameMap);
 
     abstract public Instruction CopySelfWithNewName(Map<Operand, Operand> regRenameMap, Map<BasicBlock, BasicBlock> BBRenameMap);
 
@@ -91,4 +102,9 @@ public abstract class Instruction {
     abstract public void modifyUseTOConst(VirReg virReg, ConstInt constInt);
 
     abstract public void modifyUseTOConst(VirReg virReg, ConstString constString);
+
+    // Reg allocate
+    abstract public void CalcDefUseSet();
+
+    abstract public void replaceUse(VirReg use, VirReg changeTo);
 }

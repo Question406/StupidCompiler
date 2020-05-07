@@ -16,11 +16,22 @@ public class BinOpInst extends Instruction {
     public Operand lhs;
     public Operand rhs;
 
+    public boolean isImmInst;
+    public RISCV.BinaryOperator riscvop;
+
     public BinOpInst(BasicBlock BB, Operand res, BinaryOperator op, Operand lhs, Operand rhs) {
         super(BB);
         this.lhs = lhs;
         this.res = res;
         this.op = op;
+        this.rhs = rhs;
+    }
+
+    public BinOpInst(BasicBlock BB, Operand res, RISCV.BinaryOperator op, Operand lhs, Operand rhs) {
+        super(BB);
+        this.lhs = lhs;
+        this.res = res;
+        this.riscvop = op;
         this.rhs = rhs;
     }
 
@@ -45,12 +56,18 @@ public class BinOpInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
         if (res instanceof Variable)
             res = renameMap.get(res);
         if (lhs instanceof Variable)
             lhs = renameMap.get(lhs);
         if (rhs instanceof Variable)
+            rhs = renameMap.get(rhs);
+        if (res instanceof ConstString)
+            res = renameMap.get(res);
+        if (lhs instanceof ConstString)
+            lhs = renameMap.get(lhs);
+        if (rhs instanceof ConstString)
             rhs = renameMap.get(rhs);
     }
 
@@ -91,5 +108,29 @@ public class BinOpInst extends Instruction {
     @Override
     public void modifyUseTOConst(VirReg virReg, ConstString constString) {
         assert false;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+        Def.clear();
+        Use.clear();
+        Def.add((VirReg) res);
+        Use.add((VirReg) lhs);
+        if (!isImmInst) {
+            if (rhs instanceof ConstInt) {
+                System.err.println("fuck");
+            }
+            Use.add((VirReg) rhs);
+        }
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+        if (lhs == use)
+            lhs = changeTo;
+        if (!isImmInst) {
+            if (rhs == use)
+                rhs = changeTo;
+        }
     }
 }

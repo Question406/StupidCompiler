@@ -12,12 +12,21 @@ import java.util.Map;
 public class LoadInst extends Instruction {
     public Operand from;
     public Operand res;
+    public int byteSize;
 
     public LoadInst(BasicBlock BB, Operand res, Operand from) {
         super(BB);
         this.res = res;
         this.from = from;
     }
+
+    public LoadInst(BasicBlock BB, Operand res, Operand from, int byteSize) {
+        super(BB);
+        this.res = res;
+        this.from = from;
+        this.byteSize = byteSize;
+    }
+
 
     public void accept(IRVisitor visitor) {
         visitor.visit(this);
@@ -36,10 +45,10 @@ public class LoadInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
-        if (res instanceof Variable)
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
+        if (res instanceof Variable || res instanceof ConstString)
             res = renameMap.get(res);
-        if (from instanceof Variable)
+        if (from instanceof Variable || res instanceof ConstString)
             from = renameMap.get(from);
     }
 
@@ -74,5 +83,20 @@ public class LoadInst extends Instruction {
     @Override
     public void modifyUseTOConst(VirReg virReg, ConstString constString) {
         assert false;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+        Def.clear();
+        Use.clear();
+        Def.add((VirReg) res);
+        if (from instanceof VirReg)
+            Use.add((VirReg) from);
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+        if (from == use)
+            from = changeTo;
     }
 }

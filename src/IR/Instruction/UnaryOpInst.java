@@ -15,6 +15,9 @@ public class UnaryOpInst extends Instruction {
     public Operand res;
     public Operand src;
 
+    public boolean isImmInst;
+    public RISCV.BinaryOperator riscvop;
+
     public UnaryOpInst(BasicBlock BB, Operand res, UnaryOperator op, Operand src) {
         super(BB);
         this.res = res;
@@ -41,10 +44,10 @@ public class UnaryOpInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
-        if (res instanceof Variable)
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
+        if (res instanceof Variable || res instanceof ConstString)
             res = renameMap.get(res);
-        if (src instanceof Variable)
+        if (src instanceof Variable || src instanceof ConstString)
             src = renameMap.get(src);
     }
 
@@ -79,5 +82,15 @@ public class UnaryOpInst extends Instruction {
     @Override
     public void modifyUseTOConst(VirReg virReg, ConstString constString) {
         assert false;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+
     }
 }

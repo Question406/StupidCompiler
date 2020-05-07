@@ -4,6 +4,7 @@ import IR.BasicBlock;
 import IR.IRVisitor;
 import IR.Operand.*;
 import Optim.SSAConstructor;
+import RISCV.RISCV_Info;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,8 @@ public class BranchInst extends Instruction {
     public BasicBlock trueBB;
     public BasicBlock elseBB;
     public Operand cond;
+
+    public CmpInst condInst = null;
 
     public BranchInst(BasicBlock BB, Operand cond, BasicBlock trueBB, BasicBlock elseBB) {
         super(BB);
@@ -47,7 +50,7 @@ public class BranchInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
         if (cond instanceof Variable)
             cond = renameMap.get(cond);
     }
@@ -79,5 +82,39 @@ public class BranchInst extends Instruction {
     @Override
     public void modifyUseTOConst(VirReg virReg, ConstString constString) {
         assert false;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+        Use.clear();
+        Def.clear();
+        if (condInst != null) {
+            condInst.CalcDefUseSet();
+            Use.addAll(condInst.Use);
+        } else {
+            Use.add((VirReg) cond);
+            Use.add(RISCV_Info.virtualPhyRegs.get("zero"));
+        }
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+        if (condInst != null) {
+            if (condInst.lhs == use)
+                condInst.lhs = changeTo;
+            if (condInst.rhs == use)
+                condInst.rhs = changeTo;
+        } else {
+            if (cond == use)
+                cond = changeTo;
+        }
+    }
+
+    public void modifyBranch(BasicBlock oldTO, BasicBlock newTO) {
+        if (trueBB == oldTO)
+            trueBB = newTO;
+        else if (elseBB == oldTO)
+            elseBB = newTO;
+        else throw new RuntimeException("unexpected at modifyBranch");
     }
 }

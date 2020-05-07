@@ -25,7 +25,7 @@ public class FuncInliner {
     Map<Function, Integer> funcCalledCntMap;
     Map<Function, func_call_info> functionfunc_call_infoMap;
 
-    private class func_call_info {
+    public class func_call_info {
         Set<Function> callTOSet = new HashSet<Function>();
         Set<Function> recursiveCallTOSet = new HashSet<Function>();
     }
@@ -44,6 +44,10 @@ public class FuncInliner {
         TryNonRecursiveInline();
 
         TryRecursiveInline(); // TODO: seems codegen doesn't contain testcase that need this
+
+        functionfunc_call_infoMap.clear();
+        InstsCnt();
+        CalcRecursiveCallSet();
     }
 
     private void TryNonRecursiveInline() {
@@ -201,7 +205,6 @@ public class FuncInliner {
             regRenameMap.put(CallTo.thisPointer, newParaReg);
         }
 
-//        CommonFunc.printlnAnything(callInst.params.size());
         for (int i = 0; i < callInst.params.size(); i++) {
             var para = callInst.params.get(i);
             var oldNameThere = CallTo.args.get(i);

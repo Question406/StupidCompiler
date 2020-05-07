@@ -4,7 +4,8 @@ import AST.*;
 import FrontEnd.Semantic.Entity.Entity;
 import FrontEnd.Semantic.Entity.FunctionEntity;
 import FrontEnd.Semantic.Entity.VariableEntity;
-import FrontEnd.Semantic.Scope.*;
+import FrontEnd.Semantic.Scope.ClassScope;
+import FrontEnd.Semantic.Scope.GlobalScope;
 import FrontEnd.Semantic.Type.*;
 import IR.BasicBlock;
 import IR.Function;
@@ -18,6 +19,7 @@ import Utils.UnaryOperator;
 
 import java.util.ArrayList;
 import java.util.Stack;
+
 import static Utils.BinaryOperator.*;
 
 public class IRBuilder implements ASTVisitor {
@@ -47,7 +49,6 @@ public class IRBuilder implements ASTVisitor {
     }
 
     FuncDefNode init;
-
 
     private void GlobalVarInitialize(ProgramNode node) {
         globalScope = (GlobalScope) node.getScope();
@@ -156,19 +157,32 @@ public class IRBuilder implements ASTVisitor {
             entity.setAddr(virReg);
             var init = node.getVarInit();
             if (init != null) {
-                if (isLogicOp(init))
-                    logicAsInt = true;
+                boolean islogicOp = isLogicOp(init);
+                if (islogicOp) {
+                    init.setTrueBB(new BasicBlock(curFunc, "logicT"));
+                    init.setElseBB(new BasicBlock(curFunc, "logicF"));
+                }
                 init.accept(this);
-                Operand res;
-                if (init.getOperand() instanceof Pointer) {
-                    VirReg t = new VirReg("t");
-                    curBB.addInst(new LoadInst(curBB, t, (Pointer) init.getOperand()));
-                    res = t;
-                } else
-                    res = init.getOperand();
 
-                curBB.addInst(new MoveInst(curBB, virReg, res));
-                logicAsInt = false;
+                if (!islogicOp) {
+                    Operand res;
+                    if (init.getOperand() instanceof Pointer) {
+                        VirReg t = new VirReg("t");
+                        curBB.addInst(new LoadInst(curBB, t, (Pointer) init.getOperand()));
+                        res = t;
+                    } else
+                        res = init.getOperand();
+                    curBB.addInst(new MoveInst(curBB, virReg, res));
+                } else {
+                    var trueBB = init.getTrueBB();
+                    var elseBB = init.getElseBB();
+                    trueBB.addInst(new MoveInst(trueBB, virReg, new ConstInt(1)));
+                    elseBB.addInst(new MoveInst(elseBB, virReg, new ConstInt(0)));
+                    BasicBlock afterLogic = new BasicBlock(curFunc, "afterLogic");
+                    trueBB.endBB(new JumpInst(trueBB, afterLogic));
+                    elseBB.endBB(new JumpInst(elseBB, afterLogic));
+                    curBB = afterLogic;
+                }
             }
         }
     }
@@ -181,7 +195,6 @@ public class IRBuilder implements ASTVisitor {
         else if (isInClass)
             name = curClassScope.getClassType().getName() + "." + node.getFuncName();
         assert name.equals("default");
-
         curFunc = program.getGlobalFunction(name);
         if (isInClass) {
             VirReg this_reg = new VirReg("this");
@@ -303,7 +316,7 @@ public class IRBuilder implements ASTVisitor {
         BasicBlock bodyBB = new BasicBlock(curFunc, "forbodyBB");
         BasicBlock afterForBB = new BasicBlock(curFunc, "afterForBB");
         BasicBlock condBB = (cond != null) ? new BasicBlock(curFunc, "forcondBB") : bodyBB;
-        BasicBlock updateBB = (node.getFor_update() != null) ? new BasicBlock(curFunc, "forupdateBB") : bodyBB;
+        BasicBlock updateBB = (node.getFor_update() != null) ? new BasicBlock(curFunc, "forupdateBB") : condBB;
 
         loopUpdateStack.push(updateBB);
         loopAfterStack.push(afterForBB);
@@ -321,19 +334,20 @@ public class IRBuilder implements ASTVisitor {
         }
 
         // change to loopbody
-        //curBB.endBB(new JumpInst(curBB, bodyBB));
-
         curBB = bodyBB;
         if (node.getWhile_body() != null)
             node.getWhile_body().accept(this);
 
         // change to forupdate
-        curBB.endBB(new JumpInst(curBB, updateBB));
-        curBB = updateBB;
-        if (node.getFor_update() != null)
-            node.getFor_update().accept(this);
+        if (!curBB.getEnded())
+            curBB.endBB(new JumpInst(curBB, updateBB));
 
-        curBB.endBB(new JumpInst(curBB, condBB));
+        if (node.getFor_update() != null) {
+            curBB = updateBB;
+            node.getFor_update().accept(this);
+            if (!curBB.getEnded())
+                curBB.endBB(new JumpInst(curBB, condBB));
+        }
 
         loopUpdateStack.pop();
         loopAfterStack.pop();
@@ -366,6 +380,19 @@ public class IRBuilder implements ASTVisitor {
         else {
             var retExpr = node.getReturn_expr();
             if (isLogicOp(retExpr)) {
+//                retExpr.setTrueBB(new BasicBlock(curFunc, "logicT"));
+//                retExpr.setElseBB(new BasicBlock(curFunc, "logicF"));
+//                retExpr.accept(this);
+//                var trueBB = retExpr.getTrueBB();
+//                var elseBB = retExpr.getElseBB();
+//                var virReg = new VirReg("logict");
+//                trueBB.addInst(new MoveInst(trueBB, virReg, new ConstInt(1)));
+//                elseBB.addInst(new MoveInst(elseBB, virReg, new ConstInt(0)));
+//                BasicBlock afterLogic = new BasicBlock(curFunc, "afterLogic");
+//                trueBB.endBB(new JumpInst(trueBB, afterLogic));
+//                elseBB.endBB(new JumpInst(elseBB, afterLogic));
+//                curBB = afterLogic;
+//                curBB.endBB(new RetInst(curBB, virReg));
                 logicAsInt = true;
                 retExpr.accept(this);
                 curBB.endBB(new RetInst(curBB, getVal(retExpr.getOperand())));
@@ -702,6 +729,17 @@ public class IRBuilder implements ASTVisitor {
             type = typeTable.get(typeNode);
             VirReg res = new VirReg("t");
             curBB.addInst(new AllocaInst(curBB, res, new ConstInt(type.allocSize())));
+
+            if (type instanceof ClassType) {
+                Function func = program.getGlobalFunction(type.getName() + "." + type.getName());
+                if (func != null) {
+                    ArrayList<Operand> params = new ArrayList<>();
+                    var newInst = new FuncCallInst(curBB, func, params, null);
+                    newInst.thisPointer = res;
+                    curBB.addInst(newInst);
+                }
+            }
+
             node.setOperand(res);
         }
     }
@@ -871,29 +909,44 @@ public class IRBuilder implements ASTVisitor {
         var lhs = node.getLhs();
         var rhs = node.getRhs();
 
-        if (isLogicOp(rhs))
-            logicAsInt = true;
+        boolean islogicOp = isLogicOp(rhs);
 
+        if (islogicOp) {
+            rhs.setTrueBB(new BasicBlock(curFunc, "logicT"));
+            rhs.setElseBB(new BasicBlock(curFunc, "logicF"));
+        }
         lhs.accept(this);
         rhs.accept(this);
-        Operand rhsVal = rhs.getOperand();
-        Operand res = null;
-
-        if (rhsVal instanceof Pointer) {
-            VirReg tmp = new VirReg("t");
-            res = tmp;
-            curBB.addInst(new LoadInst(curBB, tmp, (Pointer) rhsVal));
+        if (!islogicOp) {
+            Operand rhsVal = rhs.getOperand();
+            Operand res = null;
+            if (rhsVal instanceof Pointer) {
+                VirReg tmp = new VirReg("t");
+                res = tmp;
+                curBB.addInst(new LoadInst(curBB, tmp, (Pointer) rhsVal));
+            } else
+                res = rhsVal;
+            if (lhs.getOperand() instanceof Pointer)
+                curBB.addInst(new StoreInst(curBB, lhs.getOperand(), res));
+            else
+                curBB.addInst(new MoveInst(curBB, lhs.getOperand(), res));
+            node.setOperand(res);
+        } else {
+            var trueBB = rhs.getTrueBB();
+            var elseBB = rhs.getElseBB();
+            var virReg = lhs.getOperand();
+            if (virReg instanceof Pointer) {
+                trueBB.addInst(new StoreInst(trueBB, virReg, new ConstInt(1)));
+                elseBB.addInst(new StoreInst(elseBB, virReg, new ConstInt(0)));
+            } else {
+                trueBB.addInst(new MoveInst(trueBB, virReg, new ConstInt(1)));
+                elseBB.addInst(new MoveInst(elseBB, virReg, new ConstInt(0)));
+            }
+            BasicBlock afterLogic = new BasicBlock(curFunc, "afterLogic");
+            trueBB.endBB(new JumpInst(trueBB, afterLogic));
+            elseBB.endBB(new JumpInst(elseBB, afterLogic));
+            curBB = afterLogic;
         }
-        else
-            res = rhsVal;
-
-        if (lhs.getOperand() instanceof Pointer)
-            curBB.addInst(new StoreInst(curBB, lhs.getOperand(), res));
-        else
-            curBB.addInst(new MoveInst(curBB, lhs.getOperand(), res));
-        node.setOperand(res);
-
-        logicAsInt = false;
     }
 
     private void assign(ExprNode lhs, ExprNode rhs) {

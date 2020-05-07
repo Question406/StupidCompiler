@@ -4,7 +4,6 @@ import FrontEnd.ASTVisitor;
 import Utils.Location;
 
 public class ForStatNode extends StatNode {
-    //TODO: a try to resolve for_init can be either a vardef || a expr
     ASTNode for_init;
     ExprNode for_end, for_update;
     StatNode while_body;

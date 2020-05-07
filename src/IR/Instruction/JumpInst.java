@@ -2,7 +2,10 @@ package IR.Instruction;
 
 import IR.BasicBlock;
 import IR.IRVisitor;
-import IR.Operand.*;
+import IR.Operand.ConstInt;
+import IR.Operand.ConstString;
+import IR.Operand.Operand;
+import IR.Operand.VirReg;
 import Optim.SSAConstructor;
 
 import java.util.List;
@@ -31,7 +34,7 @@ public class JumpInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
         return;
     }
 
@@ -58,6 +61,16 @@ public class JumpInst extends Instruction {
     @Override
     public void modifyUseTOConst(VirReg virReg, ConstString constString) {
         assert false;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+
     }
 
 

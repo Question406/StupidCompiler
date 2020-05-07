@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Operand {
-    String name;
+    public String name;
     public Instruction defInst;
     public Set<Instruction> usedInstructions = new HashSet<Instruction>();
 

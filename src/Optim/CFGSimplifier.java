@@ -3,9 +3,7 @@ package Optim;
 import IR.BasicBlock;
 import IR.Function;
 import IR.IRPrinter;
-import IR.Instruction.BranchInst;
-import IR.Instruction.JumpInst;
-import IR.Instruction.PhiInst;
+import IR.Instruction.*;
 import IR.Module;
 import IR.Operand.ConstInt;
 
@@ -143,7 +141,17 @@ public class CFGSimplifier extends Optimizer {
                         bb.succBBs.add(succBB);
                         succBB.predBBs.remove(jumpTo);
                         succBB.predBBs.add(bb);
+                        // modify phiInsts
+                        for (var succinst = succBB.insthead; succinst instanceof PhiInst; succinst = succinst.next)
+                            if (((PhiInst) succinst).from.containsKey(jumpTo)) {
+                                var value = ((PhiInst) succinst).from.get(jumpTo);
+                                ((PhiInst) succinst).from.remove(jumpTo);
+                                ((PhiInst) succinst).from.put(bb, value);
+                                break;
+                            }
                     });
+                    if (jumpTo == function.exitBB)
+                        function.exitBB = bb;
                 }
             }
         }
@@ -187,6 +195,23 @@ public class CFGSimplifier extends Optimizer {
             for (var pred : BB.predBBs) {
                 if (! (RPOBBs.contains(pred)))
                     toRM.add(pred);
+            }
+            Instruction afterPhi;
+            for (afterPhi = BB.insthead; afterPhi instanceof PhiInst; afterPhi = afterPhi.next);
+            for (var inst = BB.insthead; inst instanceof PhiInst; inst = inst.next)  {
+                ArrayList<BasicBlock> toRMInPhi = new ArrayList<>();
+                for (var from : ((PhiInst) inst).from.keySet()) {
+                    if (toRM.contains(from))
+                        toRMInPhi.add(from);
+                }
+                for (var toRMfrom : toRMInPhi)
+                    ((PhiInst) inst).from.remove(toRMfrom);
+                if (((PhiInst) inst).from.size() == 0)
+                    inst.RMSelf();
+                if (((PhiInst) inst).from.size() == 1) {
+                    afterPhi.linkPrev(new MoveInst(BB, ((PhiInst) inst).res, ((PhiInst) inst).from.values().iterator().next()));
+                    inst.RMSelf();
+                }
             }
             BB.predBBs.removeAll(toRM);
             toRM.clear();

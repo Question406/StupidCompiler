@@ -24,6 +24,9 @@ public class Function {
     ArrayList<BasicBlock> reversePostOrderBBs;
     ArrayList<BasicBlock> reverseCFGPostOrderBBs;
 
+    public int stacksize = 0;
+    public int spilledCnt = 0;
+
 
     // FIXME: may be a temporary one, for IRprinter now
     public ArrayList<BasicBlock> BBs;

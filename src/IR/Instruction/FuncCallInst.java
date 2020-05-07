@@ -5,6 +5,7 @@ import IR.Function;
 import IR.IRVisitor;
 import IR.Operand.*;
 import Optim.SSAConstructor;
+import RISCV.RISCV_Info;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,9 @@ public class FuncCallInst extends Instruction {
     public ArrayList<Operand> params;
     public Operand thisPointer;
     public Operand res;
+
+    // whether treat it as RiscV Call, which does not contain params
+    public boolean isRiscV;
 
 
     public FuncCallInst(BasicBlock BB, Function callTo, ArrayList<Operand> params, Operand res) {
@@ -60,9 +64,10 @@ public class FuncCallInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
         if (res instanceof Variable)
             res = renameMap.get(res);
+
         if (thisPointer instanceof Variable)
             thisPointer = renameMap.get(thisPointer);
         for (int i = 0; i < params.size(); i++) {
@@ -129,5 +134,19 @@ public class FuncCallInst extends Instruction {
             if (old == virReg)
                 params.set(i, constString);
         }
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+        Def.clear();
+        Use.clear();
+        for (int i = 0; i < Integer.min(8, params.size()); i++)
+            Use.add(RISCV_Info.virtualPhyRegs.get("a" + i));
+        Def.addAll(RISCV_Info.virtualCallerSavedRegs);
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+
     }
 }

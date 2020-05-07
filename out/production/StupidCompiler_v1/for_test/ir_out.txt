@@ -1,222 +1,194 @@
- @a 
- @i 
- @n 
+ define i32 @gcd  %x1.0 %y1.0 %j01.0 %j11.0 %j21.0 %j31.0 %j41.0 %j51.0 %j61.0 %j71.0 %j81.0 %j91.0 %j101.0 %j111.0 %j121.0 %j131.0 %j141.0 %j151.0 %j161.0 %j171.0 %j181.0 %j191.0 %j201.0 %j211.0 %j221.0 %j231.0 %j241.0 %j251.0 %j261.0 %j271.0 %j281.0 %j291.0  {
+ %gcd.entryBB1:
+ preds:  
+ succs:  %forcondBB1  
+ 		 %i1.1  = move  0 
+ 		 %j1.0  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ preds:  %forbodyBB1  %gcd.entryBB1  
+ succs:  %forbodyBB1  %afterForBB1  
+ 		 %t1.0  = sle  %i1.1   10 
+ 		 br  %t1.0  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ preds:  %forcondBB1  
+ succs:  %if_thenBB1  %if_elseBB1  
+ 		 %t2.0  =   mod  %x1.0   %y1.0 
+ 		 %t3.0  = seq  %t2.0   0 
+ 		 br  %t3.0  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %afterForBB1  
+ succs:  %gcd.exitBB1  
+ 		 %t4.0  =   mod  %x1.0   %y1.0 
+ 		 %t5.0  =  call gcd  10   68   0   2   4   6   8   10   12   14   16   18   20   22   24   26   28   30   32   34   36   38   40   42   44   46   48   50   52   54   56   58   
+ 		 %t6.0  =  call gcd1  %y1.0   %t4.0   %j1.0   %t5.0   %j21.0   %j31.0   %j41.0   %j51.0   %j61.0   %j71.0   %j81.0   %j91.0   %j101.0   %j111.0   %j121.0   %j131.0   %j141.0   %j151.0   %j161.0   %j171.0   %j181.0   %j191.0   %j201.0   %j211.0   %j221.0   %j231.0   %j241.0   %j251.0   %j261.0   %j271.0   %j281.0   %j291.0   
+ 		 %mergedretVal1.1  = move  %t6.0 
+ 		 %mergedretVal1.2  = move  %mergedretVal1.1 
+ 		 %breaker1  = move  %mergedretVal1.2 
+ 		 jump %gcd.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %afterForBB1  
+ succs:  %gcd.exitBB1  
+ 		 %mergedretVal1.0  = move  %y1.0 
+ 		 %mergedretVal1.2  = move  %mergedretVal1.0 
+ 		 %breaker2  = move  %mergedretVal1.2 
+ 		 jump %gcd.exitBB1
+ 
+ %gcd.exitBB1:
+ preds:  %if_thenBB1  %if_elseBB1  
+ succs:  
+ 		 ret  %mergedretVal1.2 
+ 
+ %forbodyBB1:
+ preds:  %forcondBB1  
+ succs:  %forcondBB1  
+ 		 %t7.0  =   add  %j01.0   %j11.0 
+ 		 %t8.0  =   add  %t7.0   %j21.0 
+ 		 %t9.0  =   add  %t8.0   %j31.0 
+ 		 %t10.0  =   add  %t9.0   %j41.0 
+ 		 %t11.0  =   add  %t10.0   %j51.0 
+ 		 %t12.0  =   add  %t11.0   %j61.0 
+ 		 %t13.0  =   add  %t12.0   %j71.0 
+ 		 %t14.0  =   add  %t13.0   %j81.0 
+ 		 %t15.0  =   add  %t14.0   %j91.0 
+ 		 %t16.0  =   add  %t15.0   %j101.0 
+ 		 %t17.0  =   add  %t16.0   %j111.0 
+ 		 %t18.0  =   add  %t17.0   %j121.0 
+ 		 %t19.0  =   add  %t18.0   %j131.0 
+ 		 %t20.0  =   add  %t19.0   %j141.0 
+ 		 %t21.0  =   add  %t20.0   %j151.0 
+ 		 %t22.0  =   add  %t21.0   %j161.0 
+ 		 %t23.0  =   add  %t22.0   %j171.0 
+ 		 %t24.0  =   add  %t23.0   %j181.0 
+ 		 %t25.0  =   add  %t24.0   %j191.0 
+ 		 %t26.0  =   add  %t25.0   %j201.0 
+ 		 %t27.0  =   add  %t26.0   %j211.0 
+ 		 %t28.0  =   add  %t27.0   %j221.0 
+ 		 %t29.0  =   add  %t28.0   %j231.0 
+ 		 %t30.0  =   add  %t29.0   %j241.0 
+ 		 %t31.0  =   add  %t30.0   %j251.0 
+ 		 %t32.0  =   add  %t31.0   %j261.0 
+ 		 %t33.0  =   add  %t32.0   %j271.0 
+ 		 %t34.0  =   add  %t33.0   %j281.0 
+ 		 %t35.0  =   add  %t34.0   %j291.0 
+ 		 %t36.0  =   mod  %t35.0   100 
+ 		 %j1.1  = move  %t36.0 
+ 		 %i1.2  =   add  %i1.1   1 
+ 		 %i1.1  = move  %i1.2 
+ 		 %j1.0  = move  %j1.1 
+ 		 %breaker3  = move  %i1.1 
+ 		 %i1.1  = move  %i1.1 
+ 		 %breaker3  = move  %j1.0 
+ 		 jump %forcondBB1
+ 
+ }
  define i32 @__init   {
  %__init.entryBB1:
  preds:  
- succs:  %_forcondBB1  
- postdoms:  
- postidom:  %_forcondBB1  
- postdomfros:  
- 		 @n  = alloc  4 
- 		 @i  = alloc  4 
- 		 @a  = alloc  4 
- 		 %_gi1.0  = load  @i 
- 		 %_ga1.0  = load  @a 
- 		 %_gn1.0  = load  @n 
- 		 %t1.0  = alloc  84 
- 		 store  %t1.0   20 
- 		 %_ga1.1  = move  %t1.0 
- 		 %_t1.0  =  call getInt  
- 		 %_gn1.1  = move  %_t1.0 
- 		 jump %_forcondBB1
- 
- %_forcondBB1:
- preds:  %_forbodyBB1  %__init.entryBB1  
- succs:  %_forbodyBB1  %_afterForBB1  
- postdoms:  %_forbodyBB1  %__init.entryBB1  
- postidom:  %_afterForBB1  
- postdomfros:  %_forcondBB1  
- 		 %_gi1.2  = phi  %_forbodyBB1:  %_gi1.3   %__init.entryBB1:  0   
- 		 %_t2.0  = slt  %_gi1.2   %_gn1.1 
- 		 br  %_t2.0  %_forbodyBB1 %_afterForBB1 
- 
- %_afterForBB1:
- preds:  %_forcondBB1  
- succs:  %_forcondBB2  
- postdoms:  %_forcondBB1  
- postidom:  %_forcondBB2  
- postdomfros:  
- 		 %_gi1.4  = move  %_gn1.1 
- 		 jump %_forcondBB2
- 
- %_forcondBB2:
- preds:  %_afterForBB1  %_forupdateBB1  
- succs:  %afterCallBB1  %_forbodyBB2  
- postdoms:  %_afterForBB1  %_forupdateBB1  
- postidom:  %afterCallBB1  
- postdomfros:  %_afterCallBB1  
- 		 %_gi1.5  = phi  %_afterForBB1:  %_gi1.4   %_forupdateBB1:  %_gi1.6   
- 		 %_t3.0  = sgt  %_gi1.5   0 
- 		 br  %_t3.0  %_forbodyBB2 %afterCallBB1 
- 
- %_forbodyBB2:
- preds:  %_forcondBB2  
- succs:  %__forcondBB1  
- postdoms:  
- postidom:  %__forcondBB1  
- postdomfros:  %_forcondBB2  
- 		 %__x1.2  = move  %_gi1.5 
- 		 jump %__forcondBB1
- 
- %__forcondBB1:
- preds:  %__forupdateBB1  %_forbodyBB2  
- succs:  %__forbodyBB1  %__afterForBB1  
- postdoms:  %__forupdateBB1  %_forbodyBB2  
- postidom:  %_afterCallBB1  
- postdomfros:  %_forcondBB2  %__afterForBB2  
- 		 %__i1.3  = phi  %__forupdateBB1:  %__i1.4   %_forbodyBB2:  0   
- 		 %__t1.0  =   div  %_gn1.1   %__x1.2 
- 		 %__t2.0  = slt  %__i1.3   %__t1.0 
- 		 br  %__t2.0  %__forbodyBB1 %__afterForBB1 
- 
- %__afterForBB1:
- preds:  %__forcondBB1  
- succs:  %_afterCallBB1  
- postdoms:  
- postidom:  %_afterCallBB1  
- postdomfros:  %__forcondBB1  
- 		 jump %_afterCallBB1
- 
- %__forbodyBB1:
- preds:  %__forcondBB1  
- succs:  %__forcondBB2  
- postdoms:  
- postidom:  %__forcondBB2  
- postdomfros:  %__forcondBB1  
- 		 jump %__forcondBB2
- 
- %__forcondBB2:
- preds:  %__forbodyBB1  %__forupdateBB2  
- succs:  %__afterForBB2  %__forbodyBB2  
- postdoms:  %__forbodyBB1  %__forupdateBB2  
- postidom:  %__afterForBB2  
- postdomfros:  %__forcondBB1  %__forcondBB2  
- 		 %__j1.4  = phi  %__forbodyBB1:  0   %__forupdateBB2:  %__j1.5   
- 		 %__flag1.4  = phi  %__forbodyBB1:  0   %__forupdateBB2:  %__flag1.6   
- 		 %__t3.0  =   sub  %__x1.2   1 
- 		 %__t4.0  = slt  %__j1.4   %__t3.0 
- 		 br  %__t4.0  %__forbodyBB2 %__afterForBB2 
- 
- %__forbodyBB2:
- preds:  %__forcondBB2  
- succs:  %__if_thenBB1  %__forupdateBB2  
- postdoms:  
- postidom:  %__forupdateBB2  
- postdomfros:  %__forcondBB2  
- 		 %__t5.0  =   mul  %__i1.3   %__x1.2 
- 		 %__t6.0  =   add  %__t5.0   %__j1.4 
- 		 %__t7.0  =   mul  %__t6.0   4 
- 		 %__t8.0  =   add  %__t7.0   4 
- 		 %__t9.0  =   add  %_ga1.1   %__t8.0 
- 		 %__t10.0  =   mul  %__i1.3   %__x1.2 
- 		 %__t11.0  =   add  %__t10.0   %__j1.4 
- 		 %__t12.0  =   add  %__t11.0   1 
- 		 %__t13.0  =   mul  %__t12.0   4 
- 		 %__t14.0  =   add  %__t13.0   4 
- 		 %__t15.0  =   add  %_ga1.1   %__t14.0 
- 		 %__t16.0  = load  %__t9.0 
- 		 %__t17.0  = load  %__t15.0 
- 		 %__t18.0  = sgt  %__t16.0   %__t17.0 
- 		 br  %__t18.0  %__if_thenBB1 %__forupdateBB2 
- 
- %__if_thenBB1:
- preds:  %__forbodyBB2  
- succs:  %__forupdateBB2  
- postdoms:  
- postidom:  %__forupdateBB2  
- postdomfros:  %__forbodyBB2  
- 		 jump %__forupdateBB2
- 
- %__forupdateBB2:
- preds:  %__if_thenBB1  %__forbodyBB2  
- succs:  %__forcondBB2  
- postdoms:  %__if_thenBB1  %__forbodyBB2  
- postidom:  %__forcondBB2  
- postdomfros:  %__forcondBB2  
- 		 %__flag1.6  = phi  %__if_thenBB1:  1   %__forbodyBB2:  %__flag1.4   
- 		 %__j1.5  =   add  %__j1.4   1 
- 		 jump %__forcondBB2
- 
- %__afterForBB2:
- preds:  %__forcondBB2  
- succs:  %__forupdateBB1  %__if_thenBB2  
- postdoms:  %__forcondBB2  
- postidom:  %_afterCallBB1  
- postdomfros:  %__forcondBB1  
- 		 br  %__flag1.4  %__forupdateBB1 %__if_thenBB2 
- 
- %__if_thenBB2:
- preds:  %__afterForBB2  
- succs:  %_afterCallBB1  
- postdoms:  
- postidom:  %_afterCallBB1  
- postdomfros:  %__afterForBB2  
- 		 jump %_afterCallBB1
- 
- %_afterCallBB1:
- preds:  %__afterForBB1  %__if_thenBB2  
- succs:  %_forupdateBB1  %_if_thenBB1  
- postdoms:  %__if_thenBB2  %__afterForBB1  %__forcondBB1  %__afterForBB2  
- postidom:  %afterCallBB1  
- postdomfros:  %_forcondBB2  
- 		 %__mergedretVal1.4  = phi  %__if_thenBB2:  1   %__afterForBB1:  0   
- 		 %_t4.0  = move  %__mergedretVal1.4 
- 		 %_t5.0  = sgt  %_t4.0   0 
- 		 br  %_t5.0  %_if_thenBB1 %_forupdateBB1 
- 
- %_if_thenBB1:
- preds:  %_afterCallBB1  
- succs:  %afterCallBB1  
- postdoms:  
- postidom:  %afterCallBB1  
- postdomfros:  %_afterCallBB1  
- 		 %_t6.0  =  call toString  %_gi1.5   
- 		 call print  %_t6.0   
- 		 jump %afterCallBB1
- 
- %_forupdateBB1:
- preds:  %_afterCallBB1  
- succs:  %_forcondBB2  
- postdoms:  
- postidom:  %_forcondBB2  
- postdomfros:  %_afterCallBB1  
- 		 %_t7.0  =   div  %_gi1.5   2 
- 		 %_gi1.6  = move  %_t7.0 
- 		 jump %_forcondBB2
- 
- %__forupdateBB1:
- preds:  %__afterForBB2  
- succs:  %__forcondBB1  
- postdoms:  
- postidom:  %__forcondBB1  
- postdomfros:  %__afterForBB2  
- 		 %__i1.4  =   add  %__i1.3   1 
- 		 jump %__forcondBB1
- 
- %afterCallBB1:
- preds:  %_forcondBB2  %_if_thenBB1  
  succs:  
- postdoms:  %_forcondBB2  %_if_thenBB1  %_afterCallBB1  
- postidom:  %afterCallBB1  
- postdomfros:  
- 		 store  @i   %_gi1.5 
- 		 store  @a   %_ga1.1 
- 		 store  @n   %_gn1.1 
+ 		 %_t1.0  =  call gcd  10   1   0   2   4   6   8   10   12   14   16   18   20   22   24   26   28   30   32   34   36   38   40   42   44   46   48   50   52   54   56   58   
+ 		 %_t2.0  =   add  %_t1.0   1024 
+ 		 %_t3.0  =  call toString  %_t2.0   
+ 		 call println  %_t3.0   
  		 ret  0 
  
- %_forbodyBB1:
- preds:  %_forcondBB1  
- succs:  %_forcondBB1  
- postdoms:  
- postidom:  %_forcondBB1  
- postdomfros:  %_forcondBB1  
- 		 %_t8.0  =   mul  %_gi1.2   4 
- 		 %_t9.0  =   add  %_t8.0   4 
- 		 %_t10.0  =   add  %_ga1.1   %_t9.0 
- 		 %_t11.0  =  call getInt  
- 		 store  %_t10.0   %_t11.0 
- 		 %_gi1.3  =   add  %_gi1.2   1 
- 		 jump %_forcondBB1
+ }
+ define i32 @gcd1  %x1.0 %y1.0 %j01.0 %j11.0 %j21.0 %j31.0 %j41.0 %j51.0 %j61.0 %j71.0 %j81.0 %j91.0 %j101.0 %j111.0 %j121.0 %j131.0 %j141.0 %j151.0 %j161.0 %j171.0 %j181.0 %j191.0 %j201.0 %j211.0 %j221.0 %j231.0 %j241.0 %j251.0 %j261.0 %j271.0 %j281.0 %j291.0  {
+ %gcd1.entryBB1:
+ preds:  
+ succs:  %if_thenBB1  %if_elseBB1  
+ 		 %t1.0  =   add  %j01.0   %j11.0 
+ 		 %t2.0  =   add  %t1.0   %j21.0 
+ 		 %t3.0  =   add  %t2.0   %j31.0 
+ 		 %t4.0  =   add  %t3.0   %j41.0 
+ 		 %t5.0  =   add  %t4.0   %j51.0 
+ 		 %t6.0  =   add  %t5.0   %j61.0 
+ 		 %t7.0  =   add  %t6.0   %j71.0 
+ 		 %t8.0  =   add  %t7.0   %j81.0 
+ 		 %t9.0  =   add  %t8.0   %j91.0 
+ 		 %t10.0  =   add  %t9.0   %j101.0 
+ 		 %t11.0  =   add  %t10.0   %j111.0 
+ 		 %t12.0  =   add  %t11.0   %j121.0 
+ 		 %t13.0  =   add  %t12.0   %j131.0 
+ 		 %t14.0  =   add  %t13.0   %j141.0 
+ 		 %t15.0  =   add  %t14.0   %j151.0 
+ 		 %t16.0  =   add  %t15.0   %j161.0 
+ 		 %t17.0  =   add  %t16.0   %j171.0 
+ 		 %t18.0  =   add  %t17.0   %j181.0 
+ 		 %t19.0  =   add  %t18.0   %j191.0 
+ 		 %t20.0  =   add  %t19.0   %j201.0 
+ 		 %t21.0  =   add  %t20.0   %j211.0 
+ 		 %t22.0  =   add  %t21.0   %j221.0 
+ 		 %t23.0  =   add  %t22.0   %j231.0 
+ 		 %t24.0  =   add  %t23.0   %j241.0 
+ 		 %t25.0  =   add  %t24.0   %j251.0 
+ 		 %t26.0  =   add  %t25.0   %j261.0 
+ 		 %t27.0  =   add  %t26.0   %j271.0 
+ 		 %t28.0  =   add  %t27.0   %j281.0 
+ 		 %t29.0  =   add  %t28.0   %j291.0 
+ 		 %t30.0  =   mod  %t29.0   100 
+ 		 %j1.0  = move  %t30.0 
+ 		 %t31.0  =   mod  %x1.0   %y1.0 
+ 		 %t32.0  = seq  %t31.0   0 
+ 		 br  %t32.0  %if_thenBB1 %if_elseBB1 
+ 
+ %if_elseBB1:
+ preds:  %gcd1.entryBB1  
+ succs:  %gcd1.exitBB1  
+ 		 %t33.0  =   mod  %x1.0   %y1.0 
+ 		 %t34.0  =  call gcd2  %y1.0   %t33.0   %j1.0   %j11.0   %j21.0   %j31.0   %j41.0   %j51.0   %j61.0   %j71.0   %j81.0   %j91.0   %j101.0   %j111.0   %j121.0   %j131.0   %j141.0   %j151.0   %j161.0   %j171.0   %j181.0   %j191.0   %j201.0   %j211.0   %j221.0   %j231.0   %j241.0   %j251.0   %j261.0   %j271.0   %j281.0   %j291.0   
+ 		 %mergedretVal1.2  = move  %t34.0 
+ 		 %mergedretVal1.0  = move  %mergedretVal1.2 
+ 		 %breaker1  = move  %mergedretVal1.0 
+ 		 jump %gcd1.exitBB1
+ 
+ %if_thenBB1:
+ preds:  %gcd1.entryBB1  
+ succs:  %gcd1.exitBB1  
+ 		 %mergedretVal1.1  = move  %y1.0 
+ 		 %mergedretVal1.0  = move  %mergedretVal1.1 
+ 		 %breaker2  = move  %mergedretVal1.0 
+ 		 jump %gcd1.exitBB1
+ 
+ %gcd1.exitBB1:
+ preds:  %if_thenBB1  %if_elseBB1  
+ succs:  
+ 		 ret  %mergedretVal1.0 
+ 
+ }
+ define i32 @gcd2  %x1.0 %y1.0 %j01.0 %j11.0 %j21.0 %j31.0 %j41.0 %j51.0 %j61.0 %j71.0 %j81.0 %j91.0 %j101.0 %j111.0 %j121.0 %j131.0 %j141.0 %j151.0 %j161.0 %j171.0 %j181.0 %j191.0 %j201.0 %j211.0 %j221.0 %j231.0 %j241.0 %j251.0 %j261.0 %j271.0 %j281.0 %j291.0  {
+ %gcd2.entryBB1:
+ preds:  
+ succs:  %if_elseBB1  %if_thenBB1  
+ 		 %t1.0  =   mod  %x1.0   %y1.0 
+ 		 %t2.0  = seq  %t1.0   0 
+ 		 br  %t2.0  %if_thenBB1 %if_elseBB1 
+ 
+ %if_thenBB1:
+ preds:  %gcd2.entryBB1  
+ succs:  %gcd2.exitBB1  
+ 		 %mergedretVal1.2  = move  %y1.0 
+ 		 %mergedretVal1.0  = move  %mergedretVal1.2 
+ 		 %breaker1  = move  %mergedretVal1.0 
+ 		 jump %gcd2.exitBB1
+ 
+ %if_elseBB1:
+ preds:  %gcd2.entryBB1  
+ succs:  %gcd2.exitBB1  
+ 		 %t3.0  =   mod  %x1.0   %y1.0 
+ 		 %t4.0  =  call gcd  %y1.0   %t3.0   %j01.0   %j11.0   %j21.0   %j31.0   %j41.0   %j51.0   %j61.0   %j71.0   %j81.0   %j91.0   %j101.0   %j111.0   %j121.0   %j131.0   %j141.0   %j151.0   %j161.0   %j171.0   %j181.0   %j191.0   %j201.0   %j211.0   %j221.0   %j231.0   %j241.0   %j251.0   %j261.0   %j271.0   %j281.0   %j291.0   
+ 		 %mergedretVal1.1  = move  %t4.0 
+ 		 %mergedretVal1.0  = move  %mergedretVal1.1 
+ 		 %breaker2  = move  %mergedretVal1.0 
+ 		 jump %gcd2.exitBB1
+ 
+ %gcd2.exitBB1:
+ preds:  %if_elseBB1  %if_thenBB1  
+ succs:  
+ 		 ret  %mergedretVal1.0 
  
  }

@@ -21,5 +21,11 @@ public enum BinaryOperator {
     public String toString() {
         return outputname;
     }
+
+    public boolean isCommutative() {
+        return  this == MULTI || this == ADD
+                || this == LOGICAND || this == LOGICOR
+                || this == BITWISEXOR;
+    }
 }
 

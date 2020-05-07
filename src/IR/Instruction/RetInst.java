@@ -4,6 +4,7 @@ import IR.BasicBlock;
 import IR.IRVisitor;
 import IR.Operand.*;
 import Optim.SSAConstructor;
+import RISCV.RISCV_Info;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +40,8 @@ public class RetInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
-        if (retVal instanceof Variable)
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
+        if (retVal instanceof Variable || retVal instanceof ConstString)
             retVal = renameMap.get(retVal);
     }
 
@@ -73,5 +74,17 @@ public class RetInst extends Instruction {
     public void modifyUseTOConst(VirReg virReg, ConstString constString) {
         if (retVal == virReg)
             retVal = constString;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+        Use.clear();
+        Def.clear();
+        Use.add(RISCV_Info.virtualPhyRegs.get("ra"));
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+
     }
 }

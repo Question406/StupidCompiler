@@ -37,7 +37,7 @@ public class MoveInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
         if (moveTo instanceof Variable)
             moveTo = renameMap.get(moveTo);
         if (moveFrom instanceof Variable)
@@ -76,5 +76,19 @@ public class MoveInst extends Instruction {
     public void modifyUseTOConst(VirReg virReg, ConstString constString) {
         if (moveFrom == virReg)
             moveFrom = constString;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+        Def.clear();
+        Use.clear();
+        Use.add((VirReg) moveFrom);
+        Def.add((VirReg) moveTo);
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+        if (moveFrom == use)
+            moveFrom = changeTo;
     }
 }

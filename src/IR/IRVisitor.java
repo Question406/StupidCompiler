@@ -2,6 +2,11 @@ package IR;
 
 import IR.Instruction.*;
 import IR.Operand.*;
+import RISCV.Insts.LA;
+import RISCV.Insts.LI;
+import RISCV.Insts.LUI;
+import RISCV.PhyReg;
+import RISCV.StackLoc;
 
 public interface IRVisitor {
     void visit(Module node);
@@ -45,4 +50,14 @@ public interface IRVisitor {
     void visit(Operand node);
 
     void visit(PhiInst node);
+
+    void visit(LA node);
+
+    void visit(LUI node);
+
+    void visit(PhyReg node);
+
+    void visit(StackLoc node);
+
+    void visit(LI node);
 }

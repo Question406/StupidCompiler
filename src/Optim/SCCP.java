@@ -6,6 +6,11 @@ import IR.IRVisitor;
 import IR.Instruction.*;
 import IR.Module;
 import IR.Operand.*;
+import RISCV.Insts.LA;
+import RISCV.Insts.LI;
+import RISCV.Insts.LUI;
+import RISCV.PhyReg;
+import RISCV.StackLoc;
 import Utils.BinaryOperator;
 import Utils.Exception.SemanticException;
 import Utils.UnaryOperator;
@@ -60,8 +65,16 @@ public class SCCP extends Optimizer implements IRVisitor {
         for (var func : program.getGlobalFuncMap().values()) {
             if (Function.isBuiltIn(func)) continue;
             run(func);
+            globalStringRestore(func);
         }
         return res;
+    }
+
+    private void globalStringRestore(Function func) {
+        var RPOBBs = func.getReversePostOrderBBs();
+//        for (var bb : RPOBBs) {
+//            for (var inst = bb.)
+//        }
     }
 
     private void markExecutable(BasicBlock basicBlock) {
@@ -131,7 +144,7 @@ public class SCCP extends Optimizer implements IRVisitor {
         return null;
     }
 
-    private ConstInt getConstOPRes(BinaryOperator op, Operand lhs, Operand rhs) {
+    private ConstInt getConstOPRes(BinaryOperator op, Operand lhs, Operand rhs) throws RuntimeException {
         assert (lhs instanceof ConstInt && rhs instanceof ConstInt);
         ConstInt res = null;
         int t;
@@ -147,9 +160,13 @@ public class SCCP extends Optimizer implements IRVisitor {
                 t = ((ConstInt) lhs).getVal() * ((ConstInt) rhs).getVal();
                 break;
             case DIV:
+                if (((ConstInt) rhs).getVal() == 0)
+                    throw new RuntimeException("lueluelue");
                 t = ((ConstInt) lhs).getVal() / ((ConstInt) rhs).getVal();
                 break;
             case MOD:
+                if (((ConstInt) rhs).getVal() == 0)
+                    throw new RuntimeException("lueluelue");
                 t = ((ConstInt) lhs).getVal() % ((ConstInt) rhs).getVal();
                 break;
             case LEFTSHIFT:
@@ -293,10 +310,15 @@ public class SCCP extends Optimizer implements IRVisitor {
         var rhsState = getState(node.rhs);
 
         if (lhsState.latState == LatState.constant && rhsState.latState == LatState.constant) {
-            ConstInt constRes = getConstOPRes(node.op, lhsState.value, rhsState.value);
+            ConstInt constRes;
+            try {
+                constRes = getConstOPRes(node.op, lhsState.value, rhsState.value);
+            } catch (Exception e) {
+                return;
+            }
             markConst(node.res, constRes);
-        } else
-        if (lhsState.latState == LatState.multidef || rhsState.latState == LatState.multidef)
+        }
+        else if (lhsState.latState == LatState.multidef || rhsState.latState == LatState.multidef)
             markMultiDef(node.res);
     }
 
@@ -331,7 +353,12 @@ public class SCCP extends Optimizer implements IRVisitor {
         var rhsState = getState(node.rhs);
 
         if (lhsState.latState == LatState.constant && rhsState.latState == LatState.constant) {
-            ConstInt constRes = getConstOPRes(node.op, lhsState.value, rhsState.value);
+            ConstInt constRes;
+            try {
+                constRes = getConstOPRes(node.op, lhsState.value, rhsState.value);
+            } catch (Exception e) {
+                return;
+            }
             markConst(node.res, constRes);
         } else
         if (lhsState.latState == LatState.multidef || rhsState.latState == LatState.multidef)
@@ -635,9 +662,33 @@ public class SCCP extends Optimizer implements IRVisitor {
         }
     }
 
+
     /* ------------------------------------------------------
                     Unused functions
     */
+    @Override
+    public void visit(LA node) {}
+
+    @Override
+    public void visit(LUI node) {
+
+    }
+
+    @Override
+    public void visit(PhyReg node) {
+
+    }
+
+    @Override
+    public void visit(StackLoc node) {
+
+    }
+
+    @Override
+    public void visit(LI node) {
+
+    }
+
     @Override
     public void visit(RetInst node) {}
     @Override

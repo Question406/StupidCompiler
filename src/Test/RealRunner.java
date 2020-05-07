@@ -2,14 +2,17 @@ package Test;
 
 import AST.ASTNode;
 import AST.ProgramNode;
+import BackEnd.ASMPrinter;
+import BackEnd.InstSelector;
+import BackEnd.RegAllocater;
 import FrontEnd.ASTBuilder;
 import FrontEnd.IRBuilder;
 import FrontEnd.Parser.ProgramLexer;
 import FrontEnd.Parser.ProgramParser;
 import FrontEnd.Semantic.SemanticAnalyzer;
 import IR.IRPrinter;
-import IR.Interpreter.IRInterpreter;
 import Optim.*;
+import RISCV.RISCV_Info;
 import Test.AST.ASTPrinter;
 import Utils.ErrorHandler;
 import Utils.ProgramErrorListener;
@@ -90,6 +93,14 @@ public class RealRunner {
         irPrinter.visit(IRRoot);
     }
 
+    private void PrintASM(boolean inFile) throws Exception {
+//        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
+        File file = new File("test.s");
+        PrintStream out = (inFile) ? new PrintStream(file) : System.out;
+        ASMPrinter asmPrinter = new ASMPrinter(out);
+        asmPrinter.visit(IRRoot);
+    }
+
 
     // backend:
     private void SSAConstruct() throws Exception {
@@ -104,54 +115,74 @@ public class RealRunner {
         cfgSimplifier.run();
     }
 
-    private void FuncInline() throws Exception {
+    private void GlobalOptimize() throws Exception {
         FuncInliner funcInliner = new FuncInliner(IRRoot);
         funcInliner.run();
-    }
-
-    private void GlobalVarResolve() throws Exception {
-        GlobalVarResolver globalVarResolver = new GlobalVarResolver(IRRoot);
+        GlobalVarResolver globalVarResolver = new GlobalVarResolver(IRRoot, funcInliner);
         globalVarResolver.run();
     }
 
     private void Optimize() throws Exception {
+//        FuncInline();
+//        GlobalVarResolve(); // highlight: must do
+        GlobalOptimize();
+        CFGSimplify();
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
         SSAConstructor ssaConstructor = new SSAConstructor(IRRoot);
         SCCP SCCPAnalyzer = new SCCP(IRRoot);
         DeadCodeElim deadCodeElim = new DeadCodeElim(IRRoot);
         CFGSimplifier cfgSimplifier = new CFGSimplifier(IRRoot);
+        SSADestructor ssaDestructor = new SSADestructor(IRRoot);
+
+        VDCM vdcm = new VDCM(IRRoot);
         dominaceTreeBuilder.run();
         ssaConstructor.run();
-
-//        PrintIR(false);
-
         boolean changed = true;
         while (changed) {
             changed = false;
             changed |= SCCPAnalyzer.run();
-            changed |= cfgSimplifier.run();
-            PrintIR(true);
+             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
             changed |= deadCodeElim.run();
             changed |= cfgSimplifier.run();
-            PrintIR(true);
         }
+        dominaceTreeBuilder.run();
+        ssaDestructor.run();
+        cfgSimplifier.run();
+        dominaceTreeBuilder.run();
     }
 
-    public void run() throws Exception {
+    private void FrontEnd() throws Exception {
         String inputFile = "test.c";
         BuildSyntax(inputFile);
         BuildAST();
         SemanticAnalyze();
         BuildIR();
-        FuncInline();
-        GlobalVarResolve(); // highlight: must do
-        CFGSimplify();
-        Optimize();
+    };
 
-        PrintIR(true);
-        InputStream in = new FileInputStream("ir_out.txt");
+    private void BackEnd() throws Exception {
+        RISCV_Info riscv_info = new RISCV_Info();
+        InstSelector instSelector = new InstSelector(IRRoot);
+        LoopAnalysis loopAnalysis = new LoopAnalysis(IRRoot);
+        RegAllocater regAllocater = new RegAllocater(IRRoot, loopAnalysis);
+        loopAnalysis.run();
+        instSelector.run();
+        File file = new File("naive.s");
+        PrintStream out = new PrintStream(file);
+        ASMPrinter asmPrinter = new ASMPrinter(out);
+        asmPrinter.visit(IRRoot);
+        regAllocater.run();
+        PrintASM(true);
+    }
+
+    public void run() throws Exception {
+        FrontEnd();
+//        PrintIR(true);
+        Optimize();
+//        PrintIR(true);
+        BackEnd();
+//        InputStream in = new FileInputStream("ir_out.txt");
 //        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), false);
-        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), true);
+//        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), true);
     }
 }

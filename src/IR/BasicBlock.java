@@ -1,12 +1,13 @@
 package IR;
 
 import IR.Instruction.*;
+import IR.Operand.VirReg;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class BasicBlock {
-    String name;
+    public String name;
     Function func;
     public Instruction insthead;
     public Instruction insttail;
@@ -22,6 +23,12 @@ public class BasicBlock {
     public BasicBlock PostIDom;
     public Set<BasicBlock> PostDomBBs;
     public Set<BasicBlock> PostDomFros;
+
+    // for liveness analysis
+    public Set<VirReg> gen = new HashSet<VirReg>();
+    public Set<VirReg> kill = new HashSet<VirReg>();
+    public Set<VirReg> LiveIn = new HashSet<VirReg>();
+    public Set<VirReg> LiveOut = new HashSet<VirReg>();
 
     public boolean ended;
 

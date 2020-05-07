@@ -1,14 +1,30 @@
 package IR.Operand;
 
 import IR.IRVisitor;
+import IR.Instruction.MoveInst;
+import RISCV.PhyReg;
+import RISCV.StackLoc;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-public class VirReg extends Operand {
+public class VirReg extends Register {
     int ssaID = -1;
     VirReg oldName = null;
     Map<Integer, VirReg> newNames = null;
+
+
+    // for RegAlloc
+    public Set<VirReg> adjList = new HashSet<VirReg>();
+    public int degree = 0;
+    public PhyReg color = null;
+    public Set<MoveInst> moveList = new HashSet<MoveInst>();
+    public VirReg alias;
+    public boolean addForSpill = false;
+    public int spillCost = 0;
+    public StackLoc stackLoc = null;
 
     public VirReg(String name) {
         super(name);

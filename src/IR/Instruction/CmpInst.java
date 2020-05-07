@@ -16,6 +16,9 @@ public class CmpInst extends Instruction {
     public Operand lhs;
     public Operand rhs;
 
+    public boolean isImmInst;
+    public RISCV.BinaryOperator riscvop;
+
     public CmpInst(BasicBlock BB, Operand res, BinaryOperator op, Operand lhs, Operand rhs) {
         super(BB);
         this.op = op;
@@ -44,12 +47,18 @@ public class CmpInst extends Instruction {
     }
 
     @Override
-    public void renameGlobal(Map<Variable, VirReg> renameMap) {
+    public void renameGlobal(Map<Operand, VirReg> renameMap) {
         if (res instanceof Variable)
             res = renameMap.get(res);
         if (lhs instanceof Variable)
             lhs = renameMap.get(lhs);
         if (rhs instanceof Variable)
+            rhs = renameMap.get(rhs);
+        if (res instanceof ConstString)
+            res = renameMap.get(res);
+        if (lhs instanceof ConstString)
+            lhs = renameMap.get(lhs);
+        if (rhs instanceof ConstString)
             rhs = renameMap.get(rhs);
     }
 
@@ -90,5 +99,26 @@ public class CmpInst extends Instruction {
     @Override
     public void modifyUseTOConst(VirReg virReg, ConstString constString) {
         assert false;
+    }
+
+    @Override
+    public void CalcDefUseSet() {
+        Use.clear();
+        Def.clear();
+        Use.add((VirReg) lhs);
+        if (!isImmInst) {
+            Use.add((VirReg) rhs);
+        }
+        Def.add((VirReg) res);
+    }
+
+    @Override
+    public void replaceUse(VirReg use, VirReg changeTo) {
+        if (lhs == use)
+            lhs = changeTo;
+        if (!isImmInst) {
+            if (rhs == use)
+                rhs = changeTo;
+        }
     }
 }

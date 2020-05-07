@@ -40,7 +40,6 @@ INTEGER :    [1-9] [0-9]*
             | '0';
 
 // string in C
-//TODO: need fix, ignoring // /" now
 STR_constant :  '"' (~["\\\r\n] | '\\' ["n\\])* '"'; //'"' (.)*? '"';
 
 LINE_COMMENT: '//' .*?  ('\r' | '\n') ->skip;
