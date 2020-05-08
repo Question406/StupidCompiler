@@ -95,7 +95,8 @@ public class RealRunner {
 
     private void PrintASM(boolean inFile) throws Exception {
 //        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
-        File file = new File("output.s");
+        File file = new File("test.s");
+//        File file = new File("output.s");
         PrintStream out = (inFile) ? new PrintStream(file) : System.out;
         ASMPrinter asmPrinter = new ASMPrinter(out);
         asmPrinter.visit(IRRoot);
@@ -181,14 +182,11 @@ public class RealRunner {
         PrintASM(true);
     }
 
-    public void run() throws Exception {
+    public void run(boolean isSemantic) throws Exception {
         FrontEnd();
-//        PrintIR(true);
+        if (isSemantic)
+            return;
         Optimize();
-//        PrintIR(true);
         BackEnd();
-//        InputStream in = new FileInputStream("ir_out.txt");
-//        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), false);
-//        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), true);
     }
 }

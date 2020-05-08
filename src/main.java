@@ -8,7 +8,8 @@ public class main {
         // System.setErr(System.out);
         RealRunner test = new RealRunner();
         try {
-            test.run();
+            boolean isSematic = args[0].equals("semantic");
+            test.run(isSematic);
         } catch(Exception e) {
             System.err.println("Exception: ");
             e.printStackTrace();
