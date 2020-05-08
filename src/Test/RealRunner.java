@@ -156,7 +156,8 @@ public class RealRunner {
 
     private void FrontEnd() throws Exception {
         String inputFile = "test.c";
-        BuildSyntax(inputFile);
+        // BuildSyntax(inputFile);
+        BuildSyntax(null);
         BuildAST();
         SemanticAnalyze();
         BuildIR();
