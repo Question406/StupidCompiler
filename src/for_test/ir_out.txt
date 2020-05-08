@@ -1,154 +1,107 @@
- @constStr_0 = "19asdojkhkj1"
- @str 
- @a 
- @b 
- @map 
+ @constStr_0 = ""
+ @constStr_1 = "123"
+ @constStr_2 = "456"
+ @constStr_3 = "123456"
  define i32 @__init   {
  %__init.entryBB1:
  preds:  
- succs:  %forcondBB1  
- 		 %_gb1.0  = load  @b 
- 		 %_ga1.0  = load  @a 
- 		 %_gmap1.0  = load  @map 
- 		 %_gstr1.0  = load  @str 
- 		 %t1.0  = alloc  2896 
- 		 store  %t1.0   723 
- 		 %_ga1.1  = move  %t1.0 
- 		 %t2.0  = alloc  616 
- 		 store  %t2.0   153 
- 		 %t3.0  = move  %t2.0 
- 		 %t3.1  =   add  %t3.0   4 
- 		 %t4.0  = move  %t2.0 
- 		 %t4.1  =   add  %t4.0   612 
- 		 jump %forcondBB1
- 
- %forcondBB1:
- preds:  %__init.entryBB1  %forupdateBB1  
- succs:  %afterForBB1  %forupdateBB1  
- 		 %t3.2  = phi  %__init.entryBB1:  %t3.1   %forupdateBB1:  %t3.3   
- 		 %t5.0  = sle  %t3.2   %t4.1 
- 		 br  %t5.0  %forupdateBB1 %afterForBB1 
- 
- %forupdateBB1:
- preds:  %forcondBB1  
- succs:  %forcondBB1  
- 		 %t6.0  = alloc  580 
- 		 store  %t6.0   144 
- 		 store  %t3.2   %t6.0 
- 		 %t3.3  =   add  %t3.2   4 
- 		 jump %forcondBB1
- 
- %afterForBB1:
- preds:  %forcondBB1  
- succs:  %_forcondBB1  
- 		 %_gmap1.1  = move  %t2.0 
- 		 jump %_forcondBB1
- 
- %_forcondBB1:
- preds:  %afterForBB1  %_forupdateBB1  
- succs:  %afterCallBB1  %_forbodyBB1  
- 		 %_t1.0  = phi  %afterForBB1:   undef    %_forupdateBB1:  %_t1.1   
- 		 %_i1.2  = phi  %afterForBB1:  0   %_forupdateBB1:  %_i1.3   
- 		 %__mergedretVal1.0  = phi  %afterForBB1:   undef    %_forupdateBB1:  %__mergedretVal1.1   
- 		 %___mergedretVal1.0  = phi  %afterForBB1:   undef    %_forupdateBB1:  %___mergedretVal1.1   
- 		 %__this1.0  = phi  %afterForBB1:   undef    %_forupdateBB1:  %__this1.1   
- 		 %___this1.0  = phi  %afterForBB1:   undef    %_forupdateBB1:  %___this1.1   
- 		 %_flag1.0  = phi  %afterForBB1:   undef    %_forupdateBB1:  %_flag1.1   
- 		 %_t2.0  = slt  %_i1.2   10213 
- 		 br  %_t2.0  %_forbodyBB1 %afterCallBB1 
- 
- %_forbodyBB1:
- preds:  %_forcondBB1  
- succs:  %_forupdateBB1  %_if_thenBB1  
- 		 %_t3.0  =   mul  10213   %_i1.2 
- 		 %_t4.0  =   sub  %_t3.0   13 
- 		 %_flag1.1  = move  %_t4.0 
- 		 %_t5.0  =   mul  %_i1.2   4 
- 		 %_t6.0  =   add  %_t5.0   4 
- 		 %_t7.0  =   add  %_ga1.1   %_t6.0 
- 		 %_t8.0  = load  %_t7.0 
- 		 %_t9.0  =   add  %_t8.0   0 
+ succs:  %__if_end1  
+ 		 %__t1.0  = alloc  12 
+ 		 %_this1.0  = move  %__t1.0 
+ 		 %_t1.0  =   add  4   %_this1.0 
+ 		 store  %_t1.0   @constStr_0 
+ 		 %_t2.0  =   add  0   %_this1.0 
+ 		 store  %_t2.0   1 
+ 		 %_t3.0  =   add  8   %_this1.0 
+ 		 store  %_t3.0   0 
+ 		 %_t4.0  =   add  8   %_this1.0 
+ 		 %_t5.0  = alloc  404 
+ 		 store  %_t5.0   100 
+ 		 store  %_t4.0   %_t5.0 
+ 		 %__a1.0  = move  %__t1.0 
+ 		 %_this2.0  = move  %__a1.0 
+ 		 %_t6.0  = alloc  12 
+ 		 %__this1.0  = move  %_t6.0 
+ 		 %__t2.0  =   add  4   %__this1.0 
+ 		 store  %__t2.0   @constStr_0 
+ 		 %__t3.0  =   add  0   %__this1.0 
+ 		 store  %__t3.0   1 
+ 		 %__t4.0  =   add  8   %__this1.0 
+ 		 store  %__t4.0   0 
+ 		 %__t5.0  =   add  8   %__this1.0 
+ 		 %__t6.0  = alloc  404 
+ 		 store  %__t6.0   100 
+ 		 store  %__t5.0   %__t6.0 
+ 		 %_tmp1.0  = move  %_t6.0 
+ 		 %_t7.0  =   add  %_tmp1.0   0 
+ 		 store  %_t7.0   0 
+ 		 %_t8.0  =   add  %_this2.0   0 
+ 		 store  %_t8.0   0 
+ 		 %__t7.0  = move  %_tmp1.0 
+ 		 %__b1.0  = move  %__t7.0 
+ 		 %__t8.0  =   add  %__b1.0   0 
+ 		 store  %__t8.0   0 
+ 		 %__t9.0  =  call getInt  
+ 		 %__parameter1.1  = move  %__t9.0 
+ 		 %__t10.0  = alloc  12 
+ 		 store  %__t10.0   2 
+ 		 %__t11.0  =   add  %__t10.0   16 
+ 		 %__t12.0  = load  %__t11.0 
+ 		 %__int_arr1.0  = move  %__t12.0 
+ 		 %_this3.0  = move  %__b1.0 
+ 		 %_t9.0  =   add  4   %_this3.0 
  		 %_t10.0  = load  %_t9.0 
- 		 %_t11.0  = slt  %_flag1.1   %_t10.0 
- 		 br  %_t11.0  %_forupdateBB1 %_if_thenBB1 
+ 		 %__t13.0  = move  %_t10.0 
+ 		 %__t14.0  =  call string.parseInt  %__t13.0 
+ 		 %__t15.0  =  call getString  
+ 		 %__t16.0  =  call string.ord  %__t15.0 123   
+ 		 %_this4.0  = move  %__b1.0 
+ 		 %_t11.0  =   add  4   %_this4.0 
+ 		 %_t12.0  = load  %_t11.0 
+ 		 %__t17.0  = move  %_t12.0 
+ 		 %__t18.0  =  call string.substring  %__t17.0 1   3   
+ 		 %__t19.0  =  call string.length  %__t18.0 
+ 		 %__t20.0  =   mod  %__t16.0   %__t19.0 
+ 		 %__t21.0  =   add  %__t14.0   %__t20.0 
+ 		 %__number1.0  = move  %__t21.0 
+ 		 jump %__if_end1
  
- %_if_thenBB1:
- preds:  %_forbodyBB1  
- succs:  %__forbodyBB1  %__afterForBB1  
- 		 %_t12.0  =   mul  %_i1.2   4 
- 		 %_t13.0  =   add  %_t12.0   4 
- 		 %_t1.2  =   add  %_ga1.1   %_t13.0 
- 		 %_t14.0  =   add  %_i1.2   1 
- 		 %_t15.0  =   mul  %_t14.0   4 
- 		 %_t16.0  =   add  %_t15.0   4 
- 		 %_t17.0  =   add  %_ga1.1   %_t16.0 
- 		 %_t18.0  = load  %_t17.0 
- 		 %__this1.2  = move  %_t18.0 
- 		 %__p1.0  = move  %_flag1.1 
- 		 %__t1.0  =   add  %__this1.2   0 
- 		 %__t2.0  = load  %__t1.0 
- 		 %__t3.0  = sle  10   %__t2.0 
- 		 br  %__t3.0  %__forbodyBB1 %__afterForBB1 
+ %__if_end1:
+ preds:  %__init.entryBB1  
+ succs:  %__if_end2  %__if_thenBB1  
+ 		 %__num1.2  = move  0 
+ 		 %__t22.0  =  call string.leq  @constStr_1   @constStr_2   
+ 		 br  %__t22.0  %__if_thenBB1 %__if_end2 
  
- %__afterForBB1:
- preds:  %_if_thenBB1  
- succs:  %_afterCallBB1  
- 		 %__mergedretVal1.4  = move  %__this1.2 
- 		 jump %_afterCallBB1
+ %__if_thenBB1:
+ preds:  %__if_end1  
+ succs:  %__if_end2  
+ 		 %__num1.11  =   add  %__num1.2   1 
+ 		 jump %__if_end2
  
- %__forbodyBB1:
- preds:  %_if_thenBB1  
- succs:  %_afterCallBB1  
- 		 %__mergedretVal1.2  = move  %__this1.2 
- 		 jump %_afterCallBB1
+ %__if_end2:
+ preds:  %__if_thenBB1  %__if_end1  
+ succs:  %__if_end3  
+ 		 %__num1.3  = phi  %__if_thenBB1:  %__num1.11   %__if_end1:  %__num1.2   
+ 		 jump %__if_end3
  
- %_afterCallBB1:
- preds:  %__forbodyBB1  %__afterForBB1  
- succs:  %___forbodyBB1  %___afterForBB1  
- 		 %__mergedretVal1.3  = phi  %__forbodyBB1:  %__mergedretVal1.2   %__afterForBB1:  %__mergedretVal1.4   
- 		 %_t19.0  = move  %__mergedretVal1.3 
- 		 store  %_t1.2   %_t19.0 
- 		 %__t4.0  =   add  %_ga1.1   48 
- 		 %__t5.0  = load  %__t4.0 
- 		 %___this1.2  = move  %__t5.0 
- 		 %___t1.0  =   add  %___this1.2   0 
- 		 %___t2.0  = load  %___t1.0 
- 		 %___t3.0  = sle  10   %___t2.0 
- 		 br  %___t3.0  %___forbodyBB1 %___afterForBB1 
+ %__if_end3:
+ preds:  %__if_end2  
+ succs:  %__if_end4  
+ 		 %__num1.4  = move  %__num1.3 
+ 		 jump %__if_end4
  
- %___afterForBB1:
- preds:  %_afterCallBB1  
- succs:  %_afterCallBB2  
- 		 %___mergedretVal1.2  = move  %___this1.2 
- 		 jump %_afterCallBB2
+ %__if_end4:
+ preds:  %__if_end3  
+ succs:  %__whileBodyBB1  
+ 		 %__num1.6  = move  %__num1.4 
+ 		 %__num1.8  =   add  %__num1.6   1 
+ 		 jump %__whileBodyBB1
  
- %___forbodyBB1:
- preds:  %_afterCallBB1  
- succs:  %_afterCallBB2  
- 		 %___mergedretVal1.3  = move  %___this1.2 
- 		 jump %_afterCallBB2
- 
- %_afterCallBB2:
- preds:  %___afterForBB1  %___forbodyBB1  
- succs:  %_forupdateBB1  
- 		 %___mergedretVal1.4  = phi  %___afterForBB1:  %___mergedretVal1.2   %___forbodyBB1:  %___mergedretVal1.3   
- 		 %__t6.0  = move  %___mergedretVal1.4 
- 		 jump %_forupdateBB1
- 
- %_forupdateBB1:
- preds:  %_forbodyBB1  %_afterCallBB2  
- succs:  %_forcondBB1  
- 		 %_t1.1  = phi  %_forbodyBB1:  %_t1.0   %_afterCallBB2:  %_t1.2   
- 		 %__mergedretVal1.1  = phi  %_forbodyBB1:  %__mergedretVal1.0   %_afterCallBB2:  %__mergedretVal1.3   
- 		 %___mergedretVal1.1  = phi  %_forbodyBB1:  %___mergedretVal1.0   %_afterCallBB2:  %___mergedretVal1.4   
- 		 %__this1.1  = phi  %_forbodyBB1:  %__this1.0   %_afterCallBB2:  %__this1.2   
- 		 %___this1.1  = phi  %_forbodyBB1:  %___this1.0   %_afterCallBB2:  %___this1.2   
- 		 %_i1.3  =   add  %_i1.2   1 
- 		 jump %_forcondBB1
- 
- %afterCallBB1:
- preds:  %_forcondBB1  
- succs:  
- 		 ret  0 
+ %__whileBodyBB1:
+ preds:  %__whileBodyBB1  %__if_end4  
+ succs:  %__whileBodyBB1  
+ 		 %__num1.7  = phi  %__whileBodyBB1:  %__num1.7   %__if_end4:  %__num1.8   
+ 		 jump %__whileBodyBB1
  
  }

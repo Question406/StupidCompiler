@@ -140,6 +140,11 @@ public class DeadCodeElim extends Optimizer {
                         res = true;
                         basicBlock.removeTail();
                         var newJumpTo = getNearestMarkedBB(basicBlock);
+                        if (newJumpTo == null) {
+                            System.out.print("123");
+                        }
+                        basicBlock.succBBs.clear();
+                        basicBlock.succBBs.add(newJumpTo);
                         basicBlock.endBB(new JumpInst(basicBlock, newJumpTo));
                     } else if (!(inst instanceof JumpInst)) {
                         res = true;

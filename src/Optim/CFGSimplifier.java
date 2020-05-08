@@ -9,6 +9,8 @@ import IR.Operand.ConstInt;
 
 import java.util.ArrayList;
 
+import static java.lang.System.exit;
+
 
 public class CFGSimplifier extends Optimizer {
     IRPrinter irPrinter;
@@ -43,7 +45,13 @@ public class CFGSimplifier extends Optimizer {
         }
         if (res) {
             unreachableBBElem(function);
-            function.CalcReverseCFGPostOrderBBs();
+//            function.CalcReversePostOrderBBs();
+//            function.CalcReverseCFGPostOrderBBs();
+        }
+        if (!function.getReversePostOrderBBs().contains(function.exitBB)) {
+            // the stupid case for misc-
+            System.out.println("you have an infinite loop");
+            exit(0);
         }
         return res;
     }

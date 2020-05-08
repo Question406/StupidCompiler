@@ -4,177 +4,123 @@
     .type	main,@function
 main:
 %__init.entryBB1:
-    la a0,age    
-    lw a0, 0(a0)
-    la a0,eng    
-    lw a0, 0(a0)
-    li a0, 4
+    addi sp,sp,    -32
+    sw ra, 12(sp) 
+    sw s0, 4(sp) 
+    sw s3, 0(sp) 
+    la t6,map    
+    lw t6, 0(t6)
+    la t6,str    
+    lw t6, 0(t6)
+    la t6,a    
+    lw t6, 0(t6)
+    la t6,b    
+    lw t6, 0(t6)
+    li a0, 2896
     call malloc
-    li a0, 16
+    li t6, 723
+    sw t6,0(a0)
+    mv	s3,a0 
+    li a0, 616
     call malloc
-    mv	s8,a0 
-    li a0, 3
-    sw a0,0(s8)
-    li a0, 8
+    li t6, 153
+    sw t6,0(a0)
+    addi s0,a0,    4
+    addi t6,a0,    612
+    sw t6, 8(sp) 
+    j	%forcondBB1
+%forcondBB1:
+    lw t6, 8(sp) 
+    ble	s0,t6,	%forupdateBB1
+    j	%afterForBB1
+%forupdateBB1:
+    li a0, 580
     call malloc
-    mv	s4,a0 
-    li a0, 1
-    sw a0,0(s4)
-    addi s1,s4,    4
-    addi s7,s4,    4
+    li t6, 144
+    sw t6,0(a0)
+    sw a0,0(s0)
+    addi s0,s0,    4
+    j	%forcondBB1
+%afterForBB1:
+    mv	a2,zero 
     j	%_forcondBB1
 %_forcondBB1:
-    ble	s1,s7,	%_forupdateBB1
-    j	%_afterForBB1
-%_forupdateBB1:
-    li a0, 12
-    call malloc
-    mv	s0,a0 
-    li a0, 2
-    sw a0,0(s0)
-    addi s5,s0,    4
-    addi s9,s0,    8
-    j	%_forcondBB2
-%_forcondBB2:
-    ble	s5,s9,	%_forupdateBB2
-    j	%_afterForBB2
-%_forupdateBB2:
-    li a0, 16
-    call malloc
-    li a6, 3
-    sw a6,0(a0)
-    sw a0,0(s5)
-    addi s5,s5,    4
-    j	%_forcondBB2
-%_afterForBB2:
-    sw s0,0(s1)
-    addi s1,s1,    4
-    j	%_forcondBB1
-%_afterForBB1:
-    li a0, 12
-    call malloc
-    mv	s1,a0 
-    addi a0,s8,    12
-    lw a0, 0(a0)
-    addi a0,s4,    8
-    lw a0, 0(a0)
-    addi a0,a0,    12
-    lw a0, 0(a0)
-    addi a0,a0,    16
-    lw a0, 0(a0)
-    li a0, 12
-    call malloc
-    mv	a6,zero 
-    j	%__forcondBB1
-%__forcondBB1:
-    lw a3, 0(    0)
-    blt	a6,a3,	%__forbodyBB1
-    j	%_afterCallBB1
-%__forbodyBB1:
-    addi t3,a0,    4
-    lw a3, 0(t3)
-    addi a3,a3,    1
-    sw a3,0(t3)
-    addi a6,a6,    1
-    j	%__forcondBB1
-%_afterCallBB1:
-    mv	a6,zero 
-    j	%_forcondBB3
-%_forcondBB3:
-    li a0, 3
-    blt	a6,a0,	%_forbodyBB1
-    j	%_afterForBB3
-%_afterForBB3:
-    mv	a6,zero 
-    j	%_forcondBB4
-%_forcondBB4:
-    li a0, 3
-    blt	a6,a0,	%_forbodyBB2
-    j	%_forbodyBB3
-%_forbodyBB2:
-    li a0, 4
-    mul a0,a6,a0
-    addi a0,a0,    4
-    add a0,s8,a0
-    lw a3, 0(a0)
+    li t6, 10213
+    blt	a2,t6,	%_forbodyBB1
+    j	%afterCallBB1
+%afterCallBB1:
+    lw s3, 0(sp) 
+    lw s0, 4(sp) 
+    lw ra, 12(sp) 
     mv	a0,zero 
-    j	%__forcondBB2
-%__forcondBB2:
-    add t3,a3,zero
-    lw t3, 0(t3)
-    blt	a0,t3,	%__forbodyBB2
-    j	%_afterCallBB2
-%__forbodyBB2:
-    addi t6,s1,    4
-    lw t3, 0(t6)
-    addi t3,t3,    1
-    sw t3,0(t6)
-    addi a0,a0,    1
-    j	%__forcondBB2
-%_afterCallBB2:
-    addi a6,a6,    1
-    j	%_forcondBB4
-%_forbodyBB3:
-    j	%_forbodyBB3
+    addi sp,sp,    32
+    ret
 %_forbodyBB1:
-    li a0, 4
-    mul a0,a6,a0
-    addi a0,a0,    4
-    add a0,s8,a0
-    lw a3, 0(a0)
-    mv	a0,zero 
-    j	%__forcondBB3
-%__forcondBB3:
-    add t3,a3,zero
+    li t6, 10213
+    mul a1,a2,t6
+    li t6, 13
+    sub t6,a1,t6
+    li a1, 4
+    mul a1,a2,a1
+    addi a1,a1,    4
+    add a1,s3,a1
+    lw a1, 0(a1)
+    add a1,a1,zero
+    lw a1, 0(a1)
+    blt	t6,a1,	%_forupdateBB1
+    j	%_if_thenBB1
+%_if_thenBB1:
+    li t6, 4
+    mul t6,a2,t6
+    addi t6,t6,    4
+    add a1,s3,t6
+    addi t6,a2,    1
+    li t3, 4
+    mul t6,t6,t3
+    addi t6,t6,    4
+    add t6,s3,t6
+    lw t6, 0(t6)
+    add t3,t6,zero
     lw t3, 0(t3)
-    blt	a0,t3,	%__forbodyBB3
-    j	%_afterCallBB3
-%_afterCallBB3:
-    addi a6,a6,    1
-    j	%_forcondBB3
-%__forbodyBB3:
-    addi t6,s1,    4
-    lw t3, 0(t6)
-    addi t3,t3,    1
-    sw t3,0(t6)
-    addi a0,a0,    1
-    j	%__forcondBB3
+    li t2, 10
+    ble	t2,t3,	%__forbodyBB1
+    j	%__afterForBB1
+%__forbodyBB1:
+    j	%_afterCallBB1
+%__afterForBB1:
+    j	%_afterCallBB1
+%_afterCallBB1:
+    sw t6,0(a1)
+    addi t6,s3,    48
+    lw t6, 0(t6)
+    add t6,t6,zero
+    lw t6, 0(t6)
+    j	%_forupdateBB1
+%_forupdateBB1:
+    addi a2,a2,    1
+    j	%_forcondBB1
 								 # func end
     .section	.sdata,"aw",@progbits
-    .globl	age					#@age
+    .globl	str					#@str
     .p2align	2
-age:
+str:
     .word	0
      
-    .globl	eng					#@eng
+    .globl	a					#@a
     .p2align	2
-eng:
+a:
+    .word	0
+     
+    .globl	b					#@b
+    .p2align	2
+b:
+    .word	0
+     
+    .globl	map					#@map
+    .p2align	2
+map:
     .word	0
      
     .globl	_globalStr0					#@_globalStr0
 _globalStr0:
-    .asciz  "Four score and seven years ago"    
-    .globl	_globalStr1					#@_globalStr1
-_globalStr1:
-    .asciz  "naive!\n"    
-    .globl	_globalStr2					#@_globalStr2
-_globalStr2:
-    .asciz  "fast!\n"    
-    .globl	_globalStr3					#@_globalStr3
-_globalStr3:
-    .asciz  "too young\\too simple."    
-    .globl	_globalStr4					#@_globalStr4
-_globalStr4:
-    .asciz  "test"    
-    .globl	_globalStr5					#@_globalStr5
-_globalStr5:
-    .asciz  "Four score and seven years ago\n\\\""    
-    .globl	_globalStr6					#@_globalStr6
-_globalStr6:
-    .asciz  "HongKong"    
-    .globl	_globalStr7					#@_globalStr7
-_globalStr7:
-    .asciz  "too young!\\"    
-    .globl	_globalStr8					#@_globalStr8
-_globalStr8:
-    .asciz  "wukefengggao\n"    
+    .asciz  "19asdojkhkj1"    

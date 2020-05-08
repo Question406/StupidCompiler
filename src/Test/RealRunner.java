@@ -124,6 +124,7 @@ public class RealRunner {
 
     private void Optimize() throws Exception {
         GlobalOptimize();
+//        PrintIR(false);
         CFGSimplify();
 //        PrintIR(false);
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
@@ -139,12 +140,11 @@ public class RealRunner {
         while (changed) {
             changed = false;
             changed |= SCCPAnalyzer.run();
-//            PrintIR(true);
             changed |= cfgSimplifier.run();
-//            PrintIR(false);
+//            PrintIR(true);
             dominaceTreeBuilder.run();
             changed |= deadCodeElim.run();
-//            PrintIR(false);
+//            PrintIR(true);
             changed |= cfgSimplifier.run();
 //            PrintIR(false);
         }
@@ -156,7 +156,7 @@ public class RealRunner {
     }
 
     private void FrontEnd() throws Exception {
-//        String inputFile = "test.c";
+        String inputFile = "test.c";
 //        BuildSyntax(inputFile);
         BuildSyntax(null);
         BuildAST();

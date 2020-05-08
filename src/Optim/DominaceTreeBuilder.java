@@ -18,9 +18,11 @@ public class DominaceTreeBuilder extends Optimizer {
     public boolean run() {
         for (var function : program.getGlobalFuncMap().values()) {
             if (Function.isBuiltIn(function)) continue;
+            function.CalcReversePostOrderBBs();
             ComputeIDomBB(function);
             ComputeDomFrontier(function);
 
+            function.CalcReverseCFGPostOrderBBs();
             ComputePostIDomBB(function);
             ComputePostDomFros(function);
         }
@@ -136,9 +138,6 @@ public class DominaceTreeBuilder extends Optimizer {
 
     // highlight:   Compute Post-Dominance Tree
     private void ComputePostIDomBB(Function function) {
-//        function.CalcReverseCFGPostOrderBBs();
-//        List<BasicBlock> RPOBBs = new LinkedList<BasicBlock>(function.getReversePostOrderBBs());
-//        Collections.reverse(RPOBBs);
         var RPOBBs = function.getReverseCFGPostOrderBBs();
         RPOBBs.forEach(bb -> bb.PostIDom = null);
         function.exitBB.PostIDom = function.exitBB;
@@ -172,7 +171,7 @@ public class DominaceTreeBuilder extends Optimizer {
     }
 
     private void ComputePostDomFros(Function function) {
-        var RPOBBs = function.getReversePostOrderBBs();
+        var RPOBBs = function.getReverseCFGPostOrderBBs();
         RPOBBs.forEach(bb -> bb.PostDomFros = new HashSet<BasicBlock>());
         for (var bb : RPOBBs)
             if (bb.succBBs.size() >= 2) {

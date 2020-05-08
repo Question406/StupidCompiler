@@ -139,8 +139,10 @@ public class BasicBlock {
             throw new RuntimeException("illegal newJumpTo Call");
 
         if (insttail instanceof JumpInst) {
-            if (((JumpInst) insttail).jumpTo != oldJumpBB)
+            if (((JumpInst) insttail).jumpTo != oldJumpBB) {
+                System.out.print("12");
                 throw new RuntimeException("illegal newJumpTo Call at jump inst");
+            }
             ((JumpInst) insttail).jumpTo = newJumpBB;
             succBBs.remove(oldJumpBB);
             succBBs.add(newJumpBB);

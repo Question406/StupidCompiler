@@ -1,66 +1,61 @@
 /*
 Test Package: Sema_Local_Preview
 Test Target: Misc
-Author: 15' Bingyu Kong
+Author: 15' Zhenjia Xu
 Time: 2019-10-20
 Verdict: Success
 Origin Package: Semantic Extended
 */
-class Node
-{
-    int num;
-    Node()
-    {
-        num = 1;
-    }
-    Node work(int p)
-    {
-        int i = 10;
-        for (; i <= this.num; i++)
-        {
-            return this;
-        }
-		return this;
-    }
+
+class ClassA{
+	int num;
+	string str;
+	bool[] bool_arr;
+	ClassA(){
+		str = "";
+		num = 1;
+		bool_arr = null;
+		bool_arr = new bool[100];
+		return;
+	}
+	ClassA getClassA(int x){
+		ClassA tmp = new ClassA;
+		tmp.num = x;
+		this.num = x;
+		return tmp;
+	}
+	string getString(){
+		return str;
+	}
 };
-Node[] a = new Node[723];
-Node[] b = null;
-string str = "19asdojkhkj1";
-int [][] map = new int [153][144];
-void work()
-{
-    int i = 11;
-    int tmp1 = i;
-    a[tmp1].work(i);
-	return ;
+int Main(int parameter){
+	ClassA a = new ClassA;
+	ClassA b = a.getClassA(parameter);
+	b.num = parameter;
+	parameter = getInt();
+	int[] int_arr = (new int[2][])[3];
+	int number = b.getString().parseInt() + getString().ord(123) % b.getString().substring(1, 3).length();
+	string str1 = "123";
+	string str2 = "456";
+	int num = 0;
+	if(str1 < str2) num++;
+	if(str1 <= str2) num++;
+	if(str1 > str2) num++;
+	if(str1 >= str2) num++;
+	if((str1 + str2) == (str1 + str2)){
+		num++;
+	}else if(false)
+			num--;
+			else --num;
+	for(;;){
+		break;
+	}
+	while(true)
+		continue;
+	println(str1);
+	print(str2);
+	return num;
 }
-int main()
-{
-    int i;
-    int n = 10213;
-    for (i = 0; i < n; i++)
-    {
-        int flag = n * i - 13;
-        if(flag < a[i].num)
-        {
-
-           //print("%d", (flag - a[i].num) * 14);
-        }
-        else if(false)
-        {
-            a[i - 1].work(flag);
-            break;
-        }
-        else
-        {
-            if(true)
-            {
-                a[i] = a[i + 1].work(flag);
-                work();
-                continue;
-            }
-        }
-
-    }
-    return 0;
+int main() {
+    Main(0);
 }
