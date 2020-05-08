@@ -697,14 +697,13 @@ public class IRBuilder implements ASTVisitor {
             VirReg res = new VirReg("t");
             curBB.addInst(new BinOpInst(curBB, res, op, oldReg, new ConstInt(1)));
             curBB.addInst(new StoreInst(curBB, subRes, res));
+            node.setOperand(oldReg);
         } else {
-            curBB.addInst(new BinOpInst(curBB, subRes, op, getVal(subRes), new ConstInt(1)));
+            VirReg tmp = new VirReg("t");
+            curBB.addInst(new MoveInst(curBB, tmp, oldReg));
+            curBB.addInst(new BinOpInst(curBB, subRes, op, oldReg, new ConstInt(1)));
+            node.setOperand(tmp);
         }
-//        curBB.addInst(new MoveInst(curBB, oldReg, getVal(subRes)));
-//        curBB.addInst(new BinOpInst(curBB, subRes, op, getVal(subRes), new ConstInt(1)));
-        //curBB.addInst(new MoveInst(curBB, oldReg, getVal(subRes)));
-        //curBB.addInst(new BinOpInst(curBB, subRes, op, getVal(subRes), new ConstInt(1)));
-        node.setOperand(oldReg);
     }
 
     @Override

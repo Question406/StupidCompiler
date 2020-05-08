@@ -422,7 +422,7 @@ public class SCCP extends Optimizer implements IRVisitor {
                         if (leftOprState.latState == LatState.constant && rightOprState.latState == LatState.constant) {
                             String newString = " ";
                             try {
-                                state.strvalue.getVal().substring(leftOprState.value.getVal() + 1, rightOprState.value.getVal() + 1);
+                                newString = state.strvalue.getVal().substring(leftOprState.value.getVal() + 1, rightOprState.value.getVal() + 1);
                             } catch (Exception e) {
                                 markMultiDef(node.res);
                                 return;

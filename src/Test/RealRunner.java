@@ -126,7 +126,7 @@ public class RealRunner {
         GlobalOptimize();
 //        PrintIR(false);
         CFGSimplify();
-//        PrintIR(false);
+        PrintIR(false);
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
         SSAConstructor ssaConstructor = new SSAConstructor(IRRoot);
         SCCP SCCPAnalyzer = new SCCP(IRRoot);
