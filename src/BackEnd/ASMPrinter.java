@@ -180,7 +180,7 @@ public class ASMPrinter implements IRVisitor {
         } else {
             print("bne\t");
             node.cond.accept(this);
-            printlnInline(", zero " + BBgetName(node.trueBB));
+            printlnInline(", zero, " + BBgetName(node.trueBB));
         }
     }
 
