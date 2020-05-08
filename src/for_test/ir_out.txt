@@ -13,8 +13,8 @@
  %A.A.entryBB1:
  preds:  
  succs:  %if_elseBB1  %if_thenBB1  
- 		 %_gcountB1.0  = load  @countB 
  		 %_gcountA1.0  = load  @countA 
+ 		 %_gcountB1.0  = load  @countB 
  		 %t1.0  =   add  12   %this1.0 
  		 %_gcountA1.1  =   add  %_gcountA1.0   1 
  		 store  %t1.0   %_gcountA1.1 
@@ -29,13 +29,13 @@
  succs:  %if_thenBB2  %if_elseBB2  
  		 %t6.0  =   add  0   %this1.0 
  		 %t7.0  = alloc  16 
- 		 store  @countB   %_gcountB1.0 
  		 store  @countA   %_gcountA1.1 
+ 		 store  @countB   %_gcountB1.0 
  		 call A.A  %t7.0 
- 		 %_gcountA1.3  = load  @countA 
- 		 %_gcountB1.2  = load  @countB 
+ 		 %_gcountB1.1  = load  @countB 
+ 		 %_gcountA1.2  = load  @countA 
  		 store  %t6.0   %t7.0 
- 		 %t8.0  =   mod  %_gcountB1.2   2 
+ 		 %t8.0  =   mod  %_gcountB1.1   2 
  		 %t9.0  = seq  %t8.0   0 
  		 br  %t9.0  %if_thenBB2 %if_elseBB2 
  
@@ -51,9 +51,9 @@
  succs:  %if_end1  
  		 %t11.0  =   add  4   %this1.0 
  		 %t12.0  = alloc  8 
- 		 store  @countB   %_gcountB1.2 
+ 		 store  @countB   %_gcountB1.1 
  		 call B.B  %t12.0 
- 		 %_gcountB1.3  = load  @countB 
+ 		 %_gcountB1.2  = load  @countB 
  		 store  %t11.0   %t12.0 
  		 jump %if_end1
  
@@ -67,8 +67,8 @@
  %if_end1:
  preds:  %if_elseBB1  %if_thenBB2  %if_elseBB2  
  succs:  %forcondBB1  
- 		 %_gcountA1.2  = phi  %if_elseBB1:  %_gcountA1.1   %if_thenBB2:  %_gcountA1.3   %if_elseBB2:  %_gcountA1.3   
- 		 %_gcountB1.1  = phi  %if_elseBB1:  %_gcountB1.0   %if_thenBB2:  %_gcountB1.3   %if_elseBB2:  %_gcountB1.2   
+ 		 %_gcountA1.3  = phi  %if_elseBB1:  %_gcountA1.1   %if_elseBB2:  %_gcountA1.2   %if_thenBB2:  %_gcountA1.2   
+ 		 %_gcountB1.3  = phi  %if_elseBB1:  %_gcountB1.0   %if_elseBB2:  %_gcountB1.1   %if_thenBB2:  %_gcountB1.2   
  		 %t14.0  =   add  8   %this1.0 
  		 %t15.0  =   mul  2   4 
  		 %t15.1  =   add  %t15.0   4 
@@ -93,117 +93,45 @@
  		 jump %forcondBB1
  
  %forcondBB1:
- preds:  %if_end1  %afterForBB1  
- succs:  %afterForBB2  %forupdateBB1  
- 		 %t27.0  = phi  %if_end1:   undef    %afterForBB1:  %t27.3   
- 		 %t28.0  = phi  %if_end1:   undef    %afterForBB1:  %t28.2   
- 		 %t29.0  = phi  %if_end1:   undef    %afterForBB1:  %t29.1   
- 		 %t30.0  = phi  %if_end1:   undef    %afterForBB1:  %t30.1   
- 		 %t31.0  = phi  %if_end1:   undef    %afterForBB1:  %t31.1   
- 		 %t32.0  = phi  %if_end1:   undef    %afterForBB1:  %t32.1   
- 		 %t24.2  = phi  %if_end1:  %t24.1   %afterForBB1:  %t24.3   
+ preds:  %afterForBB1  %if_end1  
+ succs:  %forupdateBB1  %afterForBB2  
+ 		 %t27.0  = phi  %afterForBB1:  %t27.1   %if_end1:   undef    
+ 		 %t28.0  = phi  %afterForBB1:  %t28.1   %if_end1:   undef    
+ 		 %t29.0  = phi  %afterForBB1:  %t29.2   %if_end1:   undef    
+ 		 %t30.0  = phi  %afterForBB1:  %t30.1   %if_end1:   undef    
+ 		 %t31.0  = phi  %afterForBB1:  %t31.1   %if_end1:   undef    
+ 		 %t24.2  = phi  %afterForBB1:  %t24.3   %if_end1:  %t24.1   
+ 		 %t32.0  = phi  %afterForBB1:  %t32.3   %if_end1:   undef    
  		 %t33.0  = sle  %t24.2   %t26.1 
  		 br  %t33.0  %forupdateBB1 %afterForBB2 
- 
- %forupdateBB1:
- preds:  %forcondBB1  
- succs:  %forcondBB2  
- 		 %t34.0  =   mul  6   4 
- 		 %t34.1  =   add  %t34.0   4 
- 		 %t32.1  = alloc  %t34.1 
- 		 store  %t32.1   6 
- 		 %t27.1  = move  %t32.1 
- 		 %t27.2  =   add  %t27.1   4 
- 		 %t35.0  = move  4 
- 		 %t35.1  =   mul  %t35.0   6 
- 		 %t28.1  = move  %t32.1 
- 		 %t28.2  =   add  %t28.1   %t35.1 
- 		 jump %forcondBB2
- 
- %forcondBB2:
- preds:  %afterForBB3  %forupdateBB1  
- succs:  %afterForBB1  %forupdateBB2  
- 		 %t27.3  = phi  %afterForBB3:  %t27.4   %forupdateBB1:  %t27.2   
- 		 %t29.1  = phi  %afterForBB3:  %t29.2   %forupdateBB1:  %t29.0   
- 		 %t30.1  = phi  %afterForBB3:  %t30.3   %forupdateBB1:  %t30.0   
- 		 %t31.1  = phi  %afterForBB3:  %t31.4   %forupdateBB1:  %t31.0   
- 		 %t36.0  = sle  %t27.3   %t28.2 
- 		 br  %t36.0  %forupdateBB2 %afterForBB1 
- 
- %forupdateBB2:
- preds:  %forcondBB2  
- succs:  %forcondBB3  
- 		 %t37.0  =   mul  6   4 
- 		 %t37.1  =   add  %t37.0   4 
- 		 %t29.2  = alloc  %t37.1 
- 		 store  %t29.2   6 
- 		 %t31.2  = move  %t29.2 
- 		 %t31.3  =   add  %t31.2   4 
- 		 %t38.0  = move  4 
- 		 %t38.1  =   mul  %t38.0   6 
- 		 %t30.2  = move  %t29.2 
- 		 %t30.3  =   add  %t30.2   %t38.1 
- 		 jump %forcondBB3
- 
- %forcondBB3:
- preds:  %forupdateBB3  %forupdateBB2  
- succs:  %forupdateBB3  %afterForBB3  
- 		 %t31.4  = phi  %forupdateBB3:  %t31.5   %forupdateBB2:  %t31.3   
- 		 %t39.0  = sle  %t31.4   %t30.3 
- 		 br  %t39.0  %forupdateBB3 %afterForBB3 
- 
- %afterForBB3:
- preds:  %forcondBB3  
- succs:  %forcondBB2  
- 		 store  %t27.3   %t29.2 
- 		 %t27.4  =   add  %t27.3   4 
- 		 jump %forcondBB2
- 
- %forupdateBB3:
- preds:  %forcondBB3  
- succs:  %forcondBB3  
- 		 %t40.0  =   mul  6   8 
- 		 %t40.1  =   add  %t40.0   4 
- 		 %t41.0  = alloc  %t40.1 
- 		 store  %t41.0   6 
- 		 store  %t31.4   %t41.0 
- 		 %t31.5  =   add  %t31.4   4 
- 		 jump %forcondBB3
- 
- %afterForBB1:
- preds:  %forcondBB2  
- succs:  %forcondBB1  
- 		 store  %t24.2   %t32.1 
- 		 %t24.3  =   add  %t24.2   4 
- 		 jump %forcondBB1
  
  %afterForBB2:
  preds:  %forcondBB1  
  succs:  %if_thenBB3  %if_end2  
- 		 %t42.0  =   mul  2   4 
+ 		 %t34.0  =   mul  2   4 
+ 		 %t35.0  =   add  %t34.0   4 
+ 		 %t36.0  =   add  %t23.0   %t35.0 
+ 		 %t37.0  = load  %t36.0 
+ 		 %t38.0  =   mul  3   4 
+ 		 %t39.0  =   add  %t38.0   4 
+ 		 %t40.0  =   add  %t37.0   %t39.0 
+ 		 %t41.0  = load  %t40.0 
+ 		 %t42.0  =   mul  3   4 
  		 %t43.0  =   add  %t42.0   4 
- 		 %t44.0  =   add  %t23.0   %t43.0 
+ 		 %t44.0  =   add  %t41.0   %t43.0 
  		 %t45.0  = load  %t44.0 
- 		 %t46.0  =   mul  3   4 
- 		 %t47.0  =   add  %t46.0   4 
- 		 %t48.0  =   add  %t45.0   %t47.0 
- 		 %t49.0  = load  %t48.0 
- 		 %t50.0  =   mul  3   4 
- 		 %t51.0  =   add  %t50.0   4 
- 		 %t52.0  =   add  %t49.0   %t51.0 
- 		 %t53.0  = load  %t52.0 
- 		 store  %t21.0   %t53.0 
- 		 %t54.0  =   add  8   %this1.0 
- 		 %t55.0  = load  %t54.0 
- 		 %t56.0  =   mul  1   4 
- 		 %t57.0  =   add  %t56.0   4 
- 		 %t58.0  =   add  %t55.0   %t57.0 
- 		 store  %t58.0   0 
- 		 %t59.0  =   add  8   %this1.0 
- 		 %t60.0  = load  %t59.0 
- 		 %t61.0  =  call array.size  %t60.0 
- 		 %t62.0  = sne  %t61.0   2 
- 		 br  %t62.0  %if_thenBB3 %if_end2 
+ 		 store  %t21.0   %t45.0 
+ 		 %t46.0  =   add  8   %this1.0 
+ 		 %t47.0  = load  %t46.0 
+ 		 %t48.0  =   mul  1   4 
+ 		 %t49.0  =   add  %t48.0   4 
+ 		 %t50.0  =   add  %t47.0   %t49.0 
+ 		 store  %t50.0   0 
+ 		 %t51.0  =   add  8   %this1.0 
+ 		 %t52.0  = load  %t51.0 
+ 		 %t53.0  =  call array.size  %t52.0 
+ 		 %t54.0  = sne  %t53.0   2 
+ 		 br  %t54.0  %if_thenBB3 %if_end2 
  
  %if_thenBB3:
  preds:  %afterForBB2  
@@ -214,9 +142,81 @@
  %if_end2:
  preds:  %if_thenBB3  %afterForBB2  
  succs:  
- 		 store  @countB   %_gcountB1.1 
- 		 store  @countA   %_gcountA1.2 
+ 		 store  @countA   %_gcountA1.3 
+ 		 store  @countB   %_gcountB1.3 
  		 ret  
+ 
+ %forupdateBB1:
+ preds:  %forcondBB1  
+ succs:  %forcondBB2  
+ 		 %t55.0  =   mul  6   4 
+ 		 %t55.1  =   add  %t55.0   4 
+ 		 %t30.1  = alloc  %t55.1 
+ 		 store  %t30.1   6 
+ 		 %t32.1  = move  %t30.1 
+ 		 %t32.2  =   add  %t32.1   4 
+ 		 %t56.0  = move  4 
+ 		 %t56.1  =   mul  %t56.0   6 
+ 		 %t29.1  = move  %t30.1 
+ 		 %t29.2  =   add  %t29.1   %t56.1 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ preds:  %afterForBB3  %forupdateBB1  
+ succs:  %afterForBB1  %forupdateBB2  
+ 		 %t27.1  = phi  %afterForBB3:  %t27.3   %forupdateBB1:  %t27.0   
+ 		 %t28.1  = phi  %afterForBB3:  %t28.4   %forupdateBB1:  %t28.0   
+ 		 %t31.1  = phi  %afterForBB3:  %t31.2   %forupdateBB1:  %t31.0   
+ 		 %t32.3  = phi  %afterForBB3:  %t32.4   %forupdateBB1:  %t32.2   
+ 		 %t57.0  = sle  %t32.3   %t29.2 
+ 		 br  %t57.0  %forupdateBB2 %afterForBB1 
+ 
+ %forupdateBB2:
+ preds:  %forcondBB2  
+ succs:  %forcondBB3  
+ 		 %t58.0  =   mul  6   4 
+ 		 %t58.1  =   add  %t58.0   4 
+ 		 %t31.2  = alloc  %t58.1 
+ 		 store  %t31.2   6 
+ 		 %t28.2  = move  %t31.2 
+ 		 %t28.3  =   add  %t28.2   4 
+ 		 %t59.0  = move  4 
+ 		 %t59.1  =   mul  %t59.0   6 
+ 		 %t27.2  = move  %t31.2 
+ 		 %t27.3  =   add  %t27.2   %t59.1 
+ 		 jump %forcondBB3
+ 
+ %forcondBB3:
+ preds:  %forupdateBB2  %forupdateBB3  
+ succs:  %afterForBB3  %forupdateBB3  
+ 		 %t28.4  = phi  %forupdateBB2:  %t28.3   %forupdateBB3:  %t28.5   
+ 		 %t60.0  = sle  %t28.4   %t27.3 
+ 		 br  %t60.0  %forupdateBB3 %afterForBB3 
+ 
+ %forupdateBB3:
+ preds:  %forcondBB3  
+ succs:  %forcondBB3  
+ 		 %t61.0  =   mul  6   8 
+ 		 %t61.1  =   add  %t61.0   4 
+ 		 %t62.0  = alloc  %t61.1 
+ 		 store  %t62.0   6 
+ 		 store  %t28.4   %t62.0 
+ 		 %t28.5  =   add  %t28.4   4 
+ 		 jump %forcondBB3
+ 
+ %afterForBB3:
+ preds:  %forcondBB3  
+ succs:  %forcondBB2  
+ 		 store  %t32.3   %t31.2 
+ 		 %t32.4  =   add  %t32.3   4 
+ 		 jump %forcondBB2
+ 
+ %afterForBB1:
+ preds:  %forcondBB2  
+ succs:  %forcondBB1  
+ 		 store  %t24.2   %t30.1 
+ 		 %t24.3  =   add  %t24.2   4 
+ 		 jump %forcondBB1
  
  }
  define void @B.B  %this1.0  {
@@ -257,30 +257,24 @@
  %__init.entryBB1:
  preds:  
  succs:  %_forbodyBB1  
- 		 %_gcountB1.0  = load  @countB 
  		 %_gcountA1.0  = load  @countA 
- 		 %_gcountC1.0  = load  @countC 
+ 		 %_gcountB1.0  = load  @countB 
  		 %_gsomething1.0  = load  @something 
+ 		 %_gcountC1.0  = load  @countC 
  		 %_i1.0  = move  0 
  		 %_i1.1  = move  0 
  		 jump %_forbodyBB1
  
  %_forbodyBB1:
- preds:  %__init.entryBB1  %_forupdateBB1  
- succs:  %_if_thenBB1  %_forupdateBB1  
- 		 %_i1.2  = phi  %__init.entryBB1:  %_i1.1   %_forupdateBB1:  %_i1.3   
+ preds:  %_forupdateBB1  %__init.entryBB1  
+ succs:  %_forupdateBB1  %_if_thenBB1  
+ 		 %_i1.2  = phi  %_forupdateBB1:  %_i1.3   %__init.entryBB1:  %_i1.1   
  		 %_t1.0  =   and  891   759 
  		 %_t2.0  =   xor  %_i1.2   %_t1.0 
  		 %_t3.0  = seq  %_t2.0   666 
  		 %_t4.0  =  not  0 
  		 %_t5.0  = seq  %_t3.0   %_t4.0 
  		 br  %_t5.0  %_if_thenBB1 %_forupdateBB1 
- 
- %_forupdateBB1:
- preds:  %_forbodyBB1  
- succs:  %_forbodyBB1  
- 		 %_i1.3  =   add  %_i1.2   1 
- 		 jump %_forbodyBB1
  
  %_if_thenBB1:
  preds:  %_forbodyBB1  
@@ -386,6 +380,12 @@
  		 %_t12.0  =  call string.add  %_t11.0   @constStr_4   
  		 call print  %_t12.0   
  		 jump %_whileBodyBB1
+ 
+ %_forupdateBB1:
+ preds:  %_forbodyBB1  
+ succs:  %_forbodyBB1  
+ 		 %_i1.3  =   add  %_i1.2   1 
+ 		 jump %_forbodyBB1
  
  }
  define i32 @C.Me  %this1.0  {

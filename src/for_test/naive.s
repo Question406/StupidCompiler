@@ -5,6 +5,8 @@
 A.A:
 %A.A.entryBB1:
     mv	backup_ra,ra 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     mv	back_s0,s0 
     mv	back_s1,s1 
     mv	back_s2,s2 
@@ -15,13 +17,11 @@ A.A:
     mv	back_s7,s7 
     mv	back_s8,s8 
     mv	back_s9,s9 
-    mv	back_s10,s10 
-    mv	back_s11,s11 
     mv	this.0,a0 
-    la ptr,countB    
-    lw _gcountB.0, 0(ptr)
     la ptr,countA    
     lw _gcountA.0, 0(ptr)
+    la ptr,countB    
+    lw _gcountB.0, 0(ptr)
     addi t.0,this.0,    12
     addi _gcountA.1,_gcountA.0,    1
     sw _gcountA.1,0(t.0)
@@ -36,30 +36,30 @@ A.A:
     li a0, 16
     call malloc
     mv	t.0,a0 
-    lui _lobits,%hi(countB)
-    sw _gcountB.0, %lo(countB)(_lobits)
     lui _lobits,%hi(countA)
     sw _gcountA.1, %lo(countA)(_lobits)
+    lui _lobits,%hi(countB)
+    sw _gcountB.0, %lo(countB)(_lobits)
     mv	a0,t.0 
     call	A.A
-    la ptr,countA    
-    lw _gcountA.3, 0(ptr)
     la ptr,countB    
-    lw _gcountB.2, 0(ptr)
+    lw _gcountB.1, 0(ptr)
+    la ptr,countA    
+    lw _gcountA.2, 0(ptr)
     sw t.0,0(t.0)
     li t, 2
-    rem t.0,_gcountB.2,t
+    rem t.0,_gcountB.1,t
     beq	t.0,zero,	%if_thenBB2
     j	%if_elseBB2
 %if_elseBB2:
     addi t.0,this.0,    4
     li _t, 0
     sw _t,0(t.0)
-    mv	_gcountA.2,_gcountA.3 
-    mv	_gcountB.1,_gcountB.2 
-    mv	breaker,_gcountA.2 
-    mv	_gcountA.2,_gcountA.2 
-    mv	breaker,_gcountB.1 
+    mv	_gcountA.3,_gcountA.2 
+    mv	_gcountB.3,_gcountB.1 
+    mv	breaker,_gcountA.3 
+    mv	_gcountA.3,_gcountA.3 
+    mv	breaker,_gcountB.3 
     j	%if_end1
 %if_thenBB2:
     addi t.0,this.0,    4
@@ -67,27 +67,27 @@ A.A:
     call malloc
     mv	t.0,a0 
     lui _lobits,%hi(countB)
-    sw _gcountB.2, %lo(countB)(_lobits)
+    sw _gcountB.1, %lo(countB)(_lobits)
     mv	a0,t.0 
     call	B.B
     la ptr,countB    
-    lw _gcountB.3, 0(ptr)
+    lw _gcountB.2, 0(ptr)
     sw t.0,0(t.0)
-    mv	_gcountA.2,_gcountA.3 
-    mv	_gcountB.1,_gcountB.3 
-    mv	breaker,_gcountA.2 
-    mv	_gcountA.2,_gcountA.2 
-    mv	breaker,_gcountB.1 
+    mv	_gcountA.3,_gcountA.2 
+    mv	_gcountB.3,_gcountB.2 
+    mv	breaker,_gcountA.3 
+    mv	_gcountA.3,_gcountA.3 
+    mv	breaker,_gcountB.3 
     j	%if_end1
 %if_elseBB1:
     add t.0,this.0,zero
     li _t, 0
     sw _t,0(t.0)
-    mv	_gcountA.2,_gcountA.1 
-    mv	_gcountB.1,_gcountB.0 
-    mv	breaker,_gcountA.2 
-    mv	_gcountA.2,_gcountA.2 
-    mv	breaker,_gcountB.1 
+    mv	_gcountA.3,_gcountA.1 
+    mv	_gcountB.3,_gcountB.0 
+    mv	breaker,_gcountA.3 
+    mv	_gcountA.3,_gcountA.3 
+    mv	breaker,_gcountB.3 
     j	%if_end1
 %if_end1:
     addi t.0,this.0,    8
@@ -115,6 +115,51 @@ A.A:
 %forcondBB1:
     ble	t.2,t.1,	%forupdateBB1
     j	%afterForBB1
+%afterForBB1:
+    addi t.0,t.0,    12
+    lw t.0, 0(t.0)
+    addi t.0,t.0,    16
+    lw t.0, 0(t.0)
+    addi t.0,t.0,    16
+    lw t.0, 0(t.0)
+    sw t.0,0(t.0)
+    addi t.0,this.0,    8
+    lw t.0, 0(t.0)
+    addi t.0,t.0,    8
+    li _t, 0
+    sw _t,0(t.0)
+    addi t.0,this.0,    8
+    lw t.0, 0(t.0)
+    mv	a0,t.0 
+    call	_arraySize
+    mv	t.0,a0 
+    li t, 2
+    bne	t.0,t,	%if_thenBB3
+    j	%if_end2
+%if_thenBB3:
+    la para,_globalStr2    
+    mv	a0,para 
+    call	println
+    j	%if_end2
+%if_end2:
+    lui _lobits,%hi(countA)
+    sw _gcountA.3, %lo(countA)(_lobits)
+    lui _lobits,%hi(countB)
+    sw _gcountB.3, %lo(countB)(_lobits)
+    mv	s9,back_s9 
+    mv	s8,back_s8 
+    mv	s7,back_s7 
+    mv	s6,back_s6 
+    mv	s5,back_s5 
+    mv	s4,back_s4 
+    mv	s3,back_s3 
+    mv	s2,back_s2 
+    mv	s1,back_s1 
+    mv	s0,back_s0 
+    mv	s11,back_s11 
+    mv	s10,back_s10 
+    mv	ra,backup_ra 
+    ret
 %forupdateBB1:
     li a0, 28
     call malloc
@@ -147,12 +192,6 @@ A.A:
 %forcondBB3:
     ble	t.4,t.3,	%forupdateBB3
     j	%afterForBB3
-%afterForBB3:
-    sw t.2,0(t.3)
-    addi t.4,t.3,    4
-    mv	t.3,t.4 
-    mv	breaker,t.3 
-    j	%forcondBB2
 %forupdateBB3:
     li a0, 52
     call malloc
@@ -164,57 +203,18 @@ A.A:
     mv	t.4,t.5 
     mv	breaker,t.4 
     j	%forcondBB3
+%afterForBB3:
+    sw t.2,0(t.3)
+    addi t.4,t.3,    4
+    mv	t.3,t.4 
+    mv	breaker,t.3 
+    j	%forcondBB2
 %afterForBB2:
     sw t.1,0(t.2)
     addi t.3,t.2,    4
     mv	t.2,t.3 
     mv	breaker,t.2 
     j	%forcondBB1
-%afterForBB1:
-    addi t.0,t.0,    12
-    lw t.0, 0(t.0)
-    addi t.0,t.0,    16
-    lw t.0, 0(t.0)
-    addi t.0,t.0,    16
-    lw t.0, 0(t.0)
-    sw t.0,0(t.0)
-    addi t.0,this.0,    8
-    lw t.0, 0(t.0)
-    addi t.0,t.0,    8
-    li _t, 0
-    sw _t,0(t.0)
-    addi t.0,this.0,    8
-    lw t.0, 0(t.0)
-    mv	a0,t.0 
-    call	_arraySize
-    mv	t.0,a0 
-    li t, 2
-    bne	t.0,t,	%if_thenBB3
-    j	%if_end2
-%if_thenBB3:
-    la para,_globalStr2    
-    mv	a0,para 
-    call	println
-    j	%if_end2
-%if_end2:
-    lui _lobits,%hi(countB)
-    sw _gcountB.1, %lo(countB)(_lobits)
-    lui _lobits,%hi(countA)
-    sw _gcountA.2, %lo(countA)(_lobits)
-    mv	s11,back_s11 
-    mv	s10,back_s10 
-    mv	s9,back_s9 
-    mv	s8,back_s8 
-    mv	s7,back_s7 
-    mv	s6,back_s6 
-    mv	s5,back_s5 
-    mv	s4,back_s4 
-    mv	s3,back_s3 
-    mv	s2,back_s2 
-    mv	s1,back_s1 
-    mv	s0,back_s0 
-    mv	ra,backup_ra 
-    ret
 								 # func end
     .globl	B.B						 # func begin 
     .p2align	2
@@ -222,6 +222,8 @@ A.A:
 B.B:
 %B.B.entryBB1:
     mv	backup_ra,ra 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     mv	back_s0,s0 
     mv	back_s1,s1 
     mv	back_s2,s2 
@@ -232,8 +234,6 @@ B.B:
     mv	back_s7,s7 
     mv	back_s8,s8 
     mv	back_s9,s9 
-    mv	back_s10,s10 
-    mv	back_s11,s11 
     mv	this.0,a0 
     la ptr,countB    
     lw _gcountB.0, 0(ptr)
@@ -265,8 +265,6 @@ B.B:
     sw t.0,0(t.0)
     lui _lobits,%hi(countB)
     sw _gcountB.2, %lo(countB)(_lobits)
-    mv	s11,back_s11 
-    mv	s10,back_s10 
     mv	s9,back_s9 
     mv	s8,back_s8 
     mv	s7,back_s7 
@@ -277,6 +275,8 @@ B.B:
     mv	s2,back_s2 
     mv	s1,back_s1 
     mv	s0,back_s0 
+    mv	s11,back_s11 
+    mv	s10,back_s10 
     mv	ra,backup_ra 
     ret
 								 # func end
@@ -286,6 +286,8 @@ B.B:
 main:
 %__init.entryBB1:
     mv	backup_ra,ra 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     mv	back_s0,s0 
     mv	back_s1,s1 
     mv	back_s2,s2 
@@ -296,16 +298,14 @@ main:
     mv	back_s7,s7 
     mv	back_s8,s8 
     mv	back_s9,s9 
-    mv	back_s10,s10 
-    mv	back_s11,s11 
-    la ptr,countB    
-    lw _gcountB.0, 0(ptr)
     la ptr,countA    
     lw _gcountA.0, 0(ptr)
-    la ptr,countC    
-    lw _gcountC.0, 0(ptr)
+    la ptr,countB    
+    lw _gcountB.0, 0(ptr)
     la ptr,something    
     lw _gsomething.0, 0(ptr)
+    la ptr,countC    
+    lw _gcountC.0, 0(ptr)
     mv	_i.2,zero 
     j	%_forbodyBB1
 %_forbodyBB1:
@@ -314,11 +314,6 @@ main:
     li t, 1
     beq	_t.0,t,	%_if_thenBB1
     j	%_forupdateBB1
-%_forupdateBB1:
-    addi _i.3,_i.2,    1
-    mv	_i.2,_i.3 
-    mv	breaker,_i.2 
-    j	%_forbodyBB1
 %_if_thenBB1:
     mv	a0,_i.2 
     call	toString
@@ -520,6 +515,11 @@ main:
     mv	a0,_t.0 
     call	print
     j	%_whileBodyBB1
+%_forupdateBB1:
+    addi _i.3,_i.2,    1
+    mv	_i.2,_i.3 
+    mv	breaker,_i.2 
+    j	%_forbodyBB1
 								 # func end
     .globl	C.Me						 # func begin 
     .p2align	2
@@ -527,6 +527,8 @@ main:
 C.Me:
 %C.Me.entryBB1:
     mv	backup_ra,ra 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     mv	back_s0,s0 
     mv	back_s1,s1 
     mv	back_s2,s2 
@@ -537,11 +539,7 @@ C.Me:
     mv	back_s7,s7 
     mv	back_s8,s8 
     mv	back_s9,s9 
-    mv	back_s10,s10 
-    mv	back_s11,s11 
     mv	this.0,a0 
-    mv	s11,back_s11 
-    mv	s10,back_s10 
     mv	s9,back_s9 
     mv	s8,back_s8 
     mv	s7,back_s7 
@@ -552,6 +550,8 @@ C.Me:
     mv	s2,back_s2 
     mv	s1,back_s1 
     mv	s0,back_s0 
+    mv	s11,back_s11 
+    mv	s10,back_s10 
     mv	ra,backup_ra 
     mv	a0,this.0 
     ret
