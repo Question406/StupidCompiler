@@ -100,16 +100,18 @@ public class SSAConstructor {
 
     private void RenameVars(Function function) {
         // args also names in a function
-        if (function.thisPointer != null) {
+        if (function.thisPointer != null && reg_infoMap.containsKey(function.thisPointer)) {
             function.thisPointer = NewName(function.thisPointer);
         }
         for (int i = 0; i < function.args.size(); i++) {
             var oldarg = function.args.get(i);
+            if (!reg_infoMap.containsKey(oldarg))
+                continue;
             function.args.set(i, NewName(oldarg));
         }
         recursiveRenameVars(function.entryBB);
 
-        if (function.thisPointer != null)
+        if (function.thisPointer != null && reg_infoMap.containsKey(function.thisPointer))
             reg_infoMap.get(function.thisPointer.getOldName()).name_Stack.pop();
         function.args.forEach(arg -> {
             if (reg_infoMap.get(arg) != null)

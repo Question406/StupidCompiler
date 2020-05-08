@@ -40,6 +40,7 @@ public class FuncInliner {
 
     public void run() {
         InstsCnt();
+        DeadFuncElem();
         CalcRecursiveCallSet();
         TryNonRecursiveInline();
 
@@ -47,7 +48,17 @@ public class FuncInliner {
 
         functionfunc_call_infoMap.clear();
         InstsCnt();
+        DeadFuncElem();
         CalcRecursiveCallSet();
+    }
+
+    private void DeadFuncElem() {
+        ArrayList<Function> toRM = new ArrayList<>();
+        for (var func : program.getGlobalFuncMap().values()) {
+            if (!funcCalledCntMap.containsKey(func) && !func.getFuncname().equals("__init"))
+                toRM.add(func);
+        }
+        program.getGlobalFuncMap().values().removeAll(toRM);
     }
 
     private void TryNonRecursiveInline() {

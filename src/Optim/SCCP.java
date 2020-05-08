@@ -420,7 +420,13 @@ public class SCCP extends Optimizer implements IRVisitor {
                         assert leftOprState != null;
                         assert rightOprState != null;
                         if (leftOprState.latState == LatState.constant && rightOprState.latState == LatState.constant) {
-                            String newString = state.strvalue.getVal().substring(leftOprState.value.getVal() + 1, rightOprState.value.getVal() + 1);
+                            String newString = " ";
+                            try {
+                                state.strvalue.getVal().substring(leftOprState.value.getVal() + 1, rightOprState.value.getVal() + 1);
+                            } catch (Exception e) {
+                                markMultiDef(node.res);
+                                return;
+                            }
                             newString = "\"" + newString + "\"";
                             markConst(node.res, new ConstString(newString));
                             return;
@@ -449,11 +455,12 @@ public class SCCP extends Optimizer implements IRVisitor {
                     assert state != null;
                     assert state.value == null;
                     if (state.latState == LatState.constant && state.strvalue != null) {
+//                        var argOpr = node.params.get(0);
                         var argOpr = node.thisPointer;
                         var argOprState = getState(argOpr);
                         assert argOprState != null;
                         if (argOprState.latState == LatState.constant) {
-                            String toDO = state.strvalue.getVal().substring(1);
+                            String toDO = state.strvalue.getVal().substring(1, state.strvalue.getVal().length() - 1);
                             int res;
                             try {
                                 res = Integer.parseInt(toDO);

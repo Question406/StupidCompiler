@@ -184,7 +184,8 @@ public class IRBuilder implements ASTVisitor {
                     curBB = afterLogic;
                 }
             } else {
-                curBB.addInst(new MoveInst(curBB, virReg, new ConstInt(0)));
+                if (!isFuncArg)
+                    curBB.addInst(new MoveInst(curBB, virReg, new ConstInt(0)));
             }
         }
     }
@@ -241,8 +242,12 @@ public class IRBuilder implements ASTVisitor {
 
     @Override
     public void visit(BlockStatNode node) throws Exception {
-        for (var stat : node.getStats())
-            stat.accept(this);
+        for (var stat : node.getStats()) {
+            if (stat != null)
+                stat.accept(this);
+            if (curBB.getEnded())
+                break;
+        }
     }
 
     @Override
@@ -323,8 +328,10 @@ public class IRBuilder implements ASTVisitor {
         loopUpdateStack.push(updateBB);
         loopAfterStack.push(afterForBB);
 
-        if (node.getFor_init() != null)
-            node.getFor_init().accept(this);
+        if (node.getFor_init() != null) {
+            if (node.getFor_init() instanceof AssignExprNode || node.getFor_init() instanceof VarDefStatNode)
+                node.getFor_init().accept(this);
+        }
 
         curBB.endBB(new JumpInst(curBB, condBB));
         // change to for cond
@@ -382,19 +389,6 @@ public class IRBuilder implements ASTVisitor {
         else {
             var retExpr = node.getReturn_expr();
             if (isLogicOp(retExpr)) {
-//                retExpr.setTrueBB(new BasicBlock(curFunc, "logicT"));
-//                retExpr.setElseBB(new BasicBlock(curFunc, "logicF"));
-//                retExpr.accept(this);
-//                var trueBB = retExpr.getTrueBB();
-//                var elseBB = retExpr.getElseBB();
-//                var virReg = new VirReg("logict");
-//                trueBB.addInst(new MoveInst(trueBB, virReg, new ConstInt(1)));
-//                elseBB.addInst(new MoveInst(elseBB, virReg, new ConstInt(0)));
-//                BasicBlock afterLogic = new BasicBlock(curFunc, "afterLogic");
-//                trueBB.endBB(new JumpInst(trueBB, afterLogic));
-//                elseBB.endBB(new JumpInst(elseBB, afterLogic));
-//                curBB = afterLogic;
-//                curBB.endBB(new RetInst(curBB, virReg));
                 logicAsInt = true;
                 retExpr.accept(this);
                 curBB.endBB(new RetInst(curBB, getVal(retExpr.getOperand())));
@@ -487,7 +481,10 @@ public class IRBuilder implements ASTVisitor {
             case REQ:
             case LTH:
             case GTH:
+                boolean oldlogicAsInt = logicAsInt;
+                logicAsInt = true;
                 handleRelationBinExpr(node);
+                logicAsInt = oldlogicAsInt;
                 break;
             // ArithematicOP
             case ADD:
@@ -500,7 +497,10 @@ public class IRBuilder implements ASTVisitor {
             case BITWISEAND:
             case BITWISEOR:
             case BITWISEXOR:
+                boolean oldlogicAsInt1 = logicAsInt;
+                logicAsInt = oldlogicAsInt1;
                 handleArithematicBinExpr(node);
+                logicAsInt = oldlogicAsInt1;
                 break;
         }
     }
@@ -987,7 +987,8 @@ public class IRBuilder implements ASTVisitor {
         curBB = bodyBB;
         if (node.getWhile_body() != null)
             node.getWhile_body().accept(this);
-        curBB.endBB(new JumpInst(curBB, condBB));
+        if (! curBB.getEnded())
+            curBB.endBB(new JumpInst(curBB, condBB));
 
         loopAfterStack.pop();
         loopUpdateStack.pop();
