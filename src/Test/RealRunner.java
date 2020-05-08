@@ -157,8 +157,8 @@ public class RealRunner {
 
     private void FrontEnd() throws Exception {
         String inputFile = "test.c";
-//        BuildSyntax(inputFile);
-        BuildSyntax(null);
+        BuildSyntax(inputFile);
+//        BuildSyntax(null);
         BuildAST();
         SemanticAnalyze();
         BuildIR();
@@ -173,10 +173,10 @@ public class RealRunner {
         RegAllocater regAllocater = new RegAllocater(IRRoot, loopAnalysis);
         loopAnalysis.run();
         instSelector.run();
-        // File file = new File("naive.s");
-        // PrintStream out = new PrintStream(file);
-        // ASMPrinter asmPrinter = new ASMPrinter(out);
-        // asmPrinter.visit(IRRoot);
+//        File file = new File("naive.s");
+//        PrintStream out = new PrintStream(file);
+//        ASMPrinter asmPrinter = new ASMPrinter(out);
+//        asmPrinter.visit(IRRoot);
         regAllocater.run();
         PrintASM(true);
     }
