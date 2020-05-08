@@ -121,7 +121,6 @@ public class BasicBlock {
             insthead = insttail = null;
             for (var sucBB : succBBs)
                 sucBB.predBBs.remove(this);
-            
         }
         else {
             insttail = insttail.prev;
@@ -169,6 +168,7 @@ public class BasicBlock {
             insttail = toCombine.insttail;
             for (var inst = toCombine.insthead; inst != null; inst = inst.next)
                 inst.curBB = this;
+            toCombine.insthead = toCombine.insttail = null;
         }else {
             assert insttail != null;
             assert !(toCombine.insthead instanceof PhiInst);

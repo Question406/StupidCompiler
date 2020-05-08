@@ -39,7 +39,18 @@ public class ForStatNode extends StatNode {
 
     @Override
     public String toString() {
-        return "for (" + for_init.toString() + "," + for_end.toString() + "," + for_update.toString() + while_body.toString();
+        String res = "for (";
+        if (for_init != null)
+            res = res + for_init.toString();
+        res = res + ";";
+        if (for_end != null)
+            res = res + for_end.toString();
+        res =res + ";";
+        if (while_body != null)
+            res = res + while_body.toString();
+        res = res + ";";
+//        return "for (" + for_init.toString() + "," + for_end.toString() + "," + for_update.toString() + while_body.toString();
+        return  res;
     }
 
 }

@@ -97,6 +97,8 @@ public class CFGSimplifier extends Optimizer {
             var inst = bb.insttail;
             if (inst instanceof JumpInst) {
                 var jumpTo = ((JumpInst) inst).jumpTo;
+                if (jumpTo == bb)
+                    continue;
                 if (bb.isEmpty()) {
                     if (bb != function.entryBB) {
                         boolean canMerge = true;
@@ -147,7 +149,6 @@ public class CFGSimplifier extends Optimizer {
                                 var value = ((PhiInst) succinst).from.get(jumpTo);
                                 ((PhiInst) succinst).from.remove(jumpTo);
                                 ((PhiInst) succinst).from.put(bb, value);
-                                break;
                             }
                     });
                     if (jumpTo == function.exitBB)

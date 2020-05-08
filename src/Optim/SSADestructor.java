@@ -74,6 +74,8 @@ public class SSADestructor extends Optimizer {
                         if (fromOpr == null)
                             fromOpr = new ConstInt(0);
 //                        parallelCopyMap.get(fromBB).add(new ParallelCopy((VirReg) res, fromOpr)); // put new para copy
+                        if (tmpMap.get(fromBB)  == null)
+                            System.out.print("123");
                         tmpMap.get(fromBB).add(new ParallelCopy((VirReg) res, fromOpr));
                     }
                 }

@@ -46,6 +46,7 @@ public class DeadCodeElim extends Optimizer {
         workList.clear();
         mark(func);
         sweep(func);
+        func.CalcReversePostOrderBBs();
     }
 
     private void CalCDefUseChain() {
@@ -109,6 +110,8 @@ public class DeadCodeElim extends Optimizer {
             if (inst instanceof PhiInst) { // for those phiInst like b = phi %b1: 0 %b2: 1
                 for (var bb : ((PhiInst) inst).from.keySet()) {
                     Instruction bbtail = bb.insttail;
+                    if (bbtail == null)
+                        continue;
                     if (!marked.contains(bbtail)) {
                         marked.add(bbtail);
                         workList.add(bbtail);
@@ -117,6 +120,8 @@ public class DeadCodeElim extends Optimizer {
             }
             for (var bb : inst.curBB.PostDomFros) {
                 Instruction bbtail = bb.insttail;
+                if (bbtail == null)
+                    continue;
                 if (!marked.contains(bbtail)) {
                     marked.add(bbtail);
                     workList.add(bbtail);
@@ -159,7 +164,7 @@ public class DeadCodeElim extends Optimizer {
     }
 
     boolean isCritical(Instruction instruction) {
-        return !(instruction instanceof BinOpInst
+        return !(  instruction instanceof BinOpInst
                 || instruction instanceof CmpInst
                 || instruction instanceof UnaryOpInst
                 || instruction instanceof BranchInst

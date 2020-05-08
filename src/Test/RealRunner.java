@@ -123,10 +123,9 @@ public class RealRunner {
     }
 
     private void Optimize() throws Exception {
-//        FuncInline();
-//        GlobalVarResolve(); // highlight: must do
         GlobalOptimize();
         CFGSimplify();
+//        PrintIR(false);
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
         SSAConstructor ssaConstructor = new SSAConstructor(IRRoot);
         SCCP SCCPAnalyzer = new SCCP(IRRoot);
@@ -134,20 +133,22 @@ public class RealRunner {
         CFGSimplifier cfgSimplifier = new CFGSimplifier(IRRoot);
         SSADestructor ssaDestructor = new SSADestructor(IRRoot);
 
-        VDCM vdcm = new VDCM(IRRoot);
-        PrintIR(true);
         dominaceTreeBuilder.run();
         ssaConstructor.run();
-        PrintIR(true);
         boolean changed = true;
         while (changed) {
             changed = false;
             changed |= SCCPAnalyzer.run();
+//            PrintIR(true);
             changed |= cfgSimplifier.run();
+//            PrintIR(false);
             dominaceTreeBuilder.run();
             changed |= deadCodeElim.run();
+//            PrintIR(false);
             changed |= cfgSimplifier.run();
+//            PrintIR(false);
         }
+//        PrintIR(true);
         dominaceTreeBuilder.run();
         ssaDestructor.run();
         cfgSimplifier.run();
@@ -155,14 +156,14 @@ public class RealRunner {
     }
 
     private void FrontEnd() throws Exception {
-        String inputFile = "test.c";
-        // BuildSyntax(inputFile);
+//        String inputFile = "test.c";
+//        BuildSyntax(inputFile);
         BuildSyntax(null);
         BuildAST();
         SemanticAnalyze();
         BuildIR();
 
-        PrintIR(true);
+//        PrintIR(true);
     };
 
     private void BackEnd() throws Exception {

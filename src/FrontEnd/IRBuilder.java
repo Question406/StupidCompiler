@@ -469,7 +469,8 @@ public class IRBuilder implements ASTVisitor {
             // logicOP
             case LOGICAND:
             case LOGICOR:
-                if (!logicAsInt)
+//                if (!logicAsInt)
+                if (node.getTrueBB() != null)
                     handleLogicBinaryExpr(node);
                 else
                     handleLogicBinaryExprAsInt(node);
@@ -639,7 +640,7 @@ public class IRBuilder implements ASTVisitor {
         var op = node.getOp();
         var subExpr = node.getSubExpr();
 
-        if (op == UnaryOperator.LOGICNOT && !logicAsInt) {
+        if (op == UnaryOperator.LOGICNOT && node.getTrueBB() != null) {
             subExpr.setTrueBB(node.getElseBB());
             subExpr.setElseBB(node.getTrueBB());
             subExpr.accept(this);
