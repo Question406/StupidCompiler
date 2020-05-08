@@ -347,7 +347,7 @@ public class ASMPrinter implements IRVisitor {
     }
 
     private String CreateBBName(String name) {
-        name = "%" + name;
+        name = name;
         if (BBnameCntMap.containsKey(name)) {
             int t = BBnameCntMap.get(name);
             BBnameCntMap.put(name, t + 1);
