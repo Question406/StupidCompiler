@@ -65,7 +65,7 @@ public class RegAllocater {
             if (!Function.isBuiltIn(func)) {
                 curFunc = func;
                 RMredundantMove();
-                asmPrinter.visit(program);
+//                asmPrinter.visit(program);
                 inner_run();
                 RMredundantMove();
             }
@@ -197,12 +197,12 @@ public class RegAllocater {
         if (!spilledNodes.isEmpty()) {
             rewriteProgram(curFunc);
 
-            System.out.println("------------");
-            asmPrinter = new ASMPrinter(System.out);
+//            System.out.println("------------");
+//            asmPrinter = new ASMPrinter(System.out);
 //            asmPrinter.visit(curFunc);
-            asmPrinter.runFunction(curFunc);
-            System.out.println(" ");
-            System.out.println(" ");
+//            asmPrinter.runFunction(curFunc);
+//            System.out.println(" ");
+//            System.out.println(" ");
 
             inner_run();
         }

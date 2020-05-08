@@ -449,12 +449,18 @@ public class SCCP extends Optimizer implements IRVisitor {
                     assert state != null;
                     assert state.value == null;
                     if (state.latState == LatState.constant && state.strvalue != null) {
-                        var argOpr = node.params.get(0);
+                        var argOpr = node.thisPointer;
                         var argOprState = getState(argOpr);
                         assert argOprState != null;
                         if (argOprState.latState == LatState.constant) {
                             String toDO = state.strvalue.getVal().substring(1);
-                            int res = Integer.parseInt(toDO);
+                            int res;
+                            try {
+                                res = Integer.parseInt(toDO);
+                            } catch (Exception e) {
+                                markMultiDef(node.res);
+                                return;
+                            }
                             markConst(node.res, new ConstInt(res));
                             return;
                         }

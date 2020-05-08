@@ -169,6 +169,7 @@ public class BasicBlock {
             insttail = toCombine.insttail;
             for (var inst = toCombine.insthead; inst != null; inst = inst.next)
                 inst.curBB = this;
+            toCombine.insttail = toCombine.insthead = null;
         }else {
             assert insttail != null;
             assert !(toCombine.insthead instanceof PhiInst);

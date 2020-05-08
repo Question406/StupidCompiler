@@ -1,28 +1,12 @@
 /*
 Test Package: Sema_Local_Preview
-Test Target: Classes
-Author: 16' Zhihan Jin
+Test Target: Basic
+Author: 12' Chao Liao
 Time: 2019-11-11
-Verdict: Success
-Origin Package: Semantic Extended
+Verdict: Fail
+Comment: true cannot be assigned.
+Origin Package: Semantic Pretest
 */
-class A {
-  B t;
-  A() {
-    t = new B();
-  }
-};
-
-class B {
-  A t;
-  B() {
-    t = new A();
-  }
-};
-
 int main() {
-  A a = new A;
-  B b = new B;
-  a.t = b;
-  b.t = a;
+    true = false;
 }
