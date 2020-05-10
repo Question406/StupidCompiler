@@ -30,38 +30,63 @@ int getInt() {
 	return t;
 }
 
-char* toString(int todo) {
-    int sign = 0, len = 0;
-    if (todo < 0) {
-        sign = 1;
-        todo = -todo;
-    }
-    char *res = malloc(sizeof(char) * (10 + sign));
-    char *s = res;
-    do {
-        *s = '0' + todo % 10;
-        s++;
-        len++;
-        todo /= 10;
-    } while (todo > 0);
-    if (sign == 1)
-        *s = '-';
-    else
-        s--;
-    char *t = res;
-    char tmp;
-    for (; s != t; ) {
-        tmp = *s;
-        *s = *t;
-        *t = tmp;
-        s--;
-        if (s == t)
-            break;
-        else
-            t++;
-    }
-    res[len + 1] = '\0';
-    return res;
+//char* toString(int todo) {
+//    int sign = 0, len = 0;
+//    if (todo < 0) {
+//        sign = 1;
+//        todo = -todo;
+//    }
+//    char *res = malloc(sizeof(char) * (10 + sign));
+//    char *s = res;
+//    do {
+//        *s = '0' + todo % 10;
+//        s++;
+//        len++;
+//        todo /= 10;
+//    } while (todo > 0);
+//    if (sign == 1)
+//        *s = '-';
+//    else
+//        s--;
+//    char *t = res;
+//    char tmp;
+//    for (; s != t; ) {
+//        tmp = *s;
+//        *s = *t;
+//        *t = tmp;
+//        s--;
+//        if (s == t)
+//            break;
+//        else
+//            t++;
+//    }
+//    res[len + 1] = '\0';
+//    return res;
+//}
+
+char* toString(int x){
+	if(x == 0){
+		char *ptr = malloc(2);
+		ptr[0] = '0';
+		ptr[1] = '\0';
+		return ptr;
+	}
+
+	char* ptr = malloc(12);
+	int cur = 0;
+	if(x < 0){
+		ptr[cur++] = '-';
+		x = -x;
+	}
+	int base = 1000000000;
+	while(base > x) base /= 10;
+	while(base > 0){
+		ptr[cur++] = x / base + '0';
+		x %= base;
+		base /= 10;
+	}
+	ptr[cur++] = '\0';
+	return ptr;
 }
 
 int stringLength(char *str) {

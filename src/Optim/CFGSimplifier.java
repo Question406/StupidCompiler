@@ -39,15 +39,14 @@ public class CFGSimplifier extends Optimizer {
             // jump simplify
             changed |= emptyBBElem(function);
             changed |= mergeConsecutiveBB(function);
-            changed |= branchFloatUp(function);
+            changed |= branchFloatUp(function);;
             if (changed)
                 res = true;
         }
         if (res) {
             unreachableBBElem(function);
-//            function.CalcReversePostOrderBBs();
-//            function.CalcReverseCFGPostOrderBBs();
         }
+        function.CalCBBs();
         if (!function.getReversePostOrderBBs().contains(function.exitBB)) {
             // the stupid case for misc-
             System.out.println("you have an infinite loop");

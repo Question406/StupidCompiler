@@ -162,6 +162,21 @@ public class Function {
         }
     }
 
+    // dfsOrderBBs
+    public void CalCBBs() {
+        Set<BasicBlock> visited = new HashSet<BasicBlock>();
+        BBs.clear();
+        DFSBBs(visited, entryBB);
+    }
+
+    private void DFSBBs(Set<BasicBlock> visited, BasicBlock cur){
+        visited.add(cur);
+        BBs.add(cur);
+        for (var succbb : cur.succBBs)
+            if (!visited.contains(succbb))
+                DFSBBs(visited, succbb);
+    }
+
     public static boolean isBuiltIn(Function func) {
         if (func.funcname.equals("string.add")) return true;
         if (func.funcname.equals("getString")) return true;

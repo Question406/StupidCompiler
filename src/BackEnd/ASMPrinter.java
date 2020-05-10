@@ -84,9 +84,12 @@ public class ASMPrinter implements IRVisitor {
         println(".type\t" + name + ",@function");
         indentSub();
         println(name + ":");
-        node.getReversePostOrderBBs().forEach(bb->
-                bb.accept(this)
-        );
+//        node.getReversePostOrderBBs().forEach(bb->
+//                bb.accept(this)
+//        );
+        node.BBs.forEach(bb->{
+            bb.accept(this);
+        });
         println("\t\t\t\t\t\t\t\t # func end");
         indentAdd();
     }

@@ -1,107 +1,81 @@
- @constStr_0 = ""
- @constStr_1 = "123"
- @constStr_2 = "456"
- @constStr_3 = "123456"
  define i32 @__init   {
  %__init.entryBB1:
  preds:  
+ succs:  %__whileCondBB1  
+ postidom:  %__whileCondBB1  
+ postdomfros:  
+ 		 %__t1.1  = move  1 
+ 		 %__y1.1  = move  2 
+ 		 %__p1.1  = move  10 
+ 		 jump %__whileCondBB1
+ 
+ %__whileCondBB1:
+ preds:  %__init.entryBB1  %__if_end1  
+ succs:  %__whileBodyBB1  %afterCallBB1  
+ postidom:  %afterCallBB1  
+ postdomfros:  %__whileCondBB1  
+ 		 %__t2.0  = sgt  %__p1.1   0 
+ 		 br  %__t2.0  %__whileBodyBB1 %afterCallBB1 
+ 
+ %afterCallBB1:
+ preds:  %__whileCondBB1  
+ succs:  
+ postidom:  %afterCallBB1  
+ postdomfros:  
+ 		 %_t1.0  = move  %__t1.1 
+ 		 %_t2.0  =  call toString  %_t1.0   
+ 		 call println  %_t2.0   
+ 		 %t1.0  = move  0 
+ 		 ret  %t1.0 
+ 
+ %__whileBodyBB1:
+ preds:  %__whileCondBB1  
+ succs:  %__if_thenBB1  %paracopy1  
+ postidom:  %__if_end1  
+ postdomfros:  %__whileCondBB1  
+ 		 %__t3.0  =   and  %__p1.1   1 
+ 		 %__t4.0  = seq  %__t3.0   1 
+ 		 br  %__t4.0  %__if_thenBB1 %paracopy1 
+ 
+ %paracopy1:
+ preds:  %__whileBodyBB1  
  succs:  %__if_end1  
- 		 %__t1.0  = alloc  12 
- 		 %_this1.0  = move  %__t1.0 
- 		 %_t1.0  =   add  4   %_this1.0 
- 		 store  %_t1.0   @constStr_0 
- 		 %_t2.0  =   add  0   %_this1.0 
- 		 store  %_t2.0   1 
- 		 %_t3.0  =   add  8   %_this1.0 
- 		 store  %_t3.0   0 
- 		 %_t4.0  =   add  8   %_this1.0 
- 		 %_t5.0  = alloc  404 
- 		 store  %_t5.0   100 
- 		 store  %_t4.0   %_t5.0 
- 		 %__a1.0  = move  %__t1.0 
- 		 %_this2.0  = move  %__a1.0 
- 		 %_t6.0  = alloc  12 
- 		 %__this1.0  = move  %_t6.0 
- 		 %__t2.0  =   add  4   %__this1.0 
- 		 store  %__t2.0   @constStr_0 
- 		 %__t3.0  =   add  0   %__this1.0 
- 		 store  %__t3.0   1 
- 		 %__t4.0  =   add  8   %__this1.0 
- 		 store  %__t4.0   0 
- 		 %__t5.0  =   add  8   %__this1.0 
- 		 %__t6.0  = alloc  404 
- 		 store  %__t6.0   100 
- 		 store  %__t5.0   %__t6.0 
- 		 %_tmp1.0  = move  %_t6.0 
- 		 %_t7.0  =   add  %_tmp1.0   0 
- 		 store  %_t7.0   0 
- 		 %_t8.0  =   add  %_this2.0   0 
- 		 store  %_t8.0   0 
- 		 %__t7.0  = move  %_tmp1.0 
- 		 %__b1.0  = move  %__t7.0 
- 		 %__t8.0  =   add  %__b1.0   0 
- 		 store  %__t8.0   0 
- 		 %__t9.0  =  call getInt  
- 		 %__parameter1.1  = move  %__t9.0 
- 		 %__t10.0  = alloc  12 
- 		 store  %__t10.0   2 
- 		 %__t11.0  =   add  %__t10.0   16 
- 		 %__t12.0  = load  %__t11.0 
- 		 %__int_arr1.0  = move  %__t12.0 
- 		 %_this3.0  = move  %__b1.0 
- 		 %_t9.0  =   add  4   %_this3.0 
- 		 %_t10.0  = load  %_t9.0 
- 		 %__t13.0  = move  %_t10.0 
- 		 %__t14.0  =  call string.parseInt  %__t13.0 
- 		 %__t15.0  =  call getString  
- 		 %__t16.0  =  call string.ord  %__t15.0 123   
- 		 %_this4.0  = move  %__b1.0 
- 		 %_t11.0  =   add  4   %_this4.0 
- 		 %_t12.0  = load  %_t11.0 
- 		 %__t17.0  = move  %_t12.0 
- 		 %__t18.0  =  call string.substring  %__t17.0 1   3   
- 		 %__t19.0  =  call string.length  %__t18.0 
- 		 %__t20.0  =   mod  %__t16.0   %__t19.0 
- 		 %__t21.0  =   add  %__t14.0   %__t20.0 
- 		 %__number1.0  = move  %__t21.0 
+ postidom:  %__if_end1  
+ postdomfros:  %__whileBodyBB1  
+ 		 %__t1.3  = move  %__t1.1 
+ 		 %breaker1  = move  %__t1.3 
+ 		 jump %__if_end1
+ 
+ %__if_thenBB1:
+ preds:  %__whileBodyBB1  
+ succs:  %__if_end1  
+ postidom:  %__if_end1  
+ postdomfros:  %__whileBodyBB1  
+ 		 %__t5.0  =   mul  %__t1.1   %__y1.1 
+ 		 %__t6.0  =   mod  %__t5.0   10000 
+ 		 %__t1.2  = move  %__t6.0 
+ 		 %__t1.3  = move  %__t1.2 
+ 		 %breaker2  = move  %__t1.3 
  		 jump %__if_end1
  
  %__if_end1:
- preds:  %__init.entryBB1  
- succs:  %__if_end2  %__if_thenBB1  
- 		 %__num1.2  = move  0 
- 		 %__t22.0  =  call string.leq  @constStr_1   @constStr_2   
- 		 br  %__t22.0  %__if_thenBB1 %__if_end2 
- 
- %__if_thenBB1:
- preds:  %__if_end1  
- succs:  %__if_end2  
- 		 %__num1.11  =   add  %__num1.2   1 
- 		 jump %__if_end2
- 
- %__if_end2:
- preds:  %__if_thenBB1  %__if_end1  
- succs:  %__if_end3  
- 		 %__num1.3  = phi  %__if_thenBB1:  %__num1.11   %__if_end1:  %__num1.2   
- 		 jump %__if_end3
- 
- %__if_end3:
- preds:  %__if_end2  
- succs:  %__if_end4  
- 		 %__num1.4  = move  %__num1.3 
- 		 jump %__if_end4
- 
- %__if_end4:
- preds:  %__if_end3  
- succs:  %__whileBodyBB1  
- 		 %__num1.6  = move  %__num1.4 
- 		 %__num1.8  =   add  %__num1.6   1 
- 		 jump %__whileBodyBB1
- 
- %__whileBodyBB1:
- preds:  %__whileBodyBB1  %__if_end4  
- succs:  %__whileBodyBB1  
- 		 %__num1.7  = phi  %__whileBodyBB1:  %__num1.7   %__if_end4:  %__num1.8   
- 		 jump %__whileBodyBB1
+ preds:  %__if_thenBB1  %paracopy1  
+ succs:  %__whileCondBB1  
+ postidom:  %__whileCondBB1  
+ postdomfros:  %__whileCondBB1  
+ 		 %__t7.0  =   mul  %__y1.1   %__y1.1 
+ 		 %__t8.0  =   mod  %__t7.0   10000 
+ 		 %__y1.2  = move  %__t8.0 
+ 		 %__t9.0  =   div  %__p1.1   2 
+ 		 %__p1.2  = move  %__t9.0 
+ 		 %__t1.1  = move  %__t1.3 
+ 		 %__y1.1  = move  %__y1.2 
+ 		 %__p1.1  = move  %__p1.2 
+ 		 %breaker3  = move  %__t1.1 
+ 		 %__t1.1  = move  %__t1.1 
+ 		 %breaker3  = move  %__y1.1 
+ 		 %__y1.1  = move  %__y1.1 
+ 		 %breaker3  = move  %__p1.1 
+ 		 jump %__whileCondBB1
  
  }
