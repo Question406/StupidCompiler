@@ -145,10 +145,10 @@ public class RealRunner {
         while (changed) {
             changed = false;
 
-            changed |= dvnt.run();
-            changed |= deadCodeElim.run();
-            changed |= cfgSimplifier.run();
-            dominaceTreeBuilder.run();
+            // changed |= dvnt.run();
+            // changed |= deadCodeElim.run();
+            // changed |= cfgSimplifier.run();
+            // dominaceTreeBuilder.run();
             changed |= SCCPAnalyzer.run();
             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
@@ -157,7 +157,6 @@ public class RealRunner {
             dominaceTreeBuilder.run();
         }
 //        PrintIR(true);
-        dominaceTreeBuilder.run();
         ssaDestructor.run();
         cfgSimplifier.run();
         dominaceTreeBuilder.run();
