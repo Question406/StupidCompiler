@@ -342,6 +342,9 @@ public class InstSelector {
                                 stInst.storeTo = ((BinOpInst) defInst).lhs;
                                 stInst.offset = ((ConstInt) ((BinOpInst) defInst).rhs).getVal();
                                 defInst.RMSelf();
+                            } else if (((BinOpInst) defInst).rhs.name.equals("zero")) {
+                                stInst.storeTo = ((BinOpInst) defInst).lhs;
+                                defInst.RMSelf();
                             }
                         }
                         stInst.byteSize = INTSIZE;
@@ -368,6 +371,9 @@ public class InstSelector {
                             if (((BinOpInst) defInst).rhs instanceof ConstInt) {
                                 ((LoadInst) inst).from = ((BinOpInst) defInst).lhs;
                                 ((LoadInst) inst).offset = ((ConstInt) ((BinOpInst) defInst).rhs).getVal();
+                                defInst.RMSelf();
+                            } else if (((BinOpInst) defInst).rhs.name.equals("zero")) {
+                                ((LoadInst) inst).from = ((BinOpInst) defInst).lhs;
                                 defInst.RMSelf();
                             }
                         }

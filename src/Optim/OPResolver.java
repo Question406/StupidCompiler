@@ -2,7 +2,6 @@ package Optim;
 
 import IR.Function;
 import IR.Instruction.BinOpInst;
-import IR.Instruction.FuncCallInst;
 import IR.Module;
 import IR.Operand.ConstInt;
 import Utils.BinaryOperator;

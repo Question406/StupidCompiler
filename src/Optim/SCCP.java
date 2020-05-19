@@ -61,6 +61,10 @@ public class SCCP extends Optimizer implements IRVisitor {
 
     @Override
     public boolean run() {
+        BlockWorkList.clear();
+        executableBlocks.clear();
+        VirRegWorkList.clear();
+        LatStateMap.clear();
         res = false;
         for (var func : program.getGlobalFuncMap().values()) {
             if (Function.isBuiltIn(func)) continue;
@@ -592,6 +596,9 @@ public class SCCP extends Optimizer implements IRVisitor {
 
     @Override
     public void visit(BasicBlock node) {
+        if (node.getName().equals("_afterForBB")){
+            System.out.print("123");
+        }
         for (var inst = node.insthead; inst != null; inst = inst.next)
             inst.accept(this);
     }
@@ -630,6 +637,7 @@ public class SCCP extends Optimizer implements IRVisitor {
             if (fromOpr == null) continue; // undef incoming value
             if (! (executableBlocks.contains(fromBB))) {
                 candetermine = false;
+                dealingwithInt = 0;
                 break;
             }
             if (executableBlocks.contains(fromBB)) {

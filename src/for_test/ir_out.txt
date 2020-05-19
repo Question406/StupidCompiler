@@ -1,154 +1,762 @@
- @MAXK 
- @MAXN 
- define i32 @__init   {
- %__init.entryBB1:
- 		 %_t1.0  = alloc  424 
- 		 store  %_t1.0   105 
- 		 %_primes1.0  = move  %_t1.0 
- 		 %_t2.0  = alloc  424 
- 		 store  %_t2.0   105 
- 		 %_pindex1.0  = move  %_t2.0 
- 		 %_t3.0  = alloc  400024 
- 		 store  %_t3.0   100005 
- 		 %_ans1.0  = move  %_t3.0 
- 		 %_t4.0  =  call getInt  
- 		 %_K1.1  = move  %_t4.0 
- 		 %_t5.0  =  call getInt  
- 		 %_N1.1  = move  %_t5.0 
- 		 %_i1.2  = move  0 
- 		 jump %_forcondBB1
+ @constStr_0 = " "
+ @constStr_1 = "\n"
+ @color 
+ @count 
+ @i 
+ @j 
+ @make 
+ define void @search  %x1.0 %y1.0 %z1.0  {
+ %search.entryBB1:
+ 		 %_gmake1.0  = load  @make 
+ 		 %_gcolor1.0  = load  @color 
+ 		 %_gcount1.0  = load  @count 
+ 		 %t1.0  = sgt  %y1.0   0 
+ 		 br  %t1.0  %if_thenBB1 %iffalse1 
  
- %_forcondBB1:
- 		 %_t6.0  = slt  %_i1.2   %_K1.1 
- 		 br  %_t6.0  %_forbodyBB1 %_afterForBB1 
+ %iffalse1:
+ 		 %t2.0  = slt  %y1.0   0 
+ 		 br  %t2.0  %if_thenBB1 %iffalse2 
  
- %_forbodyBB1:
- 		 %_t7.0  =  call getInt  
- 		 %_t8.0  =   shl  %_i1.2   2 
- 		 %_t9.0  =   add  %_t8.0   4 
- 		 %_t10.0  =   add  %_primes1.0   %_t9.0 
- 		 store  %_t10.0   %_t7.0 
- 		 %_i1.7  =   add  %_i1.2   1 
- 		 %_i1.2  = move  %_i1.7 
- 		 %breaker1  = move  %_i1.2 
- 		 jump %_forcondBB1
+ %iffalse2:
+ 		 %t3.0  = seq  %x1.0   0 
+ 		 br  %t3.0  %if_thenBB1 %iffalse3 
  
- %_afterForBB1:
- 		 %_t11.0  =   add  %_ans1.0   4 
- 		 store  %_t11.0   1 
- 		 %_point1.1  = move  0 
- 		 jump %_whileCondBB1
- 
- %_whileCondBB1:
- 		 %_t12.0  = sle  %_point1.1   %_N1.1 
- 		 br  %_t12.0  %_whileBodyBB1 %afterCallBB1 
- 
- %afterCallBB1:
- 		 %_t13.0  =   shl  %_N1.1   2 
- 		 %_t14.0  =   add  %_t13.0   4 
- 		 %_t15.0  =   add  %_ans1.0   %_t14.0 
- 		 %_t16.0  = load  %_t15.0 
- 		 %_t17.0  =  call toString  %_t16.0   
- 		 call print  %_t17.0   
- 		 ret  0 
- 
- %_whileBodyBB1:
- 		 %_i1.5  = move  0 
- 		 %_MIN1.3  = move  2139062143 
- 		 jump %_forcondBB2
- 
- %_forcondBB2:
- 		 %_t18.0  = slt  %_i1.5   %_K1.1 
- 		 br  %_t18.0  %_whileCondBB2 %_afterForBB2 
- 
- %_afterForBB2:
- 		 %_point1.2  =   add  %_point1.1   1 
- 		 %_t19.0  =   shl  %_point1.2   2 
- 		 %_t20.0  =   add  %_t19.0   4 
- 		 %_t21.0  =   add  %_ans1.0   %_t20.0 
- 		 store  %_t21.0   %_MIN1.3 
- 		 %_point1.1  = move  %_point1.2 
- 		 %breaker2  = move  %_point1.1 
- 		 jump %_whileCondBB1
- 
- %_whileCondBB2:
- 		 %_t22.0  =   shl  %_point1.1   2 
- 		 %_t23.0  =   add  %_t22.0   4 
- 		 %_t24.0  =   add  %_ans1.0   %_t23.0 
- 		 %_t25.0  =   shl  %_i1.5   2 
- 		 %_t26.0  =   add  %_t25.0   4 
- 		 %_t27.0  =   add  %_primes1.0   %_t26.0 
- 		 %_t28.0  =   shl  %_i1.5   2 
- 		 %_t29.0  =   add  %_t28.0   4 
- 		 %_t30.0  =   add  %_pindex1.0   %_t29.0 
- 		 %_t31.0  = load  %_t30.0 
- 		 %_t32.0  =   shl  %_t31.0   2 
- 		 %_t33.0  =   add  %_t32.0   4 
- 		 %_t34.0  =   add  %_ans1.0   %_t33.0 
- 		 %_t35.0  = load  %_t27.0 
- 		 %_t36.0  = load  %_t34.0 
- 		 %_t37.0  =   mul  %_t35.0   %_t36.0 
- 		 %_t38.0  = load  %_t24.0 
- 		 %_t39.0  = sge  %_t38.0   %_t37.0 
- 		 br  %_t39.0  %_whileBodyBB2 %_afterWhileBB1 
- 
- %_afterWhileBB1:
- 		 %_t40.0  =   shl  %_i1.5   2 
- 		 %_t41.0  =   add  %_t40.0   4 
- 		 %_t42.0  =   add  %_primes1.0   %_t41.0 
- 		 %_t43.0  =   shl  %_i1.5   2 
- 		 %_t44.0  =   add  %_t43.0   4 
- 		 %_t45.0  =   add  %_pindex1.0   %_t44.0 
- 		 %_t46.0  = load  %_t45.0 
- 		 %_t47.0  =   shl  %_t46.0   2 
- 		 %_t48.0  =   add  %_t47.0   4 
- 		 %_t49.0  =   add  %_ans1.0   %_t48.0 
- 		 %_t50.0  = load  %_t42.0 
- 		 %_t51.0  = load  %_t49.0 
- 		 %_t52.0  =   mul  %_t50.0   %_t51.0 
- 		 %_t53.0  = slt  %_t52.0   %_MIN1.3 
- 		 br  %_t53.0  %_if_thenBB1 %paracopy1 
+ %iffalse3:
+ 		 %t4.0  =   sub  %x1.0   1 
+ 		 %t5.0  =   shl  %t4.0   2 
+ 		 %t6.0  =   add  %t5.0   4 
+ 		 %t7.0  =   add  %_gmake1.0   %t6.0 
+ 		 %t8.0  = load  %t7.0 
+ 		 %t9.0  =   add  %t8.0   4 
+ 		 %t10.0  =   sub  %x1.0   1 
+ 		 %t11.0  =   shl  %t10.0   2 
+ 		 %t12.0  =   add  %t11.0   4 
+ 		 %t13.0  =   add  %_gmake1.0   %t12.0 
+ 		 %t14.0  = load  %t13.0 
+ 		 %t15.0  =   add  %t14.0   8 
+ 		 %t16.0  = load  %t9.0 
+ 		 %t17.0  = load  %t15.0 
+ 		 %t18.0  =   add  %t16.0   %t17.0 
+ 		 %t19.0  =   sub  %x1.0   1 
+ 		 %t20.0  =   shl  %t19.0   2 
+ 		 %t21.0  =   add  %t20.0   4 
+ 		 %t22.0  =   add  %_gmake1.0   %t21.0 
+ 		 %t23.0  = load  %t22.0 
+ 		 %t24.0  =   add  %t23.0   12 
+ 		 %t25.0  = load  %t24.0 
+ 		 %t26.0  =   add  %t18.0   %t25.0 
+ 		 %t27.0  = seq  %t26.0   15 
+ 		 br  %t27.0  %if_thenBB1 %paracopy1 
  
  %paracopy1:
- 		 %_MIN1.4  = move  %_MIN1.3 
- 		 %breaker3  = move  %_MIN1.4 
- 		 jump %_forupdateBB1
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker1  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker1  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker1  = move  %_gcolor1.9 
+ 		 jump %if_end1
  
- %_if_thenBB1:
- 		 %_t54.0  =   shl  %_i1.5   2 
- 		 %_t55.0  =   add  %_t54.0   4 
- 		 %_t56.0  =   add  %_primes1.0   %_t55.0 
- 		 %_t57.0  =   shl  %_i1.5   2 
- 		 %_t58.0  =   add  %_t57.0   4 
- 		 %_t59.0  =   add  %_pindex1.0   %_t58.0 
- 		 %_t60.0  = load  %_t59.0 
- 		 %_t61.0  =   shl  %_t60.0   2 
- 		 %_t62.0  =   add  %_t61.0   4 
- 		 %_t63.0  =   add  %_ans1.0   %_t62.0 
- 		 %_t64.0  = load  %_t56.0 
- 		 %_t65.0  = load  %_t63.0 
- 		 %_t66.0  =   mul  %_t64.0   %_t65.0 
- 		 %_MIN1.5  = move  %_t66.0 
- 		 %_MIN1.4  = move  %_MIN1.5 
- 		 %breaker4  = move  %_MIN1.4 
- 		 jump %_forupdateBB1
+ %if_thenBB1:
+ 		 %t28.0  = seq  %x1.0   2 
+ 		 br  %t28.0  %ifTrue1 %if_elseBB1 
  
- %_forupdateBB1:
- 		 %_i1.6  =   add  %_i1.5   1 
- 		 %_i1.5  = move  %_i1.6 
- 		 %_MIN1.3  = move  %_MIN1.4 
- 		 %breaker5  = move  %_i1.5 
- 		 %_i1.5  = move  %_i1.5 
- 		 %breaker5  = move  %_MIN1.3 
- 		 jump %_forcondBB2
+ %ifTrue1:
+ 		 %t29.0  = seq  %y1.0   2 
+ 		 br  %t29.0  %if_thenBB2 %if_elseBB1 
  
- %_whileBodyBB2:
- 		 %_t67.0  =   shl  %_i1.5   2 
- 		 %_t68.0  =   add  %_t67.0   4 
- 		 %_t69.0  =   add  %_pindex1.0   %_t68.0 
- 		 %_t70.0  = load  %_t69.0 
- 		 %_t71.0  =   add  %_t70.0   1 
- 		 store  %_t69.0   %_t71.0 
- 		 jump %_whileCondBB2
+ %if_thenBB2:
+ 		 %t30.0  =   sub  45   %z1.0 
+ 		 %t31.0  =   add  %_gmake1.0   12 
+ 		 %t32.0  = load  %t31.0 
+ 		 %t33.0  =   add  %t32.0   12 
+ 		 store  %t33.0   %t30.0 
+ 		 %t34.0  =   add  %_gmake1.0   4 
+ 		 %t35.0  = load  %t34.0 
+ 		 %t36.0  =   add  %t35.0   4 
+ 		 %t37.0  =   add  %_gmake1.0   4 
+ 		 %t38.0  = load  %t37.0 
+ 		 %t39.0  =   add  %t38.0   8 
+ 		 %t40.0  = load  %t36.0 
+ 		 %t41.0  = load  %t39.0 
+ 		 %t42.0  =   add  %t40.0   %t41.0 
+ 		 %t43.0  =   add  %_gmake1.0   4 
+ 		 %t44.0  = load  %t43.0 
+ 		 %t45.0  =   add  %t44.0   12 
+ 		 %t46.0  = load  %t45.0 
+ 		 %t47.0  =   add  %t42.0   %t46.0 
+ 		 %s1.1  = move  %t47.0 
+ 		 %t48.0  =   add  %_gmake1.0   8 
+ 		 %t49.0  = load  %t48.0 
+ 		 %t50.0  =   add  %t49.0   4 
+ 		 %t51.0  =   add  %_gmake1.0   8 
+ 		 %t52.0  = load  %t51.0 
+ 		 %t53.0  =   add  %t52.0   8 
+ 		 %t54.0  = load  %t50.0 
+ 		 %t55.0  = load  %t53.0 
+ 		 %t56.0  =   add  %t54.0   %t55.0 
+ 		 %t57.0  =   add  %_gmake1.0   8 
+ 		 %t58.0  = load  %t57.0 
+ 		 %t59.0  =   add  %t58.0   12 
+ 		 %t60.0  = load  %t59.0 
+ 		 %t61.0  =   add  %t56.0   %t60.0 
+ 		 %t62.0  = seq  %t61.0   %s1.1 
+ 		 br  %t62.0  %ifTrue2 %paracopy2 
+ 
+ %paracopy2:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker2  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker2  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker2  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %ifTrue2:
+ 		 %t63.0  =   add  %_gmake1.0   12 
+ 		 %t64.0  = load  %t63.0 
+ 		 %t65.0  =   add  %t64.0   4 
+ 		 %t66.0  =   add  %_gmake1.0   12 
+ 		 %t67.0  = load  %t66.0 
+ 		 %t68.0  =   add  %t67.0   8 
+ 		 %t69.0  = load  %t65.0 
+ 		 %t70.0  = load  %t68.0 
+ 		 %t71.0  =   add  %t69.0   %t70.0 
+ 		 %t72.0  =   add  %_gmake1.0   12 
+ 		 %t73.0  = load  %t72.0 
+ 		 %t74.0  =   add  %t73.0   12 
+ 		 %t75.0  = load  %t74.0 
+ 		 %t76.0  =   add  %t71.0   %t75.0 
+ 		 %t77.0  = seq  %t76.0   %s1.1 
+ 		 br  %t77.0  %ifTrue3 %paracopy3 
+ 
+ %ifTrue3:
+ 		 %t78.0  =   add  %_gmake1.0   4 
+ 		 %t79.0  = load  %t78.0 
+ 		 %t80.0  =   add  %t79.0   4 
+ 		 %t81.0  =   add  %_gmake1.0   8 
+ 		 %t82.0  = load  %t81.0 
+ 		 %t83.0  =   add  %t82.0   4 
+ 		 %t84.0  = load  %t80.0 
+ 		 %t85.0  = load  %t83.0 
+ 		 %t86.0  =   add  %t84.0   %t85.0 
+ 		 %t87.0  =   add  %_gmake1.0   12 
+ 		 %t88.0  = load  %t87.0 
+ 		 %t89.0  =   add  %t88.0   4 
+ 		 %t90.0  = load  %t89.0 
+ 		 %t91.0  =   add  %t86.0   %t90.0 
+ 		 %t92.0  = seq  %t91.0   %s1.1 
+ 		 br  %t92.0  %ifTrue4 %paracopy4 
+ 
+ %paracopy4:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker3  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker3  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker3  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %ifTrue4:
+ 		 %t93.0  =   add  %_gmake1.0   4 
+ 		 %t94.0  = load  %t93.0 
+ 		 %t95.0  =   add  %t94.0   8 
+ 		 %t96.0  =   add  %_gmake1.0   8 
+ 		 %t97.0  = load  %t96.0 
+ 		 %t98.0  =   add  %t97.0   8 
+ 		 %t99.0  = load  %t95.0 
+ 		 %t100.0  = load  %t98.0 
+ 		 %t101.0  =   add  %t99.0   %t100.0 
+ 		 %t102.0  =   add  %_gmake1.0   12 
+ 		 %t103.0  = load  %t102.0 
+ 		 %t104.0  =   add  %t103.0   8 
+ 		 %t105.0  = load  %t104.0 
+ 		 %t106.0  =   add  %t101.0   %t105.0 
+ 		 %t107.0  = seq  %t106.0   %s1.1 
+ 		 br  %t107.0  %ifTrue5 %paracopy5 
+ 
+ %ifTrue5:
+ 		 %t108.0  =   add  %_gmake1.0   4 
+ 		 %t109.0  = load  %t108.0 
+ 		 %t110.0  =   add  %t109.0   12 
+ 		 %t111.0  =   add  %_gmake1.0   8 
+ 		 %t112.0  = load  %t111.0 
+ 		 %t113.0  =   add  %t112.0   12 
+ 		 %t114.0  = load  %t110.0 
+ 		 %t115.0  = load  %t113.0 
+ 		 %t116.0  =   add  %t114.0   %t115.0 
+ 		 %t117.0  =   add  %_gmake1.0   12 
+ 		 %t118.0  = load  %t117.0 
+ 		 %t119.0  =   add  %t118.0   12 
+ 		 %t120.0  = load  %t119.0 
+ 		 %t121.0  =   add  %t116.0   %t120.0 
+ 		 %t122.0  = seq  %t121.0   %s1.1 
+ 		 br  %t122.0  %ifTrue6 %paracopy6 
+ 
+ %paracopy6:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker4  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker4  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker4  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %ifTrue6:
+ 		 %t123.0  =   add  %_gmake1.0   4 
+ 		 %t124.0  = load  %t123.0 
+ 		 %t125.0  =   add  %t124.0   4 
+ 		 %t126.0  =   add  %_gmake1.0   8 
+ 		 %t127.0  = load  %t126.0 
+ 		 %t128.0  =   add  %t127.0   8 
+ 		 %t129.0  = load  %t125.0 
+ 		 %t130.0  = load  %t128.0 
+ 		 %t131.0  =   add  %t129.0   %t130.0 
+ 		 %t132.0  =   add  %_gmake1.0   12 
+ 		 %t133.0  = load  %t132.0 
+ 		 %t134.0  =   add  %t133.0   12 
+ 		 %t135.0  = load  %t134.0 
+ 		 %t136.0  =   add  %t131.0   %t135.0 
+ 		 %t137.0  = seq  %t136.0   %s1.1 
+ 		 br  %t137.0  %ifTrue7 %paracopy7 
+ 
+ %paracopy7:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker5  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker5  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker5  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %ifTrue7:
+ 		 %t138.0  =   add  %_gmake1.0   12 
+ 		 %t139.0  = load  %t138.0 
+ 		 %t140.0  =   add  %t139.0   4 
+ 		 %t141.0  =   add  %_gmake1.0   8 
+ 		 %t142.0  = load  %t141.0 
+ 		 %t143.0  =   add  %t142.0   8 
+ 		 %t144.0  = load  %t140.0 
+ 		 %t145.0  = load  %t143.0 
+ 		 %t146.0  =   add  %t144.0   %t145.0 
+ 		 %t147.0  =   add  %_gmake1.0   4 
+ 		 %t148.0  = load  %t147.0 
+ 		 %t149.0  =   add  %t148.0   12 
+ 		 %t150.0  = load  %t149.0 
+ 		 %t151.0  =   add  %t146.0   %t150.0 
+ 		 %t152.0  = seq  %t151.0   %s1.1 
+ 		 br  %t152.0  %if_thenBB3 %paracopy8 
+ 
+ %paracopy8:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker6  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker6  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker6  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %if_thenBB3:
+ 		 %t153.0  =   add  %_gcount1.0   4 
+ 		 %t154.0  = load  %t153.0 
+ 		 %t155.0  =   add  %t154.0   1 
+ 		 %t156.0  =   add  %_gcount1.0   4 
+ 		 store  %t156.0   %t155.0 
+ 		 %i1.5  = move  0 
+ 		 jump %forcondBB1
+ 
+ %forcondBB1:
+ 		 %t157.0  = sle  %i1.5   2 
+ 		 br  %t157.0  %forbodyBB1 %afterForBB1 
+ 
+ %afterForBB1:
+ 		 call print  @constStr_1   
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker7  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker7  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker7  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %forbodyBB1:
+ 		 %j1.3  = move  0 
+ 		 jump %forcondBB2
+ 
+ %forcondBB2:
+ 		 %t158.0  = sle  %j1.3   2 
+ 		 br  %t158.0  %forbodyBB2 %afterForBB2 
+ 
+ %afterForBB2:
+ 		 call print  @constStr_1   
+ 		 %i1.6  =   add  %i1.5   1 
+ 		 %i1.5  = move  %i1.6 
+ 		 %breaker8  = move  %i1.5 
+ 		 jump %forcondBB1
+ 
+ %forbodyBB2:
+ 		 %t159.0  =   shl  %i1.5   2 
+ 		 %t160.0  =   add  %t159.0   4 
+ 		 %t161.0  =   add  %_gmake1.0   %t160.0 
+ 		 %t162.0  = load  %t161.0 
+ 		 %t163.0  =   shl  %j1.3   2 
+ 		 %t164.0  =   add  %t163.0   4 
+ 		 %t165.0  =   add  %t162.0   %t164.0 
+ 		 %t166.0  = load  %t165.0 
+ 		 %t167.0  =  call toString  %t166.0   
+ 		 call print  %t167.0   
+ 		 call print  @constStr_0   
+ 		 %j1.4  =   add  %j1.3   1 
+ 		 %j1.3  = move  %j1.4 
+ 		 %breaker9  = move  %j1.3 
+ 		 jump %forcondBB2
+ 
+ %paracopy5:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker10  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker10  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker10  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %paracopy3:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker11  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker11  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker11  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %if_elseBB1:
+ 		 %t168.0  = seq  %y1.0   2 
+ 		 br  %t168.0  %if_thenBB4 %if_elseBB2 
+ 
+ %if_thenBB4:
+ 		 %t169.0  =   shl  %x1.0   2 
+ 		 %t170.0  =   add  %t169.0   4 
+ 		 %t171.0  =   add  %_gmake1.0   %t170.0 
+ 		 %t172.0  = load  %t171.0 
+ 		 %t173.0  =   add  %t172.0   4 
+ 		 %t174.0  = load  %t173.0 
+ 		 %t175.0  =   sub  15   %t174.0 
+ 		 %t176.0  =   shl  %x1.0   2 
+ 		 %t177.0  =   add  %t176.0   4 
+ 		 %t178.0  =   add  %_gmake1.0   %t177.0 
+ 		 %t179.0  = load  %t178.0 
+ 		 %t180.0  =   add  %t179.0   8 
+ 		 %t181.0  = load  %t180.0 
+ 		 %t182.0  =   sub  %t175.0   %t181.0 
+ 		 %t183.0  =   shl  %x1.0   2 
+ 		 %t184.0  =   add  %t183.0   4 
+ 		 %t185.0  =   add  %_gmake1.0   %t184.0 
+ 		 %t186.0  = load  %t185.0 
+ 		 %t187.0  =   shl  %y1.0   2 
+ 		 %t188.0  =   add  %t187.0   4 
+ 		 %t189.0  =   add  %t186.0   %t188.0 
+ 		 store  %t189.0   %t182.0 
+ 		 %t190.0  =   shl  %x1.0   2 
+ 		 %t191.0  =   add  %t190.0   4 
+ 		 %t192.0  =   add  %_gmake1.0   %t191.0 
+ 		 %t193.0  = load  %t192.0 
+ 		 %t194.0  =   shl  %y1.0   2 
+ 		 %t195.0  =   add  %t194.0   4 
+ 		 %t196.0  =   add  %t193.0   %t195.0 
+ 		 %t197.0  = load  %t196.0 
+ 		 %t198.0  = sgt  %t197.0   0 
+ 		 br  %t198.0  %ifTrue8 %paracopy9 
+ 
+ %paracopy9:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker12  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker12  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker12  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %ifTrue8:
+ 		 %t199.0  =   shl  %x1.0   2 
+ 		 %t200.0  =   add  %t199.0   4 
+ 		 %t201.0  =   add  %_gmake1.0   %t200.0 
+ 		 %t202.0  = load  %t201.0 
+ 		 %t203.0  =   shl  %y1.0   2 
+ 		 %t204.0  =   add  %t203.0   4 
+ 		 %t205.0  =   add  %t202.0   %t204.0 
+ 		 %t206.0  = load  %t205.0 
+ 		 %t207.0  = slt  %t206.0   10 
+ 		 br  %t207.0  %ifTrue9 %paracopy10 
+ 
+ %paracopy10:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker13  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker13  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker13  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %ifTrue9:
+ 		 %t208.0  =   shl  %x1.0   2 
+ 		 %t209.0  =   add  %t208.0   4 
+ 		 %t210.0  =   add  %_gmake1.0   %t209.0 
+ 		 %t211.0  = load  %t210.0 
+ 		 %t212.0  =   shl  %y1.0   2 
+ 		 %t213.0  =   add  %t212.0   4 
+ 		 %t214.0  =   add  %t211.0   %t213.0 
+ 		 %t215.0  = load  %t214.0 
+ 		 %t216.0  =   shl  %t215.0   2 
+ 		 %t217.0  =   add  %t216.0   4 
+ 		 %t218.0  =   add  %_gcolor1.0   %t217.0 
+ 		 %t219.0  = load  %t218.0 
+ 		 %t220.0  = seq  %t219.0   0 
+ 		 br  %t220.0  %if_thenBB5 %paracopy11 
+ 
+ %paracopy11:
+ 		 %_gcount1.9  = move  %_gcount1.0 
+ 		 %_gmake1.9  = move  %_gmake1.0 
+ 		 %_gcolor1.9  = move  %_gcolor1.0 
+ 		 %breaker14  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker14  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker14  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %if_thenBB5:
+ 		 %t221.0  =   shl  %x1.0   2 
+ 		 %t222.0  =   add  %t221.0   4 
+ 		 %t223.0  =   add  %_gmake1.0   %t222.0 
+ 		 %t224.0  = load  %t223.0 
+ 		 %t225.0  =   shl  %y1.0   2 
+ 		 %t226.0  =   add  %t225.0   4 
+ 		 %t227.0  =   add  %t224.0   %t226.0 
+ 		 %t228.0  = load  %t227.0 
+ 		 %t229.0  =   shl  %t228.0   2 
+ 		 %t230.0  =   add  %t229.0   4 
+ 		 %t231.0  =   add  %_gcolor1.0   %t230.0 
+ 		 store  %t231.0   1 
+ 		 %t232.0  = seq  %y1.0   2 
+ 		 br  %t232.0  %if_thenBB6 %if_elseBB3 
+ 
+ %if_elseBB3:
+ 		 %t233.0  =   add  %y1.0   1 
+ 		 %t234.0  =   shl  %x1.0   2 
+ 		 %t235.0  =   add  %t234.0   4 
+ 		 %t236.0  =   add  %_gmake1.0   %t235.0 
+ 		 %t237.0  = load  %t236.0 
+ 		 %t238.0  =   shl  %y1.0   2 
+ 		 %t239.0  =   add  %t238.0   4 
+ 		 %t240.0  =   add  %t237.0   %t239.0 
+ 		 %t241.0  = load  %t240.0 
+ 		 %t242.0  =   add  %z1.0   %t241.0 
+ 		 store  @count   %_gcount1.0 
+ 		 store  @color   %_gcolor1.0 
+ 		 store  @make   %_gmake1.0 
+ 		 call search  %x1.0   %t233.0   %t242.0   
+ 		 %_gmake1.7  = load  @make 
+ 		 %_gcolor1.7  = load  @color 
+ 		 %_gcount1.7  = load  @count 
+ 		 %_gcount1.8  = move  %_gcount1.7 
+ 		 %_gmake1.8  = move  %_gmake1.7 
+ 		 %_gcolor1.8  = move  %_gcolor1.7 
+ 		 %breaker15  = move  %_gcount1.8 
+ 		 %_gcount1.8  = move  %_gcount1.8 
+ 		 %breaker15  = move  %_gmake1.8 
+ 		 %_gmake1.8  = move  %_gmake1.8 
+ 		 %breaker15  = move  %_gcolor1.8 
+ 		 jump %if_end2
+ 
+ %if_thenBB6:
+ 		 %t243.0  =   add  %x1.0   1 
+ 		 %t244.0  =   shl  %x1.0   2 
+ 		 %t245.0  =   add  %t244.0   4 
+ 		 %t246.0  =   add  %_gmake1.0   %t245.0 
+ 		 %t247.0  = load  %t246.0 
+ 		 %t248.0  =   shl  %y1.0   2 
+ 		 %t249.0  =   add  %t248.0   4 
+ 		 %t250.0  =   add  %t247.0   %t249.0 
+ 		 %t251.0  = load  %t250.0 
+ 		 %t252.0  =   add  %z1.0   %t251.0 
+ 		 store  @count   %_gcount1.0 
+ 		 store  @color   %_gcolor1.0 
+ 		 store  @make   %_gmake1.0 
+ 		 call search  %t243.0   0   %t252.0   
+ 		 %_gmake1.6  = load  @make 
+ 		 %_gcolor1.6  = load  @color 
+ 		 %_gcount1.6  = load  @count 
+ 		 %_gcount1.8  = move  %_gcount1.6 
+ 		 %_gmake1.8  = move  %_gmake1.6 
+ 		 %_gcolor1.8  = move  %_gcolor1.6 
+ 		 %breaker16  = move  %_gcount1.8 
+ 		 %_gcount1.8  = move  %_gcount1.8 
+ 		 %breaker16  = move  %_gmake1.8 
+ 		 %_gmake1.8  = move  %_gmake1.8 
+ 		 %breaker16  = move  %_gcolor1.8 
+ 		 jump %if_end2
+ 
+ %if_end2:
+ 		 %t253.0  =   shl  %x1.0   2 
+ 		 %t254.0  =   add  %t253.0   4 
+ 		 %t255.0  =   add  %_gmake1.8   %t254.0 
+ 		 %t256.0  = load  %t255.0 
+ 		 %t257.0  =   shl  %y1.0   2 
+ 		 %t258.0  =   add  %t257.0   4 
+ 		 %t259.0  =   add  %t256.0   %t258.0 
+ 		 %t260.0  = load  %t259.0 
+ 		 %t261.0  =   shl  %t260.0   2 
+ 		 %t262.0  =   add  %t261.0   4 
+ 		 %t263.0  =   add  %_gcolor1.8   %t262.0 
+ 		 store  %t263.0   0 
+ 		 %_gcount1.9  = move  %_gcount1.8 
+ 		 %_gmake1.9  = move  %_gmake1.8 
+ 		 %_gcolor1.9  = move  %_gcolor1.8 
+ 		 %breaker17  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker17  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker17  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %if_elseBB2:
+ 		 %_gcount1.1  = move  %_gcount1.0 
+ 		 %_gmake1.1  = move  %_gmake1.0 
+ 		 %_gcolor1.1  = move  %_gcolor1.0 
+ 		 %breaker18  = move  %_gcount1.1 
+ 		 %_gcount1.1  = move  %_gcount1.1 
+ 		 %breaker18  = move  %_gmake1.1 
+ 		 %_gmake1.1  = move  %_gmake1.1 
+ 		 %breaker18  = move  %_gcolor1.1 
+ 		 %i1.2  = move  1 
+ 		 jump %forcondBB3
+ 
+ %forcondBB3:
+ 		 %t264.0  = sle  %i1.2   9 
+ 		 br  %t264.0  %forbodyBB3 %paracopy12 
+ 
+ %forbodyBB3:
+ 		 %t265.0  =   shl  %i1.2   2 
+ 		 %t266.0  =   add  %t265.0   4 
+ 		 %t267.0  =   add  %_gcolor1.1   %t266.0 
+ 		 %t268.0  = load  %t267.0 
+ 		 %t269.0  = seq  %t268.0   0 
+ 		 br  %t269.0  %if_thenBB7 %paracopy13 
+ 
+ %if_thenBB7:
+ 		 %t270.0  =   shl  %i1.2   2 
+ 		 %t271.0  =   add  %t270.0   4 
+ 		 %t272.0  =   add  %_gcolor1.1   %t271.0 
+ 		 store  %t272.0   1 
+ 		 %t273.0  =   shl  %x1.0   2 
+ 		 %t274.0  =   add  %t273.0   4 
+ 		 %t275.0  =   add  %_gmake1.1   %t274.0 
+ 		 %t276.0  = load  %t275.0 
+ 		 %t277.0  =   shl  %y1.0   2 
+ 		 %t278.0  =   add  %t277.0   4 
+ 		 %t279.0  =   add  %t276.0   %t278.0 
+ 		 store  %t279.0   %i1.2 
+ 		 %t280.0  = seq  %y1.0   2 
+ 		 br  %t280.0  %if_thenBB8 %if_elseBB4 
+ 
+ %if_thenBB8:
+ 		 %t281.0  =   add  %x1.0   1 
+ 		 %t282.0  =   add  %z1.0   %i1.2 
+ 		 store  @count   %_gcount1.1 
+ 		 store  @color   %_gcolor1.1 
+ 		 store  @make   %_gmake1.1 
+ 		 call search  %t281.0   0   %t282.0   
+ 		 %_gmake1.3  = load  @make 
+ 		 %_gcolor1.3  = load  @color 
+ 		 %_gcount1.3  = load  @count 
+ 		 %_gcount1.4  = move  %_gcount1.3 
+ 		 %_gmake1.4  = move  %_gmake1.3 
+ 		 %_gcolor1.4  = move  %_gcolor1.3 
+ 		 %breaker19  = move  %_gcount1.4 
+ 		 %_gcount1.4  = move  %_gcount1.4 
+ 		 %breaker19  = move  %_gmake1.4 
+ 		 %_gmake1.4  = move  %_gmake1.4 
+ 		 %breaker19  = move  %_gcolor1.4 
+ 		 jump %if_end3
+ 
+ %if_elseBB4:
+ 		 %t283.0  =   add  %y1.0   1 
+ 		 %t284.0  =   add  %z1.0   %i1.2 
+ 		 store  @count   %_gcount1.1 
+ 		 store  @color   %_gcolor1.1 
+ 		 store  @make   %_gmake1.1 
+ 		 call search  %x1.0   %t283.0   %t284.0   
+ 		 %_gmake1.2  = load  @make 
+ 		 %_gcolor1.2  = load  @color 
+ 		 %_gcount1.2  = load  @count 
+ 		 %_gcount1.4  = move  %_gcount1.2 
+ 		 %_gmake1.4  = move  %_gmake1.2 
+ 		 %_gcolor1.4  = move  %_gcolor1.2 
+ 		 %breaker20  = move  %_gcount1.4 
+ 		 %_gcount1.4  = move  %_gcount1.4 
+ 		 %breaker20  = move  %_gmake1.4 
+ 		 %_gmake1.4  = move  %_gmake1.4 
+ 		 %breaker20  = move  %_gcolor1.4 
+ 		 jump %if_end3
+ 
+ %if_end3:
+ 		 %t285.0  =   shl  %x1.0   2 
+ 		 %t286.0  =   add  %t285.0   4 
+ 		 %t287.0  =   add  %_gmake1.4   %t286.0 
+ 		 %t288.0  = load  %t287.0 
+ 		 %t289.0  =   shl  %y1.0   2 
+ 		 %t290.0  =   add  %t289.0   4 
+ 		 %t291.0  =   add  %t288.0   %t290.0 
+ 		 store  %t291.0   0 
+ 		 %t292.0  =   shl  %i1.2   2 
+ 		 %t293.0  =   add  %t292.0   4 
+ 		 %t294.0  =   add  %_gcolor1.4   %t293.0 
+ 		 store  %t294.0   0 
+ 		 %_gcount1.5  = move  %_gcount1.4 
+ 		 %_gmake1.5  = move  %_gmake1.4 
+ 		 %_gcolor1.5  = move  %_gcolor1.4 
+ 		 %breaker21  = move  %_gcount1.5 
+ 		 %_gcount1.5  = move  %_gcount1.5 
+ 		 %breaker21  = move  %_gmake1.5 
+ 		 %_gmake1.5  = move  %_gmake1.5 
+ 		 %breaker21  = move  %_gcolor1.5 
+ 		 jump %forupdateBB1
+ 
+ %paracopy13:
+ 		 %_gcount1.5  = move  %_gcount1.1 
+ 		 %_gmake1.5  = move  %_gmake1.1 
+ 		 %_gcolor1.5  = move  %_gcolor1.1 
+ 		 %breaker22  = move  %_gcount1.5 
+ 		 %_gcount1.5  = move  %_gcount1.5 
+ 		 %breaker22  = move  %_gmake1.5 
+ 		 %_gmake1.5  = move  %_gmake1.5 
+ 		 %breaker22  = move  %_gcolor1.5 
+ 		 jump %forupdateBB1
+ 
+ %forupdateBB1:
+ 		 %i1.3  =   add  %i1.2   1 
+ 		 %_gcount1.1  = move  %_gcount1.5 
+ 		 %_gmake1.1  = move  %_gmake1.5 
+ 		 %i1.2  = move  %i1.3 
+ 		 %_gcolor1.1  = move  %_gcolor1.5 
+ 		 %breaker23  = move  %_gcount1.1 
+ 		 %_gcount1.1  = move  %_gcount1.1 
+ 		 %breaker23  = move  %_gmake1.1 
+ 		 %_gmake1.1  = move  %_gmake1.1 
+ 		 %breaker23  = move  %i1.2 
+ 		 %i1.2  = move  %i1.2 
+ 		 %breaker23  = move  %_gcolor1.1 
+ 		 jump %forcondBB3
+ 
+ %paracopy12:
+ 		 %_gcount1.9  = move  %_gcount1.1 
+ 		 %_gmake1.9  = move  %_gmake1.1 
+ 		 %_gcolor1.9  = move  %_gcolor1.1 
+ 		 %breaker24  = move  %_gcount1.9 
+ 		 %_gcount1.9  = move  %_gcount1.9 
+ 		 %breaker24  = move  %_gmake1.9 
+ 		 %_gmake1.9  = move  %_gmake1.9 
+ 		 %breaker24  = move  %_gcolor1.9 
+ 		 jump %if_end1
+ 
+ %if_end1:
+ 		 store  @count   %_gcount1.9 
+ 		 store  @color   %_gcolor1.9 
+ 		 store  @make   %_gmake1.9 
+ 		 ret  
+ 
+ }
+ define i32 @__init   {
+ %__init.entryBB1:
+ 		 %t1.0  = alloc  44 
+ 		 store  %t1.0   10 
+ 		 %_gcolor1.0  = move  %t1.0 
+ 		 %t2.0  = alloc  8 
+ 		 store  %t2.0   1 
+ 		 %_gcount1.0  = move  %t2.0 
+ 		 %_t1.0  =   add  %_gcount1.0   4 
+ 		 store  %_t1.0   0 
+ 		 %__t1.0  = alloc  16 
+ 		 store  %__t1.0   3 
+ 		 %_gmake1.0  = move  %__t1.0 
+ 		 %_gi1.1  = move  0 
+ 		 jump %__forcondBB1
+ 
+ %__forcondBB1:
+ 		 %__t2.0  = slt  %_gi1.1   3 
+ 		 br  %__t2.0  %__forbodyBB1 %afterCallBB1 
+ 
+ %afterCallBB1:
+ 		 store  @count   %_gcount1.0 
+ 		 store  @color   %_gcolor1.0 
+ 		 store  @make   %_gmake1.0 
+ 		 call search  0   0   0   
+ 		 %_gmake1.1  = load  @make 
+ 		 %_gcolor1.1  = load  @color 
+ 		 %_gcount1.1  = load  @count 
+ 		 %_t2.0  =   add  %_gcount1.1   4 
+ 		 %_t3.0  = load  %_t2.0 
+ 		 %_t4.0  =  call toString  %_t3.0   
+ 		 call println  %_t4.0   
+ 		 store  @count   %_gcount1.1 
+ 		 store  @color   %_gcolor1.1 
+ 		 store  @make   %_gmake1.1 
+ 		 ret  0 
+ 
+ %__forbodyBB1:
+ 		 %__t3.0  = alloc  16 
+ 		 store  %__t3.0   3 
+ 		 %__t4.0  =   shl  %_gi1.1   2 
+ 		 %__t5.0  =   add  %__t4.0   4 
+ 		 %__t6.0  =   add  %_gmake1.0   %__t5.0 
+ 		 store  %__t6.0   %__t3.0 
+ 		 %_gj1.2  = move  0 
+ 		 jump %__forcondBB2
+ 
+ %__forcondBB2:
+ 		 %__t7.0  = slt  %_gj1.2   3 
+ 		 br  %__t7.0  %__forbodyBB2 %__forupdateBB1 
+ 
+ %__forupdateBB1:
+ 		 %_gi1.2  =   add  %_gi1.1   1 
+ 		 %_gi1.1  = move  %_gi1.2 
+ 		 %breaker1  = move  %_gi1.1 
+ 		 jump %__forcondBB1
+ 
+ %__forbodyBB2:
+ 		 %__t8.0  =   shl  %_gi1.1   2 
+ 		 %__t9.0  =   add  %__t8.0   4 
+ 		 %__t10.0  =   add  %_gmake1.0   %__t9.0 
+ 		 %__t11.0  = load  %__t10.0 
+ 		 %__t12.0  =   shl  %_gj1.2   2 
+ 		 %__t13.0  =   add  %__t12.0   4 
+ 		 %__t14.0  =   add  %__t11.0   %__t13.0 
+ 		 store  %__t14.0   0 
+ 		 %_gj1.3  =   add  %_gj1.2   1 
+ 		 %_gj1.2  = move  %_gj1.3 
+ 		 %breaker2  = move  %_gj1.2 
+ 		 jump %__forcondBB2
  
  }

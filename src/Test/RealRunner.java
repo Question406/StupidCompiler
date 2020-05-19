@@ -141,6 +141,7 @@ public class RealRunner {
         dominaceTreeBuilder.run();
         ssaConstructor.run();
         boolean changed = true;
+        PrintIR(true);
         while (changed) {
             changed = false;
             changed |= dvnt.run();
@@ -153,6 +154,7 @@ public class RealRunner {
             changed |= deadCodeElim.run();
             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
+            PrintIR(true);
         }
         ssaDestructor.run();
         cfgSimplifier.run();
