@@ -84,7 +84,7 @@ public class RegAllocater {
                 nxtInst = inst.next;
                 if (inst instanceof LoadInst) {
                     var prevInst = inst.prev;
-                    if (prevInst instanceof StoreInst && ((StoreInst) prevInst).storeTo == ((LoadInst) inst).from) {
+                    if (prevInst instanceof StoreInst && ((StoreInst) prevInst).storeTo == ((LoadInst) inst).from && ((StoreInst) prevInst).offset == ((LoadInst) inst).offset) {
                         if (((StoreInst) prevInst).res != ((LoadInst) inst).res)
                             inst.linkPrev(new MoveInst(inst.curBB, ((LoadInst) inst).res, ((StoreInst) prevInst).res));
                         inst.RMSelf();
