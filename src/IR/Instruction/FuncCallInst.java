@@ -149,15 +149,4 @@ public class FuncCallInst extends Instruction {
     public void replaceUse(VirReg use, VirReg changeTo) {
 
     }
-
-    @Override
-    public void replaceUse(Operand use, Operand changeTo) {
-        if (thisPointer == use)
-            thisPointer = changeTo;
-        for (int i = 0; i < params.size(); i++) {
-            var old = params.get(i);
-            if (old == use)
-                params.set(i, changeTo);
-        }
-    }
 }

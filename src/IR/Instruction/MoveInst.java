@@ -91,10 +91,4 @@ public class MoveInst extends Instruction {
         if (moveFrom == use)
             moveFrom = changeTo;
     }
-
-    @Override
-    public void replaceUse(Operand use, Operand changeTo) {
-        if (moveFrom == use)
-            moveFrom = changeTo;
-    }
 }

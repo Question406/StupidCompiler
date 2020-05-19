@@ -16,9 +16,7 @@ public class RISCV_Info {
 
     public static Set<String> calleeSavedRegs = Set.of("s0","s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11");
     public static Set<String> argRegs = Set.of("a0","a1","a2","a3","a4","a5","a6","a7");
-    public static Set<String> callerSavedRegs = Set.of( "ra","t0","t1","t2",
-                                                        "a0","a1","a2","a3","a4","a5","a6","a7",
-                                                        "t3","t4","t5","t6" );
+    public static Set<String> callerSavedRegs = Set.of("ra","t0","t1","t2","a0","a1","a2","a3","a4","a5","a6","a7","t3","t4","t5","t6" );
     public static String[] AllocableRegister = {"ra","t0","t1","t2",
                                                 "s0","s1",
                                                 "a0","a1","a2","a3","a4","a5","a6","a7",

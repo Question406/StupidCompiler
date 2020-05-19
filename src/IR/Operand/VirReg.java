@@ -15,8 +15,6 @@ public class VirReg extends Register {
     VirReg oldName = null;
     Map<Integer, VirReg> newNames = null;
 
-    public boolean isPtr = false;
-    public int ptrLevel = -1;
 
     // for RegAlloc
     public Set<VirReg> adjList = new HashSet<VirReg>();
@@ -25,7 +23,7 @@ public class VirReg extends Register {
     public Set<MoveInst> moveList = new HashSet<MoveInst>();
     public VirReg alias;
     public boolean addForSpill = false;
-    public double spillCost = 0;
+    public int spillCost = 0;
     public StackLoc stackLoc = null;
 
     public VirReg(String name) {

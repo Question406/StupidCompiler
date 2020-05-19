@@ -86,15 +86,6 @@ public class PhiInst extends Instruction {
 
     }
 
-    @Override
-    public void replaceUse(Operand use, Operand changeTo) {
-        for (var entry : from.entrySet()) {
-            Operand opr = entry.getValue();
-            if(opr == use)
-                from.put(entry.getKey(), changeTo);
-        }
-    }
-
     public void rmFrom(BasicBlock toRMbb) {
         from.remove(toRMbb);
         if (from.size() == 1) {  // doen't need to be phi

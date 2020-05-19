@@ -4,6 +4,12 @@ public class Pointer extends VirReg {
     public VirReg pointTO;
     public int size;
 
+    public Pointer(String name, VirReg pointTO, int size) {
+        super(name);
+        this.pointTO = pointTO;
+        this.size = size;
+    }
+
     public Pointer(String name, int size) {
         super(name);
         this.size = size;

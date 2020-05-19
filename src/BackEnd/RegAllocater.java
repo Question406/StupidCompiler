@@ -19,7 +19,7 @@ import static RISCV.BinaryOperator.addi;
 
 public class RegAllocater {
     final int MAXDEGREE = 1000000000;
-    final int K = RISCV_Info.AllocableRegister.length;
+    final int K = RISCV_Info.AllocableRegister.length + 1;
 
     private Set<PhyReg> colors = new HashSet<PhyReg>();
 
@@ -43,6 +43,7 @@ public class RegAllocater {
     Set<MoveInst> frozenMoves = new HashSet<MoveInst>();
 
     Stack<VirReg> selectStack = new Stack<VirReg>();
+    Set<VirReg> selectStackNodes = new HashSet<VirReg>();
 
     Set<Edge> adjSet = new HashSet<Edge>();
     LoopAnalysis loopAnalysis = null;
@@ -161,6 +162,7 @@ public class RegAllocater {
             precolor.spillCost = 0;
             precolor.adjList.clear();
             precolor.moveList.clear();
+//            precolor.addForSpill = false;
             precolor.stackLoc = null;
             precolor.alias = null;
         }
@@ -193,9 +195,6 @@ public class RegAllocater {
                 && freezeWorkList.isEmpty() && spillWorkList.isEmpty()));
         assignColors();
         if (!spilledNodes.isEmpty()) {
-//            for (var spill : spilledNodes) {
-//                System.err.println("spilled: " + spill.name);
-//            }
             rewriteProgram(curFunc);
 
 //            System.out.println("------------");
@@ -488,7 +487,6 @@ public class RegAllocater {
                 m = tmp;
         }
         return m;
-//        return (spillWorkList.iterator().next());
     }
 
     private void assignColors() {

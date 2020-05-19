@@ -95,7 +95,7 @@ public class RealRunner {
 
     private void PrintASM(boolean inFile) throws Exception {
 //        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
-        // File file = new File("test.s");
+//        File file = new File("test.s");
         File file = new File("output.s");
         PrintStream out = (inFile) ? new PrintStream(file) : System.out;
         ASMPrinter asmPrinter = new ASMPrinter(out);
@@ -127,41 +127,34 @@ public class RealRunner {
         GlobalOptimize();
 //        PrintIR(false);
         CFGSimplify();
-        PrintIR(true);
+        PrintIR(false);
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
         SSAConstructor ssaConstructor = new SSAConstructor(IRRoot);
         SCCP SCCPAnalyzer = new SCCP(IRRoot);
         DeadCodeElim deadCodeElim = new DeadCodeElim(IRRoot);
         CFGSimplifier cfgSimplifier = new CFGSimplifier(IRRoot);
-        DVNT dvnt = new DVNT(IRRoot);
-        AliasAnalysis aliasAnalysis = new AliasAnalysis(IRRoot);
         SSADestructor ssaDestructor = new SSADestructor(IRRoot);
-
 
         dominaceTreeBuilder.run();
         ssaConstructor.run();
-        PrintIR(true);
         boolean changed = true;
         while (changed) {
             changed = false;
-
-            changed |= dvnt.run();
-            changed |= deadCodeElim.run();
-            changed |= cfgSimplifier.run();
-            dominaceTreeBuilder.run();
             changed |= SCCPAnalyzer.run();
             changed |= cfgSimplifier.run();
+//            PrintIR(true);
             dominaceTreeBuilder.run();
             changed |= deadCodeElim.run();
+//            PrintIR(true);
             changed |= cfgSimplifier.run();
-            dominaceTreeBuilder.run();
+//            PrintIR(false);
         }
 //        PrintIR(true);
         dominaceTreeBuilder.run();
         ssaDestructor.run();
         cfgSimplifier.run();
         dominaceTreeBuilder.run();
-        PrintIR(true);
+//        PrintIR(true);
     }
 
     private void FrontEnd() throws Exception {
@@ -182,11 +175,10 @@ public class RealRunner {
         RegAllocater regAllocater = new RegAllocater(IRRoot, loopAnalysis);
         loopAnalysis.run();
         instSelector.run();
-
-        File file = new File("naive.s");
-        PrintStream out = new PrintStream(file);
-        ASMPrinter asmPrinter = new ASMPrinter(out);
-        asmPrinter.visit(IRRoot);
+//        File file = new File("naive.s");
+//        PrintStream out = new PrintStream(file);
+//        ASMPrinter asmPrinter = new ASMPrinter(out);
+//        asmPrinter.visit(IRRoot);
         regAllocater.run();
         PrintASM(true);
     }
@@ -196,10 +188,5 @@ public class RealRunner {
         if (isSemantic) return;
         Optimize();
         BackEnd();
-
-
-//        InputStream in = new FileInputStream("ir_out.txt");
-//        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), false);
-//        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), true);
     }
 }

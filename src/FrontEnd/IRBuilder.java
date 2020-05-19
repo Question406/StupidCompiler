@@ -27,8 +27,6 @@ public class IRBuilder implements ASTVisitor {
     boolean isglobal;
     boolean isFuncArg;
     boolean isInClass;
-    boolean isGlobalInitInst;
-    Variable nowGlobal = null;
 
     GlobalScope globalScope;
     ClassScope curClassScope;
@@ -149,14 +147,8 @@ public class IRBuilder implements ASTVisitor {
             program.addGlobalVar(globalVar);
             var init = node.getVarInit();
             if (init != null) {
-                isGlobalInitInst = true;
-                nowGlobal = globalVar;
                 init.accept(this);
-                var inst = new MoveInst(curBB, globalVar, init.getOperand());
-                curBB.addInst(inst);
-                globalVar.initInsts.add(inst);
-                nowGlobal = null;
-                isGlobalInitInst = false;
+                curBB.addInst(new MoveInst(curBB, globalVar, init.getOperand()));
 //                curBB.addInst(new StoreInst(curBB, globalVar, init.getOperand()));
             }
         } else {
@@ -734,17 +726,11 @@ public class IRBuilder implements ASTVisitor {
         Type type;
         if (typeNode instanceof ArrayTypeNode) {
             type = typeTable.get(((ArrayTypeNode) typeNode).getBaseType());
-//            for (var dim : node.getDimExpr())
-//                dim.accept(this);
             node.setOperand(NewArrayAllocate(node,1, node.getDimExpr().size()));
         } else {
             type = typeTable.get(typeNode);
             VirReg res = new VirReg("t");
-            var inst = new AllocaInst(curBB, res, new ConstInt(type.allocSize()));
-            curBB.addInst(inst);
-            if (isGlobalInitInst) {
-                nowGlobal.initInsts.add(inst);
-            }
+            curBB.addInst(new AllocaInst(curBB, res, new ConstInt(type.allocSize())));
 
             if (type instanceof ClassType) {
                 Function func = program.getGlobalFunction(type.getName() + "." + type.getName());
@@ -931,8 +917,8 @@ public class IRBuilder implements ASTVisitor {
             rhs.setTrueBB(new BasicBlock(curFunc, "logicT"));
             rhs.setElseBB(new BasicBlock(curFunc, "logicF"));
         }
-        rhs.accept(this);
         lhs.accept(this);
+        rhs.accept(this);
         if (!islogicOp) {
             Operand rhsVal = rhs.getOperand();
             Operand res = null;
