@@ -194,18 +194,7 @@ public class RegAllocater {
                 && freezeWorkList.isEmpty() && spillWorkList.isEmpty()));
         assignColors();
         if (!spilledNodes.isEmpty()) {
-//            for (var spill : spilledNodes) {
-//                System.err.println("spilled: " + spill.name);
-//            }
             rewriteProgram(curFunc);
-
-//            System.out.println("------------");
-//            asmPrinter = new ASMPrinter(System.out);
-//            asmPrinter.visit(curFunc);
-//            asmPrinter.runFunction(curFunc);
-//            System.out.println(" ");
-//            System.out.println(" ");
-
             inner_run();
         }
     }
@@ -476,20 +465,24 @@ public class RegAllocater {
     }
 
     private VirReg selectStrategy() {
-        Iterator<VirReg> iterator = spillWorkList.iterator();
-        VirReg m = null;
-        while (iterator.hasNext()) {
-            m = iterator.next();
-            if (!m.addForSpill)
-                break;
+        if (spillWorkList.size() > 1500) {
+            return spillWorkList.iterator().next();
         }
-        while (iterator.hasNext()) {
-            var tmp = iterator.next();
-            if (! tmp.addForSpill && tmp.spillCost / tmp.degree < m.spillCost / m.degree)
-                m = tmp;
+        else{
+            Iterator<VirReg> iterator = spillWorkList.iterator();
+            VirReg m = null;
+            while (iterator.hasNext()) {
+                m = iterator.next();
+                if (!m.addForSpill)
+                    break;
+            }
+            while (iterator.hasNext()) {
+                var tmp = iterator.next();
+                if (!tmp.addForSpill && tmp.spillCost / tmp.degree < m.spillCost / m.degree)
+                    m = tmp;
+            }
+            return m;
         }
-        return m;
-//        return (spillWorkList.iterator().next());
     }
 
     private void assignColors() {

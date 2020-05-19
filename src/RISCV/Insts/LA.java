@@ -78,4 +78,9 @@ public class LA extends Instruction {
     public void replaceUse(VirReg use, VirReg changeTo) {
 
     }
+
+    @Override
+    public void replaceUse(Operand use, Operand changeTo) {
+
+    }
 }

@@ -73,6 +73,11 @@ public class JumpInst extends Instruction {
 
     }
 
+    @Override
+    public void replaceUse(Operand use, Operand changeTo) {
+
+    }
+
 
     public BasicBlock getJumpTo() {
         return jumpTo;

@@ -253,15 +253,21 @@ public class InstSelector {
                             throw new RuntimeException("unexpected op at cmpInst");
                     }
                 } else if (inst instanceof UnaryOpInst) {
-                    ConstInt newTmp = new ConstInt( 1 << 32 - 1);
-                    VirReg newVirReg = new VirReg("t");
-                    BinOpInst newInst;
+//                    ConstInt newTmp = new ConstInt( 1 << 32 - 1);
+//                    VirReg newVirReg = new VirReg("t");
+//                    BinOpInst newInst;
+//                    var unaInst = ((UnaryOpInst) inst);
+//                    unaInst.linkPrev(new LI(inst.curBB, newVirReg, newTmp));
+//                    var src = unaInst.src;
+//                    var res = unaInst.res;
+//                    newInst = new BinOpInst(inst.curBB, res, RISCV.BinaryOperator.xor, src, newVirReg);
+//                    newInst.isImmInst = false;
                     var unaInst = ((UnaryOpInst) inst);
-                    unaInst.linkPrev(new LI(inst.curBB, newVirReg, newTmp));
                     var src = unaInst.src;
                     var res = unaInst.res;
-                    newInst = new BinOpInst(inst.curBB, res, RISCV.BinaryOperator.xor, src, newVirReg);
-                    newInst.isImmInst = false;
+                    BinOpInst newInst;
+                    newInst = new BinOpInst(inst.curBB, res, RISCV.BinaryOperator.xori, src, new ConstInt(-1));
+                    newInst.isImmInst = true;
                     unaInst.linkNext(newInst);
                     unaInst.RMSelf();
                 } else if (inst instanceof FuncCallInst) {

@@ -27,5 +27,36 @@ public enum BinaryOperator {
                 || this == LOGICAND || this == LOGICOR
                 || this == BITWISEXOR;
     }
+
+    public static BinaryOperator getCommutable(BinaryOperator op){
+        switch (op) {
+            case BITWISEXOR:
+            case LOGICAND:
+            case LOGICOR:
+            case BITWISEAND:
+            case BITWISEOR:
+            case MULTI:
+            case EQ:
+            case NEQ:
+            case ADD:
+                return op;
+            case SUB:
+            case DIV:
+            case MOD:
+            case LEFTSHIFT:
+            case RIGHTSHIFT:
+                return null;
+            case LTH:
+                return GTH;
+            case LEQ:
+                return REQ;
+            case GTH:
+                return LTH;
+            case REQ:
+                return LEQ;
+            default:
+                throw new RuntimeException("getCommutable Err!");
+        }
+    }
 }
 

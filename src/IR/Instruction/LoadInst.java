@@ -99,4 +99,10 @@ public class LoadInst extends Instruction {
         if (from == use)
             from = changeTo;
     }
+
+    @Override
+    public void replaceUse(Operand use, Operand changeTo) {
+        if (from == use)
+            from = changeTo;
+    }
 }

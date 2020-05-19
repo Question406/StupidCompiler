@@ -121,4 +121,12 @@ public class CmpInst extends Instruction {
                 rhs = changeTo;
         }
     }
+
+    @Override
+    public void replaceUse(Operand use, Operand changeTo) {
+        if (lhs == use)
+            lhs = changeTo;
+        if (rhs == use)
+            rhs = changeTo;
+    }
 }
