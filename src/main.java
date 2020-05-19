@@ -4,7 +4,7 @@ import static java.lang.System.exit;
 
 public class main {
     public static void main(String[] args) {
-        long startTime = System.nanoTime();
+        var startTime = System.currentTimeMillis();
         // to avoid race between error stream && out stream
         // System.setErr(System.out);
         RealRunner test = new RealRunner();
@@ -16,7 +16,7 @@ public class main {
             e.printStackTrace();
             exit(1);
         };
-        long endTime = System.nanoTime() - startTime;
+        var endTime = System.currentTimeMillis() - startTime;
         System.out.println(endTime);
     }
 

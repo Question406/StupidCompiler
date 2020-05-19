@@ -12,6 +12,10 @@ import IR.Operand.VirReg;
 // since we didn't save type info in IR, so we have to recollect which virReg is a pointer
 
 public class AliasAnalysis extends Optimizer {
+    enum aliasStat {
+        may, must, no
+    }
+
     public AliasAnalysis(Module program) {
         super(program);
     }
@@ -55,6 +59,4 @@ public class AliasAnalysis extends Optimizer {
             }
         }
     }
-
-
 }

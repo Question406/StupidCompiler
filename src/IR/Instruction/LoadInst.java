@@ -12,6 +12,7 @@ import java.util.Map;
 public class LoadInst extends Instruction {
     public Operand from;
     public Operand res;
+    public int offset;
     public int byteSize;
 
     public LoadInst(BasicBlock BB, Operand res, Operand from) {

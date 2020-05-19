@@ -334,6 +334,17 @@ public class InstSelector {
                         VirReg tmpReg = new VirReg("_lobits");
                         stInst.linkPrev(new LUI(stInst.curBB, tmpReg, stInst.storeTo));
                         stInst.helper = tmpReg;
+                    } else {
+                        var stTo = stInst.storeTo;
+                        var defInst = stTo.defInst;
+                        if (stTo.usedInstructions.size() == 1 && defInst instanceof BinOpInst) {
+                            if (((BinOpInst) defInst).rhs instanceof ConstInt) {
+                                stInst.storeTo = ((BinOpInst) defInst).lhs;
+                                stInst.offset = ((ConstInt) ((BinOpInst) defInst).rhs).getVal();
+                                defInst.RMSelf();
+                            }
+                        }
+                        stInst.byteSize = INTSIZE;
                     }
                     if (stInst.res instanceof ConstString) {
                         VirReg tmp = new VirReg("_t");
@@ -342,23 +353,26 @@ public class InstSelector {
                     }
                 } else if (inst instanceof LoadInst) {
                     var loadInst = (LoadInst) inst;
-//                    if (loadInst.from instanceof Variable || loadInst.from instanceof ConstString) {
-//                        VirReg tmpReg = new VirReg("ptr");
-//                        inst.linkPrev(new LA(inst.curBB, tmpReg, loadInst.from));
-//                        inst.linkPrev(new LA(inst.curBB, loadInst.res, loadInst.from));
-//                        inst.RMSelf();
                     if (loadInst.from instanceof Variable) {
                         VirReg tmpReg = new VirReg("ptr");
-//                        loadInst.linkPrev(new LUI(loadInst.curBB, tmpReg, loadInst.storeTo));                      inst.linkPrev(new LA(inst.curBB, tmpReg, loadInst.from));
                         inst.linkPrev(new LA(inst.curBB, tmpReg, loadInst.from));
                         ((LoadInst) inst).from = tmpReg;
-//                        inst.RMSelf();
                         loadInst.byteSize = INTSIZE;
                     } else if (loadInst.from instanceof ConstString) {
                         inst.linkPrev(new LA(inst.curBB, loadInst.res, loadInst.from));
                         inst.RMSelf();
-                    } else
+                    } else {
+                        var from = loadInst.from;
+                        var defInst = from.defInst;
+                        if (from.usedInstructions.size() == 1 && defInst instanceof BinOpInst) {
+                            if (((BinOpInst) defInst).rhs instanceof ConstInt) {
+                                ((LoadInst) inst).from = ((BinOpInst) defInst).lhs;
+                                ((LoadInst) inst).offset = ((ConstInt) ((BinOpInst) defInst).rhs).getVal();
+                                defInst.RMSelf();
+                            }
+                        }
                         loadInst.byteSize = INTSIZE;
+                    }
                 }  else if (inst instanceof MoveInst) {
                     var movInst = (MoveInst) inst;
                     if (movInst.moveFrom instanceof ConstString) {

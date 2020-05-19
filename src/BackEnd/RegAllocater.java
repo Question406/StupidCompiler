@@ -73,7 +73,26 @@ public class RegAllocater {
         program.getGlobalFuncMap().forEach((name, func) -> {
             renameVirReg(func);
             SP_insert(func);
+            peephole(func);
         });
+    }
+
+    private void peephole(Function func) {
+        for(var BB : func.getReversePostOrderBBs()){
+            Instruction nxtInst = null;
+            for(var inst = BB.insthead; inst != null; inst = nxtInst){
+                nxtInst = inst.next;
+                if (inst instanceof LoadInst) {
+                    var prevInst = inst.prev;
+                    if (prevInst instanceof StoreInst && ((StoreInst) prevInst).storeTo == ((LoadInst) inst).from) {
+                        if (((StoreInst) prevInst).res != ((LoadInst) inst).res)
+                            inst.linkPrev(new MoveInst(inst.curBB, ((LoadInst) inst).res, ((StoreInst) prevInst).res));
+                        inst.RMSelf();
+                        System.out.println("peephole workded");
+                    }
+                }
+            }
+        }
     }
 
     private void SP_insert(Function func) {
@@ -388,7 +407,6 @@ public class RegAllocater {
                     tmpcond1 = false;
                     break;
                 }
-//                tmpcond1 &= OK(t,u);
             Set<VirReg> tmpSet = new HashSet<VirReg>(Adjacent(u));
             tmpSet.addAll(Adjacent(v));
             boolean tmpcond2 = Conservative(tmpSet);

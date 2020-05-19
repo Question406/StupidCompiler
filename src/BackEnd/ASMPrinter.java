@@ -79,14 +79,11 @@ public class ASMPrinter implements IRVisitor {
         var name = node.getFuncname();
         if (name.equals("__init"))
             name = "main";
-        println(".globl\t" + name + "\t\t\t\t\t\t # func begin ");
+        println(".globl\t" + name + "\t\t\t\t#begin");
         println(".p2align\t2");
         println(".type\t" + name + ",@function");
         indentSub();
         println(name + ":");
-//        node.getReversePostOrderBBs().forEach(bb->
-//                bb.accept(this)
-//        );
         node.BBs.forEach(bb->{
             bb.accept(this);
         });
@@ -248,7 +245,8 @@ public class ASMPrinter implements IRVisitor {
             printlnInline(" ");
         }
         else {
-            printInline("0(");
+            printInline( node.offset + "(");
+//            printInline("0(");
             node.from.accept(this);
             printlnInline(")");
         }
@@ -283,7 +281,7 @@ public class ASMPrinter implements IRVisitor {
                 node.storeTo.accept(this);
                 printlnInline(" ");
             } else {
-                printInline(",0(");
+                printInline("," + node.offset + "(");
                 node.storeTo.accept(this);
 //                printInline(node.storeTo.name);
                 printlnInline(")");
