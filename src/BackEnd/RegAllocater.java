@@ -465,7 +465,7 @@ public class RegAllocater {
     }
 
     private VirReg selectStrategy() {
-        if (spillWorkList.size() > 1500) {
+        if (spillWorkList.size() > 1100) {
             return spillWorkList.iterator().next();
         }
         else{
