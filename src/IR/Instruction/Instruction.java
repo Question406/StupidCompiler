@@ -107,4 +107,6 @@ public abstract class Instruction {
     abstract public void CalcDefUseSet();
 
     abstract public void replaceUse(VirReg use, VirReg changeTo);
+
+    abstract public void replaceUse(Operand use, Operand changeTo);
 }

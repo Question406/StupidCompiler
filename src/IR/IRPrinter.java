@@ -243,13 +243,13 @@ public class IRPrinter implements IRVisitor {
     public void visit(BasicBlock node) {
         printAnything(BBgetName(node) + ":\n");
 
-        printAnything("preds: ");
-        node.predBBs.forEach(x -> printAnything(BBgetName(x) + " "));
-        printAnything("\n");
-
-        printAnything("succs: ");
-        node.succBBs.forEach(x -> printAnything(BBgetName(x) + " "));
-        printAnything("\n");
+//        printAnything("preds: ");
+//        node.predBBs.forEach(x -> printAnything(BBgetName(x) + " "));
+//        printAnything("\n");
+//
+//        printAnything("succs: ");
+//        node.succBBs.forEach(x -> printAnything(BBgetName(x) + " "));
+//        printAnything("\n");
 
 //        if (node.DomBBs != null){
 //            printAnything("doms: ");
@@ -275,17 +275,17 @@ public class IRPrinter implements IRVisitor {
 //            printAnything("\n");
 //        }
 //
-        if (node.PostIDom != null) {
-            printAnything("postidom: ");
-            printAnything(BBgetName(node.PostIDom) + " ");
-            printAnything("\n");
-        }
-
-        if (node.PostDomFros != null) {
-            printAnything("postdomfros: ");
-            node.PostDomFros.forEach(x -> printAnything(BBgetName(x) + " "));
-            printAnything("\n");
-        }
+//        if (node.PostIDom != null) {
+//            printAnything("postidom: ");
+//            printAnything(BBgetName(node.PostIDom) + " ");
+//            printAnything("\n");
+//        }
+//
+//        if (node.PostDomFros != null) {
+//            printAnything("postdomfros: ");
+//            node.PostDomFros.forEach(x -> printAnything(BBgetName(x) + " "));
+//            printAnything("\n");
+//        }
 
 
         for (var inst = node.insthead; inst != null; inst = inst.next) {

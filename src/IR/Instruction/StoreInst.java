@@ -116,4 +116,12 @@ public class StoreInst extends Instruction {
         if (helper == use)
             helper = changeTo;
     }
+
+    @Override
+    public void replaceUse(Operand use, Operand changeTo) {
+        if (storeTo == use)
+            storeTo = changeTo;
+        if (res == use)
+            res = changeTo;
+    }
 }

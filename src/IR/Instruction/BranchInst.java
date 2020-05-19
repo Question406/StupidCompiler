@@ -110,6 +110,12 @@ public class BranchInst extends Instruction {
         }
     }
 
+    @Override
+    public void replaceUse(Operand use, Operand changeTo) {
+        if (cond == use)
+            cond = changeTo;
+    }
+
     public void modifyBranch(BasicBlock oldTO, BasicBlock newTO) {
         if (trueBB == oldTO)
             trueBB = newTO;

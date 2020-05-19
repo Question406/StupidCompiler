@@ -99,4 +99,12 @@ public class AllocaInst extends Instruction {
     public void replaceUse(VirReg use, VirReg changeTo) {
 
     }
+
+    @Override
+    public void replaceUse(Operand use, Operand changeTo) {
+        if (allocSize == use)
+            allocSize = changeTo;
+    }
+
+
 }

@@ -82,4 +82,9 @@ public class LUI extends Instruction {
     public void replaceUse(VirReg use, VirReg changeTo) {
 
     }
+
+    @Override
+    public void replaceUse(Operand use, Operand changeTo) {
+
+    }
 }

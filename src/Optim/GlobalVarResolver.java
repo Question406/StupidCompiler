@@ -31,6 +31,8 @@ public class GlobalVarResolver {
     }
 
     Map<Function, global_var_info> functionglobal_var_infoMap;
+
+
     FuncInliner funcInliner;
 
     public GlobalVarResolver(Module program, FuncInliner funcInliner) {
@@ -39,10 +41,20 @@ public class GlobalVarResolver {
     }
 
     public void run() {
+        for (var global : program.getGlobalVar().values()) {
+            global.funcUsedInst.clear();
+            global.usedFuncs.clear();
+        }
         collect_use_info();
+        localizeGlobal();
         insert_loads();
         insert_stores();
         load_store_for_call();
+
+        for (var global : program.getGlobalVar().values()) {
+            global.funcUsedInst.clear();
+            global.usedFuncs.clear();
+        }
 //        insert_alloc_for_globals();
     }
 
@@ -69,39 +81,40 @@ public class GlobalVarResolver {
                         for (var reg : useRegs) {
                             if (reg instanceof Variable) { // global_var
                                 use_set.add((Variable) reg);
+
                                 if (!rename_map.containsKey(reg)) {
                                     VirReg tmp_global = new VirReg("_g" + reg.getName());
                                     rename_map.put((Variable) reg, tmp_global);
+
+                                    ((Variable) reg).usedFuncs.add(func);
+                                    if (!((Variable) reg).funcUsedInst.containsKey(func)) {
+                                        ((Variable) reg).funcUsedInst.put(func, inst);
+                                    }
                                 }
                             }
-//                            } else if (reg instanceof ConstString) {
-//                                use_set.add(reg);
-//                                if (! rename_map.containsKey(reg)) {
-//                                    VirReg tmp_global = new VirReg("_constStr");
-//                                    rename_map.put(reg, tmp_global);
-//                                }
-//                            }
                         }
                     if (defReg != null) {
                         if (defReg instanceof Variable) {
                             func_var_info.global_var_useset.add((Variable) defReg);
                             if (!rename_map.containsKey(defReg)) {
+                                ((Variable) defReg).usedFuncs.add(func);
+                                if (((Variable) defReg).funcUsedInst.containsKey(func)) {
+                                    ((Variable) defReg).funcUsedInst.put(func, inst);
+                                }
+
                                 VirReg tmp_global = new VirReg("_g" + defReg.getName());
                                 rename_map.put((Variable) defReg, tmp_global);
                             }
                         }
-//                        } else if (defReg instanceof ConstString) {
-//                            func_var_info.global_var_useset.add(defReg);
-//                            if (! rename_map.containsKey(defReg)) {
-//                                VirReg tmp_global = new VirReg("_constStr");
-//                                rename_map.put(defReg, tmp_global);
-//                            }
-//                        }
                     }
                     inst.renameGlobal(rename_map);
                 }
             }
         }
+    }
+
+    private void localizeGlobal() {
+
     }
 
     private void insert_alloc_for_globals() {
@@ -115,13 +128,20 @@ public class GlobalVarResolver {
     private void insert_loads() {
         for (var func : program.getGlobalFuncMap().values()) {
             if (Function.isBuiltIn(func)) continue;
+            if (func.getFuncname().equals("__init")) continue;
             var func_val_info = functionglobal_var_infoMap.get(func);
             var use_set = func_val_info.global_var_useset;
             var rename_map = func_val_info.global_rename_map;
-            var inst_head_after_load = get_inst_head(func);
             for (var global_var : use_set) {
                 var global_tmp_vir = rename_map.get(global_var);
-                inst_head_after_load.linkPrev(new LoadInst(func.entryBB, global_tmp_vir, global_var));
+                if (((Variable) global_var).usedFuncs.size() != 1) {
+                    var inst_head_after_load = get_inst_head(func);
+                    inst_head_after_load.linkPrev(new LoadInst(func.entryBB, global_tmp_vir, global_var));
+                } else {
+                    // localize
+                    var inst_head_after_load = get_inst_head(func);
+                    inst_head_after_load.linkPrev(new LoadInst(func.entryBB, global_tmp_vir, global_var));
+                }
             }
         }
     }
