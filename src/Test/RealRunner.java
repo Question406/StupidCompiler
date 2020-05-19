@@ -125,9 +125,8 @@ public class RealRunner {
 
     private void Optimize() throws Exception {
         GlobalOptimize();
-//        PrintIR(false);
         CFGSimplify();
-//        PrintIR(true);
+        // PrintIR(true);
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
         SSAConstructor ssaConstructor = new SSAConstructor(IRRoot);
         SCCP SCCPAnalyzer = new SCCP(IRRoot);
@@ -141,7 +140,7 @@ public class RealRunner {
         dominaceTreeBuilder.run();
         ssaConstructor.run();
         boolean changed = true;
-        PrintIR(true);
+        // PrintIR(true);
         while (changed) {
             changed = false;
             changed |= dvnt.run();
@@ -154,9 +153,11 @@ public class RealRunner {
             changed |= deadCodeElim.run();
             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
-            PrintIR(true);
+            // PrintIR(true);
         }
         ssaDestructor.run();
+//        dominaceTreeBuilder.run();
+//        deadCodeElim.run();
         cfgSimplifier.run();
         dominaceTreeBuilder.run();
         opResolver.run();

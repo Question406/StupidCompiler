@@ -367,7 +367,10 @@ public class InstSelector {
                     } else {
                         var from = loadInst.from;
                         var defInst = from.defInst;
-                        if (from.usedInstructions.size() == 1 && defInst instanceof BinOpInst) {
+                        if (from.usedInstructions.size() == 1 && defInst instanceof MoveInst) {
+                            ((LoadInst) inst).from = ((MoveInst) defInst).moveFrom;
+                            defInst.RMSelf();
+                        } else if (from.usedInstructions.size() == 1 && defInst instanceof BinOpInst) {
                             if (((BinOpInst) defInst).rhs instanceof ConstInt) {
                                 ((LoadInst) inst).from = ((BinOpInst) defInst).lhs;
                                 ((LoadInst) inst).offset = ((ConstInt) ((BinOpInst) defInst).rhs).getVal();

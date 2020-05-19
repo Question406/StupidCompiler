@@ -771,7 +771,8 @@ public class IRBuilder implements ASTVisitor {
 
         if (nowdim == realdim) {
             // A[][] a = new A[5][6]
-            Operand elemSize = (nowdim == node.getDim()) ? new ConstInt(typeTable.get(((ArrayTypeNode) node.getTypeNode()).getBaseType()).allocSize()) : new ConstInt(CompileOption.INTSIZE);
+//            Operand elemSize = (nowdim == node.getDim()) ? new ConstInt(typeTable.get(((ArrayTypeNode) node.getTypeNode()).getBaseType()).allocSize()) : new ConstInt(CompileOption.INTSIZE);
+            Operand elemSize = new ConstInt(CompileOption.INTSIZE);
             VirReg dimSizeReg = new VirReg("t");
             // calculate size for a dim
             curBB.addInst(new BinOpInst(curBB, dimSizeReg, BinaryOperator.MULTI, dimExpr.getOperand(), elemSize));
@@ -905,7 +906,8 @@ public class IRBuilder implements ASTVisitor {
         var index = node.getIndex();
         array.accept(this);
         index.accept(this);
-        ConstInt singleSize = new ConstInt(node.getType().allocSize());
+//        ConstInt singleSize = new ConstInt(node.getType().allocSize());
+        ConstInt singleSize = new ConstInt(CompileOption.INTSIZE);
         Operand startAddr = getVal(array.getOperand());
         Pointer resPointer = new Pointer("t", 4);
         VirReg tmpreg = new VirReg("t");

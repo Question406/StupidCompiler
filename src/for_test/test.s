@@ -1,561 +1,205 @@
     .text
+    .globl	qsrt				#begin
+    .p2align	2
+    .type	qsrt,@function
+qsrt:
+qsrt.entryBB1:
+    addi sp,sp,    -16
+    sw ra, 4(sp) 
+    sw s0, 8(sp) 
+    sw s1, 0(sp) 
+    mv	s1,a1 
+    la t1,a    
+    lw a5, 0(t1)
+    mv	a1,s1 
+    add t1,a0,s1
+    srai t1,t1,    1
+    slli t1,t1,    2
+    addi t1,t1,    4
+    add t1,a5,t1
+    lw a3, 0(t1)
+    mv	s0,a0 
+    mv	t1,a1 
+    mv	t1,s0 
+    j	whileCondBB1
+whileCondBB1:
+    ble	s0,a1,	paracopy1
+    j	afterWhileBB1
+afterWhileBB1:
+    blt	a0,a1,	if_thenBB1
+    j	paracopy2
+paracopy2:
+    j	if_end1
+if_end1:
+    blt	s0,s1,	if_thenBB2
+    j	paracopy3
+paracopy3:
+    j	if_end2
+if_end2:
+    lui t1,%hi(a)
+    sw a5, %lo(a)(t1)
+    lw s1, 0(sp) 
+    lw s0, 8(sp) 
+    lw ra, 4(sp) 
+    mv	a0,zero 
+    addi sp,sp,    16
+    ret
+if_thenBB2:
+    lui t1,%hi(a)
+    sw a5, %lo(a)(t1)
+    mv	a0,s0 
+    mv	a1,s1 
+    call	qsrt
+    la t1,a    
+    lw a5, 0(t1)
+    j	if_end2
+if_thenBB1:
+    lui t1,%hi(a)
+    sw a5, %lo(a)(t1)
+    call	qsrt
+    la t1,a    
+    lw a5, 0(t1)
+    j	if_end1
+paracopy1:
+    mv	t1,s0 
+    j	whileCondBB2
+whileCondBB2:
+    slli t4,t1,    2
+    addi t4,t4,    4
+    add t4,a5,t4
+    lw t4, 0(t4)
+    blt	t4,a3,	whileBodyBB1
+    j	paracopy4
+whileBodyBB1:
+    addi t1,t1,    1
+    j	whileCondBB2
+paracopy4:
+    j	whileCondBB3
+whileCondBB3:
+    slli t4,a1,    2
+    addi t4,t4,    4
+    add t4,a5,t4
+    lw t4, 0(t4)
+    bgt	t4,a3,	whileBodyBB2
+    j	afterWhileBB2
+afterWhileBB2:
+    ble	t1,a1,	if_thenBB3
+    j	paracopy5
+paracopy5:
+    mv	s0,t1 
+    mv	t1,a1 
+    mv	t1,s0 
+    j	whileCondBB1
+if_thenBB3:
+    slli t4,t1,    2
+    addi t4,t4,    4
+    add t4,a5,t4
+    lw t4, 0(t4)
+    slli t3,a1,    2
+    addi t3,t3,    4
+    add t0,a5,t3
+    slli t3,t1,    2
+    addi t3,t3,    4
+    add t3,a5,t3
+    lw t0, 0(t0)
+    sw t0,0(t3)
+    slli t3,a1,    2
+    addi t3,t3,    4
+    add t3,a5,t3
+    sw t4,0(t3)
+    addi t1,t1,    1
+    li t4, 1
+    sub a1,a1,t4
+    mv	s0,t1 
+    mv	t1,a1 
+    mv	t1,s0 
+    j	whileCondBB1
+whileBodyBB2:
+    li t4, 1
+    sub a1,a1,t4
+    j	whileCondBB3
+								 # func end
     .globl	main				#begin
     .p2align	2
     .type	main,@function
 main:
 __init.entryBB1:
-    addi sp,sp,    -32
-    sw ra, 20(sp) 
+    addi sp,sp,    -16
+    sw ra, 8(sp) 
     sw s0, 0(sp) 
-    sw s11, 24(sp) 
-    sw s10, 16(sp) 
-    sw s9, 12(sp) 
-    sw s8, 8(sp) 
-    sw s7, 4(sp) 
-    mv	s9,s6 
-    li a0, 12
+    sw s1, 4(sp) 
+    li a0, 40404
     call malloc
-    li a2, 0
-    sw a2,0(a0)
-    li a2, 0
-    sw a2,4(a0)
-    li a2, 0
-    sw a2,8(a0)
-    mv	s8,a0 
-    li a0, 12
-    call malloc
-    li a2, 0
-    sw a2,0(a0)
-    li a2, 0
-    sw a2,4(a0)
-    li a2, 0
-    sw a2,8(a0)
-    mv	s0,a0 
-    li a0, 12
-    call malloc
-    li a2, 0
-    sw a2,0(a0)
-    li a2, 0
-    sw a2,4(a0)
-    li a2, 0
-    sw a2,8(a0)
-    mv	s10,a0 
-    li a0, 12
-    call malloc
-    li a2, 0
-    sw a2,0(a0)
-    li a2, 0
-    sw a2,4(a0)
-    li a2, 0
-    sw a2,8(a0)
-    mv	s6,a0 
-    lw a0, 0(s8)
-    call	toString
-    mv	a1,a0 
+    li t1, 10100
+    sw t1,0(a0)
+    li t1, 1
+    j	_forcondBB1
+_forcondBB1:
+    li a3, 10000
+    ble	t1,a3,	_forbodyBB1
+    j	_afterForBB1
+_afterForBB1:
+    lui t1,%hi(a)
+    sw a0, %lo(a)(t1)
+    li a0, 1
+    li a1, 10000
+    call	qsrt
+    la t1,a    
+    lw s1, 0(t1)
+    li s0, 1
+    j	_forcondBB2
+_forcondBB2:
+    li t1, 10000
+    ble	s0,t1,	_forbodyBB2
+    j	afterCallBB1
+afterCallBB1:
     la a0,_globalStr1    
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 4(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 8(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr0    
-    call	_stringAdd
-    call	println
-    mv	a2,s8 
-    li a3, 849
-    sw a3,0(a2)
-    li a3, -463
-    sw a3,4(a2)
-    li a3, 480
-    sw a3,8(a2)
-    mv	a2,s0 
-    li a3, -208
-    sw a3,0(a2)
-    li a3, 585
-    sw a3,4(a2)
-    li a3, -150
-    sw a3,8(a2)
-    mv	a2,s10 
-    li a3, 360
-    sw a3,0(a2)
-    li a3, -670
-    sw a3,4(a2)
-    li a3, -742
-    sw a3,8(a2)
-    mv	a2,s6 
-    li a3, -29
-    sw a3,0(a2)
-    li a3, -591
-    sw a3,4(a2)
-    li a3, -960
-    sw a3,8(a2)
-    mv	a2,s8 
-    mv	a3,s0 
-    lw t5, 0(a2)
-    lw a7, 0(a3)
-    add a7,t5,a7
-    sw a7,0(a2)
-    lw t5, 4(a2)
-    lw a7, 4(a3)
-    add a7,t5,a7
-    sw a7,4(a2)
-    lw a7, 8(a2)
-    lw a3, 8(a3)
-    add a3,a7,a3
-    sw a3,8(a2)
-    mv	a3,s0 
-    mv	a2,s10 
-    lw t5, 0(a3)
-    lw a7, 0(a2)
-    add a7,t5,a7
-    sw a7,0(a3)
-    lw t5, 4(a3)
-    lw a7, 4(a2)
-    add a7,t5,a7
-    sw a7,4(a3)
-    lw a7, 8(a3)
-    lw a2, 8(a2)
-    add a2,a7,a2
-    sw a2,8(a3)
-    mv	a2,s6 
-    mv	a3,s10 
-    lw t5, 0(a2)
-    lw a7, 0(a3)
-    add a7,t5,a7
-    sw a7,0(a2)
-    lw a7, 4(a2)
-    lw t5, 4(a3)
-    add a7,a7,t5
-    sw a7,4(a2)
-    lw a7, 8(a2)
-    lw a3, 8(a3)
-    add a3,a7,a3
-    sw a3,8(a2)
-    mv	a2,s10 
-    mv	a3,s8 
-    lw a7, 0(a2)
-    lw t5, 0(a3)
-    sub a7,a7,t5
-    sw a7,0(a2)
-    lw t5, 4(a2)
-    lw a7, 4(a3)
-    sub a7,t5,a7
-    sw a7,4(a2)
-    lw a7, 8(a2)
-    lw a3, 8(a3)
-    sub a3,a7,a3
-    sw a3,8(a2)
-    mv	a3,s0 
-    mv	a2,s6 
-    lw t5, 0(a3)
-    lw a7, 0(a2)
-    sub a7,t5,a7
-    sw a7,0(a3)
-    lw a7, 4(a3)
-    lw t5, 4(a2)
-    sub a7,a7,t5
-    sw a7,4(a3)
-    lw a7, 8(a3)
-    lw a2, 8(a2)
-    sub a2,a7,a2
-    sw a2,8(a3)
-    mv	a2,s6 
-    mv	a3,s10 
-    lw t5, 0(a2)
-    lw a7, 0(a3)
-    sub a7,t5,a7
-    sw a7,0(a2)
-    lw a7, 4(a2)
-    lw t5, 4(a3)
-    sub a7,a7,t5
-    sw a7,4(a2)
-    lw a7, 8(a2)
-    lw a3, 8(a3)
-    sub a3,a7,a3
-    sw a3,8(a2)
-    mv	a2,s10 
-    mv	a3,s0 
-    lw t5, 0(a2)
-    lw a7, 0(a3)
-    add a7,t5,a7
-    sw a7,0(a2)
-    lw t5, 4(a2)
-    lw a7, 4(a3)
-    add a7,t5,a7
-    sw a7,4(a2)
-    lw a7, 8(a2)
-    lw a3, 8(a3)
-    add a3,a7,a3
-    sw a3,8(a2)
-    mv	a3,s8 
-    mv	a2,s0 
-    lw t5, 0(a3)
-    lw a7, 0(a2)
-    add a7,t5,a7
-    sw a7,0(a3)
-    lw t5, 4(a3)
-    lw a7, 4(a2)
-    add a7,t5,a7
-    sw a7,4(a3)
-    lw a7, 8(a3)
-    lw a2, 8(a2)
-    add a2,a7,a2
-    sw a2,8(a3)
-    mv	a3,s0 
-    mv	a2,s0 
-    lw a7, 0(a3)
-    lw t5, 0(a2)
-    add a7,a7,t5
-    sw a7,0(a3)
-    lw a7, 4(a3)
-    lw t5, 4(a2)
-    add a7,a7,t5
-    sw a7,4(a3)
-    lw a7, 8(a3)
-    lw a2, 8(a2)
-    add a2,a7,a2
-    sw a2,8(a3)
-    mv	a2,s10 
-    mv	a3,s10 
-    lw a7, 0(a2)
-    lw t5, 0(a3)
-    add a7,a7,t5
-    sw a7,0(a2)
-    lw t5, 4(a2)
-    lw a7, 4(a3)
-    add a7,t5,a7
-    sw a7,4(a2)
-    lw a7, 8(a2)
-    lw a3, 8(a3)
-    add a3,a7,a3
-    sw a3,8(a2)
-    mv	a3,s8 
-    mv	a2,s6 
-    lw a7, 0(a3)
-    lw t5, 0(a2)
-    sub a7,a7,t5
-    sw a7,0(a3)
-    lw a7, 4(a3)
-    lw t5, 4(a2)
-    sub a7,a7,t5
-    sw a7,4(a3)
-    lw a7, 8(a3)
-    lw a2, 8(a2)
-    sub a2,a7,a2
-    sw a2,8(a3)
-    mv	a2,s8 
-    mv	a3,s0 
-    lw t5, 0(a2)
-    lw a7, 0(a3)
-    add a7,t5,a7
-    sw a7,0(a2)
-    lw a7, 4(a2)
-    lw t5, 4(a3)
-    add a7,a7,t5
-    sw a7,4(a2)
-    lw a7, 8(a2)
-    lw a3, 8(a3)
-    add a3,a7,a3
-    sw a3,8(a2)
-    mv	a2,s0 
-    mv	a3,s10 
-    lw t5, 0(a2)
-    lw a7, 0(a3)
-    sub a7,t5,a7
-    sw a7,0(a2)
-    lw t5, 4(a2)
-    lw a7, 4(a3)
-    sub a7,t5,a7
-    sw a7,4(a2)
-    lw a7, 8(a2)
-    lw a3, 8(a3)
-    sub a3,a7,a3
-    sw a3,8(a2)
-    mv	a2,s8 
-    lw a3, 0(a2)
-    lw a7, 0(a2)
-    mul a3,a3,a7
-    lw a7, 4(a2)
-    lw t5, 4(a2)
-    mul a7,a7,t5
-    add a3,a3,a7
-    lw a7, 8(a2)
-    lw a2, 8(a2)
-    mul a2,a7,a2
-    add a0,a3,a2
-    call	toString
-    call	println
-    mv	a2,s0 
-    lw a7, 0(a2)
-    lw a3, 0(a2)
-    mul a7,a7,a3
-    lw t5, 4(a2)
-    lw a3, 4(a2)
-    mul a3,t5,a3
-    add a7,a7,a3
-    lw a3, 8(a2)
-    lw a2, 8(a2)
-    mul a2,a3,a2
-    add a0,a7,a2
-    call	toString
-    call	println
-    mv	a2,s0 
-    mv	a3,s10 
-    lw a7, 0(a2)
-    lw t5, 0(a3)
-    sub t5,a7,t5
-    lw a7, 0(a2)
-    lw a0, 0(a3)
-    sub a7,a7,a0
-    mul a0,t5,a7
-    lw a7, 4(a2)
-    lw t5, 4(a3)
-    sub t5,a7,t5
-    lw a7, 4(a2)
-    lw t0, 4(a3)
-    sub a7,a7,t0
-    mul a7,t5,a7
-    add a0,a0,a7
-    lw a7, 8(a2)
-    lw t5, 8(a3)
-    sub a7,a7,t5
-    lw t5, 8(a2)
-    lw a2, 8(a3)
-    sub a2,t5,a2
-    mul a2,a7,a2
-    add a0,a0,a2
-    call	toString
-    call	println
-    mv	a3,s6 
-    mv	a2,s8 
-    lw t5, 0(a3)
-    lw a7, 0(a2)
-    sub t5,t5,a7
-    lw a7, 0(a3)
-    lw a0, 0(a2)
-    sub a7,a7,a0
-    mul t0,t5,a7
-    lw t5, 4(a3)
-    lw a7, 4(a2)
-    sub a0,t5,a7
-    lw a7, 4(a3)
-    lw t5, 4(a2)
-    sub a7,a7,t5
-    mul a7,a0,a7
-    add a7,t0,a7
-    lw t5, 8(a3)
-    lw a0, 8(a2)
-    sub t5,t5,a0
-    lw a3, 8(a3)
-    lw a2, 8(a2)
-    sub a2,a3,a2
-    mul a2,t5,a2
-    add a0,a7,a2
-    call	toString
-    call	println
-    mv	a2,s10 
-    mv	a3,s8 
-    lw a7, 0(a2)
-    lw t5, 0(a3)
-    mul a0,a7,t5
-    lw a7, 4(a2)
-    lw t5, 4(a3)
-    mul a7,a7,t5
-    add a7,a0,a7
-    lw a2, 8(a2)
-    lw a3, 8(a3)
-    mul a2,a2,a3
-    add a0,a7,a2
-    call	toString
-    call	println
-    mv	s7,s6 
-    li a0, 12
-    call malloc
-    li a2, 0
-    sw a2,0(a0)
-    li a2, 0
-    sw a2,4(a0)
-    li a2, 0
-    sw a2,8(a0)
-    lw a3, 4(s0)
-    lw a2, 8(s7)
-    mul a2,a3,a2
-    lw a7, 8(s0)
-    lw a3, 4(s7)
-    mul a3,a7,a3
-    sub a7,a2,a3
-    lw a2, 8(s0)
-    lw a3, 0(s7)
-    mul a2,a2,a3
-    lw t5, 0(s0)
-    lw a3, 8(s7)
-    mul a3,t5,a3
-    sub a3,a2,a3
-    lw a2, 0(s0)
-    lw t5, 4(s7)
-    mul t0,a2,t5
-    lw a2, 4(s0)
-    lw t5, 0(s7)
-    mul a2,a2,t5
-    sub a2,t0,a2
-    sw a7,0(a0)
-    sw a3,4(a0)
-    sw a2,8(a0)
-    mv	s7,a0 
-    lw a0, 0(s7)
-    call	toString
-    mv	a1,a0 
-    la a0,_globalStr1    
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s11,a0 
-    lw a0, 4(s7)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s11 
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s11,a0 
-    lw a0, 8(s7)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s11 
-    call	_stringAdd
-    la a1,_globalStr0    
-    call	_stringAdd
-    call	println
-    lw a0, 0(s8)
-    call	toString
-    mv	a1,a0 
-    la a0,_globalStr1    
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 4(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 8(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr0    
-    call	_stringAdd
-    call	println
-    mv	s8,s0 
-    lw a0, 0(s8)
-    call	toString
-    mv	a1,a0 
-    la a0,_globalStr1    
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 4(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 8(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr0    
-    call	_stringAdd
-    call	println
-    mv	s8,s10 
-    lw a0, 0(s8)
-    call	toString
-    mv	a1,a0 
-    la a0,_globalStr1    
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 4(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 8(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr0    
-    call	_stringAdd
-    call	println
-    mv	s8,s6 
-    lw a0, 0(s8)
-    call	toString
-    mv	a1,a0 
-    la a0,_globalStr1    
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 4(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr2    
-    call	_stringAdd
-    mv	s7,a0 
-    lw a0, 8(s8)
-    call	toString
-    mv	a1,a0 
-    mv	a0,s7 
-    call	_stringAdd
-    la a1,_globalStr0    
-    call	_stringAdd
-    call	println
-    mv	s6,s9 
-    lw s7, 4(sp) 
-    lw s8, 8(sp) 
-    lw s9, 12(sp) 
-    lw s10, 16(sp) 
-    lw s11, 24(sp) 
+    call	print
+    lui t1,%hi(a)
+    sw s1, %lo(a)(t1)
+    lw s1, 4(sp) 
     lw s0, 0(sp) 
-    lw ra, 20(sp) 
+    lw ra, 8(sp) 
     mv	a0,zero 
-    addi sp,sp,    32
+    addi sp,sp,    16
     ret
+_forbodyBB2:
+    slli t1,s0,    2
+    addi t1,t1,    4
+    add t1,s1,t1
+    lw a0, 0(t1)
+    call	toString
+    call	print
+    la a0,_globalStr0    
+    call	print
+    addi t1,s0,    1
+    mv	s0,t1 
+    mv	t1,s0 
+    j	_forcondBB2
+_forbodyBB1:
+    li a3, 10001
+    sub t4,a3,t1
+    slli a3,t1,    2
+    addi a3,a3,    4
+    add a3,a0,a3
+    sw t4,0(a3)
+    addi t1,t1,    1
+    j	_forcondBB1
 								 # func end
     .section	.sdata,"aw",@progbits
+    .globl	a					#@a
+    .p2align	2
+a:
+    .word	0
+     
+    .globl	n					#@n
+    .p2align	2
+n:
+    .word	0
+     
     .globl	_globalStr0					#@_globalStr0
 _globalStr0:
-    .asciz  ")"    
+    .asciz  " "    
     .globl	_globalStr1					#@_globalStr1
 _globalStr1:
-    .asciz  "("    
-    .globl	_globalStr2					#@_globalStr2
-_globalStr2:
-    .asciz  ", "    
+    .asciz  "\n"    

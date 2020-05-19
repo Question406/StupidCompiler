@@ -44,7 +44,14 @@ public class OPResolver extends Optimizer {
                         }
                     }
                     if (((BinOpInst) inst).op == BinaryOperator.DIV) {
-
+                        var rhs = ((BinOpInst) inst).rhs;
+                        if (rhs instanceof ConstInt) {
+                            if ((((ConstInt) rhs).getVal() & (((ConstInt) rhs).getVal() - 1)) == 0) {
+                                int shift = (int) Math.floor(Math.log(((ConstInt) rhs).getVal()) / Math.log(2));
+                                ((BinOpInst) inst).rhs = new ConstInt(shift);
+                                ((BinOpInst) inst).op = BinaryOperator.RIGHTSHIFT;
+                            }
+                        }
                     }
                     if (((BinOpInst) inst).op == BinaryOperator.MOD) {
 
