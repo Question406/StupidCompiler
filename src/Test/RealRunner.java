@@ -11,6 +11,7 @@ import FrontEnd.Parser.ProgramLexer;
 import FrontEnd.Parser.ProgramParser;
 import FrontEnd.Semantic.SemanticAnalyzer;
 import IR.IRPrinter;
+import IR.Interpreter.IRInterpreter;
 import Optim.*;
 import RISCV.RISCV_Info;
 import Test.AST.ASTPrinter;
@@ -145,9 +146,9 @@ public class RealRunner {
         ssaConstructor.run();
         boolean changed = true;
         PrintIR(true);
+        dominaceTreeBuilder.run();
         while (changed) {
             changed = false;
-            dominaceTreeBuilder.run();
             changed |= dvnt.run();
             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
@@ -199,8 +200,6 @@ public class RealRunner {
         if (isSemantic) return;
         Optimize();
         BackEnd();
-
-
 //        InputStream in = new FileInputStream("ir_out.txt");
 //        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), false);
 //        IRInterpreter.main("ir_out.txt", System.out, new FileInputStream("in.txt"), true);

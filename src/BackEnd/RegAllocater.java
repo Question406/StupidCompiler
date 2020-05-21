@@ -73,7 +73,7 @@ public class RegAllocater {
         program.getGlobalFuncMap().forEach((name, func) -> {
             renameVirReg(func);
             SP_insert(func);
-            peephole(func);
+//            peephole(func);
         });
     }
 

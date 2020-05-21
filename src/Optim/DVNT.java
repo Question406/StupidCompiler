@@ -89,9 +89,12 @@ public class DVNT extends Optimizer {
             var useRegs = inst.getUseRegs();
             if (useRegs != null) {
                 for (var use : useRegs) {
-                    var tmp = valMap.get(use);
-                    if (tmp != null && tmp != use) {
-                        inst.replaceUse(use, tmp);
+                    if (use instanceof VirReg) {
+                        var tmp = valMap.get(use);
+                        if (tmp != use) {
+                            System.out.println("dvnt worked");
+                            inst.replaceUse(use, tmp);
+                        }
                     }
                 }
             }
@@ -109,6 +112,7 @@ public class DVNT extends Optimizer {
                 if (tmp != null) {  // redundant
                     valMap.put(binInst.res, tmp);
                     curVals.add(binInst.res);
+                    System.out.println("dvnt bin worked");
                     inst.RMSelf();
                     changed = true;
                 } else {
@@ -130,6 +134,7 @@ public class DVNT extends Optimizer {
                 if (tmp != null) {  // redundant
                     valMap.put(unaInst.res, tmp);
                     curVals.add(unaInst.res);
+                    System.out.println("dvnt una worked");
                     inst.RMSelf();
                     changed = true;
                 } else {
@@ -138,16 +143,17 @@ public class DVNT extends Optimizer {
                     curVals.add(unaInst.res);
                     curExprs.add(expr);
                 }
-            } else if (inst instanceof MoveInst) {
-                if (((MoveInst) inst).moveFrom instanceof VirReg) {
-                    valMap.put(((MoveInst) inst).moveTo, ((MoveInst) inst).moveFrom);
-                    curVals.add(((MoveInst) inst).moveTo);
-                    inst.RMSelf();
-                    changed = true;
-                } else {
-                    valMap.put(inst.getDefReg(), inst.getDefReg());
-                    curVals.add(inst.getDefReg());
-                }
+//            } else if (inst instanceof MoveInst) {
+//                if (((MoveInst) inst).moveFrom instanceof VirReg) {
+//                    valMap.put(((MoveInst) inst).moveTo, ((MoveInst) inst).moveFrom);
+//                    curVals.add(((MoveInst) inst).moveTo);
+//                    inst.RMSelf();
+//                    System.out.println("dvnt move worked");
+//                    changed = true;
+//                } else {
+//                    valMap.put(inst.getDefReg(), inst.getDefReg());
+//                    curVals.add(inst.getDefReg());
+//                }
             }
             else if (inst.getDefReg() != null) {
                 valMap.put(inst.getDefReg(), inst.getDefReg());
@@ -173,6 +179,13 @@ public class DVNT extends Optimizer {
 
         // recursive run on domTree children
         List<BasicBlock> children = new ArrayList<>(curBB.DomBBs);
+//        children.sort(new Comparator<BasicBlock>() {
+//            @Override
+//            public int compare(BasicBlock basicBlock, BasicBlock t1) {
+//                return t1.RPOnum - basicBlock.RPOnum;
+//            }
+//        });
+        children.sort(new ReversePostOrderComparator());
         for(var child : children)
             run(child);
 
@@ -215,6 +228,14 @@ public class DVNT extends Optimizer {
         @Override
         public int hashCode() {
             return Objects.hash(isBin, binOp, unOp, src1, src2);
+        }
+    }
+
+    class ReversePostOrderComparator implements Comparator<BasicBlock>{
+
+        @Override
+        public int compare(BasicBlock o1, BasicBlock o2) {
+            return o2.RPOnum - o1.RPOnum;
         }
     }
 }
