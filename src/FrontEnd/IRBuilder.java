@@ -741,6 +741,7 @@ public class IRBuilder implements ASTVisitor {
             type = typeTable.get(typeNode);
             VirReg res = new VirReg("t");
             var inst = new AllocaInst(curBB, res, new ConstInt(type.allocSize()));
+//            var inst = new AllocaInst(curBB, res, new ConstInt(CompileOption.INTSIZE));
             curBB.addInst(inst);
             if (isGlobalInitInst) {
                 nowGlobal.initInsts.add(inst);

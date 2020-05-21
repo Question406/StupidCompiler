@@ -84,12 +84,20 @@ public class RegAllocater {
                 nxtInst = inst.next;
                 if (inst instanceof LoadInst) {
                     var prevInst = inst.prev;
-                    if (prevInst instanceof StoreInst && ((StoreInst) prevInst).storeTo == ((LoadInst) inst).from && ((StoreInst) prevInst).offset == ((LoadInst) inst).offset) {
+                    if (prevInst instanceof StoreInst && ((StoreInst) prevInst).storeTo.name.equals(((LoadInst) inst).from.name) && ((StoreInst) prevInst).offset == ((LoadInst) inst).offset) {
                         if (((StoreInst) prevInst).res != ((LoadInst) inst).res)
                             inst.linkPrev(new MoveInst(inst.curBB, ((LoadInst) inst).res, ((StoreInst) prevInst).res));
                         inst.RMSelf();
                         System.out.println("peephole workded");
-                    }
+//                    }
+                    } else
+                    if (prevInst instanceof LoadInst && (((LoadInst) prevInst).from.name.equals(((LoadInst) inst).from.name) && ((LoadInst) prevInst).offset == ((LoadInst) inst).offset)) {
+                        if (((LoadInst) inst).from instanceof StackLoc || ((LoadInst) prevInst).res.name.equals(((LoadInst) inst).from.name)) continue;
+                        if (((LoadInst) prevInst).res != ((LoadInst) inst).res)
+                            inst.linkPrev(new MoveInst(inst.curBB, ((LoadInst) inst).res, ((LoadInst) prevInst).res));
+                    inst.RMSelf();
+                    System.out.println("peephole worked");
+                }
                 }
             }
         }
@@ -213,6 +221,10 @@ public class RegAllocater {
                 && freezeWorkList.isEmpty() && spillWorkList.isEmpty()));
         assignColors();
         if (!spilledNodes.isEmpty()) {
+            System.err.println(curFunc.getFuncname());
+            for (var spill : spilledNodes) {
+                System.err.println(spill);
+            }
             rewriteProgram(curFunc);
             inner_run();
         }
@@ -221,12 +233,13 @@ public class RegAllocater {
     private void calcSpillCost(){
         for (var bb : curFunc.getReversePostOrderBBs()) {
             int level = loopAnalysis.loopLevel(bb);
+            int unit = (int) Math.pow(10, level);
             for (var inst = bb.insthead; inst != null; inst = inst.next) {
                 for (var use : inst.Use) {
-                    use.spillCost += Math.pow(10, level);
+                    use.spillCost += unit;
                 }
                 for (var def : inst.Def) {
-                    def.spillCost += Math.pow(10, level);
+                    def.spillCost += unit;
                 }
             }
         }
@@ -496,6 +509,12 @@ public class RegAllocater {
             }
             while (iterator.hasNext()) {
                 var tmp = iterator.next();
+                if (!tmp.addForSpill
+                        && (Math.abs(tmp.spillCost / tmp.degree - m.spillCost / m.degree) < 1e-3)
+                        && tmp.usedInstructions.size() < m.usedInstructions.size()) {
+                    m = tmp;
+                }
+                else
                 if (!tmp.addForSpill && tmp.spillCost / tmp.degree < m.spillCost / m.degree)
                     m = tmp;
             }

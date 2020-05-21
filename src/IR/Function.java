@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Function {
-    String funcname;
+    public String funcname;
     public ArrayList<VirReg> args;
     public VirReg thisPointer;
     public boolean isVoid;

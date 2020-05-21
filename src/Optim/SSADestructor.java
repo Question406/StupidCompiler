@@ -32,7 +32,8 @@ public class SSADestructor extends Optimizer {
             if (!Function.isBuiltIn(func)) {
                 SplitCriticalEdge(func);
                 func.CalcReversePostOrderBBs();
-                ReplaceParallelCopy(func);
+//                ReplaceParallelCopy(func);
+                ModifyParallelCopy(func);
             }
         });
         return false;
@@ -73,15 +74,11 @@ public class SSADestructor extends Optimizer {
                     if (res != fromOpr) {
                         if (fromOpr == null)
                             fromOpr = new ConstInt(0);
-//                        parallelCopyMap.get(fromBB).add(new ParallelCopy((VirReg) res, fromOpr)); // put new para copy
-                        if (tmpMap.get(fromBB)  == null)
-                            System.out.print("123");
                         tmpMap.get(fromBB).add(new ParallelCopy((VirReg) res, fromOpr));
                     }
                 }
                 instruction = instruction.next;
             }
-
             // remove phis
             bb.insthead = instruction;
             bb.insthead.prev = null;
@@ -148,6 +145,28 @@ public class SSADestructor extends Optimizer {
             for (var pc : PCs)
                 if (pc.from instanceof ConstInt)
                     bb.insttail.linkPrev(new MoveInst(bb, pc.to, pc.from));
+        }
+    }
+
+    private void ModifyParallelCopy(Function func) {
+        for (var bb : func.getReversePostOrderBBs()) {
+            if (!parallelCopyMap.containsKey(bb))
+                continue;
+            for (var pc : parallelCopyMap.get(bb)) {
+                if (pc.from instanceof VirReg) {
+                    if (pc.from != pc.to) {
+                        bb.insttail.linkPrev(new MoveInst(bb, pc.to, pc.from));
+                    } else {
+                        VirReg newV = new VirReg("breaker");
+                        bb.insttail.linkPrev(new MoveInst(bb, newV, pc.from));
+                        bb.insttail.linkPrev(new MoveInst(bb, pc.to, newV));
+                    }
+                }
+            }
+            for (var pc : parallelCopyMap.get(bb)) {
+                if (pc.from instanceof ConstInt)
+                    bb.insttail.linkPrev(new MoveInst(bb, pc.to,pc.from));
+            }
         }
     }
 

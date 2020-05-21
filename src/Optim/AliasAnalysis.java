@@ -8,6 +8,7 @@ import IR.Module;
 import IR.Operand.Variable;
 import IR.Operand.VirReg;
 
+// hopefully it's an Anderson's Algorithm
 // a very weak alias analysis for IRs like mine
 // since we didn't save type info in IR, so we have to recollect which virReg is a pointer
 
