@@ -18,11 +18,9 @@
  %Array_Node.doubleStorage.entryBB1:
  		 %t1.0  =   add  0   %this1.0 
  		 %t2.0  = load  %t1.0 
- 		 %copy1.0  = move  %t2.0 
  		 %t3.0  =   add  4   %this1.0 
  		 %t4.0  = load  %t3.0 
- 		 %szCopy1.0  = move  %t4.0 
- 		 %t5.0  =  call array.size  %copy1.0 
+ 		 %t5.0  =  call array.size  %t2.0 
  		 %t6.0  =   shl  %t5.0   1 
  		 %t7.0  =   shl  %t6.0   2 
  		 %t7.1  =   add  %t7.0   4 
@@ -37,7 +35,7 @@
  %forcondBB1:
  		 %t11.0  =   add  4   %this1.0 
  		 %t12.0  = load  %t11.0 
- 		 %t13.0  = sne  %t12.0   %szCopy1.0 
+ 		 %t13.0  = sne  %t12.0   %t4.0 
  		 br  %t13.0  %forbodyBB1 %afterForBB1 
  
  %afterForBB1:
@@ -48,7 +46,7 @@
  		 %t15.0  = load  %t14.0 
  		 %t16.0  =   shl  %t15.0   2 
  		 %t17.0  =   add  %t16.0   4 
- 		 %t18.0  =   add  %copy1.0   %t17.0 
+ 		 %t18.0  =   add  %t2.0   %t17.0 
  		 %t19.0  =   add  0   %this1.0 
  		 %t20.0  =   add  4   %this1.0 
  		 %t21.0  = load  %t19.0 
@@ -67,177 +65,135 @@
  }
  define void @Heap_Node.maxHeapify  %this1.0 %x1.0  {
  %Heap_Node.maxHeapify.entryBB1:
- 		 %_x1.0  = move  %x1.0 
- 		 %_t1.0  =   shl  %_x1.0   1 
+ 		 %_t1.0  =   shl  %x1.0   1 
  		 %_t2.0  =   add  %_t1.0   1 
- 		 %t1.0  = move  %_t2.0 
- 		 %l1.0  = move  %t1.0 
- 		 %_x2.0  = move  %x1.0 
- 		 %_t3.0  =   shl  %_x2.0   1 
+ 		 %_t3.0  =   shl  %x1.0   1 
  		 %_t4.0  =   add  %_t3.0   2 
- 		 %t2.0  = move  %_t4.0 
- 		 %r1.0  = move  %t2.0 
- 		 %largest1.0  = move  %x1.0 
- 		 %_this1.0  = move  %this1.0 
- 		 %_t5.0  =   add  0   %_this1.0 
+ 		 %_t5.0  =   add  0   %this1.0 
  		 %_t6.0  = load  %_t5.0 
- 		 %_this2.0  = move  %_t6.0 
- 		 %_t7.0  =   add  4   %_this2.0 
+ 		 %_t7.0  =   add  4   %_t6.0 
  		 %_t8.0  = load  %_t7.0 
- 		 %_t9.0  = move  %_t8.0 
- 		 %t3.0  = move  %_t9.0 
- 		 %t4.0  = slt  %l1.0   %t3.0 
- 		 br  %t4.0  %ifTrue1 %paracopy1 
+ 		 %t1.0  = slt  %_t2.0   %_t8.0 
+ 		 br  %t1.0  %ifTrue1 %paracopy1 
  
  %ifTrue1:
- 		 %t5.0  =   add  0   %this1.0 
- 		 %t6.0  = load  %t5.0 
- 		 %_this3.0  = move  %t6.0 
- 		 %_i1.0  = move  %l1.0 
- 		 %_t10.0  =   add  0   %_this3.0 
- 		 %_t11.0  = load  %_t10.0 
- 		 %_t12.0  =   shl  %_i1.0   2 
- 		 %_t13.0  =   add  %_t12.0   4 
- 		 %_t14.0  =   add  %_t11.0   %_t13.0 
- 		 %_t15.0  = load  %_t14.0 
- 		 %t7.0  = move  %_t15.0 
- 		 %_this4.0  = move  %t7.0 
- 		 %_t16.0  =   add  4   %_this4.0 
- 		 %_t17.0  = load  %_t16.0 
- 		 %_t18.0  =   sub  0   %_t17.0 
- 		 store  %_t16.0   %_t17.0 
- 		 %t8.0  = move  %_t18.0 
- 		 %t9.0  =   add  0   %this1.0 
- 		 %t10.0  = load  %t9.0 
- 		 %_this5.0  = move  %t10.0 
- 		 %_i2.0  = move  %largest1.0 
- 		 %_t19.0  =   add  0   %_this5.0 
- 		 %_t20.0  = load  %_t19.0 
- 		 %_t21.0  =   shl  %_i2.0   2 
- 		 %_t22.0  =   add  %_t21.0   4 
- 		 %_t23.0  =   add  %_t20.0   %_t22.0 
- 		 %_t24.0  = load  %_t23.0 
- 		 %t11.0  = move  %_t24.0 
- 		 %_this6.0  = move  %t11.0 
- 		 %_t25.0  =   add  4   %_this6.0 
- 		 %_t26.0  = load  %_t25.0 
- 		 %_t27.0  =   sub  0   %_t26.0 
- 		 store  %_t25.0   %_t26.0 
- 		 %t12.0  = move  %_t27.0 
- 		 %t13.0  = sgt  %t8.0   %t12.0 
- 		 br  %t13.0  %if_thenBB1 %paracopy2 
+ 		 %t2.0  =   add  0   %this1.0 
+ 		 %t3.0  = load  %t2.0 
+ 		 %_t9.0  =   add  0   %t3.0 
+ 		 %_t10.0  = load  %_t9.0 
+ 		 %_t11.0  =   shl  %_t2.0   2 
+ 		 %_t12.0  =   add  %_t11.0   4 
+ 		 %_t13.0  =   add  %_t10.0   %_t12.0 
+ 		 %_t14.0  = load  %_t13.0 
+ 		 %_t15.0  =   add  4   %_t14.0 
+ 		 %_t16.0  = load  %_t15.0 
+ 		 %_t17.0  =   sub  0   %_t16.0 
+ 		 store  %_t15.0   %_t16.0 
+ 		 %t4.0  =   add  0   %this1.0 
+ 		 %t5.0  = load  %t4.0 
+ 		 %_t18.0  =   add  0   %t5.0 
+ 		 %_t19.0  = load  %_t18.0 
+ 		 %_t20.0  =   shl  %x1.0   2 
+ 		 %_t21.0  =   add  %_t20.0   4 
+ 		 %_t22.0  =   add  %_t19.0   %_t21.0 
+ 		 %_t23.0  = load  %_t22.0 
+ 		 %_t24.0  =   add  4   %_t23.0 
+ 		 %_t25.0  = load  %_t24.0 
+ 		 %_t26.0  =   sub  0   %_t25.0 
+ 		 store  %_t24.0   %_t25.0 
+ 		 %t6.0  = sgt  %_t17.0   %_t26.0 
+ 		 br  %t6.0  %if_thenBB1 %paracopy2 
  
  %if_thenBB1:
- 		 %largest1.1  = move  %l1.0 
- 		 %largest1.2  = move  %largest1.1 
+ 		 %largest1.1  = move  %_t2.0 
  		 jump %if_end1
  
  %paracopy2:
- 		 %largest1.2  = move  %largest1.0 
+ 		 %largest1.1  = move  %x1.0 
  		 jump %if_end1
  
  %paracopy1:
- 		 %largest1.2  = move  %largest1.0 
+ 		 %largest1.1  = move  %x1.0 
  		 jump %if_end1
  
  %if_end1:
- 		 %_this7.0  = move  %this1.0 
- 		 %_t28.0  =   add  0   %_this7.0 
+ 		 %_t27.0  = load  %_t5.0 
+ 		 %_t28.0  =   add  4   %_t27.0 
  		 %_t29.0  = load  %_t28.0 
- 		 %_this8.0  = move  %_t29.0 
- 		 %_t30.0  =   add  4   %_this8.0 
- 		 %_t31.0  = load  %_t30.0 
- 		 %_t32.0  = move  %_t31.0 
- 		 %t14.0  = move  %_t32.0 
- 		 %t15.0  = slt  %r1.0   %t14.0 
- 		 br  %t15.0  %ifTrue2 %paracopy3 
+ 		 %t7.0  = slt  %_t4.0   %_t29.0 
+ 		 br  %t7.0  %ifTrue2 %paracopy3 
+ 
+ %paracopy3:
+ 		 %largest1.3  = move  %largest1.1 
+ 		 jump %if_end2
  
  %ifTrue2:
- 		 %t16.0  =   add  0   %this1.0 
- 		 %t17.0  = load  %t16.0 
- 		 %_this9.0  = move  %t17.0 
- 		 %_i3.0  = move  %r1.0 
- 		 %_t33.0  =   add  0   %_this9.0 
- 		 %_t34.0  = load  %_t33.0 
- 		 %_t35.0  =   shl  %_i3.0   2 
- 		 %_t36.0  =   add  %_t35.0   4 
- 		 %_t37.0  =   add  %_t34.0   %_t36.0 
- 		 %_t38.0  = load  %_t37.0 
- 		 %t18.0  = move  %_t38.0 
- 		 %_this10.0  = move  %t18.0 
- 		 %_t39.0  =   add  4   %_this10.0 
+ 		 %t8.0  =   add  0   %this1.0 
+ 		 %t9.0  = load  %t8.0 
+ 		 %_t30.0  =   add  0   %t9.0 
+ 		 %_t31.0  = load  %_t30.0 
+ 		 %_t32.0  =   shl  %_t4.0   2 
+ 		 %_t33.0  =   add  %_t32.0   4 
+ 		 %_t34.0  =   add  %_t31.0   %_t33.0 
+ 		 %_t35.0  = load  %_t34.0 
+ 		 %_t36.0  =   add  4   %_t35.0 
+ 		 %_t37.0  = load  %_t36.0 
+ 		 %_t38.0  =   sub  0   %_t37.0 
+ 		 store  %_t36.0   %_t37.0 
+ 		 %t10.0  =   add  0   %this1.0 
+ 		 %t11.0  = load  %t10.0 
+ 		 %_t39.0  =   add  0   %t11.0 
  		 %_t40.0  = load  %_t39.0 
- 		 %_t41.0  =   sub  0   %_t40.0 
- 		 store  %_t39.0   %_t40.0 
- 		 %t19.0  = move  %_t41.0 
- 		 %t20.0  =   add  0   %this1.0 
- 		 %t21.0  = load  %t20.0 
- 		 %_this11.0  = move  %t21.0 
- 		 %_i4.0  = move  %largest1.2 
- 		 %_t42.0  =   add  0   %_this11.0 
- 		 %_t43.0  = load  %_t42.0 
- 		 %_t44.0  =   shl  %_i4.0   2 
- 		 %_t45.0  =   add  %_t44.0   4 
- 		 %_t46.0  =   add  %_t43.0   %_t45.0 
- 		 %_t47.0  = load  %_t46.0 
- 		 %t22.0  = move  %_t47.0 
- 		 %_this12.0  = move  %t22.0 
- 		 %_t48.0  =   add  4   %_this12.0 
- 		 %_t49.0  = load  %_t48.0 
- 		 %_t50.0  =   sub  0   %_t49.0 
- 		 store  %_t48.0   %_t49.0 
- 		 %t23.0  = move  %_t50.0 
- 		 %t24.0  = sgt  %t19.0   %t23.0 
- 		 br  %t24.0  %if_thenBB2 %paracopy4 
+ 		 %_t41.0  =   shl  %largest1.1   2 
+ 		 %_t42.0  =   add  %_t41.0   4 
+ 		 %_t43.0  =   add  %_t40.0   %_t42.0 
+ 		 %_t44.0  = load  %_t43.0 
+ 		 %_t45.0  =   add  4   %_t44.0 
+ 		 %_t46.0  = load  %_t45.0 
+ 		 %_t47.0  =   sub  0   %_t46.0 
+ 		 store  %_t45.0   %_t46.0 
+ 		 %t12.0  = sgt  %_t38.0   %_t47.0 
+ 		 br  %t12.0  %if_thenBB2 %paracopy4 
  
  %paracopy4:
- 		 %largest1.3  = move  %largest1.2 
+ 		 %largest1.3  = move  %largest1.1 
  		 jump %if_end2
  
  %if_thenBB2:
- 		 %largest1.4  = move  %r1.0 
- 		 %largest1.3  = move  %largest1.4 
- 		 jump %if_end2
- 
- %paracopy3:
- 		 %largest1.3  = move  %largest1.2 
+ 		 %largest1.3  = move  %_t4.0 
  		 jump %if_end2
  
  %if_end2:
- 		 %t25.0  = seq  %largest1.3   %x1.0 
- 		 br  %t25.0  %Heap_Node.maxHeapify.exitBB1 %if_end3 
+ 		 %t13.0  = seq  %largest1.3   %x1.0 
+ 		 br  %t13.0  %Heap_Node.maxHeapify.exitBB1 %if_end3 
  
  %if_end3:
- 		 %t26.0  =   add  0   %this1.0 
- 		 %t27.0  = load  %t26.0 
- 		 %_this13.0  = move  %t27.0 
- 		 %_i5.0  = move  %x1.0 
- 		 %_j1.0  = move  %largest1.3 
- 		 %_t51.0  =   add  0   %_this13.0 
- 		 %_t52.0  = load  %_t51.0 
- 		 %_t53.0  =   shl  %_i5.0   2 
- 		 %_t54.0  =   add  %_t53.0   4 
- 		 %_t55.0  =   add  %_t52.0   %_t54.0 
- 		 %_t56.0  = load  %_t55.0 
- 		 %_t57.0  = move  %_t56.0 
- 		 %_t58.0  =   add  0   %_this13.0 
- 		 %_t59.0  = load  %_t58.0 
- 		 %_t60.0  =   shl  %_j1.0   2 
- 		 %_t61.0  =   add  %_t60.0   4 
- 		 %_t62.0  =   add  %_t59.0   %_t61.0 
- 		 %_t63.0  =   add  0   %_this13.0 
- 		 %_t64.0  = load  %_t63.0 
- 		 %_t65.0  =   shl  %_i5.0   2 
- 		 %_t66.0  =   add  %_t65.0   4 
- 		 %_t67.0  =   add  %_t64.0   %_t66.0 
- 		 %_t68.0  = load  %_t62.0 
- 		 store  %_t67.0   %_t68.0 
- 		 %_t69.0  =   add  0   %_this13.0 
- 		 %_t70.0  = load  %_t69.0 
- 		 %_t71.0  =   shl  %_j1.0   2 
- 		 %_t72.0  =   add  %_t71.0   4 
- 		 %_t73.0  =   add  %_t70.0   %_t72.0 
- 		 store  %_t73.0   %_t57.0 
+ 		 %t14.0  =   add  0   %this1.0 
+ 		 %t15.0  = load  %t14.0 
+ 		 %_t48.0  =   add  0   %t15.0 
+ 		 %_t49.0  = load  %_t48.0 
+ 		 %_t50.0  =   shl  %x1.0   2 
+ 		 %_t51.0  =   add  %_t50.0   4 
+ 		 %_t52.0  =   add  %_t49.0   %_t51.0 
+ 		 %_t53.0  = load  %_t52.0 
+ 		 %_t54.0  =   add  0   %t15.0 
+ 		 %_t55.0  = load  %_t54.0 
+ 		 %_t56.0  =   shl  %largest1.3   2 
+ 		 %_t57.0  =   add  %_t56.0   4 
+ 		 %_t58.0  =   add  %_t55.0   %_t57.0 
+ 		 %_t59.0  =   add  0   %t15.0 
+ 		 %_t60.0  = load  %_t59.0 
+ 		 %_t61.0  =   shl  %x1.0   2 
+ 		 %_t62.0  =   add  %_t61.0   4 
+ 		 %_t63.0  =   add  %_t60.0   %_t62.0 
+ 		 %_t64.0  = load  %_t58.0 
+ 		 store  %_t63.0   %_t64.0 
+ 		 %_t65.0  =   add  0   %t15.0 
+ 		 %_t66.0  = load  %_t65.0 
+ 		 %_t67.0  =   shl  %largest1.3   2 
+ 		 %_t68.0  =   add  %_t67.0   4 
+ 		 %_t69.0  =   add  %_t66.0   %_t68.0 
+ 		 store  %_t69.0   %_t53.0 
  		 call Heap_Node.maxHeapify  %this1.0 %largest1.3   
  		 jump %Heap_Node.maxHeapify.exitBB1
  
@@ -248,41 +204,35 @@
  define i32 @__init   {
  %__init.entryBB1:
  		 %__t1.0  =  call getInt  
- 		 %_gn1.0  = move  %__t1.0 
  		 %__t2.0  =  call getInt  
- 		 %_gm1.0  = move  %__t2.0 
  		 %__t3.0  = alloc  16 
- 		 %_gg1.0  = move  %__t3.0 
- 		 %_this1.0  = move  %_gg1.0 
- 		 %_n1.0  = move  %_gn1.0 
- 		 %_m1.0  = move  %_gm1.0 
- 		 %_t1.0  =   shl  %_m1.0   2 
+ 		 %_t1.0  =   shl  %__t2.0   2 
  		 %_t1.1  =   add  %_t1.0   4 
  		 %_t2.0  = alloc  %_t1.1 
- 		 store  %_t2.0   %_m1.0 
- 		 %_t3.0  =   add  0   %_this1.0 
+ 		 store  %_t2.0   %__t2.0 
+ 		 %_t3.0  =   add  0   %__t3.0 
  		 store  %_t3.0   %_t2.0 
- 		 %_t4.0  =   shl  %_m1.0   2 
+ 		 %_t4.0  =   shl  %__t2.0   2 
  		 %_t4.1  =   add  %_t4.0   4 
  		 %_t5.0  = alloc  %_t4.1 
- 		 store  %_t5.0   %_m1.0 
- 		 %_t6.0  =   add  4   %_this1.0 
+ 		 store  %_t5.0   %__t2.0 
+ 		 %_t6.0  =   add  4   %__t3.0 
  		 store  %_t6.0   %_t5.0 
- 		 %_t7.0  =   shl  %_n1.0   2 
+ 		 %_t7.0  =   shl  %__t1.0   2 
  		 %_t7.1  =   add  %_t7.0   4 
  		 %_t8.0  = alloc  %_t7.1 
- 		 store  %_t8.0   %_n1.0 
- 		 %_t9.0  =   add  8   %_this1.0 
+ 		 store  %_t8.0   %__t1.0 
+ 		 %_t9.0  =   add  8   %__t3.0 
  		 store  %_t9.0   %_t8.0 
  		 %_i1.2  = move  0 
  		 jump %_forcondBB1
  
  %_forcondBB1:
- 		 %_t10.0  = slt  %_i1.2   %_m1.0 
+ 		 %_t10.0  = slt  %_i1.2   %__t2.0 
  		 br  %_t10.0  %_forbodyBB1 %_afterForBB1 
  
  %_forbodyBB1:
- 		 %_t11.0  =   add  4   %_this1.0 
+ 		 %_t11.0  =   add  4   %__t3.0 
  		 %_t12.0  = load  %_t11.0 
  		 %_t13.0  =   shl  %_i1.2   2 
  		 %_t14.0  =   add  %_t13.0   4 
@@ -297,653 +247,240 @@
  		 jump %_forcondBB2
  
  %_forcondBB2:
- 		 %_t16.0  = slt  %_i1.4   %_n1.0 
+ 		 %_t16.0  = slt  %_i1.4   %__t1.0 
  		 br  %_t16.0  %_forbodyBB2 %afterCallBB1 
  
+ %_forbodyBB2:
+ 		 %_t17.0  =   add  8   %__t3.0 
+ 		 %_t18.0  = load  %_t17.0 
+ 		 %_t19.0  =   shl  %_i1.4   2 
+ 		 %_t20.0  =   add  %_t19.0   4 
+ 		 %_t21.0  =   add  %_t18.0   %_t20.0 
+ 		 store  %_t21.0   -1 
+ 		 %_i1.5  =   add  %_i1.4   1 
+ 		 %_i1.4  = move  %_i1.5 
+ 		 jump %_forcondBB2
+ 
  %afterCallBB1:
- 		 %_t17.0  =   add  12   %_this1.0 
- 		 store  %_t17.0   0 
+ 		 %_t22.0  =   add  12   %__t3.0 
+ 		 store  %_t22.0   0 
  		 %__i1.2  = move  0 
  		 jump %__forcondBB1
  
  %__forcondBB1:
- 		 %__t4.0  = slt  %__i1.2   %_gm1.0 
+ 		 %__t4.0  = slt  %__i1.2   %__t2.0 
  		 br  %__t4.0  %__forbodyBB1 %_afterCallBB1 
- 
- %__forbodyBB1:
- 		 %__t5.0  =  call getInt  
- 		 %__u1.0  = move  %__t5.0 
- 		 %__t6.0  =  call getInt  
- 		 %__v1.0  = move  %__t6.0 
- 		 %__t7.0  =  call getInt  
- 		 %__w1.0  = move  %__t7.0 
- 		 %_this2.0  = move  %_gg1.0 
- 		 %_u1.0  = move  %__u1.0 
- 		 %_v1.0  = move  %__v1.0 
- 		 %_w1.0  = move  %__w1.0 
- 		 %_t18.0  = alloc  12 
- 		 %_e1.0  = move  %_t18.0 
- 		 %_t19.0  =   add  %_e1.0   0 
- 		 store  %_t19.0   %_u1.0 
- 		 %_t20.0  =   add  %_e1.0   4 
- 		 store  %_t20.0   %_v1.0 
- 		 %_t21.0  =   add  %_e1.0   8 
- 		 store  %_t21.0   %_w1.0 
- 		 %_t22.0  =   add  0   %_this2.0 
- 		 %_t23.0  =   add  12   %_this2.0 
- 		 %_t24.0  = load  %_t22.0 
- 		 %_t25.0  = load  %_t23.0 
- 		 %_t26.0  =   shl  %_t25.0   2 
- 		 %_t27.0  =   add  %_t26.0   4 
- 		 %_t28.0  =   add  %_t24.0   %_t27.0 
- 		 store  %_t28.0   %_e1.0 
- 		 %_t29.0  =   add  8   %_this2.0 
- 		 %_t30.0  = load  %_t29.0 
- 		 %_t31.0  =   shl  %_u1.0   2 
- 		 %_t32.0  =   add  %_t31.0   4 
- 		 %_t33.0  =   add  %_t30.0   %_t32.0 
- 		 %_t34.0  =   add  4   %_this2.0 
- 		 %_t35.0  =   add  12   %_this2.0 
- 		 %_t36.0  = load  %_t34.0 
- 		 %_t37.0  = load  %_t35.0 
- 		 %_t38.0  =   shl  %_t37.0   2 
- 		 %_t39.0  =   add  %_t38.0   4 
- 		 %_t40.0  =   add  %_t36.0   %_t39.0 
- 		 %_t41.0  = load  %_t33.0 
- 		 store  %_t40.0   %_t41.0 
- 		 %_t42.0  =   add  12   %_this2.0 
- 		 %_t43.0  =   add  8   %_this2.0 
- 		 %_t44.0  = load  %_t43.0 
- 		 %_t45.0  =   shl  %_u1.0   2 
- 		 %_t46.0  =   add  %_t45.0   4 
- 		 %_t47.0  =   add  %_t44.0   %_t46.0 
- 		 %_t48.0  = load  %_t42.0 
- 		 store  %_t47.0   %_t48.0 
- 		 %_t49.0  =   add  12   %_this2.0 
- 		 %_t50.0  = load  %_t49.0 
- 		 %_t50.1  =   add  %_t50.0   1 
- 		 store  %_t49.0   %_t50.1 
- 		 %__i1.3  =   add  %__i1.2   1 
- 		 %__i1.2  = move  %__i1.3 
- 		 jump %__forcondBB1
  
  %_afterCallBB1:
  		 %_i2.2  = move  0 
  		 jump %_forcondBB3
  
  %_forcondBB3:
- 		 %_t51.0  = slt  %_i2.2   %_gn1.0 
- 		 br  %_t51.0  %_forbodyBB3 %afterCallBB2 
+ 		 %_t23.0  = slt  %_i2.2   %__t1.0 
+ 		 br  %_t23.0  %_forbodyBB3 %afterCallBB2 
  
  %_forbodyBB3:
- 		 %__s1.1  = move  %_i2.2 
- 		 %__t8.0  =   shl  %_gn1.0   2 
- 		 %__t8.1  =   add  %__t8.0   4 
- 		 %__t9.0  = alloc  %__t8.1 
- 		 store  %__t9.0   %_gn1.0 
- 		 %__visited1.1  = move  %__t9.0 
- 		 %__t10.0  =   shl  %_gn1.0   2 
- 		 %__t10.1  =   add  %__t10.0   4 
- 		 %__t11.0  = alloc  %__t10.1 
- 		 store  %__t11.0   %_gn1.0 
- 		 %__d1.1  = move  %__t11.0 
+ 		 %__t5.0  =   shl  %__t1.0   2 
+ 		 %__t5.1  =   add  %__t5.0   4 
+ 		 %__t6.0  = alloc  %__t5.1 
+ 		 store  %__t6.0   %__t1.0 
+ 		 %__t7.0  =   shl  %__t1.0   2 
+ 		 %__t7.1  =   add  %__t7.0   4 
+ 		 %__t8.0  = alloc  %__t7.1 
+ 		 store  %__t8.0   %__t1.0 
  		 %__i2.3  = move  0 
  		 jump %__forcondBB2
  
  %__forcondBB2:
- 		 %__t12.0  = slt  %__i2.3   %_gn1.0 
- 		 br  %__t12.0  %__forbodyBB2 %__afterForBB1 
+ 		 %__t9.0  = slt  %__i2.3   %__t1.0 
+ 		 br  %__t9.0  %__forbodyBB2 %__afterForBB1 
  
  %__forbodyBB2:
+ 		 %__t10.0  =   shl  %__i2.3   2 
+ 		 %__t11.0  =   add  %__t10.0   4 
+ 		 %__t12.0  =   add  %__t8.0   %__t11.0 
+ 		 store  %__t12.0   10000000 
  		 %__t13.0  =   shl  %__i2.3   2 
  		 %__t14.0  =   add  %__t13.0   4 
- 		 %__t15.0  =   add  %__d1.1   %__t14.0 
- 		 store  %__t15.0   10000000 
- 		 %__t16.0  =   shl  %__i2.3   2 
- 		 %__t17.0  =   add  %__t16.0   4 
- 		 %__t18.0  =   add  %__visited1.1   %__t17.0 
- 		 store  %__t18.0   0 
+ 		 %__t15.0  =   add  %__t6.0   %__t14.0 
+ 		 store  %__t15.0   0 
  		 %__i2.4  =   add  %__i2.3   1 
  		 %__i2.3  = move  %__i2.4 
  		 jump %__forcondBB2
  
  %__afterForBB1:
- 		 %__t19.0  =   shl  %__s1.1   2 
- 		 %__t20.0  =   add  %__t19.0   4 
- 		 %__t21.0  =   add  %__d1.1   %__t20.0 
- 		 store  %__t21.0   0 
- 		 %__t22.0  = alloc  4 
- 		 %___this1.0  = move  %__t22.0 
+ 		 %__t16.0  =   shl  %_i2.2   2 
+ 		 %__t17.0  =   add  %__t16.0   4 
+ 		 %__t18.0  =   add  %__t8.0   %__t17.0 
+ 		 store  %__t18.0   0 
+ 		 %__t19.0  = alloc  4 
  		 %___t1.0  = alloc  8 
- 		 %_this3.0  = move  %___t1.0 
- 		 %_t52.0  =   add  4   %_this3.0 
- 		 store  %_t52.0   0 
- 		 %_t53.0  = alloc  68 
- 		 store  %_t53.0   16 
- 		 %_t54.0  =   add  0   %_this3.0 
- 		 store  %_t54.0   %_t53.0 
- 		 %___t2.0  =   add  0   %___this1.0 
+ 		 %_t24.0  =   add  4   %___t1.0 
+ 		 store  %_t24.0   0 
+ 		 %_t25.0  = alloc  68 
+ 		 store  %_t25.0   16 
+ 		 %_t26.0  =   add  0   %___t1.0 
+ 		 store  %_t26.0   %_t25.0 
+ 		 %___t2.0  =   add  0   %__t19.0 
  		 store  %___t2.0   %___t1.0 
- 		 %__q1.1  = move  %__t22.0 
- 		 %__t23.0  = alloc  8 
- 		 %__src1.0  = move  %__t23.0 
- 		 %__t24.0  =   add  %__src1.0   4 
- 		 store  %__t24.0   0 
- 		 %__t25.0  =   add  %__src1.0   0 
- 		 store  %__t25.0   %__s1.1 
- 		 %___this2.1  = move  %__q1.1 
- 		 %___v1.0  = move  %__src1.0 
- 		 %___t3.0  =   add  0   %___this2.1 
+ 		 %__t20.0  = alloc  8 
+ 		 %__t21.0  =   add  %__t20.0   4 
+ 		 store  %__t21.0   0 
+ 		 %__t22.0  =   add  %__t20.0   0 
+ 		 store  %__t22.0   %_i2.2 
+ 		 %___t3.0  =   add  0   %__t19.0 
  		 %___t4.0  = load  %___t3.0 
- 		 %____this1.1  = move  %___t4.0 
- 		 %____v1.1  = move  %___v1.0 
- 		 %_this4.0  = move  %____this1.1 
- 		 %_t55.0  =   add  4   %_this4.0 
- 		 %_t56.0  = load  %_t55.0 
- 		 %____t1.0  = move  %_t56.0 
- 		 %____t2.0  =   add  0   %____this1.1 
- 		 %____t3.0  = load  %____t2.0 
- 		 %____t4.0  =  call array.size  %____t3.0 
- 		 %____t5.0  = seq  %____t1.0   %____t4.0 
- 		 br  %____t5.0  %____if_thenBB1 %___afterCallBB1 
+ 		 %_t27.0  =   add  4   %___t4.0 
+ 		 %_t28.0  = load  %_t27.0 
+ 		 %____t1.0  =   add  0   %___t4.0 
+ 		 %____t2.0  = load  %____t1.0 
+ 		 %____t3.0  =  call array.size  %____t2.0 
+ 		 %____t4.0  = seq  %_t28.0   %____t3.0 
+ 		 br  %____t4.0  %____if_thenBB1 %___afterCallBB1 
  
  %____if_thenBB1:
- 		 %_this5.2  = move  %____this1.1 
- 		 %_t57.0  =   add  0   %_this5.2 
- 		 %_t58.0  = load  %_t57.0 
- 		 %_copy1.2  = move  %_t58.0 
- 		 %_t59.0  =   add  4   %_this5.2 
- 		 %_t60.0  = load  %_t59.0 
- 		 %_szCopy1.2  = move  %_t60.0 
- 		 %_t61.0  =  call array.size  %_copy1.2 
- 		 %_t62.0  =   shl  %_t61.0   1 
- 		 %_t63.0  =   shl  %_t62.0   2 
- 		 %_t63.1  =   add  %_t63.0   4 
- 		 %_t64.0  = alloc  %_t63.1 
- 		 store  %_t64.0   %_t62.0 
- 		 %_t65.0  =   add  0   %_this5.2 
- 		 store  %_t65.0   %_t64.0 
- 		 %_t66.0  =   add  4   %_this5.2 
- 		 store  %_t66.0   0 
+ 		 %_t29.0  =   add  0   %___t4.0 
+ 		 %_t30.0  = load  %_t29.0 
+ 		 %_t31.0  =   add  4   %___t4.0 
+ 		 %_t32.0  = load  %_t31.0 
+ 		 %_t33.0  =  call array.size  %_t30.0 
+ 		 %_t34.0  =   shl  %_t33.0   1 
+ 		 %_t35.0  =   shl  %_t34.0   2 
+ 		 %_t35.1  =   add  %_t35.0   4 
+ 		 %_t36.0  = alloc  %_t35.1 
+ 		 store  %_t36.0   %_t34.0 
+ 		 %_t37.0  =   add  0   %___t4.0 
+ 		 store  %_t37.0   %_t36.0 
+ 		 %_t38.0  =   add  4   %___t4.0 
+ 		 store  %_t38.0   0 
  		 jump %_forcondBB4
  
  %_forcondBB4:
- 		 %_t67.0  =   add  4   %_this5.2 
- 		 %_t68.0  = load  %_t67.0 
- 		 %_t69.0  = sne  %_t68.0   %_szCopy1.2 
- 		 br  %_t69.0  %_forbodyBB4 %___afterCallBB1 
+ 		 %_t39.0  =   add  4   %___t4.0 
+ 		 %_t40.0  = load  %_t39.0 
+ 		 %_t41.0  = sne  %_t40.0   %_t32.0 
+ 		 br  %_t41.0  %_forbodyBB4 %___afterCallBB1 
  
  %_forbodyBB4:
- 		 %_t70.0  =   add  4   %_this5.2 
- 		 %_t71.0  = load  %_t70.0 
- 		 %_t72.0  =   shl  %_t71.0   2 
- 		 %_t73.0  =   add  %_t72.0   4 
- 		 %_t74.0  =   add  %_copy1.2   %_t73.0 
- 		 %_t75.0  =   add  0   %_this5.2 
- 		 %_t76.0  =   add  4   %_this5.2 
- 		 %_t77.0  = load  %_t75.0 
- 		 %_t78.0  = load  %_t76.0 
- 		 %_t79.0  =   shl  %_t78.0   2 
- 		 %_t80.0  =   add  %_t79.0   4 
- 		 %_t81.0  =   add  %_t77.0   %_t80.0 
- 		 %_t82.0  = load  %_t74.0 
- 		 store  %_t81.0   %_t82.0 
- 		 %_t83.0  =   add  4   %_this5.2 
- 		 %_t84.0  = load  %_t83.0 
- 		 %_t84.1  =   add  %_t84.0   1 
- 		 store  %_t83.0   %_t84.1 
+ 		 %_t42.0  =   add  4   %___t4.0 
+ 		 %_t43.0  = load  %_t42.0 
+ 		 %_t44.0  =   shl  %_t43.0   2 
+ 		 %_t45.0  =   add  %_t44.0   4 
+ 		 %_t46.0  =   add  %_t30.0   %_t45.0 
+ 		 %_t47.0  =   add  0   %___t4.0 
+ 		 %_t48.0  =   add  4   %___t4.0 
+ 		 %_t49.0  = load  %_t47.0 
+ 		 %_t50.0  = load  %_t48.0 
+ 		 %_t51.0  =   shl  %_t50.0   2 
+ 		 %_t52.0  =   add  %_t51.0   4 
+ 		 %_t53.0  =   add  %_t49.0   %_t52.0 
+ 		 %_t54.0  = load  %_t46.0 
+ 		 store  %_t53.0   %_t54.0 
+ 		 %_t55.0  =   add  4   %___t4.0 
+ 		 %_t56.0  = load  %_t55.0 
+ 		 %_t56.1  =   add  %_t56.0   1 
+ 		 store  %_t55.0   %_t56.1 
  		 jump %_forcondBB4
  
  %___afterCallBB1:
- 		 %____t6.0  =   add  0   %____this1.1 
- 		 %____t7.0  =   add  4   %____this1.1 
+ 		 %____t5.0  =   add  0   %___t4.0 
+ 		 %____t6.0  =   add  4   %___t4.0 
+ 		 %____t7.0  = load  %____t5.0 
  		 %____t8.0  = load  %____t6.0 
- 		 %____t9.0  = load  %____t7.0 
- 		 %____t10.0  =   shl  %____t9.0   2 
- 		 %____t11.0  =   add  %____t10.0   4 
- 		 %____t12.0  =   add  %____t8.0   %____t11.0 
- 		 store  %____t12.0   %____v1.1 
- 		 %____t13.0  =   add  4   %____this1.1 
- 		 %____t14.0  = load  %____t13.0 
- 		 %____t14.1  =   add  %____t14.0   1 
- 		 store  %____t13.0   %____t14.1 
- 		 %____this2.0  = move  %___this2.1 
- 		 %____t15.0  =   add  0   %____this2.0 
- 		 %____t16.0  = load  %____t15.0 
- 		 %_this6.0  = move  %____t16.0 
- 		 %_t85.0  =   add  4   %_this6.0 
- 		 %_t86.0  = load  %_t85.0 
- 		 %____t17.0  = move  %_t86.0 
- 		 %___t5.0  = move  %____t17.0 
- 		 %___t6.0  =   sub  %___t5.0   1 
- 		 %___x1.1  = move  %___t6.0 
- 		 %___x1.2  = move  %___x1.1 
+ 		 %____t9.0  =   shl  %____t8.0   2 
+ 		 %____t10.0  =   add  %____t9.0   4 
+ 		 %____t11.0  =   add  %____t7.0   %____t10.0 
+ 		 store  %____t11.0   %__t20.0 
+ 		 %____t12.0  =   add  4   %___t4.0 
+ 		 %____t13.0  = load  %____t12.0 
+ 		 %____t13.1  =   add  %____t13.0   1 
+ 		 store  %____t12.0   %____t13.1 
+ 		 %____t14.0  =   add  0   %__t19.0 
+ 		 %____t15.0  = load  %____t14.0 
+ 		 %_t57.0  =   add  4   %____t15.0 
+ 		 %_t58.0  = load  %_t57.0 
+ 		 %___t5.0  =   sub  %_t58.0   1 
+ 		 %___x1.2  = move  %___t5.0 
  		 jump %___whileCondBB1
  
  %___whileCondBB1:
- 		 %___t7.0  = sgt  %___x1.2   0 
- 		 br  %___t7.0  %___whileBodyBB1 %__whileCondBB1 
+ 		 %___t6.0  = sgt  %___x1.2   0 
+ 		 br  %___t6.0  %___whileBodyBB1 %__whileCondBB1 
  
  %___whileBodyBB1:
- 		 %____x1.0  = move  %___x1.2 
- 		 %____t18.0  =   sub  %____x1.0   1 
- 		 %____t19.0  =   shr  %____t18.0   1 
- 		 %___t8.0  = move  %____t19.0 
- 		 %___p1.3  = move  %___t8.0 
- 		 %___t9.0  =   add  0   %___this2.1 
- 		 %___t10.0  = load  %___t9.0 
- 		 %____this3.0  = move  %___t10.0 
- 		 %____i1.0  = move  %___p1.3 
- 		 %____t20.0  =   add  0   %____this3.0 
- 		 %____t21.0  = load  %____t20.0 
- 		 %____t22.0  =   shl  %____i1.0   2 
- 		 %____t23.0  =   add  %____t22.0   4 
- 		 %____t24.0  =   add  %____t21.0   %____t23.0 
+ 		 %____t16.0  =   sub  %___x1.2   1 
+ 		 %____t17.0  =   shr  %____t16.0   1 
+ 		 %___t7.0  =   add  0   %__t19.0 
+ 		 %___t8.0  = load  %___t7.0 
+ 		 %____t18.0  =   add  0   %___t8.0 
+ 		 %____t19.0  = load  %____t18.0 
+ 		 %____t20.0  =   shl  %____t17.0   2 
+ 		 %____t21.0  =   add  %____t20.0   4 
+ 		 %____t22.0  =   add  %____t19.0   %____t21.0 
+ 		 %____t23.0  = load  %____t22.0 
+ 		 %____t24.0  =   add  4   %____t23.0 
  		 %____t25.0  = load  %____t24.0 
- 		 %___t11.0  = move  %____t25.0 
- 		 %____this4.0  = move  %___t11.0 
- 		 %____t26.0  =   add  4   %____this4.0 
- 		 %____t27.0  = load  %____t26.0 
- 		 %____t28.0  =   sub  0   %____t27.0 
- 		 store  %____t26.0   %____t27.0 
- 		 %___t12.0  = move  %____t28.0 
- 		 %___t13.0  =   add  0   %___this2.1 
- 		 %___t14.0  = load  %___t13.0 
- 		 %____this5.0  = move  %___t14.0 
- 		 %____i2.0  = move  %___x1.2 
- 		 %____t29.0  =   add  0   %____this5.0 
- 		 %____t30.0  = load  %____t29.0 
- 		 %____t31.0  =   shl  %____i2.0   2 
- 		 %____t32.0  =   add  %____t31.0   4 
- 		 %____t33.0  =   add  %____t30.0   %____t32.0 
+ 		 %____t26.0  =   sub  0   %____t25.0 
+ 		 store  %____t24.0   %____t25.0 
+ 		 %___t9.0  =   add  0   %__t19.0 
+ 		 %___t10.0  = load  %___t9.0 
+ 		 %____t27.0  =   add  0   %___t10.0 
+ 		 %____t28.0  = load  %____t27.0 
+ 		 %____t29.0  =   shl  %___x1.2   2 
+ 		 %____t30.0  =   add  %____t29.0   4 
+ 		 %____t31.0  =   add  %____t28.0   %____t30.0 
+ 		 %____t32.0  = load  %____t31.0 
+ 		 %____t33.0  =   add  4   %____t32.0 
  		 %____t34.0  = load  %____t33.0 
- 		 %___t15.0  = move  %____t34.0 
- 		 %____this6.0  = move  %___t15.0 
- 		 %____t35.0  =   add  4   %____this6.0 
- 		 %____t36.0  = load  %____t35.0 
- 		 %____t37.0  =   sub  0   %____t36.0 
- 		 store  %____t35.0   %____t36.0 
- 		 %___t16.0  = move  %____t37.0 
- 		 %___t17.0  = sge  %___t12.0   %___t16.0 
- 		 br  %___t17.0  %__whileCondBB1 %___if_end1 
+ 		 %____t35.0  =   sub  0   %____t34.0 
+ 		 store  %____t33.0   %____t34.0 
+ 		 %___t11.0  = sge  %____t26.0   %____t35.0 
+ 		 br  %___t11.0  %__whileCondBB1 %___if_end1 
  
  %___if_end1:
- 		 %___t18.0  =   add  0   %___this2.1 
- 		 %___t19.0  = load  %___t18.0 
- 		 %____this7.0  = move  %___t19.0 
- 		 %____i3.0  = move  %___p1.3 
- 		 %____j1.0  = move  %___x1.2 
- 		 %____t38.0  =   add  0   %____this7.0 
- 		 %____t39.0  = load  %____t38.0 
- 		 %____t40.0  =   shl  %____i3.0   2 
- 		 %____t41.0  =   add  %____t40.0   4 
- 		 %____t42.0  =   add  %____t39.0   %____t41.0 
+ 		 %___t12.0  =   add  0   %__t19.0 
+ 		 %___t13.0  = load  %___t12.0 
+ 		 %____t36.0  =   add  0   %___t13.0 
+ 		 %____t37.0  = load  %____t36.0 
+ 		 %____t38.0  =   shl  %____t17.0   2 
+ 		 %____t39.0  =   add  %____t38.0   4 
+ 		 %____t40.0  =   add  %____t37.0   %____t39.0 
+ 		 %____t41.0  = load  %____t40.0 
+ 		 %____t42.0  =   add  0   %___t13.0 
  		 %____t43.0  = load  %____t42.0 
- 		 %____t44.0  = move  %____t43.0 
- 		 %____t45.0  =   add  0   %____this7.0 
- 		 %____t46.0  = load  %____t45.0 
- 		 %____t47.0  =   shl  %____j1.0   2 
- 		 %____t48.0  =   add  %____t47.0   4 
- 		 %____t49.0  =   add  %____t46.0   %____t48.0 
- 		 %____t50.0  =   add  0   %____this7.0 
- 		 %____t51.0  = load  %____t50.0 
- 		 %____t52.0  =   shl  %____i3.0   2 
- 		 %____t53.0  =   add  %____t52.0   4 
- 		 %____t54.0  =   add  %____t51.0   %____t53.0 
- 		 %____t55.0  = load  %____t49.0 
- 		 store  %____t54.0   %____t55.0 
- 		 %____t56.0  =   add  0   %____this7.0 
- 		 %____t57.0  = load  %____t56.0 
- 		 %____t58.0  =   shl  %____j1.0   2 
- 		 %____t59.0  =   add  %____t58.0   4 
- 		 %____t60.0  =   add  %____t57.0   %____t59.0 
- 		 store  %____t60.0   %____t44.0 
- 		 %___x1.3  = move  %___p1.3 
- 		 %___x1.2  = move  %___x1.3 
+ 		 %____t44.0  =   shl  %___x1.2   2 
+ 		 %____t45.0  =   add  %____t44.0   4 
+ 		 %____t46.0  =   add  %____t43.0   %____t45.0 
+ 		 %____t47.0  =   add  0   %___t13.0 
+ 		 %____t48.0  = load  %____t47.0 
+ 		 %____t49.0  =   shl  %____t17.0   2 
+ 		 %____t50.0  =   add  %____t49.0   4 
+ 		 %____t51.0  =   add  %____t48.0   %____t50.0 
+ 		 %____t52.0  = load  %____t46.0 
+ 		 store  %____t51.0   %____t52.0 
+ 		 %____t53.0  =   add  0   %___t13.0 
+ 		 %____t54.0  = load  %____t53.0 
+ 		 %____t55.0  =   shl  %___x1.2   2 
+ 		 %____t56.0  =   add  %____t55.0   4 
+ 		 %____t57.0  =   add  %____t54.0   %____t56.0 
+ 		 store  %____t57.0   %____t41.0 
+ 		 %___x1.2  = move  %____t17.0 
  		 jump %___whileCondBB1
  
  %__whileCondBB1:
- 		 %___this3.0  = move  %__q1.1 
- 		 %___t20.0  =   add  0   %___this3.0 
- 		 %___t21.0  = load  %___t20.0 
- 		 %_this7.0  = move  %___t21.0 
- 		 %_t87.0  =   add  4   %_this7.0 
- 		 %_t88.0  = load  %_t87.0 
- 		 %___t22.0  = move  %_t88.0 
- 		 %__t26.0  = move  %___t22.0 
- 		 %__t27.0  = sne  %__t26.0   0 
- 		 br  %__t27.0  %__whileBodyBB1 %_afterCallBB2 
+ 		 %___t14.0  = load  %____t14.0 
+ 		 %_t59.0  =   add  4   %___t14.0 
+ 		 %_t60.0  = load  %_t59.0 
+ 		 %__t23.0  = sne  %_t60.0   0 
+ 		 br  %__t23.0  %__whileBodyBB1 %_afterCallBB2 
  
- %__whileBodyBB1:
- 		 %___this4.0  = move  %__q1.1 
- 		 %___t23.0  =   add  0   %___this4.0 
- 		 %___t24.0  = load  %___t23.0 
- 		 %____this8.0  = move  %___t24.0 
- 		 %____t61.0  =   add  0   %____this8.0 
- 		 %____t62.0  = load  %____t61.0 
- 		 %____t63.0  =   add  %____t62.0   4 
- 		 %____t64.0  = load  %____t63.0 
- 		 %___t25.0  = move  %____t64.0 
- 		 %___res1.0  = move  %___t25.0 
- 		 %___t26.0  =   add  0   %___this4.0 
- 		 %___t27.0  = load  %___t26.0 
- 		 %____this9.0  = move  %___this4.0 
- 		 %____t65.0  =   add  0   %____this9.0 
- 		 %____t66.0  = load  %____t65.0 
- 		 %_this8.0  = move  %____t66.0 
- 		 %_t89.0  =   add  4   %_this8.0 
- 		 %_t90.0  = load  %_t89.0 
- 		 %____t67.0  = move  %_t90.0 
- 		 %___t28.0  = move  %____t67.0 
- 		 %___t29.0  =   sub  %___t28.0   1 
- 		 %____this10.0  = move  %___t27.0 
- 		 %____j2.0  = move  %___t29.0 
- 		 %____t68.0  =   add  0   %____this10.0 
- 		 %____t69.0  = load  %____t68.0 
- 		 %____t70.0  =   add  %____t69.0   4 
- 		 %____t71.0  = load  %____t70.0 
- 		 %____t72.0  = move  %____t71.0 
- 		 %____t73.0  =   add  0   %____this10.0 
- 		 %____t74.0  = load  %____t73.0 
- 		 %____t75.0  =   shl  %____j2.0   2 
- 		 %____t76.0  =   add  %____t75.0   4 
- 		 %____t77.0  =   add  %____t74.0   %____t76.0 
- 		 %____t78.0  =   add  0   %____this10.0 
- 		 %____t79.0  = load  %____t78.0 
- 		 %____t80.0  =   add  %____t79.0   4 
- 		 %____t81.0  = load  %____t77.0 
- 		 store  %____t80.0   %____t81.0 
- 		 %____t82.0  =   add  0   %____this10.0 
- 		 %____t83.0  = load  %____t82.0 
- 		 %____t84.0  =   shl  %____j2.0   2 
- 		 %____t85.0  =   add  %____t84.0   4 
- 		 %____t86.0  =   add  %____t83.0   %____t85.0 
- 		 store  %____t86.0   %____t72.0 
- 		 %___t30.0  =   add  0   %___this4.0 
- 		 %___t31.0  = load  %___t30.0 
- 		 %____this11.0  = move  %___t31.0 
- 		 %____t87.0  =   add  4   %____this11.0 
- 		 %____t88.0  = load  %____t87.0 
- 		 %____t88.1  =   sub  %____t88.0   1 
- 		 store  %____t87.0   %____t88.1 
- 		 %____t89.0  =   add  0   %____this11.0 
- 		 %____t90.0  =   add  4   %____this11.0 
- 		 %____t91.0  = load  %____t89.0 
- 		 %____t92.0  = load  %____t90.0 
- 		 %____t93.0  =   shl  %____t92.0   2 
- 		 %____t94.0  =   add  %____t93.0   4 
- 		 %____t95.0  =   add  %____t91.0   %____t94.0 
- 		 %____t96.0  = load  %____t95.0 
- 		 call Heap_Node.maxHeapify  %___this4.0 0   
- 		 %__t28.0  = move  %___res1.0 
- 		 %__node1.0  = move  %__t28.0 
- 		 %__t29.0  =   add  %__node1.0   0 
- 		 %__t30.0  = load  %__t29.0 
- 		 %__u2.2  = move  %__t30.0 
- 		 %__t31.0  =   shl  %__u2.2   2 
- 		 %__t32.0  =   add  %__t31.0   4 
- 		 %__t33.0  =   add  %__visited1.1   %__t32.0 
- 		 %__t34.0  = load  %__t33.0 
- 		 %__t35.0  = seq  %__t34.0   1 
- 		 br  %__t35.0  %__whileCondBB1 %__if_end1 
- 
- %__if_end1:
- 		 %__t36.0  =   shl  %__u2.2   2 
- 		 %__t37.0  =   add  %__t36.0   4 
- 		 %__t38.0  =   add  %__visited1.1   %__t37.0 
- 		 store  %__t38.0   1 
- 		 %__t39.0  =   add  %_gg1.0   8 
- 		 %__t40.0  = load  %__t39.0 
- 		 %__t41.0  =   shl  %__u2.2   2 
- 		 %__t42.0  =   add  %__t41.0   4 
- 		 %__t43.0  =   add  %__t40.0   %__t42.0 
- 		 %__t44.0  = load  %__t43.0 
- 		 %__k1.3  = move  %__t44.0 
- 		 %__k1.4  = move  %__k1.3 
- 		 jump %__forcondBB3
- 
- %__forcondBB3:
- 		 %__t45.0  = sne  %__k1.4   -1 
- 		 br  %__t45.0  %__forbodyBB3 %__whileCondBB1 
- 
- %__forbodyBB3:
- 		 %__t46.0  =   add  %_gg1.0   0 
- 		 %__t47.0  = load  %__t46.0 
- 		 %__t48.0  =   shl  %__k1.4   2 
- 		 %__t49.0  =   add  %__t48.0   4 
- 		 %__t50.0  =   add  %__t47.0   %__t49.0 
- 		 %__t51.0  = load  %__t50.0 
- 		 %__t52.0  =   add  %__t51.0   4 
- 		 %__t53.0  = load  %__t52.0 
- 		 %__v2.3  = move  %__t53.0 
- 		 %__t54.0  =   add  %_gg1.0   0 
- 		 %__t55.0  = load  %__t54.0 
- 		 %__t56.0  =   shl  %__k1.4   2 
- 		 %__t57.0  =   add  %__t56.0   4 
- 		 %__t58.0  =   add  %__t55.0   %__t57.0 
- 		 %__t59.0  = load  %__t58.0 
- 		 %__t60.0  =   add  %__t59.0   8 
- 		 %__t61.0  = load  %__t60.0 
- 		 %__w2.0  = move  %__t61.0 
- 		 %__t62.0  =   shl  %__u2.2   2 
- 		 %__t63.0  =   add  %__t62.0   4 
- 		 %__t64.0  =   add  %__d1.1   %__t63.0 
- 		 %__t65.0  = load  %__t64.0 
- 		 %__t66.0  =   add  %__t65.0   %__w2.0 
- 		 %__alt1.3  = move  %__t66.0 
- 		 %__t67.0  =   shl  %__v2.3   2 
- 		 %__t68.0  =   add  %__t67.0   4 
- 		 %__t69.0  =   add  %__d1.1   %__t68.0 
- 		 %__t70.0  = load  %__t69.0 
- 		 %__t71.0  = sge  %__alt1.3   %__t70.0 
- 		 br  %__t71.0  %__forupdateBB1 %__if_end2 
- 
- %__if_end2:
- 		 %__t72.0  =   shl  %__v2.3   2 
- 		 %__t73.0  =   add  %__t72.0   4 
- 		 %__t74.0  =   add  %__d1.1   %__t73.0 
- 		 store  %__t74.0   %__alt1.3 
- 		 %__t75.0  = alloc  8 
- 		 %__node1.1  = move  %__t75.0 
- 		 %__t76.0  =   add  %__node1.1   0 
- 		 store  %__t76.0   %__v2.3 
- 		 %__t77.0  =   shl  %__v2.3   2 
- 		 %__t78.0  =   add  %__t77.0   4 
- 		 %__t79.0  =   add  %__d1.1   %__t78.0 
- 		 %__t80.0  =   add  %__node1.1   4 
- 		 %__t81.0  = load  %__t79.0 
- 		 store  %__t80.0   %__t81.0 
- 		 %___this5.3  = move  %__q1.1 
- 		 %___v2.0  = move  %__node1.1 
- 		 %___t32.0  =   add  0   %___this5.3 
- 		 %___t33.0  = load  %___t32.0 
- 		 %____this12.3  = move  %___t33.0 
- 		 %____v2.3  = move  %___v2.0 
- 		 %_this9.0  = move  %____this12.3 
- 		 %_t91.0  =   add  4   %_this9.0 
- 		 %_t92.0  = load  %_t91.0 
- 		 %____t97.0  = move  %_t92.0 
- 		 %____t98.0  =   add  0   %____this12.3 
- 		 %____t99.0  = load  %____t98.0 
- 		 %____t100.0  =  call array.size  %____t99.0 
- 		 %____t101.0  = seq  %____t97.0   %____t100.0 
- 		 br  %____t101.0  %____if_thenBB2 %___afterCallBB2 
- 
- %____if_thenBB2:
- 		 %_this10.4  = move  %____this12.3 
- 		 %_t93.0  =   add  0   %_this10.4 
- 		 %_t94.0  = load  %_t93.0 
- 		 %_copy2.4  = move  %_t94.0 
- 		 %_t95.0  =   add  4   %_this10.4 
- 		 %_t96.0  = load  %_t95.0 
- 		 %_szCopy2.4  = move  %_t96.0 
- 		 %_t97.0  =  call array.size  %_copy2.4 
- 		 %_t98.0  =   shl  %_t97.0   1 
- 		 %_t99.0  =   shl  %_t98.0   2 
- 		 %_t99.1  =   add  %_t99.0   4 
- 		 %_t100.0  = alloc  %_t99.1 
- 		 store  %_t100.0   %_t98.0 
- 		 %_t101.0  =   add  0   %_this10.4 
- 		 store  %_t101.0   %_t100.0 
- 		 %_t102.0  =   add  4   %_this10.4 
- 		 store  %_t102.0   0 
+ %_afterCallBB2:
+ 		 %_j1.3  = move  0 
  		 jump %_forcondBB5
  
  %_forcondBB5:
- 		 %_t103.0  =   add  4   %_this10.4 
- 		 %_t104.0  = load  %_t103.0 
- 		 %_t105.0  = sne  %_t104.0   %_szCopy2.4 
- 		 br  %_t105.0  %_forbodyBB5 %___afterCallBB2 
- 
- %_forbodyBB5:
- 		 %_t106.0  =   add  4   %_this10.4 
- 		 %_t107.0  = load  %_t106.0 
- 		 %_t108.0  =   shl  %_t107.0   2 
- 		 %_t109.0  =   add  %_t108.0   4 
- 		 %_t110.0  =   add  %_copy2.4   %_t109.0 
- 		 %_t111.0  =   add  0   %_this10.4 
- 		 %_t112.0  =   add  4   %_this10.4 
- 		 %_t113.0  = load  %_t111.0 
- 		 %_t114.0  = load  %_t112.0 
- 		 %_t115.0  =   shl  %_t114.0   2 
- 		 %_t116.0  =   add  %_t115.0   4 
- 		 %_t117.0  =   add  %_t113.0   %_t116.0 
- 		 %_t118.0  = load  %_t110.0 
- 		 store  %_t117.0   %_t118.0 
- 		 %_t119.0  =   add  4   %_this10.4 
- 		 %_t120.0  = load  %_t119.0 
- 		 %_t120.1  =   add  %_t120.0   1 
- 		 store  %_t119.0   %_t120.1 
- 		 jump %_forcondBB5
- 
- %___afterCallBB2:
- 		 %____t102.0  =   add  0   %____this12.3 
- 		 %____t103.0  =   add  4   %____this12.3 
- 		 %____t104.0  = load  %____t102.0 
- 		 %____t105.0  = load  %____t103.0 
- 		 %____t106.0  =   shl  %____t105.0   2 
- 		 %____t107.0  =   add  %____t106.0   4 
- 		 %____t108.0  =   add  %____t104.0   %____t107.0 
- 		 store  %____t108.0   %____v2.3 
- 		 %____t109.0  =   add  4   %____this12.3 
- 		 %____t110.0  = load  %____t109.0 
- 		 %____t110.1  =   add  %____t110.0   1 
- 		 store  %____t109.0   %____t110.1 
- 		 %____this13.0  = move  %___this5.3 
- 		 %____t111.0  =   add  0   %____this13.0 
- 		 %____t112.0  = load  %____t111.0 
- 		 %_this11.0  = move  %____t112.0 
- 		 %_t121.0  =   add  4   %_this11.0 
- 		 %_t122.0  = load  %_t121.0 
- 		 %____t113.0  = move  %_t122.0 
- 		 %___t34.0  = move  %____t113.0 
- 		 %___t35.0  =   sub  %___t34.0   1 
- 		 %___x2.3  = move  %___t35.0 
- 		 %___x2.4  = move  %___x2.3 
- 		 jump %___whileCondBB2
- 
- %___whileCondBB2:
- 		 %___t36.0  = sgt  %___x2.4   0 
- 		 br  %___t36.0  %___whileBodyBB2 %__forupdateBB1 
- 
- %___whileBodyBB2:
- 		 %____x2.0  = move  %___x2.4 
- 		 %____t114.0  =   sub  %____x2.0   1 
- 		 %____t115.0  =   shr  %____t114.0   1 
- 		 %___t37.0  = move  %____t115.0 
- 		 %___p2.4  = move  %___t37.0 
- 		 %___t38.0  =   add  0   %___this5.3 
- 		 %___t39.0  = load  %___t38.0 
- 		 %____this14.0  = move  %___t39.0 
- 		 %____i4.0  = move  %___p2.4 
- 		 %____t116.0  =   add  0   %____this14.0 
- 		 %____t117.0  = load  %____t116.0 
- 		 %____t118.0  =   shl  %____i4.0   2 
- 		 %____t119.0  =   add  %____t118.0   4 
- 		 %____t120.0  =   add  %____t117.0   %____t119.0 
- 		 %____t121.0  = load  %____t120.0 
- 		 %___t40.0  = move  %____t121.0 
- 		 %____this15.0  = move  %___t40.0 
- 		 %____t122.0  =   add  4   %____this15.0 
- 		 %____t123.0  = load  %____t122.0 
- 		 %____t124.0  =   sub  0   %____t123.0 
- 		 store  %____t122.0   %____t123.0 
- 		 %___t41.0  = move  %____t124.0 
- 		 %___t42.0  =   add  0   %___this5.3 
- 		 %___t43.0  = load  %___t42.0 
- 		 %____this16.0  = move  %___t43.0 
- 		 %____i5.0  = move  %___x2.4 
- 		 %____t125.0  =   add  0   %____this16.0 
- 		 %____t126.0  = load  %____t125.0 
- 		 %____t127.0  =   shl  %____i5.0   2 
- 		 %____t128.0  =   add  %____t127.0   4 
- 		 %____t129.0  =   add  %____t126.0   %____t128.0 
- 		 %____t130.0  = load  %____t129.0 
- 		 %___t44.0  = move  %____t130.0 
- 		 %____this17.0  = move  %___t44.0 
- 		 %____t131.0  =   add  4   %____this17.0 
- 		 %____t132.0  = load  %____t131.0 
- 		 %____t133.0  =   sub  0   %____t132.0 
- 		 store  %____t131.0   %____t132.0 
- 		 %___t45.0  = move  %____t133.0 
- 		 %___t46.0  = sge  %___t41.0   %___t45.0 
- 		 br  %___t46.0  %__forupdateBB1 %___if_end2 
- 
- %__forupdateBB1:
- 		 %__t82.0  =   add  %_gg1.0   4 
- 		 %__t83.0  = load  %__t82.0 
- 		 %__t84.0  =   shl  %__k1.4   2 
- 		 %__t85.0  =   add  %__t84.0   4 
- 		 %__t86.0  =   add  %__t83.0   %__t85.0 
- 		 %__t87.0  = load  %__t86.0 
- 		 %__k1.5  = move  %__t87.0 
- 		 %__k1.4  = move  %__k1.5 
- 		 jump %__forcondBB3
- 
- %___if_end2:
- 		 %___t47.0  =   add  0   %___this5.3 
- 		 %___t48.0  = load  %___t47.0 
- 		 %____this18.0  = move  %___t48.0 
- 		 %____i6.0  = move  %___p2.4 
- 		 %____j3.0  = move  %___x2.4 
- 		 %____t134.0  =   add  0   %____this18.0 
- 		 %____t135.0  = load  %____t134.0 
- 		 %____t136.0  =   shl  %____i6.0   2 
- 		 %____t137.0  =   add  %____t136.0   4 
- 		 %____t138.0  =   add  %____t135.0   %____t137.0 
- 		 %____t139.0  = load  %____t138.0 
- 		 %____t140.0  = move  %____t139.0 
- 		 %____t141.0  =   add  0   %____this18.0 
- 		 %____t142.0  = load  %____t141.0 
- 		 %____t143.0  =   shl  %____j3.0   2 
- 		 %____t144.0  =   add  %____t143.0   4 
- 		 %____t145.0  =   add  %____t142.0   %____t144.0 
- 		 %____t146.0  =   add  0   %____this18.0 
- 		 %____t147.0  = load  %____t146.0 
- 		 %____t148.0  =   shl  %____i6.0   2 
- 		 %____t149.0  =   add  %____t148.0   4 
- 		 %____t150.0  =   add  %____t147.0   %____t149.0 
- 		 %____t151.0  = load  %____t145.0 
- 		 store  %____t150.0   %____t151.0 
- 		 %____t152.0  =   add  0   %____this18.0 
- 		 %____t153.0  = load  %____t152.0 
- 		 %____t154.0  =   shl  %____j3.0   2 
- 		 %____t155.0  =   add  %____t154.0   4 
- 		 %____t156.0  =   add  %____t153.0   %____t155.0 
- 		 store  %____t156.0   %____t140.0 
- 		 %___x2.5  = move  %___p2.4 
- 		 %___x2.4  = move  %___x2.5 
- 		 jump %___whileCondBB2
- 
- %_afterCallBB2:
- 		 %_t123.0  = move  %__d1.1 
- 		 %_d1.1  = move  %_t123.0 
- 		 %_j1.3  = move  0 
- 		 jump %_forcondBB6
- 
- %_forcondBB6:
- 		 %_t124.0  = slt  %_j1.3   %_gn1.0 
- 		 br  %_t124.0  %_forbodyBB6 %_afterForBB2 
+ 		 %_t61.0  = slt  %_j1.3   %__t1.0 
+ 		 br  %_t61.0  %_forbodyBB5 %_afterForBB2 
  
  %_afterForBB2:
  		 call println  @constStr_0   
@@ -951,20 +488,20 @@
  		 %_i2.2  = move  %_i2.3 
  		 jump %_forcondBB3
  
- %_forbodyBB6:
- 		 %_t125.0  =   shl  %_j1.3   2 
- 		 %_t126.0  =   add  %_t125.0   4 
- 		 %_t127.0  =   add  %_d1.1   %_t126.0 
- 		 %_t128.0  = load  %_t127.0 
- 		 %_t129.0  = seq  %_t128.0   10000000 
- 		 br  %_t129.0  %_if_thenBB1 %_if_elseBB1 
+ %_forbodyBB5:
+ 		 %_t62.0  =   shl  %_j1.3   2 
+ 		 %_t63.0  =   add  %_t62.0   4 
+ 		 %_t64.0  =   add  %__t8.0   %_t63.0 
+ 		 %_t65.0  = load  %_t64.0 
+ 		 %_t66.0  = seq  %_t65.0   10000000 
+ 		 br  %_t66.0  %_if_thenBB1 %_if_elseBB1 
  
  %_if_elseBB1:
- 		 %_t130.0  =   shl  %_j1.3   2 
- 		 %_t131.0  =   add  %_t130.0   4 
- 		 %_t132.0  =   add  %_d1.1   %_t131.0 
- 		 %_t133.0  = load  %_t132.0 
- 		 call printInt  %_t133.0   
+ 		 %_t67.0  =   shl  %_j1.3   2 
+ 		 %_t68.0  =   add  %_t67.0   4 
+ 		 %_t69.0  =   add  %__t8.0   %_t68.0 
+ 		 %_t70.0  = load  %_t69.0 
+ 		 call printInt  %_t70.0   
  		 jump %_if_end1
  
  %_if_thenBB1:
@@ -975,20 +512,323 @@
  		 call print  @constStr_1   
  		 %_j1.4  =   add  %_j1.3   1 
  		 %_j1.3  = move  %_j1.4 
+ 		 jump %_forcondBB5
+ 
+ %__whileBodyBB1:
+ 		 %___t15.0  =   add  0   %__t19.0 
+ 		 %___t16.0  = load  %___t15.0 
+ 		 %____t58.0  =   add  0   %___t16.0 
+ 		 %____t59.0  = load  %____t58.0 
+ 		 %____t60.0  =   add  %____t59.0   4 
+ 		 %____t61.0  = load  %____t60.0 
+ 		 %___t17.0  =   add  0   %__t19.0 
+ 		 %___t18.0  = load  %___t17.0 
+ 		 %____t62.0  = load  %____t14.0 
+ 		 %_t71.0  =   add  4   %____t62.0 
+ 		 %_t72.0  = load  %_t71.0 
+ 		 %___t19.0  =   sub  %_t72.0   1 
+ 		 %____t63.0  =   add  0   %___t18.0 
+ 		 %____t64.0  = load  %____t63.0 
+ 		 %____t65.0  =   add  %____t64.0   4 
+ 		 %____t66.0  = load  %____t65.0 
+ 		 %____t67.0  =   add  0   %___t18.0 
+ 		 %____t68.0  = load  %____t67.0 
+ 		 %____t69.0  =   shl  %___t19.0   2 
+ 		 %____t70.0  =   add  %____t69.0   4 
+ 		 %____t71.0  =   add  %____t68.0   %____t70.0 
+ 		 %____t72.0  =   add  0   %___t18.0 
+ 		 %____t73.0  = load  %____t72.0 
+ 		 %____t74.0  =   add  %____t73.0   4 
+ 		 %____t75.0  = load  %____t71.0 
+ 		 store  %____t74.0   %____t75.0 
+ 		 %____t76.0  =   add  0   %___t18.0 
+ 		 %____t77.0  = load  %____t76.0 
+ 		 %____t78.0  =   shl  %___t19.0   2 
+ 		 %____t79.0  =   add  %____t78.0   4 
+ 		 %____t80.0  =   add  %____t77.0   %____t79.0 
+ 		 store  %____t80.0   %____t66.0 
+ 		 %___t20.0  =   add  0   %__t19.0 
+ 		 %___t21.0  = load  %___t20.0 
+ 		 %____t81.0  =   add  4   %___t21.0 
+ 		 %____t82.0  = load  %____t81.0 
+ 		 %____t82.1  =   sub  %____t82.0   1 
+ 		 store  %____t81.0   %____t82.1 
+ 		 %____t83.0  =   add  0   %___t21.0 
+ 		 %____t84.0  =   add  4   %___t21.0 
+ 		 %____t85.0  = load  %____t83.0 
+ 		 %____t86.0  = load  %____t84.0 
+ 		 %____t87.0  =   shl  %____t86.0   2 
+ 		 %____t88.0  =   add  %____t87.0   4 
+ 		 %____t89.0  =   add  %____t85.0   %____t88.0 
+ 		 %____t90.0  = load  %____t89.0 
+ 		 call Heap_Node.maxHeapify  %__t19.0 0   
+ 		 %__t24.0  =   add  %____t61.0   0 
+ 		 %__t25.0  = load  %__t24.0 
+ 		 %__t26.0  =   shl  %__t25.0   2 
+ 		 %__t27.0  =   add  %__t26.0   4 
+ 		 %__t28.0  =   add  %__t6.0   %__t27.0 
+ 		 %__t29.0  = load  %__t28.0 
+ 		 %__t30.0  = seq  %__t29.0   1 
+ 		 br  %__t30.0  %__whileCondBB1 %__if_end1 
+ 
+ %__if_end1:
+ 		 %__t31.0  =   shl  %__t25.0   2 
+ 		 %__t32.0  =   add  %__t31.0   4 
+ 		 %__t33.0  =   add  %__t6.0   %__t32.0 
+ 		 store  %__t33.0   1 
+ 		 %__t34.0  =   add  %__t3.0   8 
+ 		 %__t35.0  = load  %__t34.0 
+ 		 %__t36.0  =   shl  %__t25.0   2 
+ 		 %__t37.0  =   add  %__t36.0   4 
+ 		 %__t38.0  =   add  %__t35.0   %__t37.0 
+ 		 %__t39.0  = load  %__t38.0 
+ 		 %__k1.4  = move  %__t39.0 
+ 		 jump %__forcondBB3
+ 
+ %__forcondBB3:
+ 		 %__t40.0  = sne  %__k1.4   -1 
+ 		 br  %__t40.0  %__forbodyBB3 %__whileCondBB1 
+ 
+ %__forbodyBB3:
+ 		 %__t41.0  =   add  %__t3.0   0 
+ 		 %__t42.0  = load  %__t41.0 
+ 		 %__t43.0  =   shl  %__k1.4   2 
+ 		 %__t44.0  =   add  %__t43.0   4 
+ 		 %__t45.0  =   add  %__t42.0   %__t44.0 
+ 		 %__t46.0  = load  %__t45.0 
+ 		 %__t47.0  =   add  %__t46.0   4 
+ 		 %__t48.0  = load  %__t47.0 
+ 		 %__t49.0  =   add  %__t3.0   0 
+ 		 %__t50.0  = load  %__t49.0 
+ 		 %__t51.0  =   shl  %__k1.4   2 
+ 		 %__t52.0  =   add  %__t51.0   4 
+ 		 %__t53.0  =   add  %__t50.0   %__t52.0 
+ 		 %__t54.0  = load  %__t53.0 
+ 		 %__t55.0  =   add  %__t54.0   8 
+ 		 %__t56.0  = load  %__t55.0 
+ 		 %__t57.0  =   shl  %__t25.0   2 
+ 		 %__t58.0  =   add  %__t57.0   4 
+ 		 %__t59.0  =   add  %__t8.0   %__t58.0 
+ 		 %__t60.0  = load  %__t59.0 
+ 		 %__t61.0  =   add  %__t60.0   %__t56.0 
+ 		 %__t62.0  =   shl  %__t48.0   2 
+ 		 %__t63.0  =   add  %__t62.0   4 
+ 		 %__t64.0  =   add  %__t8.0   %__t63.0 
+ 		 %__t65.0  = load  %__t64.0 
+ 		 %__t66.0  = sge  %__t61.0   %__t65.0 
+ 		 br  %__t66.0  %__forupdateBB1 %__if_end2 
+ 
+ %__if_end2:
+ 		 %__t67.0  =   shl  %__t48.0   2 
+ 		 %__t68.0  =   add  %__t67.0   4 
+ 		 %__t69.0  =   add  %__t8.0   %__t68.0 
+ 		 store  %__t69.0   %__t61.0 
+ 		 %__t70.0  = alloc  8 
+ 		 %__t71.0  =   add  %__t70.0   0 
+ 		 store  %__t71.0   %__t48.0 
+ 		 %__t72.0  =   shl  %__t48.0   2 
+ 		 %__t73.0  =   add  %__t72.0   4 
+ 		 %__t74.0  =   add  %__t8.0   %__t73.0 
+ 		 %__t75.0  =   add  %__t70.0   4 
+ 		 %__t76.0  = load  %__t74.0 
+ 		 store  %__t75.0   %__t76.0 
+ 		 %___t22.0  = load  %___t3.0 
+ 		 %_t73.0  =   add  4   %___t22.0 
+ 		 %_t74.0  = load  %_t73.0 
+ 		 %____t91.0  =   add  0   %___t22.0 
+ 		 %____t92.0  = load  %____t91.0 
+ 		 %____t93.0  =  call array.size  %____t92.0 
+ 		 %____t94.0  = seq  %_t74.0   %____t93.0 
+ 		 br  %____t94.0  %____if_thenBB2 %___afterCallBB2 
+ 
+ %____if_thenBB2:
+ 		 %_t75.0  =   add  0   %___t22.0 
+ 		 %_t76.0  = load  %_t75.0 
+ 		 %_t77.0  =   add  4   %___t22.0 
+ 		 %_t78.0  = load  %_t77.0 
+ 		 %_t79.0  =  call array.size  %_t76.0 
+ 		 %_t80.0  =   shl  %_t79.0   1 
+ 		 %_t81.0  =   shl  %_t80.0   2 
+ 		 %_t81.1  =   add  %_t81.0   4 
+ 		 %_t82.0  = alloc  %_t81.1 
+ 		 store  %_t82.0   %_t80.0 
+ 		 %_t83.0  =   add  0   %___t22.0 
+ 		 store  %_t83.0   %_t82.0 
+ 		 %_t84.0  =   add  4   %___t22.0 
+ 		 store  %_t84.0   0 
  		 jump %_forcondBB6
+ 
+ %_forcondBB6:
+ 		 %_t85.0  =   add  4   %___t22.0 
+ 		 %_t86.0  = load  %_t85.0 
+ 		 %_t87.0  = sne  %_t86.0   %_t78.0 
+ 		 br  %_t87.0  %_forbodyBB6 %___afterCallBB2 
+ 
+ %_forbodyBB6:
+ 		 %_t88.0  =   add  4   %___t22.0 
+ 		 %_t89.0  = load  %_t88.0 
+ 		 %_t90.0  =   shl  %_t89.0   2 
+ 		 %_t91.0  =   add  %_t90.0   4 
+ 		 %_t92.0  =   add  %_t76.0   %_t91.0 
+ 		 %_t93.0  =   add  0   %___t22.0 
+ 		 %_t94.0  =   add  4   %___t22.0 
+ 		 %_t95.0  = load  %_t93.0 
+ 		 %_t96.0  = load  %_t94.0 
+ 		 %_t97.0  =   shl  %_t96.0   2 
+ 		 %_t98.0  =   add  %_t97.0   4 
+ 		 %_t99.0  =   add  %_t95.0   %_t98.0 
+ 		 %_t100.0  = load  %_t92.0 
+ 		 store  %_t99.0   %_t100.0 
+ 		 %_t101.0  =   add  4   %___t22.0 
+ 		 %_t102.0  = load  %_t101.0 
+ 		 %_t102.1  =   add  %_t102.0   1 
+ 		 store  %_t101.0   %_t102.1 
+ 		 jump %_forcondBB6
+ 
+ %___afterCallBB2:
+ 		 %____t95.0  =   add  0   %___t22.0 
+ 		 %____t96.0  =   add  4   %___t22.0 
+ 		 %____t97.0  = load  %____t95.0 
+ 		 %____t98.0  = load  %____t96.0 
+ 		 %____t99.0  =   shl  %____t98.0   2 
+ 		 %____t100.0  =   add  %____t99.0   4 
+ 		 %____t101.0  =   add  %____t97.0   %____t100.0 
+ 		 store  %____t101.0   %__t70.0 
+ 		 %____t102.0  =   add  4   %___t22.0 
+ 		 %____t103.0  = load  %____t102.0 
+ 		 %____t103.1  =   add  %____t103.0   1 
+ 		 store  %____t102.0   %____t103.1 
+ 		 %____t104.0  = load  %____t14.0 
+ 		 %_t103.0  =   add  4   %____t104.0 
+ 		 %_t104.0  = load  %_t103.0 
+ 		 %___t23.0  =   sub  %_t104.0   1 
+ 		 %___x2.4  = move  %___t23.0 
+ 		 jump %___whileCondBB2
+ 
+ %___whileCondBB2:
+ 		 %___t24.0  = sgt  %___x2.4   0 
+ 		 br  %___t24.0  %___whileBodyBB2 %__forupdateBB1 
+ 
+ %___whileBodyBB2:
+ 		 %____t105.0  =   sub  %___x2.4   1 
+ 		 %____t106.0  =   shr  %____t105.0   1 
+ 		 %___t25.0  =   add  0   %__t19.0 
+ 		 %___t26.0  = load  %___t25.0 
+ 		 %____t107.0  =   add  0   %___t26.0 
+ 		 %____t108.0  = load  %____t107.0 
+ 		 %____t109.0  =   shl  %____t106.0   2 
+ 		 %____t110.0  =   add  %____t109.0   4 
+ 		 %____t111.0  =   add  %____t108.0   %____t110.0 
+ 		 %____t112.0  = load  %____t111.0 
+ 		 %____t113.0  =   add  4   %____t112.0 
+ 		 %____t114.0  = load  %____t113.0 
+ 		 %____t115.0  =   sub  0   %____t114.0 
+ 		 store  %____t113.0   %____t114.0 
+ 		 %___t27.0  =   add  0   %__t19.0 
+ 		 %___t28.0  = load  %___t27.0 
+ 		 %____t116.0  =   add  0   %___t28.0 
+ 		 %____t117.0  = load  %____t116.0 
+ 		 %____t118.0  =   shl  %___x2.4   2 
+ 		 %____t119.0  =   add  %____t118.0   4 
+ 		 %____t120.0  =   add  %____t117.0   %____t119.0 
+ 		 %____t121.0  = load  %____t120.0 
+ 		 %____t122.0  =   add  4   %____t121.0 
+ 		 %____t123.0  = load  %____t122.0 
+ 		 %____t124.0  =   sub  0   %____t123.0 
+ 		 store  %____t122.0   %____t123.0 
+ 		 %___t29.0  = sge  %____t115.0   %____t124.0 
+ 		 br  %___t29.0  %__forupdateBB1 %___if_end2 
+ 
+ %___if_end2:
+ 		 %___t30.0  =   add  0   %__t19.0 
+ 		 %___t31.0  = load  %___t30.0 
+ 		 %____t125.0  =   add  0   %___t31.0 
+ 		 %____t126.0  = load  %____t125.0 
+ 		 %____t127.0  =   shl  %____t106.0   2 
+ 		 %____t128.0  =   add  %____t127.0   4 
+ 		 %____t129.0  =   add  %____t126.0   %____t128.0 
+ 		 %____t130.0  = load  %____t129.0 
+ 		 %____t131.0  =   add  0   %___t31.0 
+ 		 %____t132.0  = load  %____t131.0 
+ 		 %____t133.0  =   shl  %___x2.4   2 
+ 		 %____t134.0  =   add  %____t133.0   4 
+ 		 %____t135.0  =   add  %____t132.0   %____t134.0 
+ 		 %____t136.0  =   add  0   %___t31.0 
+ 		 %____t137.0  = load  %____t136.0 
+ 		 %____t138.0  =   shl  %____t106.0   2 
+ 		 %____t139.0  =   add  %____t138.0   4 
+ 		 %____t140.0  =   add  %____t137.0   %____t139.0 
+ 		 %____t141.0  = load  %____t135.0 
+ 		 store  %____t140.0   %____t141.0 
+ 		 %____t142.0  =   add  0   %___t31.0 
+ 		 %____t143.0  = load  %____t142.0 
+ 		 %____t144.0  =   shl  %___x2.4   2 
+ 		 %____t145.0  =   add  %____t144.0   4 
+ 		 %____t146.0  =   add  %____t143.0   %____t145.0 
+ 		 store  %____t146.0   %____t130.0 
+ 		 %___x2.4  = move  %____t106.0 
+ 		 jump %___whileCondBB2
+ 
+ %__forupdateBB1:
+ 		 %__t77.0  =   add  %__t3.0   4 
+ 		 %__t78.0  = load  %__t77.0 
+ 		 %__t79.0  =   shl  %__k1.4   2 
+ 		 %__t80.0  =   add  %__t79.0   4 
+ 		 %__t81.0  =   add  %__t78.0   %__t80.0 
+ 		 %__t82.0  = load  %__t81.0 
+ 		 %__k1.4  = move  %__t82.0 
+ 		 jump %__forcondBB3
  
  %afterCallBB2:
  		 ret  0 
  
- %_forbodyBB2:
- 		 %_t134.0  =   add  8   %_this1.0 
- 		 %_t135.0  = load  %_t134.0 
- 		 %_t136.0  =   shl  %_i1.4   2 
- 		 %_t137.0  =   add  %_t136.0   4 
- 		 %_t138.0  =   add  %_t135.0   %_t137.0 
- 		 store  %_t138.0   -1 
- 		 %_i1.5  =   add  %_i1.4   1 
- 		 %_i1.4  = move  %_i1.5 
- 		 jump %_forcondBB2
+ %__forbodyBB1:
+ 		 %__t83.0  =  call getInt  
+ 		 %__t84.0  =  call getInt  
+ 		 %__t85.0  =  call getInt  
+ 		 %_t105.0  = alloc  12 
+ 		 %_t106.0  =   add  %_t105.0   0 
+ 		 store  %_t106.0   %__t83.0 
+ 		 %_t107.0  =   add  %_t105.0   4 
+ 		 store  %_t107.0   %__t84.0 
+ 		 %_t108.0  =   add  %_t105.0   8 
+ 		 store  %_t108.0   %__t85.0 
+ 		 %_t109.0  =   add  0   %__t3.0 
+ 		 %_t110.0  =   add  12   %__t3.0 
+ 		 %_t111.0  = load  %_t109.0 
+ 		 %_t112.0  = load  %_t110.0 
+ 		 %_t113.0  =   shl  %_t112.0   2 
+ 		 %_t114.0  =   add  %_t113.0   4 
+ 		 %_t115.0  =   add  %_t111.0   %_t114.0 
+ 		 store  %_t115.0   %_t105.0 
+ 		 %_t116.0  =   add  8   %__t3.0 
+ 		 %_t117.0  = load  %_t116.0 
+ 		 %_t118.0  =   shl  %__t83.0   2 
+ 		 %_t119.0  =   add  %_t118.0   4 
+ 		 %_t120.0  =   add  %_t117.0   %_t119.0 
+ 		 %_t121.0  =   add  4   %__t3.0 
+ 		 %_t122.0  =   add  12   %__t3.0 
+ 		 %_t123.0  = load  %_t121.0 
+ 		 %_t124.0  = load  %_t122.0 
+ 		 %_t125.0  =   shl  %_t124.0   2 
+ 		 %_t126.0  =   add  %_t125.0   4 
+ 		 %_t127.0  =   add  %_t123.0   %_t126.0 
+ 		 %_t128.0  = load  %_t120.0 
+ 		 store  %_t127.0   %_t128.0 
+ 		 %_t129.0  =   add  12   %__t3.0 
+ 		 %_t130.0  =   add  8   %__t3.0 
+ 		 %_t131.0  = load  %_t130.0 
+ 		 %_t132.0  =   shl  %__t83.0   2 
+ 		 %_t133.0  =   add  %_t132.0   4 
+ 		 %_t134.0  =   add  %_t131.0   %_t133.0 
+ 		 %_t135.0  = load  %_t129.0 
+ 		 store  %_t134.0   %_t135.0 
+ 		 %_t136.0  =   add  12   %__t3.0 
+ 		 %_t137.0  = load  %_t136.0 
+ 		 %_t137.1  =   add  %_t137.0   1 
+ 		 store  %_t136.0   %_t137.1 
+ 		 %__i1.3  =   add  %__i1.2   1 
+ 		 %__i1.2  = move  %__i1.3 
+ 		 jump %__forcondBB1
  
  }

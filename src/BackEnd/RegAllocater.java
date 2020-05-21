@@ -85,19 +85,19 @@ public class RegAllocater {
                 if (inst instanceof LoadInst) {
                     var prevInst = inst.prev;
                     if (prevInst instanceof StoreInst && ((StoreInst) prevInst).storeTo.name.equals(((LoadInst) inst).from.name) && ((StoreInst) prevInst).offset == ((LoadInst) inst).offset) {
-                        if (((StoreInst) prevInst).res != ((LoadInst) inst).res)
+                        if (((StoreInst) prevInst).res.name != ((LoadInst) inst).res.name)
                             inst.linkPrev(new MoveInst(inst.curBB, ((LoadInst) inst).res, ((StoreInst) prevInst).res));
                         inst.RMSelf();
                         System.out.println("peephole workded");
 //                    }
-                    } else
-                    if (prevInst instanceof LoadInst && (((LoadInst) prevInst).from.name.equals(((LoadInst) inst).from.name) && ((LoadInst) prevInst).offset == ((LoadInst) inst).offset)) {
-                        if (((LoadInst) inst).from instanceof StackLoc || ((LoadInst) prevInst).res.name.equals(((LoadInst) inst).from.name)) continue;
-                        if (((LoadInst) prevInst).res != ((LoadInst) inst).res)
+                    } else if (prevInst instanceof LoadInst && (((LoadInst) prevInst).from.name.equals(((LoadInst) inst).from.name) && ((LoadInst) prevInst).offset == ((LoadInst) inst).offset)) {
+                        if (((LoadInst) inst).from instanceof StackLoc || ((LoadInst) prevInst).from instanceof StackLoc || ((LoadInst) prevInst).res.name.equals(((LoadInst) inst).from.name))
+                            continue;
+                        if (((LoadInst) prevInst).res.name != ((LoadInst) inst).res.name)
                             inst.linkPrev(new MoveInst(inst.curBB, ((LoadInst) inst).res, ((LoadInst) prevInst).res));
-                    inst.RMSelf();
-                    System.out.println("peephole worked");
-                }
+                        inst.RMSelf();
+                        System.out.println("peephole worked");
+                    }
                 }
             }
         }

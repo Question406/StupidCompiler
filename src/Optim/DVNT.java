@@ -2,10 +2,7 @@ package Optim;
 
 import IR.BasicBlock;
 import IR.Function;
-import IR.Instruction.BinOpInst;
-import IR.Instruction.Instruction;
-import IR.Instruction.PhiInst;
-import IR.Instruction.UnaryOpInst;
+import IR.Instruction.*;
 import IR.Module;
 import IR.Operand.Operand;
 import IR.Operand.VirReg;
@@ -141,7 +138,19 @@ public class DVNT extends Optimizer {
                     curVals.add(unaInst.res);
                     curExprs.add(expr);
                 }
-            } else if (inst.getDefReg() != null) {
+            } else if (inst instanceof MoveInst) {
+                if (((MoveInst) inst).moveFrom instanceof VirReg) {
+                    valMap.put(((MoveInst) inst).moveTo, ((MoveInst) inst).moveFrom);
+                    curVals.add(((MoveInst) inst).moveTo);
+                    System.out.println("dvnt worked");
+                    inst.RMSelf();
+                    changed = true;
+                } else {
+                    valMap.put(inst.getDefReg(), inst.getDefReg());
+                    curVals.add(inst.getDefReg());
+                }
+            }
+            else if (inst.getDefReg() != null) {
                 valMap.put(inst.getDefReg(), inst.getDefReg());
                 curVals.add(inst.getDefReg());
             }

@@ -155,7 +155,7 @@ public class RealRunner {
             dominaceTreeBuilder.run();
             changed |= SCCPAnalyzer.run();
             changed |= cfgSimplifier.run();
-            changed |= deadCodeElim.run();
+//            changed |= deadCodeElim.run();
             dominaceTreeBuilder.run();
             PrintIR(true);
         }

@@ -76,13 +76,11 @@ public class IRModifier extends Optimizer {
                                 ((FuncCallInst) useInst).callTo = program.getGlobalFunction("printInt");
                                 ((FuncCallInst) useInst).params.set(0, ((FuncCallInst) inst).params.get(0));
                                 inst.RMSelf();
-                                irPrinter.visit(program);
                             }
                             if (useInst instanceof FuncCallInst && ((FuncCallInst) useInst).getCallTo().getFuncname().equals("println")) {
                                 ((FuncCallInst) useInst).callTo = program.getGlobalFunction("printlnInt");
                                 ((FuncCallInst) useInst).params.set(0, ((FuncCallInst) inst).params.get(0));
                                 inst.RMSelf();
-                                irPrinter.visit(program);
                             }
                         }
                     }
