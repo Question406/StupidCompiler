@@ -149,16 +149,13 @@ public class RealRunner {
             changed = false;
             dominaceTreeBuilder.run();
             changed |= dvnt.run();
-            PrintIR(false);
-//            changed |= cfgSimplifier.run();
+            changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
             changed |= SCCPAnalyzer.run();
-            PrintIR(false);
             changed |= cfgSimplifier.run();
-            PrintIR(false);
             changed |= deadCodeElim.run();
             dominaceTreeBuilder.run();
-            PrintIR(true);
+//            PrintIR(true);
         }
 
         ssaDestructor.run();

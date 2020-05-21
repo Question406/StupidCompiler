@@ -111,7 +111,6 @@ public class DVNT extends Optimizer {
                     curVals.add(binInst.res);
                     inst.RMSelf();
                     changed = true;
-                    System.out.println("dvnt worked");
                 } else {
                     valMap.put(binInst.res, binInst.res);
                     ExprMap.put(expr, binInst.res);
@@ -132,7 +131,6 @@ public class DVNT extends Optimizer {
                     valMap.put(unaInst.res, tmp);
                     curVals.add(unaInst.res);
                     inst.RMSelf();
-                    System.out.println("dvnt worked");
                     changed = true;
                 } else {
                     valMap.put(unaInst.res, unaInst.res);
@@ -144,9 +142,7 @@ public class DVNT extends Optimizer {
                 if (((MoveInst) inst).moveFrom instanceof VirReg) {
                     valMap.put(((MoveInst) inst).moveTo, ((MoveInst) inst).moveFrom);
                     curVals.add(((MoveInst) inst).moveTo);
-                    System.out.println("dvnt worked");
                     inst.RMSelf();
-                    irPrinter.visit(program);
                     changed = true;
                 } else {
                     valMap.put(inst.getDefReg(), inst.getDefReg());
