@@ -5,7 +5,6 @@ import IR.IRPrinter;
 import IR.Instruction.FuncCallInst;
 import IR.Instruction.Instruction;
 import IR.Module;
-import IR.Operand.ConstInt;
 
 // just some stupid optimize
 public class IRModifier extends Optimizer {
@@ -24,41 +23,6 @@ public class IRModifier extends Optimizer {
             }
         }
         return false;
-    }
-
-    private void defUseCalC(){
-        // clear def-use info
-        for (var func : program.getGlobalFuncMap().values()) {
-            if (Function.isBuiltIn(func)) continue;
-            func.getReversePostOrderBBs().forEach(basicBlock -> {
-                for (var inst = basicBlock.insthead; inst != null; inst = inst.next) {
-                    var def = inst.getDefReg();
-                    if (def != null) {
-                        def.defInst = null;
-                        def.usedInstructions.clear();
-                    }
-                }
-            });
-        }
-
-        // calc
-        for (var func : program.getGlobalFuncMap().values()) {
-            if (Function.isBuiltIn(func)) continue;
-            func.getReversePostOrderBBs().forEach(basicBlock -> {
-                for (var inst = basicBlock.insthead; inst != null; inst = inst.next) {
-                    var def = inst.getDefReg();
-                    if (def != null)
-                        def.defInst = inst;
-                    var usedRegs = inst.getUseRegs();
-                    if (usedRegs != null) {
-                        for (var use : usedRegs) {
-                            if (use instanceof ConstInt || use == null) continue;
-                            use.usedInstructions.add(inst);
-                        }
-                    }
-                }
-            });
-        }
     }
 
     private void run(Function func) {

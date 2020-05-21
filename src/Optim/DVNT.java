@@ -2,6 +2,7 @@ package Optim;
 
 import IR.BasicBlock;
 import IR.Function;
+import IR.IRPrinter;
 import IR.Instruction.*;
 import IR.Module;
 import IR.Operand.Operand;
@@ -19,6 +20,8 @@ public class DVNT extends Optimizer {
     Map<Operand, Operand> valMap = new HashMap<>();
     Map<Expr, Operand> ExprMap = new HashMap<>();
     Map<Map<BasicBlock, Operand>, VirReg> phiMap = new HashMap<>();
+
+    IRPrinter irPrinter = new IRPrinter(System.out);
 
     public DVNT(Module program) {
         super(program);
@@ -98,7 +101,6 @@ public class DVNT extends Optimizer {
                 var anotherOp = BinaryOperator.getCommutable(binInst.op);
                 Expr expr2 = null;
                 if (anotherOp != null)
-//                Expr expr2 = (anotherOp != null) ? new Expr(anotherOp, binInst.lhs, binInst.rhs) : null;
                     expr2 = new Expr(anotherOp, binInst.rhs, binInst.lhs);
                 var tmp = ExprMap.get(expr);
                 if (tmp == null && expr2 != null)
@@ -144,6 +146,7 @@ public class DVNT extends Optimizer {
                     curVals.add(((MoveInst) inst).moveTo);
                     System.out.println("dvnt worked");
                     inst.RMSelf();
+                    irPrinter.visit(program);
                     changed = true;
                 } else {
                     valMap.put(inst.getDefReg(), inst.getDefReg());

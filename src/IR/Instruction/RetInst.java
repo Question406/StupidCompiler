@@ -90,6 +90,7 @@ public class RetInst extends Instruction {
 
     @Override
     public void replaceUse(Operand use, Operand changeTo) {
-
+        if (retVal == use)
+            retVal = changeTo;
     }
 }

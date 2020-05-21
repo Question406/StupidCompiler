@@ -61,6 +61,7 @@ public class SCCP extends Optimizer implements IRVisitor {
 
     @Override
     public boolean run() {
+        defUseCalC();
         BlockWorkList.clear();
         executableBlocks.clear();
         VirRegWorkList.clear();
@@ -87,8 +88,7 @@ public class SCCP extends Optimizer implements IRVisitor {
             BlockWorkList.offer(basicBlock);
         } else {
             // update phi insts
-            for (var inst = basicBlock.insthead; ; inst = inst.next) {
-                if (! (inst instanceof PhiInst)) break;
+            for (var inst = basicBlock.insthead; inst instanceof PhiInst; inst = inst.next) {
                 inst.accept(this);
             }
         }
@@ -252,10 +252,10 @@ public class SCCP extends Optimizer implements IRVisitor {
 //            LatStateMap.put(constString.getValue(), new State(true, constString.getValue(), LatState.multidef));
 
         while (! (BlockWorkList.isEmpty() && VirRegWorkList.isEmpty())) {
-            while (!BlockWorkList.isEmpty())
+            if (!BlockWorkList.isEmpty())
                 BlockWorkList.poll().accept(this);
 
-            while (!VirRegWorkList.isEmpty()) {
+            if (!VirRegWorkList.isEmpty()) {
                 var virReg = VirRegWorkList.poll();
                 virReg.usedInstructions.forEach(inst -> inst.accept(this));
             }
