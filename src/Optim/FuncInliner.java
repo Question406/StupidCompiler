@@ -55,7 +55,7 @@ public class FuncInliner {
     private void DeadFuncElem() {
         ArrayList<Function> toRM = new ArrayList<>();
         for (var func : program.getGlobalFuncMap().values()) {
-            if (!funcCalledCntMap.containsKey(func) && !func.getFuncname().equals("__init"))
+            if (!funcCalledCntMap.containsKey(func) && !func.getFuncname().equals("__init") && !Function.isBuiltIn(func))
                 toRM.add(func);
         }
         program.getGlobalFuncMap().values().removeAll(toRM);

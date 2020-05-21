@@ -5,8 +5,6 @@
 Array_Node.front:
 Array_Node.front.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s10,s10 
-    mv	back_s11,s11 
     mv	back_s0,s0 
     mv	back_s1,s1 
     mv	back_s2,s2 
@@ -17,9 +15,13 @@ Array_Node.front.entryBB1:
     mv	back_s7,s7 
     mv	back_s8,s8 
     mv	back_s9,s9 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     mv	this.0,a0 
     lw t.0, 0(this.0)
     lw t.0, 4(t.0)
+    mv	s11,back_s11 
+    mv	s10,back_s10 
     mv	s9,back_s9 
     mv	s8,back_s8 
     mv	s7,back_s7 
@@ -30,8 +32,6 @@ Array_Node.front.entryBB1:
     mv	s2,back_s2 
     mv	s1,back_s1 
     mv	s0,back_s0 
-    mv	s11,back_s11 
-    mv	s10,back_s10 
     mv	ra,backup_ra 
     mv	a0,t.0 
     ret
@@ -42,8 +42,6 @@ Array_Node.front.entryBB1:
 Array_Node.doubleStorage:
 Array_Node.doubleStorage.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s10,s10 
-    mv	back_s11,s11 
     mv	back_s0,s0 
     mv	back_s1,s1 
     mv	back_s2,s2 
@@ -54,6 +52,8 @@ Array_Node.doubleStorage.entryBB1:
     mv	back_s7,s7 
     mv	back_s8,s8 
     mv	back_s9,s9 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     mv	this.0,a0 
     lw t.0, 0(this.0)
     mv	copy.0,t.0 
@@ -95,6 +95,8 @@ forbodyBB1:
     sw t.1,0(t.0)
     j	forcondBB1
 afterForBB1:
+    mv	s11,back_s11 
+    mv	s10,back_s10 
     mv	s9,back_s9 
     mv	s8,back_s8 
     mv	s7,back_s7 
@@ -105,8 +107,6 @@ afterForBB1:
     mv	s2,back_s2 
     mv	s1,back_s1 
     mv	s0,back_s0 
-    mv	s11,back_s11 
-    mv	s10,back_s10 
     mv	ra,backup_ra 
     ret
 								 # func end
@@ -116,8 +116,6 @@ afterForBB1:
 Heap_Node.maxHeapify:
 Heap_Node.maxHeapify.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s10,s10 
-    mv	back_s11,s11 
     mv	back_s0,s0 
     mv	back_s1,s1 
     mv	back_s2,s2 
@@ -128,6 +126,8 @@ Heap_Node.maxHeapify.entryBB1:
     mv	back_s7,s7 
     mv	back_s8,s8 
     mv	back_s9,s9 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     mv	x.0,a1 
     mv	this.0,a0 
     mv	_x.0,x.0 
@@ -149,6 +149,109 @@ Heap_Node.maxHeapify.entryBB1:
     mv	t.0,_t.0 
     blt	l.0,t.0,	ifTrue1
     j	paracopy1
+paracopy1:
+    mv	largest.2,largest.0 
+    j	if_end1
+if_end1:
+    mv	_this.0,this.0 
+    lw _t.0, 0(_this.0)
+    mv	_this.0,_t.0 
+    lw _t.0, 4(_this.0)
+    mv	_t.0,_t.0 
+    mv	t.0,_t.0 
+    blt	r.0,t.0,	ifTrue2
+    j	paracopy2
+paracopy2:
+    mv	largest.3,largest.2 
+    j	if_end2
+if_end2:
+    beq	largest.3,x.0,	Heap_Node.maxHeapify.exitBB1
+    j	if_end3
+Heap_Node.maxHeapify.exitBB1:
+    mv	s11,back_s11 
+    mv	s10,back_s10 
+    mv	s9,back_s9 
+    mv	s8,back_s8 
+    mv	s7,back_s7 
+    mv	s6,back_s6 
+    mv	s5,back_s5 
+    mv	s4,back_s4 
+    mv	s3,back_s3 
+    mv	s2,back_s2 
+    mv	s1,back_s1 
+    mv	s0,back_s0 
+    mv	ra,backup_ra 
+    ret
+if_end3:
+    lw t.0, 0(this.0)
+    mv	_this.0,t.0 
+    mv	_i.0,x.0 
+    mv	_j.0,largest.3 
+    lw _t.0, 0(_this.0)
+    slli _t.0,_i.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    lw _t.0, 0(_t.0)
+    mv	_t.0,_t.0 
+    lw _t.0, 0(_this.0)
+    slli _t.0,_j.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    lw _t.0, 0(_this.0)
+    slli _t.0,_i.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    lw _t.0, 0(_t.0)
+    sw _t.0,0(_t.0)
+    lw _t.0, 0(_this.0)
+    slli _t.0,_j.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    sw _t.0,0(_t.0)
+    mv	a0,this.0 
+    mv	a1,largest.3 
+    call	Heap_Node.maxHeapify
+    j	Heap_Node.maxHeapify.exitBB1
+ifTrue2:
+    lw t.0, 0(this.0)
+    mv	_this.0,t.0 
+    mv	_i.0,r.0 
+    lw _t.0, 0(_this.0)
+    slli _t.0,_i.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    lw _t.0, 0(_t.0)
+    mv	t.0,_t.0 
+    mv	_this.0,t.0 
+    addi _t.0,_this.0,    4
+    lw _t.0, 0(_t.0)
+    sub _t.0,zero,_t.0
+    sw _t.0,0(_t.0)
+    mv	t.0,_t.0 
+    lw t.0, 0(this.0)
+    mv	_this.0,t.0 
+    mv	_i.0,largest.2 
+    lw _t.0, 0(_this.0)
+    slli _t.0,_i.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    lw _t.0, 0(_t.0)
+    mv	t.0,_t.0 
+    mv	_this.0,t.0 
+    addi _t.0,_this.0,    4
+    lw _t.0, 0(_t.0)
+    sub _t.0,zero,_t.0
+    sw _t.0,0(_t.0)
+    mv	t.0,_t.0 
+    bgt	t.0,t.0,	if_thenBB1
+    j	paracopy3
+if_thenBB1:
+    mv	largest.4,r.0 
+    mv	largest.3,largest.4 
+    j	if_end2
+paracopy3:
+    mv	largest.3,largest.2 
+    j	if_end2
 ifTrue1:
     lw t.0, 0(this.0)
     mv	_this.0,t.0 
@@ -180,117 +283,14 @@ ifTrue1:
     sub _t.0,zero,_t.0
     sw _t.0,0(_t.0)
     mv	t.0,_t.0 
-    bgt	t.0,t.0,	if_thenBB1
-    j	paracopy2
-if_thenBB1:
-    mv	largest.4,l.0 
-    mv	largest.1,largest.4 
-    j	if_end1
-if_end1:
-    mv	_this.0,this.0 
-    lw _t.0, 0(_this.0)
-    mv	_this.0,_t.0 
-    lw _t.0, 4(_this.0)
-    mv	_t.0,_t.0 
-    mv	t.0,_t.0 
-    blt	r.0,t.0,	ifTrue2
-    j	paracopy3
-paracopy3:
-    mv	largest.3,largest.1 
-    j	if_end2
-if_end2:
-    beq	largest.3,x.0,	Heap_Node.maxHeapify.exitBB1
-    j	if_end3
-if_end3:
-    lw t.0, 0(this.0)
-    mv	_this.0,t.0 
-    mv	_i.0,x.0 
-    mv	_j.0,largest.3 
-    lw _t.0, 0(_this.0)
-    slli _t.0,_i.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    lw _t.0, 0(_t.0)
-    mv	_t.0,_t.0 
-    lw _t.0, 0(_this.0)
-    slli _t.0,_j.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    lw _t.0, 0(_this.0)
-    slli _t.0,_i.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    lw _t.0, 0(_t.0)
-    sw _t.0,0(_t.0)
-    lw _t.0, 0(_this.0)
-    slli _t.0,_j.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    sw _t.0,0(_t.0)
-    mv	a0,this.0 
-    mv	a1,largest.3 
-    call	Heap_Node.maxHeapify
-    j	Heap_Node.maxHeapify.exitBB1
-Heap_Node.maxHeapify.exitBB1:
-    mv	s9,back_s9 
-    mv	s8,back_s8 
-    mv	s7,back_s7 
-    mv	s6,back_s6 
-    mv	s5,back_s5 
-    mv	s4,back_s4 
-    mv	s3,back_s3 
-    mv	s2,back_s2 
-    mv	s1,back_s1 
-    mv	s0,back_s0 
-    mv	s11,back_s11 
-    mv	s10,back_s10 
-    mv	ra,backup_ra 
-    ret
-ifTrue2:
-    lw t.0, 0(this.0)
-    mv	_this.0,t.0 
-    mv	_i.0,r.0 
-    lw _t.0, 0(_this.0)
-    slli _t.0,_i.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    lw _t.0, 0(_t.0)
-    mv	t.0,_t.0 
-    mv	_this.0,t.0 
-    addi _t.0,_this.0,    4
-    lw _t.0, 0(_t.0)
-    sub _t.0,zero,_t.0
-    sw _t.0,0(_t.0)
-    mv	t.0,_t.0 
-    lw t.0, 0(this.0)
-    mv	_this.0,t.0 
-    mv	_i.0,largest.1 
-    lw _t.0, 0(_this.0)
-    slli _t.0,_i.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    lw _t.0, 0(_t.0)
-    mv	t.0,_t.0 
-    mv	_this.0,t.0 
-    addi _t.0,_this.0,    4
-    lw _t.0, 0(_t.0)
-    sub _t.0,zero,_t.0
-    sw _t.0,0(_t.0)
-    mv	t.0,_t.0 
     bgt	t.0,t.0,	if_thenBB2
     j	paracopy4
-if_thenBB2:
-    mv	largest.2,r.0 
-    mv	largest.3,largest.2 
-    j	if_end2
 paracopy4:
-    mv	largest.3,largest.1 
-    j	if_end2
-paracopy2:
-    mv	largest.1,largest.0 
+    mv	largest.2,largest.0 
     j	if_end1
-paracopy1:
-    mv	largest.1,largest.0 
+if_thenBB2:
+    mv	largest.1,l.0 
+    mv	largest.2,largest.1 
     j	if_end1
 								 # func end
     .globl	main				#begin
@@ -299,8 +299,6 @@ paracopy1:
 main:
 __init.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s10,s10 
-    mv	back_s11,s11 
     mv	back_s0,s0 
     mv	back_s1,s1 
     mv	back_s2,s2 
@@ -311,6 +309,8 @@ __init.entryBB1:
     mv	back_s7,s7 
     mv	back_s8,s8 
     mv	back_s9,s9 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     call	getInt
     mv	__t.0,a0 
     mv	_gn.0,__t.0 
@@ -356,6 +356,16 @@ _afterForBB1:
 _forcondBB2:
     blt	_i.4,_n.0,	_forbodyBB2
     j	afterCallBB1
+_forbodyBB2:
+    lw _t.0, 8(_this.0)
+    slli _t.0,_i.4,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    li _t, -1
+    sw _t,0(_t.0)
+    addi _i.5,_i.4,    1
+    mv	_i.4,_i.5 
+    j	_forcondBB2
 afterCallBB1:
     li _t, 0
     sw _t,12(_this.0)
@@ -364,57 +374,6 @@ afterCallBB1:
 __forcondBB1:
     blt	__i.2,_gm.0,	__forbodyBB1
     j	_afterCallBB1
-__forbodyBB1:
-    call	getInt
-    mv	__t.0,a0 
-    mv	__u.0,__t.0 
-    call	getInt
-    mv	__t.0,a0 
-    mv	__v.0,__t.0 
-    call	getInt
-    mv	__t.0,a0 
-    mv	__w.0,__t.0 
-    mv	_this.0,_gg.0 
-    mv	_u.0,__u.0 
-    mv	_v.0,__v.0 
-    mv	_w.0,__w.0 
-    li a0, 12
-    call malloc
-    mv	_t.0,a0 
-    mv	_e.0,_t.0 
-    sw _u.0,0(_e.0)
-    sw _v.0,4(_e.0)
-    sw _w.0,8(_e.0)
-    lw _t.0, 0(_this.0)
-    lw _t.0, 12(_this.0)
-    slli _t.0,_t.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    sw _e.0,0(_t.0)
-    lw _t.0, 8(_this.0)
-    slli _t.0,_u.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    lw _t.0, 4(_this.0)
-    lw _t.0, 12(_this.0)
-    slli _t.0,_t.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    lw _t.0, 0(_t.0)
-    sw _t.0,0(_t.0)
-    lw _t.0, 8(_this.0)
-    slli _t.0,_u.0,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_t.0,_t.0
-    lw _t.0, 12(_this.0)
-    sw _t.0,0(_t.0)
-    addi _t.0,_this.0,    12
-    lw _t.0, 0(_t.0)
-    addi _t.1,_t.0,    1
-    sw _t.1,0(_t.0)
-    addi __i.3,__i.2,    1
-    mv	__i.2,__i.3 
-    j	__forcondBB1
 _afterCallBB1:
     mv	_i.2,zero 
     j	_forcondBB3
@@ -422,6 +381,8 @@ _forcondBB3:
     blt	_i.2,_gn.0,	_forbodyBB3
     j	afterCallBB2
 afterCallBB2:
+    mv	s11,back_s11 
+    mv	s10,back_s10 
     mv	s9,back_s9 
     mv	s8,back_s8 
     mv	s7,back_s7 
@@ -432,8 +393,6 @@ afterCallBB2:
     mv	s2,back_s2 
     mv	s1,back_s1 
     mv	s0,back_s0 
-    mv	s11,back_s11 
-    mv	s10,back_s10 
     mv	ra,backup_ra 
     mv	a0,zero 
     ret
@@ -503,30 +462,6 @@ __afterForBB1:
     mv	____t.0,a0 
     beq	____t.0,____t.0,	____if_thenBB1
     j	___afterCallBB1
-____if_thenBB1:
-    mv	_this.1,____this.1 
-    lw _t.0, 0(_this.1)
-    mv	_copy.1,_t.0 
-    lw _t.0, 4(_this.1)
-    mv	_szCopy.1,_t.0 
-    mv	a0,_copy.1 
-    call	_arraySize
-    mv	_t.0,a0 
-    slli _t.0,_t.0,    1
-    slli _t.0,_t.0,    2
-    addi _t.1,_t.0,    4
-    mv	a0,_t.1 
-    call malloc
-    mv	_t.0,a0 
-    sw _t.0,0(_t.0)
-    sw _t.0,0(_this.1)
-    li _t, 0
-    sw _t,4(_this.1)
-    j	_forcondBB4
-_forcondBB4:
-    lw _t.0, 4(_this.1)
-    bne	_t.0,_szCopy.1,	_forbodyBB4
-    j	___afterCallBB1
 ___afterCallBB1:
     lw ____t.0, 0(____this.1)
     lw ____t.0, 4(____this.1)
@@ -561,6 +496,49 @@ __whileCondBB1:
     mv	__t.0,___t.0 
     bne	__t.0,zero,	__whileBodyBB1
     j	_afterCallBB2
+_afterCallBB2:
+    mv	_t.0,__d.1 
+    mv	_d.1,_t.0 
+    mv	_j.3,zero 
+    j	_forcondBB4
+_forcondBB4:
+    blt	_j.3,_gn.0,	_forbodyBB4
+    j	_afterForBB2
+_forbodyBB4:
+    slli _t.0,_j.3,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_d.1,_t.0
+    lw _t.0, 0(_t.0)
+    li t, 10000000
+    beq	_t.0,t,	_if_thenBB1
+    j	_if_elseBB1
+_if_thenBB1:
+    la para,_globalStr2    
+    mv	a0,para 
+    call	print
+    j	_if_end1
+_if_end1:
+    la para,_globalStr1    
+    mv	a0,para 
+    call	print
+    addi _j.4,_j.3,    1
+    mv	_j.3,_j.4 
+    j	_forcondBB4
+_if_elseBB1:
+    slli _t.0,_j.3,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_d.1,_t.0
+    lw _t.0, 0(_t.0)
+    mv	a0,_t.0 
+    call	printInt
+    j	_if_end1
+_afterForBB2:
+    la para,_globalStr0    
+    mv	a0,para 
+    call	println
+    addi _i.3,_i.2,    1
+    mv	_i.2,_i.3 
+    j	_forcondBB3
 __whileBodyBB1:
     mv	___this.0,__q.1 
     lw ___t.0, 0(___this.0)
@@ -760,15 +738,6 @@ ___whileBodyBB2:
     mv	___t.0,____t.0 
     bge	___t.0,___t.0,	__forupdateBB1
     j	___if_end1
-__forupdateBB1:
-    lw __t.0, 4(_gg.0)
-    slli __t.0,__k.4,    2
-    addi __t.0,__t.0,    4
-    add __t.0,__t.0,__t.0
-    lw __t.0, 0(__t.0)
-    mv	__k.5,__t.0 
-    mv	__k.4,__k.5 
-    j	__forcondBB3
 ___if_end1:
     lw ___t.0, 0(___this.3)
     mv	____this.0,___t.0 
@@ -798,6 +767,15 @@ ___if_end1:
     mv	___x.5,___p.4 
     mv	___x.4,___x.5 
     j	___whileCondBB2
+__forupdateBB1:
+    lw __t.0, 4(_gg.0)
+    slli __t.0,__k.4,    2
+    addi __t.0,__t.0,    4
+    add __t.0,__t.0,__t.0
+    lw __t.0, 0(__t.0)
+    mv	__k.5,__t.0 
+    mv	__k.4,__k.5 
+    j	__forcondBB3
 ____if_thenBB2:
     mv	_this.4,____this.3 
     lw _t.0, 0(_this.4)
@@ -839,49 +817,6 @@ _forbodyBB5:
     addi _t.1,_t.0,    1
     sw _t.1,0(_t.0)
     j	_forcondBB5
-_afterCallBB2:
-    mv	_t.0,__d.1 
-    mv	_d.1,_t.0 
-    mv	_j.3,zero 
-    j	_forcondBB6
-_forcondBB6:
-    blt	_j.3,_gn.0,	_forbodyBB6
-    j	_afterForBB2
-_forbodyBB6:
-    slli _t.0,_j.3,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_d.1,_t.0
-    lw _t.0, 0(_t.0)
-    li t, 10000000
-    beq	_t.0,t,	_if_thenBB1
-    j	_if_elseBB1
-_if_thenBB1:
-    la para,_globalStr2    
-    mv	a0,para 
-    call	printInt
-    j	_if_end1
-_if_end1:
-    la para,_globalStr1    
-    mv	a0,para 
-    call	printInt
-    addi _j.4,_j.3,    1
-    mv	_j.3,_j.4 
-    j	_forcondBB6
-_if_elseBB1:
-    slli _t.0,_j.3,    2
-    addi _t.0,_t.0,    4
-    add _t.0,_d.1,_t.0
-    lw _t.0, 0(_t.0)
-    mv	a0,_t.0 
-    call	printInt
-    j	_if_end1
-_afterForBB2:
-    la para,_globalStr0    
-    mv	a0,para 
-    call	println
-    addi _i.3,_i.2,    1
-    mv	_i.2,_i.3 
-    j	_forcondBB3
 ___whileBodyBB1:
     mv	____x.0,___x.2 
     li t, 1
@@ -950,23 +885,47 @@ ___if_end2:
     mv	___x.3,___p.3 
     mv	___x.2,___x.3 
     j	___whileCondBB1
-_forbodyBB4:
-    lw _t.0, 4(_this.1)
+____if_thenBB1:
+    mv	_this.2,____this.1 
+    lw _t.0, 0(_this.2)
+    mv	_copy.2,_t.0 
+    lw _t.0, 4(_this.2)
+    mv	_szCopy.2,_t.0 
+    mv	a0,_copy.2 
+    call	_arraySize
+    mv	_t.0,a0 
+    slli _t.0,_t.0,    1
+    slli _t.0,_t.0,    2
+    addi _t.1,_t.0,    4
+    mv	a0,_t.1 
+    call malloc
+    mv	_t.0,a0 
+    sw _t.0,0(_t.0)
+    sw _t.0,0(_this.2)
+    li _t, 0
+    sw _t,4(_this.2)
+    j	_forcondBB6
+_forcondBB6:
+    lw _t.0, 4(_this.2)
+    bne	_t.0,_szCopy.2,	_forbodyBB6
+    j	___afterCallBB1
+_forbodyBB6:
+    lw _t.0, 4(_this.2)
     slli _t.0,_t.0,    2
     addi _t.0,_t.0,    4
-    add _t.0,_copy.1,_t.0
-    lw _t.0, 0(_this.1)
-    lw _t.0, 4(_this.1)
+    add _t.0,_copy.2,_t.0
+    lw _t.0, 0(_this.2)
+    lw _t.0, 4(_this.2)
     slli _t.0,_t.0,    2
     addi _t.0,_t.0,    4
     add _t.0,_t.0,_t.0
     lw _t.0, 0(_t.0)
     sw _t.0,0(_t.0)
-    addi _t.0,_this.1,    4
+    addi _t.0,_this.2,    4
     lw _t.0, 0(_t.0)
     addi _t.1,_t.0,    1
     sw _t.1,0(_t.0)
-    j	_forcondBB4
+    j	_forcondBB6
 __forbodyBB2:
     slli __t.0,__i.3,    2
     addi __t.0,__t.0,    4
@@ -981,16 +940,57 @@ __forbodyBB2:
     addi __i.4,__i.3,    1
     mv	__i.3,__i.4 
     j	__forcondBB2
-_forbodyBB2:
-    lw _t.0, 8(_this.0)
-    slli _t.0,_i.4,    2
+__forbodyBB1:
+    call	getInt
+    mv	__t.0,a0 
+    mv	__u.0,__t.0 
+    call	getInt
+    mv	__t.0,a0 
+    mv	__v.0,__t.0 
+    call	getInt
+    mv	__t.0,a0 
+    mv	__w.0,__t.0 
+    mv	_this.0,_gg.0 
+    mv	_u.0,__u.0 
+    mv	_v.0,__v.0 
+    mv	_w.0,__w.0 
+    li a0, 12
+    call malloc
+    mv	_t.0,a0 
+    mv	_e.0,_t.0 
+    sw _u.0,0(_e.0)
+    sw _v.0,4(_e.0)
+    sw _w.0,8(_e.0)
+    lw _t.0, 0(_this.0)
+    lw _t.0, 12(_this.0)
+    slli _t.0,_t.0,    2
     addi _t.0,_t.0,    4
     add _t.0,_t.0,_t.0
-    li _t, -1
-    sw _t,0(_t.0)
-    addi _i.5,_i.4,    1
-    mv	_i.4,_i.5 
-    j	_forcondBB2
+    sw _e.0,0(_t.0)
+    lw _t.0, 8(_this.0)
+    slli _t.0,_u.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    lw _t.0, 4(_this.0)
+    lw _t.0, 12(_this.0)
+    slli _t.0,_t.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    lw _t.0, 0(_t.0)
+    sw _t.0,0(_t.0)
+    lw _t.0, 8(_this.0)
+    slli _t.0,_u.0,    2
+    addi _t.0,_t.0,    4
+    add _t.0,_t.0,_t.0
+    lw _t.0, 12(_this.0)
+    sw _t.0,0(_t.0)
+    addi _t.0,_this.0,    12
+    lw _t.0, 0(_t.0)
+    addi _t.1,_t.0,    1
+    sw _t.1,0(_t.0)
+    addi __i.3,__i.2,    1
+    mv	__i.2,__i.3 
+    j	__forcondBB1
 _forbodyBB1:
     lw _t.0, 4(_this.0)
     slli _t.0,_i.2,    2
