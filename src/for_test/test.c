@@ -1,261 +1,85 @@
 /*
-Test Package: Optim
-Author: Zhekai Zhang, 15
-//#input sha_1.in
-//#output sha_1.ans
+Test Package: Codegen
+Author: 14' Shichao Xu
+Time: 2020-02-02
+Input:
+=== input ===
+=== end ===
+Output:
+=== output ===
+1025
+=== end ===
 ExitCode: 0
 InstLimit: -1
+Origin Package: Codegen Pretest-867
 */
-
-//Compute and Crack SHA-1
-//by zzk
-
-int hex2int(string x)
-{
-	int i;
-	int result = 0;
-	for(i=0;i<x.length();i++)
-	{
-		int digit = x.ord(i);
-		if(digit >= 48 && digit <= 57)
-			result = result * 16 + digit - 48;
-		else if(digit >= 65 && digit <= 70)
-			result = result * 16 + digit - 65 + 10;
-		else if(digit >= 97 && digit <= 102)
-			result = result * 16 + digit - 97 + 10;
-		else
-			return 0;
-	}
-	return result;
+int gcd(int x, int y, int j0 , int j1 , int j2 , int j3 , int j4 , int j5 , int j6 , int j7 , int j8 , int j9 , int j10 , int j11 , int j12 , int j13 , int j14 , int j15 , int j16 , int j17 , int j18 , int j19 , int j20 , int j21 , int j22 , int j23 , int j24 , int j25 , int j26 , int j27 , int j28 , int j29) {
+  int i;
+  int j;
+  for(i = 0; i<= 10; ++i)
+    j = (j0 +j1 +j2 +j3 +j4 +j5 +j6 +j7 +j8 +j9 +j10 +j11 +j12 +j13 +j14 +j15 +j16 +j17 +j18 +j19 +j20 +j21 +j22 +j23 +j24 +j25 +j26 +j27 +j28 +j29) % 100;
+  if (x%y == 0) return y;
+  else return gcd1(y, x%y,j ,gcd(10,68, 0 , 2 , 4 , 6 , 8 , 10 , 12 , 14 , 16 , 18 , 20 , 22 , 24 , 26 , 28 , 30 , 32 , 34 , 36 , 38 , 40 , 42 , 44 , 46 , 48 , 50 , 52 , 54 , 56 , 58) ,j2 ,j3 ,j4 ,j5 ,j6 ,j7 ,j8 ,j9 ,j10 ,j11 ,j12 ,j13 ,j14 ,j15 ,j16 ,j17 ,j18 ,j19 ,j20 ,j21 ,j22 ,j23 ,j24 ,j25 ,j26 ,j27 ,j28 ,j29);
 }
 
-string asciiTable = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-string int2chr(int x)
-{
-	if(x >= 32 && x <= 126)
-		return asciiTable.substring(x-32, x-31);
-	return "";
-}
-string toStringHex(int x)
-{
-	string ret = "";
-	int i;
-	for(i=28;i>=0;i=i-4)
-	{
-		int digit = (x >> i) & 15;
-		if(digit < 10)
-			ret = ret + int2chr(48+digit);
-		else
-			ret = ret + int2chr(65+digit-10);
-	}
-	return ret;
-}
-int rotate_left(int x, int shift)
-{
-	if(shift == 1)
-		return ((x & 2147483647) << 1) | ((x >> 31) & 1);
-	if(shift == 31)
-		return ((x & 1) << 31) | ((x >> 1) & 2147483647);
-	return ((x & ((1 << (32-shift)) - 1)) << shift) | ((x >> (32-shift)) & ((1 << shift) - 1));
-}
-int add(int x, int y)	//to avoid possible undefined behaviour when overflow
-{
-	int low = (x & 65535) + (y & 65535);
-	int high = (((x >> 16) & 65535) + ((y >> 16) & 65535) + (low >> 16)) & 65535;
-	return (high << 16) | (low & 65535);
-}
-int lohi(int lo, int hi)
-{
-	return lo | (hi << 16);
+
+
+int gcd1(int x, int y, int j0 , int j1 , int j2 , int j3 , int j4 , int j5 , int j6 , int j7 , int j8 , int j9 , int j10 , int j11 , int j12 , int j13 , int j14 , int j15 , int j16 , int j17 , int j18 , int j19 , int j20 , int j21 , int j22 , int j23 , int j24 , int j25 , int j26 , int j27 , int j28 , int j29) {
+  int j;
+  j = (j0 +j1 +j2 +j3 +j4 +j5 +j6 +j7 +j8 +j9 +j10 +j11 +j12 +j13 +j14 +j15 +j16 +j17 +j18 +j19 +j20 +j21 +j22 +j23 +j24 +j25 +j26 +j27 +j28 +j29) % 100;
+  if (x%y == 0) return y;
+  else return gcd2(y, x%y,j ,j1 ,j2 ,j3 ,j4 ,j5 ,j6 ,j7 ,j8 ,j9 ,j10 ,j11 ,j12 ,j13 ,j14 ,j15 ,j16 ,j17 ,j18 ,j19 ,j20 ,j21 ,j22 ,j23 ,j24 ,j25 ,j26 ,j27 ,j28 ,j29);
 }
 
-int MAXCHUNK = 100;
-int MAXLENGTH = (MAXCHUNK-1) * 64 - 16;
-int[][] chunks = new int[MAXCHUNK][80];
-int[] inputBuffer = new int[MAXLENGTH];
-int[] outputBuffer = new int[5];
-int[] sha1(int[] input, int length)
-{
-	int nChunk = (length + 64 - 56) / 64 + 1;
-	if(nChunk > MAXCHUNK)
-	{
-		println("nChunk > MAXCHUNK!");
-		return null;
-	}
-	int i;
-	int j;
-	for(i=0;i<nChunk;i++)
-		for(j=0;j<80;j++)
-			chunks[i][j] = 0;
-	for(i=0;i<length;i++)
-		chunks[i/64][i%64/4] = chunks[i/64][i%64/4] | (input[i] << ((3-i%4)*8));
-	chunks[i/64][i%64/4] = chunks[i/64][i%64/4] | (128 << ((3-i%4)*8));
-	chunks[nChunk-1][15] = length << 3;
-	chunks[nChunk-1][14] = (length >> 29) & 7;
 
-	int h0 = 1732584193;  //0x67452301
-	int h1 = lohi(43913, 61389);  //0xEFCDAB89
-	int h2 = lohi(56574, 39098); //0x98BADCFE
-	int h3 = 271733878;   //0x10325476
-	int h4 = lohi(57840, 50130); //0xC3D2E1F0
-	for(i=0;i<nChunk;i++)
-	{
-		for(j=16;j<80;j++)
-			chunks[i][j] = rotate_left(chunks[i][j-3] ^ chunks[i][j-8] ^ chunks[i][j-14] ^ chunks[i][j-16], 1);
 
-		int a = h0;
-		int b = h1;
-		int c = h2;
-		int d = h3;
-		int e = h4;
-		for(j=0;j<80;j++)
-		{
-			int f;
-			int k;
-			if(j<20)
-			{
-				f = (b & c) | ((~b) & d);
-				k = 1518500249; //0x5A827999
-			}
-			else if(j<40)
-			{
-				f = b ^ c ^ d;
-				k = 1859775393; //0x6ED9EBA1
-			}
-			else if(j<60)
-			{
-				f = (b & c) | (b & d) | (c & d);
-				k = lohi(48348, 36635); //0x8F1BBCDC
-			}
-			else
-			{
-				f = b ^ c ^ d;
-				k = lohi(49622, 51810); //0xCA62C1D6
-			}
-			int temp = add(add(add(rotate_left(a, 5), e), add(f, k)), chunks[i][j]);
-			e = d;
-			d = c;
-			c = rotate_left(b, 30);
-			b = a;
-			a = temp;
-		}
-		h0 = add(h0, a);
-		h1 = add(h1, b);
-		h2 = add(h2, c);
-		h3 = add(h3, d);
-		h4 = add(h4, e);
-	}
-	outputBuffer[0] = h0;
-	outputBuffer[1] = h1;
-	outputBuffer[2] = h2;
-	outputBuffer[3] = h3;
-	outputBuffer[4] = h4;
-	return outputBuffer;
+int gcd2(int x, int y, int j0 , int j1 , int j2 , int j3 , int j4 , int j5 , int j6 , int j7 , int j8 , int j9 , int j10 , int j11 , int j12 , int j13 , int j14 , int j15 , int j16 , int j17 , int j18 , int j19 , int j20 , int j21 , int j22 , int j23 , int j24 , int j25 , int j26 , int j27 , int j28 , int j29) {
+  int j;
+  j = (j0 +j1 +j2 +j3 +j4 +j5 +j6 +j7 +j8 +j9 +j10 +j11 +j12 +j13 +j14 +j15 +j16 +j17 +j18 +j19 +j20 +j21 +j22 +j23 +j24 +j25 +j26 +j27 +j28 +j29) % 100;
+  if (x%y == 0) return y;
+  else return gcd(y, x%y,j0 ,j1 ,j2 ,j3 ,j4 ,j5 ,j6 ,j7 ,j8 ,j9 ,j10 ,j11 ,j12 ,j13 ,j14 ,j15 ,j16 ,j17 ,j18 ,j19 ,j20 ,j21 ,j22 ,j23 ,j24 ,j25 ,j26 ,j27 ,j28 ,j29);
 }
 
-void computeSHA1(string input)
-{
-	int i;
-	for(i=0; i<input.length(); i++)
-		inputBuffer[i] = input.ord(i);
-	int[] result = sha1(inputBuffer, input.length());
-	for(i=0; i<result.size(); i++)
-		print(toStringHex(result[i]));
-	println("");
+
+
+
+int main() {
+    println(toString(gcd(10,1, 0 , 2 , 4 , 6 , 8 , 10 , 12 , 14 , 16 , 18 , 20 , 22 , 24 , 26 , 28 , 30 , 32 , 34 , 36 , 38 , 40 , 42 , 44 , 46 , 48 , 50 , 52 , 54 , 56 , 58) + 1024));
+
+    return 0;
 }
 
-int nextLetter(int now)
-{
-	if(now == 122) //'z'
-		return -1;
-	if(now == 90)  //'Z'
-		return 97; //'a'
-	if(now == 57)  //'9'
-		return 65;
-	return now + 1;
-}
-
-bool nextText(int[] now, int length)
-{
-	int i;
-	for(i=length-1; i>=0; i--)
-	{
-		now[i] = nextLetter(now[i]);
-		if(now[i] == -1)
-			now[i] = 48;	//'0'
-		else
-			return true;
-	}
-	return false;
-}
-
-bool array_equal(int[] a, int[] b)
-{
-	if(a.size() != b.size())
-		return false;
-	int i;
-	for(i=0; i<a.size(); i++)
-		if(a[i] != b[i])
-			return false;
-	return true;
-}
-
-void crackSHA1(string input)
-{
-	int[] target = new int[5];
-	if(input.length() != 40)
-	{
-		println("Invalid input");
-		return;
-	}
-	int i;
-	for(i=0;i<5;i++)
-		target[i] = 0;
-	for(i=0;i<40;i=i+4)
-		target[i/8] = target[i/8] | (hex2int(input.substring(i, i+4)) << (1 - (i / 4) % 2) * 16);
-
-	int MAXDIGIT = 4;
-	int digit;
-	for(digit=1; digit <= MAXDIGIT; digit++)
-	{
-		for(i=0;i<digit;i++)
-			inputBuffer[i] = 48;
-		while(true)
-		{
-			int[] out = sha1(inputBuffer, digit);
-			if(array_equal(out, target))
-			{
-				for(i=0;i<digit;i++)
-					print(int2chr(inputBuffer[i]));
-				println("");
-				return;
-			}
-			if(!nextText(inputBuffer, digit))
-				break;
-		}
-	}
-	println("Not Found!");
-}
-
-int main()
-{
-	int op;
-	string input;
-	while(true)
-	{
-		op = getInt();
-		if(op == 0)
-			break;
-		if(op == 1)
-		{
-			input = getString();
-			computeSHA1(input);
-		}
-		else if(op == 2)
-		{
-			input = getString();
-			crackSHA1(input);
-		}
-	}
-	return 0;
-}
+//int A(int a, int b) {
+//    if (a == b)
+//        return a + b;
+//    else {
+//        a--;
+//        b++;
+//        return B(a, b);
+//    }
+//}
+//int B(int a, int b) {
+//    if (a == b)
+//        return a + b;
+//    else {
+//        a--;
+//        b++;
+//        return C(a, b);
+//    }
+//}
+//
+//int C(int a, int b) {
+//    if (a == b)
+//        return a + b;
+//    else {
+//        a--;
+//        b++;
+//        return A(a, b);
+//    }
+//}
+//
+//int main() {
+//    int a = 10;
+//    int b = 20;
+//    return A(a, b);
+//}

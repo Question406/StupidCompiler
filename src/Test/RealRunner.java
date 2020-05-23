@@ -95,8 +95,8 @@ public class RealRunner {
 
     private void PrintASM(boolean inFile) throws Exception {
 //        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
-        // File file = new File("test.s");
-       File file = new File("output.s");
+        File file = new File("test.s");
+//        File file = new File("output.s");
         PrintStream out = (inFile) ? new PrintStream(file) : System.out;
         ASMPrinter asmPrinter = new ASMPrinter(out);
         asmPrinter.visit(IRRoot);
@@ -139,7 +139,7 @@ public class RealRunner {
         OPResolver opResolver = new OPResolver(IRRoot);
         IRModifier irModifier = new IRModifier(IRRoot);
         irModifier.run();
-//        PrintIR(false);
+        PrintIR(false);
 
         dominaceTreeBuilder.run();
         ssaConstructor.run();
