@@ -4,6 +4,7 @@ import IR.Function;
 import IR.IRPrinter;
 import IR.Instruction.FuncCallInst;
 import IR.Instruction.Instruction;
+import IR.Instruction.LoadInst;
 import IR.Module;
 
 // just some stupid optimize
@@ -47,6 +48,11 @@ public class IRModifier extends Optimizer {
                                 inst.RMSelf();
                             }
                         }
+                    }
+                    if (((FuncCallInst) inst).callTo.getFuncname().equals("array.size")) {
+                        var res = ((FuncCallInst) inst).res;
+                        inst.linkPrev(new LoadInst(inst.curBB, res, ((FuncCallInst) inst).thisPointer));
+                        inst.RMSelf();
                     }
                 }
             }

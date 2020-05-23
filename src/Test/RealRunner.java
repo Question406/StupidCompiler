@@ -11,7 +11,6 @@ import FrontEnd.Parser.ProgramLexer;
 import FrontEnd.Parser.ProgramParser;
 import FrontEnd.Semantic.SemanticAnalyzer;
 import IR.IRPrinter;
-import IR.Interpreter.IRInterpreter;
 import Optim.*;
 import RISCV.RISCV_Info;
 import Test.AST.ASTPrinter;
@@ -97,7 +96,7 @@ public class RealRunner {
     private void PrintASM(boolean inFile) throws Exception {
 //        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
         // File file = new File("test.s");
-        File file = new File("output.s");
+       File file = new File("output.s");
         PrintStream out = (inFile) ? new PrintStream(file) : System.out;
         ASMPrinter asmPrinter = new ASMPrinter(out);
         asmPrinter.visit(IRRoot);
@@ -149,12 +148,12 @@ public class RealRunner {
         dominaceTreeBuilder.run();
         while (changed) {
             changed = false;
-            changed |= dvnt.run();
-            changed |= cfgSimplifier.run();
-            dominaceTreeBuilder.run();
             changed |= SCCPAnalyzer.run();
             changed |= cfgSimplifier.run();
             changed |= deadCodeElim.run();
+            dominaceTreeBuilder.run();
+            changed |= dvnt.run();
+            changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
 //            PrintIR(true);
         }

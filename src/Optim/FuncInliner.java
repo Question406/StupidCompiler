@@ -16,6 +16,7 @@ import java.util.*;
 
 public class FuncInliner {
     final int MAXInst = 100;
+    final int MAXINLINE_CNT = 3;
 
     IRPrinter irPrinter;
 
@@ -100,7 +101,35 @@ public class FuncInliner {
     }
 
     private void TryRecursiveInline() {
-
+        boolean changed = true;
+        int inlineCnt = 0;
+        while (changed && inlineCnt <= MAXINLINE_CNT) {
+            changed = false;
+            ++inlineCnt;
+            for (var func : program.getGlobalFuncMap().values()) {
+                if (Function.isBuiltIn(func)) continue;
+                var RPOBBs = func.getReversePostOrderBBs();
+                var instCnt = funcInstCntMap.get(func);
+                boolean thisChanged = false;
+                for (var bb : RPOBBs) {
+                    for (Instruction inst = bb.insthead, nxtInst; inst != null; inst = nxtInst) {
+                        nxtInst = inst.next;
+                        if (!(inst instanceof FuncCallInst)) continue;
+                        var callTo = ((FuncCallInst) inst).getCallTo();
+                        if (Function.isBuiltIn(callTo) || func == callTo) continue;
+                        if (instCnt + funcInstCntMap.get(callTo) < MAXInst) {
+                            changed = true;
+                            thisChanged = true;
+                            nxtInst = doInline((FuncCallInst) inst);
+                            funcInstCntMap.replace(func, instCnt + funcInstCntMap.get(callTo));
+                        }
+                    }
+                }
+                if (thisChanged) {
+                    func.CalcReversePostOrderBBs();
+                }
+            }
+        }
     }
 
     private void InstsCnt() {

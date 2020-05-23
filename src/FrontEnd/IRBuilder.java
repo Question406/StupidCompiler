@@ -547,8 +547,8 @@ public class IRBuilder implements ASTVisitor {
     private void handleLogicBinaryExprAsInt(BinaryExprNode node) throws Exception {
         var lhs = node.getLHS();
         var rhs = node.getRHS();
-        lhs.accept(this);
         rhs.accept(this);
+        lhs.accept(this);
         var op = (node.getOp() == BinaryOperator.LOGICAND) ? LOGICAND : LOGICOR;
         VirReg res = new VirReg("t");
         node.setOperand(res);
@@ -559,8 +559,8 @@ public class IRBuilder implements ASTVisitor {
     private void handleRelationBinExpr(BinaryExprNode node) throws Exception {
         var lhs = node.getLHS();
         var rhs = node.getRHS();
-        lhs.accept(this);
         rhs.accept(this);
+        lhs.accept(this);
         if (lhs.getType() instanceof IntegerType || lhs.getType() instanceof BoolType) {
             VirReg reg = new VirReg("t");
             node.setOperand(reg);
@@ -623,8 +623,8 @@ public class IRBuilder implements ASTVisitor {
     private void handleArithematicBinExpr(BinaryExprNode node) throws Exception {
         var lhs = node.getLHS();
         var rhs = node.getRHS();
-        lhs.accept(this);
         rhs.accept(this);
+        lhs.accept(this);
         if (lhs.getType() instanceof IntegerType) {
             VirReg reg = new VirReg("t");
             node.setOperand(reg);
