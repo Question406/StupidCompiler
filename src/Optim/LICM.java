@@ -1,6 +1,5 @@
 package Optim;
 
-import IR.Function;
 import IR.Module;
 
 // loop invariant code motion
@@ -17,16 +16,8 @@ public class LICM extends Optimizer {
 
     @Override
     public boolean run() {
-        changed = false;
-        for (var func : program.getGlobalFuncMap().values()) {
-            if (!Function.isBuiltIn(func)) {
-                run(func);
-            }
-        }
-        return changed;
+        return false;
     }
 
-    private void run (Function func) {
 
-    }
 }

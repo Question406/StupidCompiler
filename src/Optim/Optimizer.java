@@ -6,7 +6,6 @@ import IR.Operand.ConstInt;
 
 public abstract class Optimizer {
     public Module program;
-    boolean changed;
 
     public Optimizer(Module program) {
         this.program = program;

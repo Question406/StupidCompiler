@@ -26,8 +26,6 @@ public class FuncInliner {
     Map<Function, Integer> funcCalledCntMap;
     Map<Function, func_call_info> functionfunc_call_infoMap;
 
-    Map<String, Function> originFunc;
-
     public class func_call_info {
         Set<Function> callTOSet = new HashSet<Function>();
         Set<Function> recursiveCallTOSet = new HashSet<Function>();
@@ -38,7 +36,6 @@ public class FuncInliner {
         funcInstCntMap = new HashMap<Function, Integer>();
         funcCalledCntMap = new HashMap<Function, Integer>();
         functionfunc_call_infoMap = new HashMap<Function, func_call_info>();
-        originFunc = new HashMap<String, Function>();
         irPrinter = new IRPrinter(System.out);
     }
 
@@ -47,10 +44,9 @@ public class FuncInliner {
         DeadFuncElem();
         CalcRecursiveCallSet();
         TryNonRecursiveInline();
-        functionfunc_call_infoMap.clear();
-        InstsCnt();
-        DeadFuncElem();
+
         TryRecursiveInline(); // TODO: seems codegen doesn't contain testcase that need this
+
         functionfunc_call_infoMap.clear();
         InstsCnt();
         DeadFuncElem();
@@ -104,84 +100,14 @@ public class FuncInliner {
         }
     }
 
-    private void makeFuncCopy() {
-        for (var func : program.getGlobalFuncMap().values()) {
-            if (Function.isBuiltIn(func)) continue;;
-            Function copyFunc = new Function("copy_" + func.getFuncname());
-            originFunc.put(func.funcname, copyFunc);
-
-            Map<Operand, Operand> argMap = new HashMap<>();
-            if (func.thisPointer != null) {
-                copyFunc.thisPointer = new VirReg(func.thisPointer.name);
-                argMap.put(func.thisPointer, copyFunc.thisPointer);
-            }
-
-            for (var para : func.args) {
-                VirReg newpara = new VirReg(para.name);
-                copyFunc.args.add(newpara);
-                argMap.put(para, newpara);
-            }
-
-            Map<BasicBlock, BasicBlock> bbmap = new HashMap<>();
-            for (var bb : func.getReversePostOrderBBs()) {
-                BasicBlock copyBB = new BasicBlock(copyFunc, bb.name);
-                bbmap.put(bb, copyBB);
-            }
-            copyFunc.entryBB = bbmap.get(func.entryBB);
-            copyFunc.exitBB = bbmap.get(func.exitBB);
-            for (var bb : func.getReversePostOrderBBs()) {
-                var correspondingBB = bbmap.get(bb);
-                for (var predBB : bb.predBBs) {
-                    correspondingBB.predBBs.add(bbmap.get(predBB));
-                }
-                for (var succBB : bb.succBBs) {
-                    correspondingBB.succBBs.add(bbmap.get(succBB));
-                }
-                for (var inst = bb.insthead; inst != null; inst = inst.next) {
-                    var defReg = inst.getDefReg();
-                    var useRegs = inst.getUseRegs();
-                    if (defReg != null) {
-                        if (!argMap.containsKey(defReg)) {
-                            if (defReg instanceof Pointer) {
-                                Pointer tmp = (Pointer) defReg.CopySelf();
-                                tmp.pointTO = (VirReg) argMap.get(tmp.pointTO);
-                                argMap.put(defReg, tmp);
-                            }
-                            else
-                                argMap.put(defReg, defReg.CopySelf());
-                        }
-                    }
-                    if (useRegs != null) {
-                        for (var reg : useRegs) {
-                            if (!argMap.containsKey(reg)) {
-                                if (reg instanceof Pointer) {
-                                    Pointer tmp = (Pointer) reg.CopySelf();
-                                    tmp.pointTO = (VirReg) argMap.get(tmp.pointTO);
-                                    argMap.put(reg, tmp);
-                                }
-                                else
-                                    argMap.put(reg, reg.CopySelf());
-                            }
-                        }
-                    }
-                    correspondingBB.addInst(inst.CopySelfWithNewName(argMap, bbmap));
-                }
-                bb.ended = true;
-            }
-            copyFunc.CalcReversePostOrderBBs();
-//            irPrinter.visit(copyFunc);
-        }
-    }
-
     private void TryRecursiveInline() {
-        makeFuncCopy();
         boolean changed = true;
         int inlineCnt = 0;
         while (changed && inlineCnt <= MAXINLINE_CNT) {
             changed = false;
             ++inlineCnt;
             for (var func : program.getGlobalFuncMap().values()) {
-                if (Function.isBuiltIn(func) || func.funcname.equals("__init")) continue;
+                if (Function.isBuiltIn(func)) continue;
                 var RPOBBs = func.getReversePostOrderBBs();
                 var instCnt = funcInstCntMap.get(func);
                 boolean thisChanged = false;
@@ -194,7 +120,6 @@ public class FuncInliner {
                         if (instCnt + funcInstCntMap.get(callTo) < MAXInst) {
                             changed = true;
                             thisChanged = true;
-                            ((FuncCallInst) inst).callTo = originFunc.get(((FuncCallInst) inst).callTo.funcname);
                             nxtInst = doInline((FuncCallInst) inst);
                             funcInstCntMap.replace(func, instCnt + funcInstCntMap.get(callTo));
                         }
