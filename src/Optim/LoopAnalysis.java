@@ -7,7 +7,8 @@ import IR.Module;
 import java.util.*;
 
 public class LoopAnalysis extends Optimizer {
-    Set<BasicBlock> Headers;
+    // only contains loop info for one function at the same time
+    protected Set<BasicBlock> Headers = new HashSet<>();
     protected Map<BasicBlock, Set<BasicBlock>> Backers = new HashMap<>();
     protected Map<BasicBlock, Set<BasicBlock>> belongingLoopHeaders = new HashMap<>();
     protected Map<BasicBlock, Set<BasicBlock>> loopGroups = new HashMap<>();
@@ -27,7 +28,14 @@ public class LoopAnalysis extends Optimizer {
         return false;
     }
 
-    private void run(Function function) {
+    public void run(Function function) {
+        ComputeIDomBB(function);
+        ComputeDomFrontier(function);
+        Headers.clear();
+        Backers.clear();
+        belongingLoopHeaders.clear();
+        loopGroups.clear();
+        loopExits.clear();
         for (var bb : function.getReversePostOrderBBs()) {
             for (var succ : bb.succBBs) {
                 if (succ.DomBBs.contains(bb)) { // a back edge

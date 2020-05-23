@@ -46,6 +46,7 @@ public class CFGSimplifier extends Optimizer {
         if (res) {
             unreachableBBElem(function);
         }
+        function.CalcReversePostOrderBBs();
         function.CalCBBs();
         if (!function.getReversePostOrderBBs().contains(function.exitBB)) {
             // the stupid case for misc-

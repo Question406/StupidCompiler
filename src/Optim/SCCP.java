@@ -249,8 +249,7 @@ public class SCCP extends Optimizer implements IRVisitor {
         // Set ConstantStrings to be constant
         for (var constString : program.getStringPool().entrySet())
             LatStateMap.put(constString.getValue(), new State(true, constString.getValue(), LatState.constant));
-//            LatStateMap.put(constString.getValue(), new State(true, constString.getValue(), LatState.multidef));
-//
+
         while (! (BlockWorkList.isEmpty() && VirRegWorkList.isEmpty())) {
             if (!BlockWorkList.isEmpty())
                 BlockWorkList.poll().accept(this);

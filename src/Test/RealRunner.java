@@ -62,16 +62,21 @@ public class RealRunner {
         parser.removeErrorListeners();
         parser.addErrorListener(new ProgramErrorListener());
         tree = parser.program(); // parse
+        lexer = null;
+        tokens = null;
+        parser = null;
     }
 
     private void BuildAST() throws Exception {
         astbuilder = new ASTBuilder();
         root = (ProgramNode) astbuilder.visit(tree);
+        astbuilder = null;
     }
 
     private void SemanticAnalyze() throws Exception{
         analyzer = new SemanticAnalyzer(new ErrorHandler());
         analyzer.visit((ProgramNode) root);
+        analyzer = null;
     }
 
     private void PrintAST() throws Exception {
@@ -124,10 +129,9 @@ public class RealRunner {
     }
 
     private void Optimize() throws Exception {
+        PrintIR(true);
         GlobalOptimize();
-//        PrintIR(true);
         CFGSimplify();
-//        PrintIR(true);
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
         SSAConstructor ssaConstructor = new SSAConstructor(IRRoot);
         SCCP SCCPAnalyzer = new SCCP(IRRoot);
@@ -138,26 +142,38 @@ public class RealRunner {
         SSADestructor ssaDestructor = new SSADestructor(IRRoot);
         OPResolver opResolver = new OPResolver(IRRoot);
         IRModifier irModifier = new IRModifier(IRRoot);
+        LoopAnalysis loopAnalysis = new LoopAnalysis(IRRoot);
+        LICM licm = new LICM(IRRoot, aliasAnalysis, loopAnalysis);
         irModifier.run();
-
         dominaceTreeBuilder.run();
         ssaConstructor.run();
+
+        ssaConstructor = null;
+        irModifier = null;
+
         boolean changed = true;
         dominaceTreeBuilder.run();
+        // PrintIR(false);
         while (changed) {
             changed = false;
-            changed |= SCCPAnalyzer.run();
-            changed |= cfgSimplifier.run();
-            changed |= deadCodeElim.run();
-            dominaceTreeBuilder.run();
             changed |= dvnt.run();
             changed |= cfgSimplifier.run();
+            dominaceTreeBuilder.run();
+            // PrintIR(false);
+            changed |= SCCPAnalyzer.run();
+            changed |= cfgSimplifier.run();
+            dominaceTreeBuilder.run();
+            changed |= deadCodeElim.run();
+            changed |= cfgSimplifier.run();
+            dominaceTreeBuilder.run();
+//            changed |= licm.run();
+//            PrintIR(false);
+//            changed |= cfgSimplifier.run();
+//            PrintIR(false);
             dominaceTreeBuilder.run();
         }
 
         ssaDestructor.run();
-//        dominaceTreeBuilder.run();
-//        deadCodeElim.run();
         cfgSimplifier.run();
         dominaceTreeBuilder.run();
         opResolver.run();

@@ -192,8 +192,8 @@ public class IRBuilder implements ASTVisitor {
                     curBB = afterLogic;
                 }
             } else {
-                if (!isFuncArg)
-                    curBB.addInst(new MoveInst(curBB, virReg, new ConstInt(0)));
+//                if (!isFuncArg)
+//                    curBB.addInst(new MoveInst(curBB, virReg, new ConstInt(0)));
             }
         }
     }

@@ -16,7 +16,7 @@ import java.util.*;
 
 public class FuncInliner {
     final int MAXInst = 100;
-    final int MAXINLINE_CNT = 2;
+    final int MAXINLINE_CNT = 3;
 
     IRPrinter irPrinter;
 
@@ -112,6 +112,7 @@ public class FuncInliner {
         for (var func : program.getGlobalFuncMap().values()) {
             if (Function.isBuiltIn(func)) continue;;
             Function copyFunc = new Function("copy_" + func.getFuncname());
+            copyFunc.isVoid = func.isVoid;
             originFunc.put(func.funcname, copyFunc);
 
             Map<Operand, Operand> argMap = new HashMap<>();
@@ -130,7 +131,7 @@ public class FuncInliner {
 
             Map<BasicBlock, BasicBlock> bbmap = new HashMap<>();
             for (var bb : func.getReversePostOrderBBs()) {
-                BasicBlock copyBB = new BasicBlock(copyFunc, bb.name);
+                BasicBlock copyBB = new BasicBlock(copyFunc, "copy_" + bb.name);
                 bbmap.put(bb, copyBB);
             }
             copyFunc.entryBB = bbmap.get(func.entryBB);
@@ -196,7 +197,7 @@ public class FuncInliner {
                         nxtInst = inst.next;
                         if (!(inst instanceof FuncCallInst)) continue;
                         var callTo = ((FuncCallInst) inst).getCallTo();
-                        if (Function.isBuiltIn(callTo) || func == callTo) continue;
+                        if (Function.isBuiltIn(callTo)) continue;
                         if (instCnt + funcInstCntMap.get(callTo) < MAXInst) {
                             changed = true;
                             thisChanged = true;
