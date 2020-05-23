@@ -5,18 +5,18 @@
 main:
 __init.entryBB1:
     mv	backup_ra,ra 
-    mv	back_s11,s11 
-    mv	back_s10,s10 
-    mv	back_s9,s9 
-    mv	back_s8,s8 
     mv	back_s7,s7 
-    mv	back_s6,s6 
-    mv	back_s5,s5 
-    mv	back_s4,s4 
-    mv	back_s3,s3 
-    mv	back_s2,s2 
-    mv	back_s1,s1 
+    mv	back_s8,s8 
+    mv	back_s9,s9 
+    mv	back_s10,s10 
+    mv	back_s11,s11 
     mv	back_s0,s0 
+    mv	back_s1,s1 
+    mv	back_s2,s2 
+    mv	back_s3,s3 
+    mv	back_s4,s4 
+    mv	back_s5,s5 
+    mv	back_s6,s6 
     li a0, 404
     call malloc
     mv	t.0,a0 
@@ -53,22 +53,6 @@ _whileBodyBB1:
     mv	_op.2,_t.0 
     beq	_op.2,zero,	afterCallBB1
     j	_if_end1
-afterCallBB1:
-    mv	s0,back_s0 
-    mv	s1,back_s1 
-    mv	s2,back_s2 
-    mv	s3,back_s3 
-    mv	s4,back_s4 
-    mv	s5,back_s5 
-    mv	s6,back_s6 
-    mv	s7,back_s7 
-    mv	s8,back_s8 
-    mv	s9,back_s9 
-    mv	s10,back_s10 
-    mv	s11,back_s11 
-    mv	ra,backup_ra 
-    mv	a0,zero 
-    ret
 _if_end1:
     li t, 1
     beq	_op.2,t,	_if_thenBB1
@@ -244,17 +228,17 @@ _afterForBB2:
     add _t.0,_gchunks.0,_t.0
     lw _t.0, 0(_t.0)
     sw _t.0,60(_t.0)
-    li t, 1732584193
-    mv	_h0.4,t 
+    mv	_i.10,zero 
+    li t, -1009589776
+    mv	_h4.4,t 
     li t, -1732584194
     mv	_h2.4,t 
     li t, -271733879
     mv	_h1.4,t 
-    mv	_i.10,zero 
+    li t, 1732584193
+    mv	_h0.4,t 
     li t, 271733878
     mv	_h3.4,t 
-    li t, -1009589776
-    mv	_h4.4,t 
     j	_forcondBB3
 _forcondBB3:
     blt	_i.10,_nChunk.3,	_forbodyBB3
@@ -453,11 +437,11 @@ _afterForBB6:
     mv	_c.4,_h2.4 
     mv	_d.4,_h3.4 
     mv	_e.4,_h4.4 
+    mv	_a.5,_a.4 
     mv	_b.5,_b.4 
-    mv	_c.5,_c.4 
     mv	_d.5,_d.4 
     mv	_e.5,_e.4 
-    mv	_a.5,_a.4 
+    mv	_c.5,_c.4 
     mv	_j.9,zero 
     j	_forcondBB7
 _forcondBB7:
@@ -596,12 +580,12 @@ _afterForBB7:
     mv	_t.0,__t.0 
     mv	_h4.5,_t.0 
     addi _i.11,_i.10,    1
-    mv	_h0.4,_h0.5 
+    mv	_i.10,_i.11 
+    mv	_h4.4,_h4.5 
     mv	_h2.4,_h2.5 
     mv	_h1.4,_h1.5 
-    mv	_i.10,_i.11 
+    mv	_h0.4,_h0.5 
     mv	_h3.4,_h3.5 
-    mv	_h4.4,_h4.5 
     j	_forcondBB3
 _forbodyBB7:
     li t, 20
@@ -762,12 +746,12 @@ _if_end5:
     mv	_b.6,_a.5 
     mv	_a.6,_temp.5 
     addi _j.10,_j.9,    1
-    mv	_j.9,_j.10 
-    mv	_b.5,_b.6 
-    mv	_c.5,_c.6 
-    mv	_d.5,_d.6 
-    mv	_e.5,_e.6 
     mv	_a.5,_a.6 
+    mv	_b.5,_b.6 
+    mv	_d.5,_d.6 
+    mv	_j.9,_j.10 
+    mv	_e.5,_e.6 
+    mv	_c.5,_c.6 
     j	_forcondBB7
 _if_elseBB5:
     xor _t.0,_b.5,_c.5
@@ -913,8 +897,8 @@ __forbodyBB2:
     call	_stringSubstring
     mv	__t.0,a0 
     mv	_x.2,__t.0 
-    mv	_i.4,zero 
     mv	_result.3,zero 
+    mv	_i.4,zero 
     j	_forcondBB9
 _forcondBB9:
     mv	a0,_x.2 
@@ -972,8 +956,8 @@ _if_thenBB11:
     j	_forupdateBB3
 _forupdateBB3:
     addi _i.5,_i.4,    1
-    mv	_i.4,_i.5 
     mv	_result.3,_result.7 
+    mv	_i.4,_i.5 
     j	_forcondBB9
 _if_elseBB7:
     li t, 97
@@ -1094,6 +1078,10 @@ _if_elseBB9:
     li t, 32
     bge	__x.4,t,	__ifTrue1
     j	__if_end6
+__ifTrue1:
+    li t, 126
+    ble	__x.4,t,	__if_thenBB6
+    j	__if_end6
 __if_end6:
     la __mergedretVal.5,_globalStr0    
     mv	__mergedretVal.6,__mergedretVal.5 
@@ -1114,10 +1102,6 @@ _forupdateBB4:
     mv	_ret.3,_ret.4 
     mv	_i.4,_i.5 
     j	_forcondBB10
-__ifTrue1:
-    li t, 126
-    ble	__x.4,t,	__if_thenBB6
-    j	__if_end6
 __if_thenBB6:
     li t, 32
     sub __t.0,__x.4,t
@@ -1275,15 +1259,15 @@ _afterForBB10:
     add _t.0,_gchunks.0,_t.0
     lw _t.0, 0(_t.0)
     sw _t.0,60(_t.0)
+    mv	_i.9,zero 
+    li t, -271733879
+    mv	_h1.3,t 
     li t, 271733878
     mv	_h3.3,t 
     li t, -1009589776
     mv	_h4.3,t 
     li t, 1732584193
     mv	_h0.3,t 
-    li t, -271733879
-    mv	_h1.3,t 
-    mv	_i.9,zero 
     li t, -1732584194
     mv	_h2.3,t 
     j	_forcondBB13
@@ -1368,10 +1352,10 @@ _afterForBB12:
     mv	_c.3,_h2.3 
     mv	_d.3,_h3.3 
     mv	_e.3,_h4.3 
-    mv	_a.4,_a.3 
     mv	_e.4,_e.3 
-    mv	_d.4,_d.3 
     mv	_c.4,_c.3 
+    mv	_a.4,_a.3 
+    mv	_d.4,_d.3 
     mv	_b.4,_b.3 
     mv	_j.9,zero 
     j	_forcondBB15
@@ -1538,11 +1522,11 @@ _if_end7:
     mv	_b.5,_a.4 
     mv	_a.5,_temp.4 
     addi _j.10,_j.9,    1
-    mv	_a.4,_a.5 
     mv	_e.4,_e.5 
-    mv	_d.4,_d.5 
-    mv	_j.9,_j.10 
     mv	_c.4,_c.5 
+    mv	_a.4,_a.5 
+    mv	_j.9,_j.10 
+    mv	_d.4,_d.5 
     mv	_b.4,_b.5 
     j	_forcondBB15
 _if_elseBB12:
@@ -1703,11 +1687,11 @@ _afterForBB13:
     mv	_t.0,__t.0 
     mv	_h4.4,_t.0 
     addi _i.10,_i.9,    1
+    mv	_i.9,_i.10 
+    mv	_h1.3,_h1.4 
     mv	_h3.3,_h3.4 
     mv	_h4.3,_h4.4 
     mv	_h0.3,_h0.4 
-    mv	_h1.3,_h1.4 
-    mv	_i.9,_i.10 
     mv	_h2.3,_h2.4 
     j	_forcondBB13
 _afterForBB11:
@@ -1755,6 +1739,22 @@ __forbodyBB6:
     addi __i.7,__i.3,    1
     mv	__i.3,__i.7 
     j	__forcondBB6
+afterCallBB1:
+    mv	s6,back_s6 
+    mv	s5,back_s5 
+    mv	s4,back_s4 
+    mv	s3,back_s3 
+    mv	s2,back_s2 
+    mv	s1,back_s1 
+    mv	s0,back_s0 
+    mv	s11,back_s11 
+    mv	s10,back_s10 
+    mv	s9,back_s9 
+    mv	s8,back_s8 
+    mv	s7,back_s7 
+    mv	ra,backup_ra 
+    mv	a0,zero 
+    ret
 forupdateBB1:
     li a0, 324
     call malloc

@@ -48,6 +48,9 @@
  		 %_t2.0  = seq  %_op1.2   0 
  		 br  %_t2.0  %afterCallBB1 %_if_end1 
  
+ %afterCallBB1:
+ 		 ret  0 
+ 
  %_if_end1:
  		 %_t3.0  = seq  %_op1.2   1 
  		 br  %_t3.0  %_if_thenBB1 %_if_elseBB1 
@@ -173,11 +176,11 @@
  		 %_t59.0  = load  %_t58.0 
  		 %_t60.0  =   add  %_t59.0   60 
  		 store  %_t60.0   %_t54.0 
+ 		 %_i1.9  = move  0 
+ 		 %_h11.3  = move  -271733879 
  		 %_h31.3  = move  271733878 
  		 %_h41.3  = move  -1009589776 
  		 %_h01.3  = move  1732584193 
- 		 %_h11.3  = move  -271733879 
- 		 %_i1.9  = move  0 
  		 %_h21.3  = move  -1732584194 
  		 jump %_forcondBB4
  
@@ -214,10 +217,10 @@
  		 %_c1.3  = move  %_h21.3 
  		 %_d1.3  = move  %_h31.3 
  		 %_e1.3  = move  %_h41.3 
- 		 %_a1.4  = move  %_a1.3 
  		 %_e1.4  = move  %_e1.3 
- 		 %_d1.4  = move  %_d1.3 
  		 %_c1.4  = move  %_c1.3 
+ 		 %_a1.4  = move  %_a1.3 
+ 		 %_d1.4  = move  %_d1.3 
  		 %_b1.4  = move  %_b1.3 
  		 %_j1.9  = move  0 
  		 jump %_forcondBB6
@@ -328,11 +331,11 @@
  		 %_t73.0  = move  %__t77.0 
  		 %_h41.4  = move  %_t73.0 
  		 %_i1.10  =   add  %_i1.9   1 
+ 		 %_i1.9  = move  %_i1.10 
+ 		 %_h11.3  = move  %_h11.4 
  		 %_h31.3  = move  %_h31.4 
  		 %_h41.3  = move  %_h41.4 
  		 %_h01.3  = move  %_h01.4 
- 		 %_h11.3  = move  %_h11.4 
- 		 %_i1.9  = move  %_i1.10 
  		 %_h21.3  = move  %_h21.4 
  		 jump %_forcondBB4
  
@@ -495,11 +498,11 @@
  		 %_b1.5  = move  %_a1.4 
  		 %_a1.5  = move  %_temp1.4 
  		 %_j1.10  =   add  %_j1.9   1 
- 		 %_a1.4  = move  %_a1.5 
  		 %_e1.4  = move  %_e1.5 
- 		 %_d1.4  = move  %_d1.5 
- 		 %_j1.9  = move  %_j1.10 
  		 %_c1.4  = move  %_c1.5 
+ 		 %_a1.4  = move  %_a1.5 
+ 		 %_j1.9  = move  %_j1.10 
+ 		 %_d1.4  = move  %_d1.5 
  		 %_b1.4  = move  %_b1.5 
  		 jump %_forcondBB6
  
@@ -765,8 +768,8 @@
  		 %__t179.0  =   add  %__i2.5   4 
  		 %__t180.0  =  call string.substring  %__input2.1 %__i2.5   %__t179.0   
  		 %_x2.2  = move  %__t180.0 
- 		 %_i3.4  = move  0 
  		 %_result1.3  = move  0 
+ 		 %_i3.4  = move  0 
  		 jump %_forcondBB8
  
  %_forcondBB8:
@@ -832,8 +835,8 @@
  
  %_forupdateBB3:
  		 %_i3.5  =   add  %_i3.4   1 
- 		 %_i3.4  = move  %_i3.5 
  		 %_result1.3  = move  %_result1.7 
+ 		 %_i3.4  = move  %_i3.5 
  		 jump %_forcondBB8
  
  %_afterForBB6:
@@ -988,12 +991,12 @@
  		 %_t269.0  = load  %_t268.0 
  		 %_t270.0  =   add  %_t269.0   60 
  		 store  %_t270.0   %_t264.0 
- 		 %_h02.4  = move  1732584193 
+ 		 %_i4.10  = move  0 
+ 		 %_h42.4  = move  -1009589776 
  		 %_h22.4  = move  -1732584194 
  		 %_h12.4  = move  -271733879 
- 		 %_i4.10  = move  0 
+ 		 %_h02.4  = move  1732584193 
  		 %_h32.4  = move  271733878 
- 		 %_h42.4  = move  -1009589776 
  		 jump %_forcondBB12
  
  %_forcondBB12:
@@ -1075,11 +1078,11 @@
  		 %_c2.4  = move  %_h22.4 
  		 %_d2.4  = move  %_h32.4 
  		 %_e2.4  = move  %_h42.4 
+ 		 %_a2.5  = move  %_a2.4 
  		 %_b2.5  = move  %_b2.4 
- 		 %_c2.5  = move  %_c2.4 
  		 %_d2.5  = move  %_d2.4 
  		 %_e2.5  = move  %_e2.4 
- 		 %_a2.5  = move  %_a2.4 
+ 		 %_c2.5  = move  %_c2.4 
  		 %_j2.9  = move  0 
  		 jump %_forcondBB14
  
@@ -1246,12 +1249,12 @@
  		 %_b2.6  = move  %_a2.5 
  		 %_a2.6  = move  %_temp2.5 
  		 %_j2.10  =   add  %_j2.9   1 
- 		 %_j2.9  = move  %_j2.10 
- 		 %_b2.5  = move  %_b2.6 
- 		 %_c2.5  = move  %_c2.6 
- 		 %_d2.5  = move  %_d2.6 
- 		 %_e2.5  = move  %_e2.6 
  		 %_a2.5  = move  %_a2.6 
+ 		 %_b2.5  = move  %_b2.6 
+ 		 %_d2.5  = move  %_d2.6 
+ 		 %_j2.9  = move  %_j2.10 
+ 		 %_e2.5  = move  %_e2.6 
+ 		 %_c2.5  = move  %_c2.6 
  		 jump %_forcondBB14
  
  %_afterForBB11:
@@ -1356,12 +1359,12 @@
  		 %_t355.0  = move  %__t339.0 
  		 %_h42.5  = move  %_t355.0 
  		 %_i4.11  =   add  %_i4.10   1 
- 		 %_h02.4  = move  %_h02.5 
+ 		 %_i4.10  = move  %_i4.11 
+ 		 %_h42.4  = move  %_h42.5 
  		 %_h22.4  = move  %_h22.5 
  		 %_h12.4  = move  %_h12.5 
- 		 %_i4.10  = move  %_i4.11 
+ 		 %_h02.4  = move  %_h02.5 
  		 %_h32.4  = move  %_h32.5 
- 		 %_h42.4  = move  %_h42.5 
  		 jump %_forcondBB12
  
  %_afterForBB9:
@@ -1605,8 +1608,5 @@
  %__if_thenBB3:
  		 call println  @constStr_1   
  		 jump %_whileBodyBB1
- 
- %afterCallBB1:
- 		 ret  0 
  
  }
