@@ -95,8 +95,8 @@ public class RealRunner {
 
     private void PrintASM(boolean inFile) throws Exception {
 //        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
-        File file = new File("test.s");
-    //    File file = new File("output.s");
+        // File file = new File("test.s");
+        File file = new File("output.s");
         PrintStream out = (inFile) ? new PrintStream(file) : System.out;
         ASMPrinter asmPrinter = new ASMPrinter(out);
         asmPrinter.visit(IRRoot);
@@ -125,9 +125,9 @@ public class RealRunner {
 
     private void Optimize() throws Exception {
         GlobalOptimize();
-        PrintIR(true);
+        // PrintIR(true);
         CFGSimplify();
-        PrintIR(true);
+        // PrintIR(true);
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);
         SSAConstructor ssaConstructor = new SSAConstructor(IRRoot);
         SCCP SCCPAnalyzer = new SCCP(IRRoot);
@@ -144,7 +144,7 @@ public class RealRunner {
         dominaceTreeBuilder.run();
         ssaConstructor.run();
         boolean changed = true;
-        PrintIR(true);
+        // PrintIR(true);
         dominaceTreeBuilder.run();
         while (changed) {
             changed = false;
