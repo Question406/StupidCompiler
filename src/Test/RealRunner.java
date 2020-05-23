@@ -139,12 +139,10 @@ public class RealRunner {
         OPResolver opResolver = new OPResolver(IRRoot);
         IRModifier irModifier = new IRModifier(IRRoot);
         irModifier.run();
-//        PrintIR(false);
 
         dominaceTreeBuilder.run();
         ssaConstructor.run();
         boolean changed = true;
-//        PrintIR(true);
         dominaceTreeBuilder.run();
         while (changed) {
             changed = false;
@@ -155,7 +153,6 @@ public class RealRunner {
             changed |= dvnt.run();
             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
-//            PrintIR(true);
         }
 
         ssaDestructor.run();

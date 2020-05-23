@@ -56,6 +56,7 @@ public class GlobalVarResolver {
             global.usedFuncs.clear();
         }
 //        insert_alloc_for_globals();
+        functionglobal_var_infoMap.clear();
     }
 
     private void collect_use_info(){

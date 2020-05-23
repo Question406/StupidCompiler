@@ -16,7 +16,7 @@ import java.util.*;
 
 public class FuncInliner {
     final int MAXInst = 100;
-    final int MAXINLINE_CNT = 3;
+    final int MAXINLINE_CNT = 2;
 
     IRPrinter irPrinter;
 
@@ -55,6 +55,10 @@ public class FuncInliner {
         InstsCnt();
         DeadFuncElem();
         CalcRecursiveCallSet();
+
+        funcInstCntMap.clear();
+        funcCalledCntMap.clear();
+        originFunc.clear();
     }
 
     private void DeadFuncElem() {
@@ -111,6 +115,8 @@ public class FuncInliner {
             originFunc.put(func.funcname, copyFunc);
 
             Map<Operand, Operand> argMap = new HashMap<>();
+            program.getGlobalVar().values().forEach(globalVal-> argMap.put(globalVal, globalVal));
+            program.getStringPool().values().forEach(globalStr -> argMap.put(globalStr, globalStr));
             if (func.thisPointer != null) {
                 copyFunc.thisPointer = new VirReg(func.thisPointer.name);
                 argMap.put(func.thisPointer, copyFunc.thisPointer);
@@ -359,8 +365,9 @@ public class FuncInliner {
                                 tmp.pointTO = (VirReg) regRenameMap.get(tmp.pointTO);
                                 regRenameMap.put(reg, tmp);
                             }
-                            else
+                            else {
                                 regRenameMap.put(reg, reg.CopySelf());
+                            }
                         }
                     }
                 }

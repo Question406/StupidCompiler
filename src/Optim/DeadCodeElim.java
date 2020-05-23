@@ -42,11 +42,11 @@ public class DeadCodeElim extends Optimizer {
     }
 
     private void run(Function func) {
-        marked.clear();
-        workList.clear();
         mark(func);
         sweep(func);
         func.CalcReversePostOrderBBs();
+        marked.clear();
+        workList.clear();
     }
 
     private void CalCDefUseChain() {

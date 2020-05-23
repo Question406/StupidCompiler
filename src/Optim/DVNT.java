@@ -37,6 +37,8 @@ public class DVNT extends Optimizer {
             if (!Function.isBuiltIn(func))
                 run(func);
         }
+        valMap.clear();
+        ExprMap.clear();
         return changed;
     }
 
