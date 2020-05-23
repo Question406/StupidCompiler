@@ -79,6 +79,8 @@ public class ASMPrinter implements IRVisitor {
         var name = node.getFuncname();
         if (name.equals("__init"))
             name = "main";
+        else if (name.equals("main"))
+            name = "_main";
         println(".globl\t" + name + "\t\t\t\t#begin");
         println(".p2align\t2");
         println(".type\t" + name + ",@function");
