@@ -6,6 +6,7 @@ import IR.IRPrinter;
 import IR.Instruction.*;
 import IR.Module;
 import IR.Operand.ConstInt;
+import IR.Operand.Variable;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -169,12 +170,16 @@ public class DeadCodeElim extends Optimizer {
     }
 
     boolean isCritical(Instruction instruction) {
-        return !(  instruction instanceof BinOpInst
-                || instruction instanceof CmpInst
-                || instruction instanceof UnaryOpInst
-                || instruction instanceof BranchInst
-                || instruction instanceof MoveInst
-                || instruction instanceof PhiInst
-                || instruction instanceof JumpInst);
+//        return !(  instruction instanceof BinOpInst
+//                || instruction instanceof CmpInst
+//                || instruction instanceof UnaryOpInst
+//                || instruction instanceof BranchInst
+//                || instruction instanceof MoveInst
+//                || instruction instanceof PhiInst
+//                || instruction instanceof JumpInst);
+        return instruction instanceof RetInst
+                || instruction instanceof FuncCallInst
+                || (instruction instanceof AllocaInst && (instruction.getDefReg() instanceof Variable))
+                || instruction instanceof StoreInst;
     }
 }

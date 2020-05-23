@@ -15,8 +15,8 @@ import java.util.*;
 // TODO: implement recursive inline
 
 public class FuncInliner {
-    final int MAXInst = 100;
-    final int MAXINLINE_CNT = 3;
+    final int MAXInst = 1500;
+    final int MAXINLINE_CNT = 2;
 
     IRPrinter irPrinter;
 
@@ -112,6 +112,7 @@ public class FuncInliner {
         for (var func : program.getGlobalFuncMap().values()) {
             if (Function.isBuiltIn(func)) continue;;
             Function copyFunc = new Function("copy_" + func.getFuncname());
+            funcInstCntMap.put(copyFunc, funcInstCntMap.get(func));
             copyFunc.isVoid = func.isVoid;
             originFunc.put(func.funcname, copyFunc);
 
@@ -222,7 +223,6 @@ public class FuncInliner {
 
             var RPOBBs = func.getReversePostOrderBBs();
             int instsCnt = 0;
-            funcInstCntMap.put(func, instsCnt);
             for (var bb : RPOBBs) {
                 for (var inst = bb.insthead; inst != null; inst = inst.next) {
                     ++instsCnt;
@@ -235,6 +235,7 @@ public class FuncInliner {
                     }
                 }
             }
+            funcInstCntMap.put(func, instsCnt);
         }
     }
 
