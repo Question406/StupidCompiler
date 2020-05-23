@@ -15,8 +15,8 @@ import java.util.*;
 // TODO: implement recursive inline
 
 public class FuncInliner {
-    final int MAXInst = 1500;
-    final int MAXINLINE_CNT = 2;
+    final int MAXInst = 3000;
+    final int MAXINLINE_CNT = 3;
 
     IRPrinter irPrinter;
 
@@ -88,7 +88,7 @@ public class FuncInliner {
                         if (Function.isBuiltIn(callTo)) continue;
                         var calltoRecursiveCallTOSet = functionfunc_call_infoMap.get(callTo).recursiveCallTOSet; // call to won't recursive call
                         if (calltoRecursiveCallTOSet.contains(callTo)) continue;
-                        if (instCnt + funcInstCntMap.get(callTo) < MAXInst) {
+                        if (instCnt + funcInstCntMap.get(callTo) < MAXInst * 2) {
                             changed = true;
                             thisChanged = true;
                             nxtInst = doInline((FuncCallInst) inst);
