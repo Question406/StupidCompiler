@@ -242,6 +242,9 @@ public class ASMPrinter implements IRVisitor {
         print("lw ");
         node.res.accept(this);
         printInline(", ");
+        if (node.from instanceof Variable) {
+            printlnInline(node.from.name + " ");
+        } else
         if (node.from instanceof StackLoc) {
             node.from.accept(this);
             printlnInline(" ");
@@ -249,7 +252,10 @@ public class ASMPrinter implements IRVisitor {
         else {
             printInline( node.offset + "(");
 //            printInline("0(");
-            node.from.accept(this);
+            if (node.from instanceof ConstInt)
+                printInline("s10"); // this load will never be done
+            else
+                node.from.accept(this);
             printlnInline(")");
         }
 
@@ -276,6 +282,7 @@ public class ASMPrinter implements IRVisitor {
         if (node.helper != null) { // global
             printInline(", %lo(" + node.storeTo.name + ")(" + node.helper.name);
 //            node.helper.accept(this);
+//            printlnInline(", " + node.storeTo.name + " , " + node.helper.name);
             printlnInline(")");
         } else {
             if (node.storeTo instanceof StackLoc) {

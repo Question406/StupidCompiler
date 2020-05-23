@@ -40,7 +40,7 @@ public class SSAConstructor {
             InsertPhiInsts(function);
             // variable rename
             RenameVars(function);
-            irPrinter.visit(function);
+//            irPrinter.visit(function);
         }
     }
 

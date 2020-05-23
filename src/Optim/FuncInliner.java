@@ -15,9 +15,11 @@ import java.util.*;
 // TODO: implement recursive inline
 
 public class FuncInliner {
+    final int MAXINSTALL = 5000;
     final int MAXInst = 3000;
     final int MAXINLINE_CNT = 3;
 
+    int instALL = 0;
     IRPrinter irPrinter;
 
     Module program;
@@ -120,12 +122,12 @@ public class FuncInliner {
             program.getGlobalVar().values().forEach(globalVal-> argMap.put(globalVal, globalVal));
             program.getStringPool().values().forEach(globalStr -> argMap.put(globalStr, globalStr));
             if (func.thisPointer != null) {
-                copyFunc.thisPointer = new VirReg(func.thisPointer.name);
+                copyFunc.thisPointer = new VirReg("copy_" + func.thisPointer.name);
                 argMap.put(func.thisPointer, copyFunc.thisPointer);
             }
 
             for (var para : func.args) {
-                VirReg newpara = new VirReg(para.name);
+                VirReg newpara = new VirReg("copy_" + para.name);
                 copyFunc.args.add(newpara);
                 argMap.put(para, newpara);
             }
@@ -189,7 +191,7 @@ public class FuncInliner {
             changed = false;
             ++inlineCnt;
             for (var func : program.getGlobalFuncMap().values()) {
-                if (Function.isBuiltIn(func) || func.funcname.equals("__init")) continue;
+                if (Function.isBuiltIn(func)) continue;
                 var RPOBBs = func.getReversePostOrderBBs();
                 var instCnt = funcInstCntMap.get(func);
                 boolean thisChanged = false;
@@ -199,12 +201,13 @@ public class FuncInliner {
                         if (!(inst instanceof FuncCallInst)) continue;
                         var callTo = ((FuncCallInst) inst).getCallTo();
                         if (Function.isBuiltIn(callTo)) continue;
-                        if (instCnt + funcInstCntMap.get(callTo) < MAXInst) {
+                        if (instCnt + funcInstCntMap.get(callTo) < MAXInst && instALL + funcInstCntMap.get(callTo) < MAXINSTALL) {
                             changed = true;
                             thisChanged = true;
                             ((FuncCallInst) inst).callTo = originFunc.get(((FuncCallInst) inst).callTo.funcname);
                             nxtInst = doInline((FuncCallInst) inst);
                             funcInstCntMap.replace(func, instCnt + funcInstCntMap.get(callTo));
+                            instALL += funcInstCntMap.get(callTo);
                         }
                     }
                 }
@@ -216,6 +219,7 @@ public class FuncInliner {
     }
 
     private void InstsCnt() {
+        instALL = 0;
         for (var func : program.getGlobalFuncMap().values()) {
             if (Function.isBuiltIn(func)) continue;
             if (functionfunc_call_infoMap.get(func) == null)
@@ -236,6 +240,7 @@ public class FuncInliner {
                 }
             }
             funcInstCntMap.put(func, instsCnt);
+            instALL += instsCnt;
         }
     }
 
