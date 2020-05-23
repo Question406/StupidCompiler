@@ -206,7 +206,6 @@ public class RegAllocater {
     }
 
     private void inner_run() {
-//        System.out.println("inner_run");
         init();
         livenessAnalysis();
         build();
