@@ -43,12 +43,6 @@ public class LICM extends Optimizer {
         while (thisChanged) {
             thisChanged = false;
             func.CalcReversePostOrderBBs();
-            try {
-                ComputeIDomBB(func);
-            } catch (Exception e) {
-                System.out.println("damn");
-            }
-
             defUseCalC(func);
             loopAnalysis.run(func);
             invariants.clear();
@@ -59,7 +53,7 @@ public class LICM extends Optimizer {
                 findInvariant(header);
                 hoist(header);
             }
-//            func.CalcReversePostOrderBBs();
+            func.CalcReversePostOrderBBs();
         }
     }
 

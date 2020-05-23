@@ -334,7 +334,6 @@ public class InstSelector {
                         VirReg tmpReg = new VirReg("_lobits");
                         stInst.linkPrev(new LUI(stInst.curBB, tmpReg, stInst.storeTo));
                         stInst.helper = tmpReg;
-//                        stInst.helper = new VirReg("why");
                     } else {
                         var stTo = stInst.storeTo;
                         var defInst = stTo.defInst;

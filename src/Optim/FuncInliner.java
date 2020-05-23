@@ -189,7 +189,7 @@ public class FuncInliner {
             changed = false;
             ++inlineCnt;
             for (var func : program.getGlobalFuncMap().values()) {
-                if (Function.isBuiltIn(func)) continue;
+                if (Function.isBuiltIn(func) || func.funcname.equals("__init")) continue;
                 var RPOBBs = func.getReversePostOrderBBs();
                 var instCnt = funcInstCntMap.get(func);
                 boolean thisChanged = false;
