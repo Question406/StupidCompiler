@@ -2,12 +2,9 @@ package AST;
 
 import FrontEnd.ASTVisitor;
 import FrontEnd.Semantic.Scope.ClassScope;
-import FrontEnd.Semantic.Scope.LocalScope;
-import FrontEnd.Semantic.Type.ClassType;
 import Utils.DebugOption;
 import Utils.Location;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ClassDefNode extends DefNode {

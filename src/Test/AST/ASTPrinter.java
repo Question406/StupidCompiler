@@ -8,8 +8,6 @@ package Test.AST;
 
 import AST.*;
 import FrontEnd.ASTVisitor;
-import Utils.BinaryOperator;
-import Utils.UnaryOperator;
 
 public class ASTPrinter implements ASTVisitor {
 

@@ -2,7 +2,6 @@ package AST;
 
 import FrontEnd.Semantic.Type.Type;
 import IR.BasicBlock;
-import IR.Operand.Addr;
 import IR.Operand.Operand;
 import Utils.Location;
 

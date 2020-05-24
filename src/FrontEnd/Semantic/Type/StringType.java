@@ -6,7 +6,6 @@ import AST.TypeNode;
 import AST.VarTypeNode;
 import Utils.Location;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class StringType extends ClassType {

@@ -6,7 +6,7 @@ import AST.*;
 import FrontEnd.ASTVisitor;
 import FrontEnd.Semantic.Entity.FunctionEntity;
 import FrontEnd.Semantic.Entity.VariableEntity;
-import FrontEnd.Semantic.Scope.*;
+import FrontEnd.Semantic.Scope.Scope;
 
 import java.util.ArrayList;
 import java.util.Stack;

@@ -2,7 +2,6 @@ package AST;
 
 import FrontEnd.ASTVisitor;
 import FrontEnd.Semantic.Entity.Entity;
-import FrontEnd.Semantic.Entity.FunctionEntity;
 import Utils.Location;
 
 public class MemberExprNode extends ExprNode {

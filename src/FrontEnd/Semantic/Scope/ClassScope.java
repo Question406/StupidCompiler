@@ -7,8 +7,6 @@ import FrontEnd.Semantic.Entity.VariableEntity;
 import FrontEnd.Semantic.Type.ClassType;
 import Utils.Exception.SemanticException;
 
-import java.nio.channels.SeekableByteChannel;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

@@ -1,8 +1,6 @@
 package FrontEnd.Semantic.Entity;
 
-import AST.DefNode;
 import AST.TypeNode;
-import FrontEnd.Semantic.Type.Type;
 import IR.Operand.Operand;
 
 abstract public class Entity {

@@ -1,7 +1,5 @@
 package IR.Operand;
 
-import IR.IRVisitor;
-
 public class ConstBool extends Constant {
     boolean value;
 

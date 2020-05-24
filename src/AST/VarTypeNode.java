@@ -3,10 +3,6 @@ package AST;
 import FrontEnd.ASTVisitor;
 import Utils.Location;
 
-import java.net.Proxy;
-
-import static java.lang.System.exit;
-
 public class VarTypeNode extends TypeNode {
     public VarTypeNode(Location location, String id) {
         super(location, id);

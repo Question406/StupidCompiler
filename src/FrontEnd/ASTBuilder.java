@@ -10,8 +10,8 @@ import Utils.UnaryOperator;
 
 import java.util.ArrayList;
 
-import static Utils.UnaryOperator.*;
 import static Utils.BinaryOperator.*;
+import static Utils.UnaryOperator.*;
 
 public class ASTBuilder extends ProgramBaseVisitor<ASTNode> {
 

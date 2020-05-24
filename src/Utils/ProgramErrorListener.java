@@ -1,11 +1,9 @@
 package Utils;
 
 import Utils.Exception.SyntaxException;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATNConfigSet;
-import org.antlr.v4.runtime.dfa.DFA;
-
-import java.util.BitSet;
+import org.antlr.v4.runtime.BaseErrorListener;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
 
 public class ProgramErrorListener extends BaseErrorListener {
     @Override

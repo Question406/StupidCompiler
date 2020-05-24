@@ -1,8 +1,6 @@
 package FrontEnd.Semantic.Type;
 
 
-import AST.ConstructorDefNode;
-
 import java.util.ArrayList;
 
 public class ConstructorType extends FunctionType {

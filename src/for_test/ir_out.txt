@@ -1,1692 +1,1613 @@
- @pnt 
- @edges 
- @buffer 
- @m 
- @n 
- define void @sort  %l1.0 %r1.0  {
- %sort.entryBB1:
- 		 %_gedges1.0  = load  @edges 
- 		 %_gbuffer1.0  = load  @buffer 
- 		 %t1.0  =   add  %l1.0   1 
- 		 %t2.0  = seq  %t1.0   %r1.0 
- 		 br  %t2.0  %paracopy1 %if_end1 
- 
- %paracopy1:
- 		 %_gbuffer1.13  = move  %_gbuffer1.0 
- 		 %_gedges1.13  = move  %_gedges1.0 
- 		 jump %sort.exitBB1
- 
- %if_end1:
- 		 %t3.0  =   add  %l1.0   %r1.0 
- 		 %t4.0  =   shr  %t3.0   1 
- 		 %mid1.0  = move  %t4.0 
- 		 %_copy_l1.0  = move  %l1.0 
- 		 %_copy_r1.0  = move  %mid1.0 
- 		 %__t1.0  =   add  %_copy_l1.0   1 
- 		 %__t2.0  = seq  %__t1.0   %_copy_r1.0 
- 		 br  %__t2.0  %paracopy2 %_copy_if_end1 
- 
- %paracopy2:
- 		 %_gbuffer1.7  = move  %_gbuffer1.0 
- 		 %_gedges1.7  = move  %_gedges1.0 
- 		 jump %afterCallBB1
- 
- %_copy_if_end1:
- 		 %__t3.0  =   add  %_copy_l1.0   %_copy_r1.0 
- 		 %__t4.0  =   shr  %__t3.0   1 
- 		 %__mid1.0  = move  %__t4.0 
- 		 %_copy_l2.0  = move  %_copy_l1.0 
- 		 %_copy_r2.0  = move  %__mid1.0 
- 		 %__t5.0  =   add  %_copy_l2.0   1 
- 		 %__t6.0  = seq  %__t5.0   %_copy_r2.0 
- 		 br  %__t6.0  %paracopy3 %_copy_if_end2 
- 
- %paracopy3:
- 		 %_gbuffer1.3  = move  %_gbuffer1.0 
- 		 %_gedges1.3  = move  %_gedges1.0 
- 		 jump %afterCallBB2
- 
- %_copy_if_end2:
- 		 %__t7.0  =   add  %_copy_l2.0   %_copy_r2.0 
- 		 %__t8.0  =   shr  %__t7.0   1 
- 		 %__mid2.0  = move  %__t8.0 
- 		 store  @buffer   %_gbuffer1.0 
- 		 store  @edges   %_gedges1.0 
- 		 call sort  %_copy_l2.0   %__mid2.0   
- 		 %_gedges1.1  = load  @edges 
- 		 %_gbuffer1.1  = load  @buffer 
- 		 store  @buffer   %_gbuffer1.1 
- 		 store  @edges   %_gedges1.1 
- 		 call sort  %__mid2.0   %_copy_r2.0   
- 		 %_gedges1.2  = load  @edges 
- 		 %_gbuffer1.2  = load  @buffer 
- 		 %__lpos1.0  = move  %_copy_l2.0 
- 		 %__rpos1.0  = move  %__mid2.0 
- 		 %__lpos1.1  = move  %__lpos1.0 
- 		 %__rpos1.1  = move  %__rpos1.0 
- 		 %__i1.1  = move  0 
- 		 jump %_copy_forcondBB1
- 
- %_copy_forcondBB1:
- 		 %__t9.0  =   sub  %_copy_r2.0   %_copy_l2.0 
- 		 %__t10.0  = slt  %__i1.1   %__t9.0 
- 		 br  %__t10.0  %_copy_forbodyBB1 %_copy_afterForBB1 
- 
- %_copy_afterForBB1:
- 		 %__i1.4  = move  0 
- 		 jump %_copy_forcondBB2
- 
- %_copy_forcondBB2:
- 		 %__t11.0  = slt  %__i1.4   %__t9.0 
- 		 br  %__t11.0  %_copy_forbodyBB2 %paracopy4 
- 
- %paracopy4:
- 		 %_gbuffer1.3  = move  %_gbuffer1.2 
- 		 %_gedges1.3  = move  %_gedges1.2 
- 		 jump %afterCallBB2
- 
- %afterCallBB2:
- 		 %_copy_l3.0  = move  %__mid1.0 
- 		 %_copy_r3.0  = move  %_copy_r1.0 
- 		 %__t12.0  =   add  %_copy_l3.0   1 
- 		 %__t13.0  = seq  %__t12.0   %_copy_r3.0 
- 		 br  %__t13.0  %paracopy5 %_copy_if_end3 
- 
- %paracopy5:
- 		 %_gbuffer1.6  = move  %_gbuffer1.3 
- 		 %_gedges1.6  = move  %_gedges1.3 
- 		 jump %afterCallBB3
- 
- %_copy_if_end3:
- 		 %__t14.0  =   add  %_copy_l3.0   %_copy_r3.0 
- 		 %__t15.0  =   shr  %__t14.0   1 
- 		 %__mid3.0  = move  %__t15.0 
- 		 store  @buffer   %_gbuffer1.3 
- 		 store  @edges   %_gedges1.3 
- 		 call sort  %_copy_l3.0   %__mid3.0   
- 		 %_gedges1.4  = load  @edges 
- 		 %_gbuffer1.4  = load  @buffer 
- 		 store  @buffer   %_gbuffer1.4 
- 		 store  @edges   %_gedges1.4 
- 		 call sort  %__mid3.0   %_copy_r3.0   
- 		 %_gedges1.5  = load  @edges 
- 		 %_gbuffer1.5  = load  @buffer 
- 		 %__lpos2.0  = move  %_copy_l3.0 
- 		 %__rpos2.0  = move  %__mid3.0 
- 		 %__rpos2.1  = move  %__rpos2.0 
- 		 %__lpos2.1  = move  %__lpos2.0 
- 		 %__i2.1  = move  0 
- 		 jump %_copy_forcondBB3
- 
- %_copy_forcondBB3:
- 		 %__t16.0  =   sub  %_copy_r3.0   %_copy_l3.0 
- 		 %__t17.0  = slt  %__i2.1   %__t16.0 
- 		 br  %__t17.0  %_copy_forbodyBB3 %_copy_afterForBB2 
- 
- %_copy_forbodyBB3:
- 		 %__t18.0  = seq  %__lpos2.1   %__mid3.0 
- 		 br  %__t18.0  %_copy_if_thenBB1 %_copy_if_end4 
- 
- %_copy_if_thenBB1:
- 		 %__t19.0  = move  %__rpos2.1 
- 		 %__rpos2.4  =   add  %__rpos2.1   1 
- 		 %__t20.0  =   shl  %__t19.0   2 
- 		 %__t21.0  =   add  %__t20.0   4 
- 		 %__t22.0  =   add  %_gedges1.5   %__t21.0 
- 		 %__t23.0  =   shl  %__i2.1   2 
- 		 %__t24.0  =   add  %__t23.0   4 
- 		 %__t25.0  =   add  %_gbuffer1.5   %__t24.0 
- 		 %__t26.0  = load  %__t22.0 
- 		 store  %__t25.0   %__t26.0 
- 		 %__rpos2.3  = move  %__rpos2.4 
- 		 %__lpos2.4  = move  %__lpos2.1 
- 		 jump %_copy_forupdateBB1
- 
- %_copy_if_end4:
- 		 %__t27.0  = seq  %__rpos2.1   %_copy_r3.0 
- 		 br  %__t27.0  %_copy_if_thenBB2 %_copy_if_end5 
- 
- %_copy_if_thenBB2:
- 		 %__t28.0  = move  %__lpos2.1 
- 		 %__lpos2.3  =   add  %__lpos2.1   1 
- 		 %__t29.0  =   shl  %__t28.0   2 
- 		 %__t30.0  =   add  %__t29.0   4 
- 		 %__t31.0  =   add  %_gedges1.5   %__t30.0 
- 		 %__t32.0  =   shl  %__i2.1   2 
- 		 %__t33.0  =   add  %__t32.0   4 
- 		 %__t34.0  =   add  %_gbuffer1.5   %__t33.0 
- 		 %__t35.0  = load  %__t31.0 
- 		 store  %__t34.0   %__t35.0 
- 		 %__rpos2.3  = move  %__rpos2.1 
- 		 %__lpos2.4  = move  %__lpos2.3 
- 		 jump %_copy_forupdateBB1
- 
- %_copy_if_end5:
- 		 %__t36.0  =   shl  %__rpos2.1   2 
- 		 %__t37.0  =   add  %__t36.0   4 
- 		 %__t38.0  =   add  %_gedges1.5   %__t37.0 
- 		 %__t39.0  = load  %__t38.0 
- 		 %__t40.0  =   add  %__t39.0   8 
- 		 %__t41.0  =   shl  %__lpos2.1   2 
- 		 %__t42.0  =   add  %__t41.0   4 
- 		 %__t43.0  =   add  %_gedges1.5   %__t42.0 
- 		 %__t44.0  = load  %__t43.0 
- 		 %__t45.0  =   add  %__t44.0   8 
- 		 %__t46.0  = load  %__t45.0 
- 		 %__t47.0  = load  %__t40.0 
- 		 %__t48.0  = slt  %__t46.0   %__t47.0 
- 		 br  %__t48.0  %_copy_if_thenBB3 %_copy_if_end6 
- 
- %_copy_if_end6:
- 		 %__t49.0  = move  %__rpos2.1 
- 		 %__rpos2.2  =   add  %__rpos2.1   1 
- 		 %__t50.0  =   shl  %__t49.0   2 
- 		 %__t51.0  =   add  %__t50.0   4 
- 		 %__t52.0  =   add  %_gedges1.5   %__t51.0 
- 		 %__t53.0  =   shl  %__i2.1   2 
- 		 %__t54.0  =   add  %__t53.0   4 
- 		 %__t55.0  =   add  %_gbuffer1.5   %__t54.0 
- 		 %__t56.0  = load  %__t52.0 
- 		 store  %__t55.0   %__t56.0 
- 		 %__rpos2.3  = move  %__rpos2.2 
- 		 %__lpos2.4  = move  %__lpos2.1 
- 		 jump %_copy_forupdateBB1
- 
- %_copy_if_thenBB3:
- 		 %__t57.0  = move  %__lpos2.1 
- 		 %__lpos2.2  =   add  %__lpos2.1   1 
- 		 %__t58.0  =   shl  %__t57.0   2 
- 		 %__t59.0  =   add  %__t58.0   4 
- 		 %__t60.0  =   add  %_gedges1.5   %__t59.0 
- 		 %__t61.0  =   shl  %__i2.1   2 
- 		 %__t62.0  =   add  %__t61.0   4 
- 		 %__t63.0  =   add  %_gbuffer1.5   %__t62.0 
- 		 %__t64.0  = load  %__t60.0 
- 		 store  %__t63.0   %__t64.0 
- 		 %__rpos2.3  = move  %__rpos2.1 
- 		 %__lpos2.4  = move  %__lpos2.2 
- 		 jump %_copy_forupdateBB1
- 
- %_copy_forupdateBB1:
- 		 %__i2.5  =   add  %__i2.1   1 
- 		 %__i2.1  = move  %__i2.5 
- 		 %__rpos2.1  = move  %__rpos2.3 
- 		 %__lpos2.1  = move  %__lpos2.4 
- 		 jump %_copy_forcondBB3
- 
- %_copy_afterForBB2:
- 		 %__i2.3  = move  0 
- 		 jump %_copy_forcondBB4
- 
- %_copy_forcondBB4:
- 		 %__t65.0  = slt  %__i2.3   %__t16.0 
- 		 br  %__t65.0  %_copy_forbodyBB4 %paracopy6 
- 
- %_copy_forbodyBB4:
- 		 %__t66.0  =   shl  %__i2.3   2 
- 		 %__t67.0  =   add  %__t66.0   4 
- 		 %__t68.0  =   add  %_gbuffer1.5   %__t67.0 
- 		 %__t69.0  =   add  %_copy_l3.0   %__i2.3 
- 		 %__t70.0  =   shl  %__t69.0   2 
- 		 %__t71.0  =   add  %__t70.0   4 
- 		 %__t72.0  =   add  %_gedges1.5   %__t71.0 
- 		 %__t73.0  = load  %__t68.0 
- 		 store  %__t72.0   %__t73.0 
- 		 %__i2.4  =   add  %__i2.3   1 
- 		 %__i2.3  = move  %__i2.4 
- 		 jump %_copy_forcondBB4
- 
- %paracopy6:
- 		 %_gbuffer1.6  = move  %_gbuffer1.5 
- 		 %_gedges1.6  = move  %_gedges1.5 
- 		 jump %afterCallBB3
- 
- %afterCallBB3:
- 		 %__lpos3.0  = move  %_copy_l1.0 
- 		 %__rpos3.0  = move  %__mid1.0 
- 		 %__rpos3.1  = move  %__rpos3.0 
- 		 %__lpos3.1  = move  %__lpos3.0 
- 		 %__i3.1  = move  0 
- 		 jump %_copy_forcondBB5
- 
- %_copy_forcondBB5:
- 		 %__t74.0  =   sub  %_copy_r1.0   %_copy_l1.0 
- 		 %__t75.0  = slt  %__i3.1   %__t74.0 
- 		 br  %__t75.0  %_copy_forbodyBB5 %_copy_afterForBB3 
- 
- %_copy_afterForBB3:
- 		 %__i3.4  = move  0 
- 		 jump %_copy_forcondBB6
- 
- %_copy_forcondBB6:
- 		 %__t76.0  = slt  %__i3.4   %__t74.0 
- 		 br  %__t76.0  %_copy_forbodyBB6 %paracopy7 
- 
- %_copy_forbodyBB6:
- 		 %__t77.0  =   shl  %__i3.4   2 
- 		 %__t78.0  =   add  %__t77.0   4 
- 		 %__t79.0  =   add  %_gbuffer1.6   %__t78.0 
- 		 %__t80.0  =   add  %_copy_l1.0   %__i3.4 
- 		 %__t81.0  =   shl  %__t80.0   2 
- 		 %__t82.0  =   add  %__t81.0   4 
- 		 %__t83.0  =   add  %_gedges1.6   %__t82.0 
- 		 %__t84.0  = load  %__t79.0 
- 		 store  %__t83.0   %__t84.0 
- 		 %__i3.5  =   add  %__i3.4   1 
- 		 %__i3.4  = move  %__i3.5 
- 		 jump %_copy_forcondBB6
- 
- %paracopy7:
- 		 %_gbuffer1.7  = move  %_gbuffer1.6 
- 		 %_gedges1.7  = move  %_gedges1.6 
- 		 jump %afterCallBB1
- 
- %afterCallBB1:
- 		 %_copy_l4.0  = move  %mid1.0 
- 		 %_copy_r4.0  = move  %r1.0 
- 		 %__t85.0  =   add  %_copy_l4.0   1 
- 		 %__t86.0  = seq  %__t85.0   %_copy_r4.0 
- 		 br  %__t86.0  %paracopy8 %_copy_if_end7 
- 
- %paracopy8:
- 		 %_gbuffer1.12  = move  %_gbuffer1.7 
- 		 %_gedges1.12  = move  %_gedges1.7 
- 		 jump %afterCallBB4
- 
- %_copy_if_end7:
- 		 %__t87.0  =   add  %_copy_l4.0   %_copy_r4.0 
- 		 %__t88.0  =   shr  %__t87.0   1 
- 		 %__mid4.0  = move  %__t88.0 
- 		 %_copy_l5.0  = move  %_copy_l4.0 
- 		 %_copy_r5.0  = move  %__mid4.0 
- 		 %__t89.0  =   add  %_copy_l5.0   1 
- 		 %__t90.0  = seq  %__t89.0   %_copy_r5.0 
- 		 br  %__t90.0  %paracopy9 %_copy_if_end8 
- 
- %paracopy9:
- 		 %_gbuffer1.8  = move  %_gbuffer1.7 
- 		 %_gedges1.8  = move  %_gedges1.7 
- 		 jump %afterCallBB5
- 
- %_copy_if_end8:
- 		 %__t91.0  =   add  %_copy_l5.0   %_copy_r5.0 
- 		 %__t92.0  =   shr  %__t91.0   1 
- 		 %__mid5.1  = move  %__t92.0 
- 		 store  @buffer   %_gbuffer1.7 
- 		 store  @edges   %_gedges1.7 
- 		 call sort  %_copy_l5.0   %__mid5.1   
- 		 %_gedges1.10  = load  @edges 
- 		 %_gbuffer1.10  = load  @buffer 
- 		 store  @buffer   %_gbuffer1.10 
- 		 store  @edges   %_gedges1.10 
- 		 call sort  %__mid5.1   %_copy_r5.0   
- 		 %_gedges1.11  = load  @edges 
- 		 %_gbuffer1.11  = load  @buffer 
- 		 %__lpos4.1  = move  %_copy_l5.0 
- 		 %__rpos4.1  = move  %__mid5.1 
- 		 %__lpos4.2  = move  %__lpos4.1 
- 		 %__rpos4.2  = move  %__rpos4.1 
- 		 %__i4.2  = move  0 
- 		 jump %_copy_forcondBB7
- 
- %_copy_forcondBB7:
- 		 %__t93.0  =   sub  %_copy_r5.0   %_copy_l5.0 
- 		 %__t94.0  = slt  %__i4.2   %__t93.0 
- 		 br  %__t94.0  %_copy_forbodyBB7 %_copy_afterForBB4 
- 
- %_copy_forbodyBB7:
- 		 %__t95.0  = seq  %__lpos4.2   %__mid5.1 
- 		 br  %__t95.0  %_copy_if_thenBB4 %_copy_if_end9 
- 
- %_copy_if_end9:
- 		 %__t96.0  = seq  %__rpos4.2   %_copy_r5.0 
- 		 br  %__t96.0  %_copy_if_thenBB5 %_copy_if_end10 
- 
- %_copy_if_thenBB5:
- 		 %__t97.0  = move  %__lpos4.2 
- 		 %__lpos4.5  =   add  %__lpos4.2   1 
- 		 %__t98.0  =   shl  %__t97.0   2 
- 		 %__t99.0  =   add  %__t98.0   4 
- 		 %__t100.0  =   add  %_gedges1.11   %__t99.0 
- 		 %__t101.0  =   shl  %__i4.2   2 
- 		 %__t102.0  =   add  %__t101.0   4 
- 		 %__t103.0  =   add  %_gbuffer1.11   %__t102.0 
- 		 %__t104.0  = load  %__t100.0 
- 		 store  %__t103.0   %__t104.0 
- 		 %__lpos4.3  = move  %__lpos4.5 
- 		 %__rpos4.4  = move  %__rpos4.2 
- 		 jump %_copy_forupdateBB2
- 
- %_copy_if_end10:
- 		 %__t105.0  =   shl  %__rpos4.2   2 
- 		 %__t106.0  =   add  %__t105.0   4 
- 		 %__t107.0  =   add  %_gedges1.11   %__t106.0 
- 		 %__t108.0  = load  %__t107.0 
- 		 %__t109.0  =   add  %__t108.0   8 
- 		 %__t110.0  =   shl  %__lpos4.2   2 
- 		 %__t111.0  =   add  %__t110.0   4 
- 		 %__t112.0  =   add  %_gedges1.11   %__t111.0 
- 		 %__t113.0  = load  %__t112.0 
- 		 %__t114.0  =   add  %__t113.0   8 
- 		 %__t115.0  = load  %__t114.0 
- 		 %__t116.0  = load  %__t109.0 
- 		 %__t117.0  = slt  %__t115.0   %__t116.0 
- 		 br  %__t117.0  %_copy_if_thenBB6 %_copy_if_end11 
- 
- %_copy_if_end11:
- 		 %__t118.0  = move  %__rpos4.2 
- 		 %__rpos4.5  =   add  %__rpos4.2   1 
- 		 %__t119.0  =   shl  %__t118.0   2 
- 		 %__t120.0  =   add  %__t119.0   4 
- 		 %__t121.0  =   add  %_gedges1.11   %__t120.0 
- 		 %__t122.0  =   shl  %__i4.2   2 
- 		 %__t123.0  =   add  %__t122.0   4 
- 		 %__t124.0  =   add  %_gbuffer1.11   %__t123.0 
- 		 %__t125.0  = load  %__t121.0 
- 		 store  %__t124.0   %__t125.0 
- 		 %__lpos4.3  = move  %__lpos4.2 
- 		 %__rpos4.4  = move  %__rpos4.5 
- 		 jump %_copy_forupdateBB2
- 
- %_copy_if_thenBB6:
- 		 %__t126.0  = move  %__lpos4.2 
- 		 %__lpos4.4  =   add  %__lpos4.2   1 
- 		 %__t127.0  =   shl  %__t126.0   2 
- 		 %__t128.0  =   add  %__t127.0   4 
- 		 %__t129.0  =   add  %_gedges1.11   %__t128.0 
- 		 %__t130.0  =   shl  %__i4.2   2 
- 		 %__t131.0  =   add  %__t130.0   4 
- 		 %__t132.0  =   add  %_gbuffer1.11   %__t131.0 
- 		 %__t133.0  = load  %__t129.0 
- 		 store  %__t132.0   %__t133.0 
- 		 %__lpos4.3  = move  %__lpos4.4 
- 		 %__rpos4.4  = move  %__rpos4.2 
- 		 jump %_copy_forupdateBB2
- 
- %_copy_if_thenBB4:
- 		 %__t134.0  = move  %__rpos4.2 
- 		 %__rpos4.3  =   add  %__rpos4.2   1 
- 		 %__t135.0  =   shl  %__t134.0   2 
- 		 %__t136.0  =   add  %__t135.0   4 
- 		 %__t137.0  =   add  %_gedges1.11   %__t136.0 
- 		 %__t138.0  =   shl  %__i4.2   2 
- 		 %__t139.0  =   add  %__t138.0   4 
- 		 %__t140.0  =   add  %_gbuffer1.11   %__t139.0 
- 		 %__t141.0  = load  %__t137.0 
- 		 store  %__t140.0   %__t141.0 
- 		 %__lpos4.3  = move  %__lpos4.2 
- 		 %__rpos4.4  = move  %__rpos4.3 
- 		 jump %_copy_forupdateBB2
- 
- %_copy_forupdateBB2:
- 		 %__i4.6  =   add  %__i4.2   1 
- 		 %__lpos4.2  = move  %__lpos4.3 
- 		 %__i4.2  = move  %__i4.6 
- 		 %__rpos4.2  = move  %__rpos4.4 
- 		 jump %_copy_forcondBB7
- 
- %_copy_afterForBB4:
- 		 %__i4.4  = move  0 
- 		 jump %_copy_forcondBB8
- 
- %_copy_forcondBB8:
- 		 %__t142.0  = slt  %__i4.4   %__t93.0 
- 		 br  %__t142.0  %_copy_forbodyBB8 %paracopy10 
- 
- %paracopy10:
- 		 %_gbuffer1.8  = move  %_gbuffer1.11 
- 		 %_gedges1.8  = move  %_gedges1.11 
- 		 jump %afterCallBB5
- 
- %afterCallBB5:
- 		 store  @buffer   %_gbuffer1.8 
- 		 store  @edges   %_gedges1.8 
- 		 call sort  %__mid4.0   %_copy_r4.0   
- 		 %_gedges1.9  = load  @edges 
- 		 %_gbuffer1.9  = load  @buffer 
- 		 %__lpos5.0  = move  %_copy_l4.0 
- 		 %__rpos5.0  = move  %__mid4.0 
- 		 %__rpos5.1  = move  %__rpos5.0 
- 		 %__lpos5.1  = move  %__lpos5.0 
- 		 %__i5.1  = move  0 
- 		 jump %_copy_forcondBB9
- 
- %_copy_forcondBB9:
- 		 %__t143.0  =   sub  %_copy_r4.0   %_copy_l4.0 
- 		 %__t144.0  = slt  %__i5.1   %__t143.0 
- 		 br  %__t144.0  %_copy_forbodyBB9 %_copy_afterForBB5 
- 
- %_copy_afterForBB5:
- 		 %__i5.4  = move  0 
- 		 jump %_copy_forcondBB10
- 
- %_copy_forcondBB10:
- 		 %__t145.0  = slt  %__i5.4   %__t143.0 
- 		 br  %__t145.0  %_copy_forbodyBB10 %paracopy11 
- 
- %_copy_forbodyBB10:
- 		 %__t146.0  =   shl  %__i5.4   2 
- 		 %__t147.0  =   add  %__t146.0   4 
- 		 %__t148.0  =   add  %_gbuffer1.9   %__t147.0 
- 		 %__t149.0  =   add  %_copy_l4.0   %__i5.4 
- 		 %__t150.0  =   shl  %__t149.0   2 
- 		 %__t151.0  =   add  %__t150.0   4 
- 		 %__t152.0  =   add  %_gedges1.9   %__t151.0 
- 		 %__t153.0  = load  %__t148.0 
- 		 store  %__t152.0   %__t153.0 
- 		 %__i5.5  =   add  %__i5.4   1 
- 		 %__i5.4  = move  %__i5.5 
- 		 jump %_copy_forcondBB10
- 
- %paracopy11:
- 		 %_gbuffer1.12  = move  %_gbuffer1.9 
- 		 %_gedges1.12  = move  %_gedges1.9 
- 		 jump %afterCallBB4
- 
- %afterCallBB4:
- 		 %lpos1.0  = move  %l1.0 
- 		 %rpos1.0  = move  %mid1.0 
- 		 %rpos1.1  = move  %rpos1.0 
- 		 %lpos1.1  = move  %lpos1.0 
- 		 %i1.1  = move  0 
+ @constStr_0 = ""
+ @constStr_1 = "Invalid input"
+ @constStr_2 = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+ @constStr_3 = "Not Found!"
+ @constStr_4 = "nChunk > MAXCHUNK!"
+ @outputBuffer 
+ @asciiTable 
+ @inputBuffer 
+ @MAXCHUNK 
+ @chunks 
+ @MAXLENGTH 
+ define i32 @__init   {
+ %__init.entryBB1:
+ 		 %_gasciiTable1.0  = move  @constStr_2 
+ 		 %t1.0  = alloc  404 
+ 		 store  %t1.0   100 
+ 		 %t2.0  = move  %t1.0 
+ 		 %t2.1  =   add  %t2.0   4 
+ 		 %t3.0  = move  %t1.0 
+ 		 %t3.1  =   add  %t3.0   400 
+ 		 %t2.2  = move  %t2.1 
  		 jump %forcondBB1
  
  %forcondBB1:
- 		 %t5.0  =   sub  %r1.0   %l1.0 
- 		 %t6.0  = slt  %i1.1   %t5.0 
- 		 br  %t6.0  %forbodyBB1 %afterForBB1 
- 
- %afterForBB1:
- 		 %i1.4  = move  0 
- 		 jump %forcondBB2
- 
- %forcondBB2:
- 		 %t7.0  = slt  %i1.4   %t5.0 
- 		 br  %t7.0  %forbodyBB2 %paracopy12 
- 
- %forbodyBB2:
- 		 %t8.0  =   shl  %i1.4   2 
- 		 %t9.0  =   add  %t8.0   4 
- 		 %t10.0  =   add  %_gbuffer1.12   %t9.0 
- 		 %t11.0  =   add  %l1.0   %i1.4 
- 		 %t12.0  =   shl  %t11.0   2 
- 		 %t13.0  =   add  %t12.0   4 
- 		 %t14.0  =   add  %_gedges1.12   %t13.0 
- 		 %t15.0  = load  %t10.0 
- 		 store  %t14.0   %t15.0 
- 		 %i1.5  =   add  %i1.4   1 
- 		 %i1.4  = move  %i1.5 
- 		 jump %forcondBB2
- 
- %paracopy12:
- 		 %_gbuffer1.13  = move  %_gbuffer1.12 
- 		 %_gedges1.13  = move  %_gedges1.12 
- 		 jump %sort.exitBB1
- 
- %sort.exitBB1:
- 		 store  @buffer   %_gbuffer1.13 
- 		 store  @edges   %_gedges1.13 
- 		 ret  
- 
- %forbodyBB1:
- 		 %t16.0  = seq  %lpos1.1   %mid1.0 
- 		 br  %t16.0  %if_thenBB1 %if_end2 
- 
- %if_end2:
- 		 %t17.0  = seq  %rpos1.1   %r1.0 
- 		 br  %t17.0  %if_thenBB2 %if_end3 
- 
- %if_thenBB2:
- 		 %t18.0  = move  %lpos1.1 
- 		 %lpos1.3  =   add  %lpos1.1   1 
- 		 %t19.0  =   shl  %t18.0   2 
- 		 %t20.0  =   add  %t19.0   4 
- 		 %t21.0  =   add  %_gedges1.12   %t20.0 
- 		 %t22.0  =   shl  %i1.1   2 
- 		 %t23.0  =   add  %t22.0   4 
- 		 %t24.0  =   add  %_gbuffer1.12   %t23.0 
- 		 %t25.0  = load  %t21.0 
- 		 store  %t24.0   %t25.0 
- 		 %rpos1.4  = move  %rpos1.1 
- 		 %lpos1.4  = move  %lpos1.3 
- 		 jump %forupdateBB1
- 
- %if_end3:
- 		 %t26.0  =   shl  %rpos1.1   2 
- 		 %t27.0  =   add  %t26.0   4 
- 		 %t28.0  =   add  %_gedges1.12   %t27.0 
- 		 %t29.0  = load  %t28.0 
- 		 %t30.0  =   add  %t29.0   8 
- 		 %t31.0  =   shl  %lpos1.1   2 
- 		 %t32.0  =   add  %t31.0   4 
- 		 %t33.0  =   add  %_gedges1.12   %t32.0 
- 		 %t34.0  = load  %t33.0 
- 		 %t35.0  =   add  %t34.0   8 
- 		 %t36.0  = load  %t35.0 
- 		 %t37.0  = load  %t30.0 
- 		 %t38.0  = slt  %t36.0   %t37.0 
- 		 br  %t38.0  %if_thenBB3 %if_end4 
- 
- %if_end4:
- 		 %t39.0  = move  %rpos1.1 
- 		 %rpos1.3  =   add  %rpos1.1   1 
- 		 %t40.0  =   shl  %t39.0   2 
- 		 %t41.0  =   add  %t40.0   4 
- 		 %t42.0  =   add  %_gedges1.12   %t41.0 
- 		 %t43.0  =   shl  %i1.1   2 
- 		 %t44.0  =   add  %t43.0   4 
- 		 %t45.0  =   add  %_gbuffer1.12   %t44.0 
- 		 %t46.0  = load  %t42.0 
- 		 store  %t45.0   %t46.0 
- 		 %rpos1.4  = move  %rpos1.3 
- 		 %lpos1.4  = move  %lpos1.1 
- 		 jump %forupdateBB1
- 
- %if_thenBB3:
- 		 %t47.0  = move  %lpos1.1 
- 		 %lpos1.2  =   add  %lpos1.1   1 
- 		 %t48.0  =   shl  %t47.0   2 
- 		 %t49.0  =   add  %t48.0   4 
- 		 %t50.0  =   add  %_gedges1.12   %t49.0 
- 		 %t51.0  =   shl  %i1.1   2 
- 		 %t52.0  =   add  %t51.0   4 
- 		 %t53.0  =   add  %_gbuffer1.12   %t52.0 
- 		 %t54.0  = load  %t50.0 
- 		 store  %t53.0   %t54.0 
- 		 %rpos1.4  = move  %rpos1.1 
- 		 %lpos1.4  = move  %lpos1.2 
- 		 jump %forupdateBB1
- 
- %if_thenBB1:
- 		 %t55.0  = move  %rpos1.1 
- 		 %rpos1.2  =   add  %rpos1.1   1 
- 		 %t56.0  =   shl  %t55.0   2 
- 		 %t57.0  =   add  %t56.0   4 
- 		 %t58.0  =   add  %_gedges1.12   %t57.0 
- 		 %t59.0  =   shl  %i1.1   2 
- 		 %t60.0  =   add  %t59.0   4 
- 		 %t61.0  =   add  %_gbuffer1.12   %t60.0 
- 		 %t62.0  = load  %t58.0 
- 		 store  %t61.0   %t62.0 
- 		 %rpos1.4  = move  %rpos1.2 
- 		 %lpos1.4  = move  %lpos1.1 
- 		 jump %forupdateBB1
+ 		 %t4.0  = sle  %t2.2   %t3.1 
+ 		 br  %t4.0  %forupdateBB1 %afterForBB1 
  
  %forupdateBB1:
- 		 %i1.2  =   add  %i1.1   1 
- 		 %rpos1.1  = move  %rpos1.4 
- 		 %i1.1  = move  %i1.2 
- 		 %lpos1.1  = move  %lpos1.4 
+ 		 %t5.0  = alloc  324 
+ 		 store  %t5.0   80 
+ 		 store  %t2.2   %t5.0 
+ 		 %t2.3  =   add  %t2.2   4 
+ 		 %t2.2  = move  %t2.3 
  		 jump %forcondBB1
  
- %_copy_forbodyBB9:
- 		 %__t154.0  = seq  %__lpos5.1   %__mid4.0 
- 		 br  %__t154.0  %_copy_if_thenBB7 %_copy_if_end12 
+ %afterForBB1:
+ 		 %_gchunks1.0  = move  %t1.0 
+ 		 %t6.0  = alloc  25284 
+ 		 store  %t6.0   6320 
+ 		 %_ginputBuffer1.0  = move  %t6.0 
+ 		 %t7.0  = alloc  24 
+ 		 store  %t7.0   5 
+ 		 %_goutputBuffer1.0  = move  %t7.0 
+ 		 jump %_whileBodyBB1
  
- %_copy_if_thenBB7:
- 		 %__t155.0  = move  %__rpos5.1 
- 		 %__rpos5.4  =   add  %__rpos5.1   1 
- 		 %__t156.0  =   shl  %__t155.0   2 
- 		 %__t157.0  =   add  %__t156.0   4 
- 		 %__t158.0  =   add  %_gedges1.9   %__t157.0 
- 		 %__t159.0  =   shl  %__i5.1   2 
- 		 %__t160.0  =   add  %__t159.0   4 
- 		 %__t161.0  =   add  %_gbuffer1.9   %__t160.0 
- 		 %__t162.0  = load  %__t158.0 
- 		 store  %__t161.0   %__t162.0 
- 		 %__rpos5.3  = move  %__rpos5.4 
- 		 %__lpos5.4  = move  %__lpos5.1 
- 		 jump %_copy_forupdateBB3
+ %_whileBodyBB1:
+ 		 %_t1.0  =  call getInt  
+ 		 %_op1.1  = move  %_t1.0 
+ 		 %_t2.0  = seq  %_op1.1   0 
+ 		 br  %_t2.0  %afterCallBB1 %_if_end1 
  
- %_copy_if_end12:
- 		 %__t163.0  = seq  %__rpos5.1   %_copy_r4.0 
- 		 br  %__t163.0  %_copy_if_thenBB8 %_copy_if_end13 
+ %_if_end1:
+ 		 %_t3.0  = seq  %_op1.1   1 
+ 		 br  %_t3.0  %_if_thenBB1 %_if_elseBB1 
  
- %_copy_if_end13:
- 		 %__t164.0  =   shl  %__rpos5.1   2 
- 		 %__t165.0  =   add  %__t164.0   4 
- 		 %__t166.0  =   add  %_gedges1.9   %__t165.0 
- 		 %__t167.0  = load  %__t166.0 
- 		 %__t168.0  =   add  %__t167.0   8 
- 		 %__t169.0  =   shl  %__lpos5.1   2 
- 		 %__t170.0  =   add  %__t169.0   4 
- 		 %__t171.0  =   add  %_gedges1.9   %__t170.0 
- 		 %__t172.0  = load  %__t171.0 
- 		 %__t173.0  =   add  %__t172.0   8 
- 		 %__t174.0  = load  %__t173.0 
- 		 %__t175.0  = load  %__t168.0 
- 		 %__t176.0  = slt  %__t174.0   %__t175.0 
- 		 br  %__t176.0  %_copy_if_thenBB9 %_copy_if_end14 
+ %_if_elseBB1:
+ 		 %_t4.0  = seq  %_op1.1   2 
+ 		 br  %_t4.0  %_if_thenBB2 %_whileBodyBB1 
  
- %_copy_if_end14:
- 		 %__t177.0  = move  %__rpos5.1 
- 		 %__rpos5.2  =   add  %__rpos5.1   1 
- 		 %__t178.0  =   shl  %__t177.0   2 
- 		 %__t179.0  =   add  %__t178.0   4 
- 		 %__t180.0  =   add  %_gedges1.9   %__t179.0 
- 		 %__t181.0  =   shl  %__i5.1   2 
- 		 %__t182.0  =   add  %__t181.0   4 
- 		 %__t183.0  =   add  %_gbuffer1.9   %__t182.0 
- 		 %__t184.0  = load  %__t180.0 
- 		 store  %__t183.0   %__t184.0 
- 		 %__rpos5.3  = move  %__rpos5.2 
- 		 %__lpos5.4  = move  %__lpos5.1 
- 		 jump %_copy_forupdateBB3
+ %_if_thenBB2:
+ 		 %_t5.0  =  call getString  
+ 		 %_input1.1  = move  %_t5.0 
+ 		 %__input1.1  = move  %_input1.1 
+ 		 %__t1.0  = alloc  24 
+ 		 store  %__t1.0   5 
+ 		 %__target1.1  = move  %__t1.0 
+ 		 %__t2.0  =  call string.length  %__input1.1 
+ 		 %__t3.0  = sne  %__t2.0   40 
+ 		 br  %__t3.0  %__if_thenBB1 %__if_end1 
  
- %_copy_if_thenBB9:
- 		 %__t185.0  = move  %__lpos5.1 
- 		 %__lpos5.3  =   add  %__lpos5.1   1 
- 		 %__t186.0  =   shl  %__t185.0   2 
- 		 %__t187.0  =   add  %__t186.0   4 
- 		 %__t188.0  =   add  %_gedges1.9   %__t187.0 
- 		 %__t189.0  =   shl  %__i5.1   2 
- 		 %__t190.0  =   add  %__t189.0   4 
- 		 %__t191.0  =   add  %_gbuffer1.9   %__t190.0 
- 		 %__t192.0  = load  %__t188.0 
- 		 store  %__t191.0   %__t192.0 
- 		 %__rpos5.3  = move  %__rpos5.1 
- 		 %__lpos5.4  = move  %__lpos5.3 
- 		 jump %_copy_forupdateBB3
+ %__if_thenBB1:
+ 		 call println  @constStr_1   
+ 		 jump %_whileBodyBB1
  
- %_copy_if_thenBB8:
- 		 %__t193.0  = move  %__lpos5.1 
- 		 %__lpos5.2  =   add  %__lpos5.1   1 
- 		 %__t194.0  =   shl  %__t193.0   2 
- 		 %__t195.0  =   add  %__t194.0   4 
- 		 %__t196.0  =   add  %_gedges1.9   %__t195.0 
- 		 %__t197.0  =   shl  %__i5.1   2 
- 		 %__t198.0  =   add  %__t197.0   4 
- 		 %__t199.0  =   add  %_gbuffer1.9   %__t198.0 
- 		 %__t200.0  = load  %__t196.0 
- 		 store  %__t199.0   %__t200.0 
- 		 %__rpos5.3  = move  %__rpos5.1 
- 		 %__lpos5.4  = move  %__lpos5.2 
- 		 jump %_copy_forupdateBB3
- 
- %_copy_forupdateBB3:
- 		 %__i5.2  =   add  %__i5.1   1 
- 		 %__rpos5.1  = move  %__rpos5.3 
- 		 %__i5.1  = move  %__i5.2 
- 		 %__lpos5.1  = move  %__lpos5.4 
- 		 jump %_copy_forcondBB9
- 
- %_copy_forbodyBB8:
- 		 %__t201.0  =   shl  %__i4.4   2 
- 		 %__t202.0  =   add  %__t201.0   4 
- 		 %__t203.0  =   add  %_gbuffer1.11   %__t202.0 
- 		 %__t204.0  =   add  %_copy_l5.0   %__i4.4 
- 		 %__t205.0  =   shl  %__t204.0   2 
- 		 %__t206.0  =   add  %__t205.0   4 
- 		 %__t207.0  =   add  %_gedges1.11   %__t206.0 
- 		 %__t208.0  = load  %__t203.0 
- 		 store  %__t207.0   %__t208.0 
- 		 %__i4.5  =   add  %__i4.4   1 
- 		 %__i4.4  = move  %__i4.5 
- 		 jump %_copy_forcondBB8
- 
- %_copy_forbodyBB5:
- 		 %__t209.0  = seq  %__lpos3.1   %__mid1.0 
- 		 br  %__t209.0  %_copy_if_thenBB10 %_copy_if_end15 
- 
- %_copy_if_thenBB10:
- 		 %__t210.0  = move  %__rpos3.1 
- 		 %__rpos3.3  =   add  %__rpos3.1   1 
- 		 %__t211.0  =   shl  %__t210.0   2 
- 		 %__t212.0  =   add  %__t211.0   4 
- 		 %__t213.0  =   add  %_gedges1.6   %__t212.0 
- 		 %__t214.0  =   shl  %__i3.1   2 
- 		 %__t215.0  =   add  %__t214.0   4 
- 		 %__t216.0  =   add  %_gbuffer1.6   %__t215.0 
- 		 %__t217.0  = load  %__t213.0 
- 		 store  %__t216.0   %__t217.0 
- 		 %__rpos3.4  = move  %__rpos3.3 
- 		 %__lpos3.4  = move  %__lpos3.1 
- 		 jump %_copy_forupdateBB4
- 
- %_copy_if_end15:
- 		 %__t218.0  = seq  %__rpos3.1   %_copy_r1.0 
- 		 br  %__t218.0  %_copy_if_thenBB11 %_copy_if_end16 
- 
- %_copy_if_thenBB11:
- 		 %__t219.0  = move  %__lpos3.1 
- 		 %__lpos3.3  =   add  %__lpos3.1   1 
- 		 %__t220.0  =   shl  %__t219.0   2 
- 		 %__t221.0  =   add  %__t220.0   4 
- 		 %__t222.0  =   add  %_gedges1.6   %__t221.0 
- 		 %__t223.0  =   shl  %__i3.1   2 
- 		 %__t224.0  =   add  %__t223.0   4 
- 		 %__t225.0  =   add  %_gbuffer1.6   %__t224.0 
- 		 %__t226.0  = load  %__t222.0 
- 		 store  %__t225.0   %__t226.0 
- 		 %__rpos3.4  = move  %__rpos3.1 
- 		 %__lpos3.4  = move  %__lpos3.3 
- 		 jump %_copy_forupdateBB4
- 
- %_copy_if_end16:
- 		 %__t227.0  =   shl  %__rpos3.1   2 
- 		 %__t228.0  =   add  %__t227.0   4 
- 		 %__t229.0  =   add  %_gedges1.6   %__t228.0 
- 		 %__t230.0  = load  %__t229.0 
- 		 %__t231.0  =   add  %__t230.0   8 
- 		 %__t232.0  =   shl  %__lpos3.1   2 
- 		 %__t233.0  =   add  %__t232.0   4 
- 		 %__t234.0  =   add  %_gedges1.6   %__t233.0 
- 		 %__t235.0  = load  %__t234.0 
- 		 %__t236.0  =   add  %__t235.0   8 
- 		 %__t237.0  = load  %__t236.0 
- 		 %__t238.0  = load  %__t231.0 
- 		 %__t239.0  = slt  %__t237.0   %__t238.0 
- 		 br  %__t239.0  %_copy_if_thenBB12 %_copy_if_end17 
- 
- %_copy_if_end17:
- 		 %__t240.0  = move  %__rpos3.1 
- 		 %__rpos3.2  =   add  %__rpos3.1   1 
- 		 %__t241.0  =   shl  %__t240.0   2 
- 		 %__t242.0  =   add  %__t241.0   4 
- 		 %__t243.0  =   add  %_gedges1.6   %__t242.0 
- 		 %__t244.0  =   shl  %__i3.1   2 
- 		 %__t245.0  =   add  %__t244.0   4 
- 		 %__t246.0  =   add  %_gbuffer1.6   %__t245.0 
- 		 %__t247.0  = load  %__t243.0 
- 		 store  %__t246.0   %__t247.0 
- 		 %__rpos3.4  = move  %__rpos3.2 
- 		 %__lpos3.4  = move  %__lpos3.1 
- 		 jump %_copy_forupdateBB4
- 
- %_copy_if_thenBB12:
- 		 %__t248.0  = move  %__lpos3.1 
- 		 %__lpos3.2  =   add  %__lpos3.1   1 
- 		 %__t249.0  =   shl  %__t248.0   2 
- 		 %__t250.0  =   add  %__t249.0   4 
- 		 %__t251.0  =   add  %_gedges1.6   %__t250.0 
- 		 %__t252.0  =   shl  %__i3.1   2 
- 		 %__t253.0  =   add  %__t252.0   4 
- 		 %__t254.0  =   add  %_gbuffer1.6   %__t253.0 
- 		 %__t255.0  = load  %__t251.0 
- 		 store  %__t254.0   %__t255.0 
- 		 %__rpos3.4  = move  %__rpos3.1 
- 		 %__lpos3.4  = move  %__lpos3.2 
- 		 jump %_copy_forupdateBB4
- 
- %_copy_forupdateBB4:
- 		 %__i3.2  =   add  %__i3.1   1 
- 		 %__i3.1  = move  %__i3.2 
- 		 %__rpos3.1  = move  %__rpos3.4 
- 		 %__lpos3.1  = move  %__lpos3.4 
- 		 jump %_copy_forcondBB5
- 
- %_copy_forbodyBB2:
- 		 %__t256.0  =   shl  %__i1.4   2 
- 		 %__t257.0  =   add  %__t256.0   4 
- 		 %__t258.0  =   add  %_gbuffer1.2   %__t257.0 
- 		 %__t259.0  =   add  %_copy_l2.0   %__i1.4 
- 		 %__t260.0  =   shl  %__t259.0   2 
- 		 %__t261.0  =   add  %__t260.0   4 
- 		 %__t262.0  =   add  %_gedges1.2   %__t261.0 
- 		 %__t263.0  = load  %__t258.0 
- 		 store  %__t262.0   %__t263.0 
- 		 %__i1.5  =   add  %__i1.4   1 
- 		 %__i1.4  = move  %__i1.5 
- 		 jump %_copy_forcondBB2
- 
- %_copy_forbodyBB1:
- 		 %__t264.0  = seq  %__lpos1.1   %__mid2.0 
- 		 br  %__t264.0  %_copy_if_thenBB13 %_copy_if_end18 
- 
- %_copy_if_thenBB13:
- 		 %__t265.0  = move  %__rpos1.1 
- 		 %__rpos1.4  =   add  %__rpos1.1   1 
- 		 %__t266.0  =   shl  %__t265.0   2 
- 		 %__t267.0  =   add  %__t266.0   4 
- 		 %__t268.0  =   add  %_gedges1.2   %__t267.0 
- 		 %__t269.0  =   shl  %__i1.1   2 
- 		 %__t270.0  =   add  %__t269.0   4 
- 		 %__t271.0  =   add  %_gbuffer1.2   %__t270.0 
- 		 %__t272.0  = load  %__t268.0 
- 		 store  %__t271.0   %__t272.0 
- 		 %__lpos1.4  = move  %__lpos1.1 
- 		 %__rpos1.3  = move  %__rpos1.4 
- 		 jump %_copy_forupdateBB5
- 
- %_copy_if_end18:
- 		 %__t273.0  = seq  %__rpos1.1   %_copy_r2.0 
- 		 br  %__t273.0  %_copy_if_thenBB14 %_copy_if_end19 
- 
- %_copy_if_thenBB14:
- 		 %__t274.0  = move  %__lpos1.1 
- 		 %__lpos1.3  =   add  %__lpos1.1   1 
- 		 %__t275.0  =   shl  %__t274.0   2 
- 		 %__t276.0  =   add  %__t275.0   4 
- 		 %__t277.0  =   add  %_gedges1.2   %__t276.0 
- 		 %__t278.0  =   shl  %__i1.1   2 
- 		 %__t279.0  =   add  %__t278.0   4 
- 		 %__t280.0  =   add  %_gbuffer1.2   %__t279.0 
- 		 %__t281.0  = load  %__t277.0 
- 		 store  %__t280.0   %__t281.0 
- 		 %__lpos1.4  = move  %__lpos1.3 
- 		 %__rpos1.3  = move  %__rpos1.1 
- 		 jump %_copy_forupdateBB5
- 
- %_copy_if_end19:
- 		 %__t282.0  =   shl  %__rpos1.1   2 
- 		 %__t283.0  =   add  %__t282.0   4 
- 		 %__t284.0  =   add  %_gedges1.2   %__t283.0 
- 		 %__t285.0  = load  %__t284.0 
- 		 %__t286.0  =   add  %__t285.0   8 
- 		 %__t287.0  =   shl  %__lpos1.1   2 
- 		 %__t288.0  =   add  %__t287.0   4 
- 		 %__t289.0  =   add  %_gedges1.2   %__t288.0 
- 		 %__t290.0  = load  %__t289.0 
- 		 %__t291.0  =   add  %__t290.0   8 
- 		 %__t292.0  = load  %__t291.0 
- 		 %__t293.0  = load  %__t286.0 
- 		 %__t294.0  = slt  %__t292.0   %__t293.0 
- 		 br  %__t294.0  %_copy_if_thenBB15 %_copy_if_end20 
- 
- %_copy_if_end20:
- 		 %__t295.0  = move  %__rpos1.1 
- 		 %__rpos1.2  =   add  %__rpos1.1   1 
- 		 %__t296.0  =   shl  %__t295.0   2 
- 		 %__t297.0  =   add  %__t296.0   4 
- 		 %__t298.0  =   add  %_gedges1.2   %__t297.0 
- 		 %__t299.0  =   shl  %__i1.1   2 
- 		 %__t300.0  =   add  %__t299.0   4 
- 		 %__t301.0  =   add  %_gbuffer1.2   %__t300.0 
- 		 %__t302.0  = load  %__t298.0 
- 		 store  %__t301.0   %__t302.0 
- 		 %__lpos1.4  = move  %__lpos1.1 
- 		 %__rpos1.3  = move  %__rpos1.2 
- 		 jump %_copy_forupdateBB5
- 
- %_copy_if_thenBB15:
- 		 %__t303.0  = move  %__lpos1.1 
- 		 %__lpos1.2  =   add  %__lpos1.1   1 
- 		 %__t304.0  =   shl  %__t303.0   2 
- 		 %__t305.0  =   add  %__t304.0   4 
- 		 %__t306.0  =   add  %_gedges1.2   %__t305.0 
- 		 %__t307.0  =   shl  %__i1.1   2 
- 		 %__t308.0  =   add  %__t307.0   4 
- 		 %__t309.0  =   add  %_gbuffer1.2   %__t308.0 
- 		 %__t310.0  = load  %__t306.0 
- 		 store  %__t309.0   %__t310.0 
- 		 %__lpos1.4  = move  %__lpos1.2 
- 		 %__rpos1.3  = move  %__rpos1.1 
- 		 jump %_copy_forupdateBB5
- 
- %_copy_forupdateBB5:
- 		 %__i1.2  =   add  %__i1.1   1 
- 		 %__lpos1.1  = move  %__lpos1.4 
- 		 %__i1.1  = move  %__i1.2 
- 		 %__rpos1.1  = move  %__rpos1.3 
- 		 jump %_copy_forcondBB1
- 
- }
- define i32 @findRoot  %x1.0  {
- %findRoot.entryBB1:
- 		 %_gpnt1.0  = load  @pnt 
- 		 %t1.0  =   shl  %x1.0   2 
- 		 %t2.0  =   add  %t1.0   4 
- 		 %t3.0  =   add  %_gpnt1.0   %t2.0 
- 		 %t4.0  = load  %t3.0 
- 		 %t5.0  = seq  %t4.0   -1 
- 		 br  %t5.0  %if_thenBB1 %if_end1 
- 
- %if_thenBB1:
- 		 %mergedretVal1.1  = move  %x1.0 
- 		 %_gpnt1.5  = move  %_gpnt1.0 
- 		 %mergedretVal1.2  = move  %mergedretVal1.1 
- 		 jump %findRoot.exitBB1
- 
- %if_end1:
- 		 %t6.0  =   shl  %x1.0   2 
- 		 %t7.0  =   add  %t6.0   4 
- 		 %t8.0  =   add  %_gpnt1.0   %t7.0 
- 		 %t9.0  = load  %t8.0 
- 		 %_copy_x1.0  = move  %t9.0 
- 		 %__t1.0  =   shl  %_copy_x1.0   2 
- 		 %__t2.0  =   add  %__t1.0   4 
- 		 %__t3.0  =   add  %_gpnt1.0   %__t2.0 
- 		 %__t4.0  = load  %__t3.0 
- 		 %__t5.0  = seq  %__t4.0   -1 
- 		 br  %__t5.0  %_copy_if_thenBB1 %_copy_if_end1 
- 
- %_copy_if_end1:
- 		 %__t6.0  =   shl  %_copy_x1.0   2 
- 		 %__t7.0  =   add  %__t6.0   4 
- 		 %__t8.0  =   add  %_gpnt1.0   %__t7.0 
- 		 %__t9.0  = load  %__t8.0 
- 		 %_copy_x2.1  = move  %__t9.0 
- 		 %__t10.0  =   shl  %_copy_x2.1   2 
- 		 %__t11.0  =   add  %__t10.0   4 
- 		 %__t12.0  =   add  %_gpnt1.0   %__t11.0 
- 		 %__t13.0  = load  %__t12.0 
- 		 %__t14.0  = seq  %__t13.0   -1 
- 		 br  %__t14.0  %_copy_if_thenBB2 %_copy_if_end2 
- 
- %_copy_if_end2:
- 		 %__t15.0  =   shl  %_copy_x2.1   2 
- 		 %__t16.0  =   add  %__t15.0   4 
- 		 %__t17.0  =   add  %_gpnt1.0   %__t16.0 
- 		 %__t18.0  = load  %__t17.0 
- 		 %_copy_x3.2  = move  %__t18.0 
- 		 %__t19.0  =   shl  %_copy_x3.2   2 
- 		 %__t20.0  =   add  %__t19.0   4 
- 		 %__t21.0  =   add  %_gpnt1.0   %__t20.0 
- 		 %__t22.0  = load  %__t21.0 
- 		 %__t23.0  = seq  %__t22.0   -1 
- 		 br  %__t23.0  %_copy_if_thenBB3 %_copy_if_end3 
- 
- %_copy_if_end3:
- 		 %__t24.0  =   shl  %_copy_x3.2   2 
- 		 %__t25.0  =   add  %__t24.0   4 
- 		 %__t26.0  =   add  %_gpnt1.0   %__t25.0 
- 		 %__t27.0  = load  %__t26.0 
- 		 store  @pnt   %_gpnt1.0 
- 		 %__t28.0  =  call findRoot  %__t27.0   
- 		 %_gpnt1.4  = load  @pnt 
- 		 %__y1.0  = move  %__t28.0 
- 		 %__t29.0  =   shl  %_copy_x3.2   2 
- 		 %__t30.0  =   add  %__t29.0   4 
- 		 %__t31.0  =   add  %_gpnt1.4   %__t30.0 
- 		 store  %__t31.0   %__y1.0 
- 		 %__mergedretVal1.4  = move  %__y1.0 
- 		 %_gpnt1.3  = move  %_gpnt1.4 
- 		 %__mergedretVal1.3  = move  %__mergedretVal1.4 
- 		 jump %afterCallBB1
- 
- %_copy_if_thenBB3:
- 		 %__mergedretVal1.2  = move  %_copy_x3.2 
- 		 %_gpnt1.3  = move  %_gpnt1.0 
- 		 %__mergedretVal1.3  = move  %__mergedretVal1.2 
- 		 jump %afterCallBB1
- 
- %afterCallBB1:
- 		 %__t32.0  = move  %__mergedretVal1.3 
- 		 %__y2.0  = move  %__t32.0 
- 		 %__t33.0  =   shl  %_copy_x2.1   2 
- 		 %__t34.0  =   add  %__t33.0   4 
- 		 %__t35.0  =   add  %_gpnt1.3   %__t34.0 
- 		 store  %__t35.0   %__y2.0 
- 		 %__mergedretVal2.3  = move  %__y2.0 
- 		 %__mergedretVal2.1  = move  %__mergedretVal2.3 
- 		 %_gpnt1.2  = move  %_gpnt1.3 
- 		 jump %afterCallBB2
- 
- %_copy_if_thenBB2:
- 		 %__mergedretVal2.2  = move  %_copy_x2.1 
- 		 %__mergedretVal2.1  = move  %__mergedretVal2.2 
- 		 %_gpnt1.2  = move  %_gpnt1.0 
- 		 jump %afterCallBB2
- 
- %afterCallBB2:
- 		 %__t36.0  = move  %__mergedretVal2.1 
- 		 %__y3.0  = move  %__t36.0 
- 		 %__t37.0  =   shl  %_copy_x1.0   2 
- 		 %__t38.0  =   add  %__t37.0   4 
- 		 %__t39.0  =   add  %_gpnt1.2   %__t38.0 
- 		 store  %__t39.0   %__y3.0 
- 		 %__mergedretVal3.2  = move  %__y3.0 
- 		 %_gpnt1.1  = move  %_gpnt1.2 
- 		 %__mergedretVal3.1  = move  %__mergedretVal3.2 
- 		 jump %afterCallBB3
- 
- %_copy_if_thenBB1:
- 		 %__mergedretVal3.0  = move  %_copy_x1.0 
- 		 %_gpnt1.1  = move  %_gpnt1.0 
- 		 %__mergedretVal3.1  = move  %__mergedretVal3.0 
- 		 jump %afterCallBB3
- 
- %afterCallBB3:
- 		 %t10.0  = move  %__mergedretVal3.1 
- 		 %y1.0  = move  %t10.0 
- 		 %t11.0  =   shl  %x1.0   2 
- 		 %t12.0  =   add  %t11.0   4 
- 		 %t13.0  =   add  %_gpnt1.1   %t12.0 
- 		 store  %t13.0   %y1.0 
- 		 %mergedretVal1.0  = move  %y1.0 
- 		 %_gpnt1.5  = move  %_gpnt1.1 
- 		 %mergedretVal1.2  = move  %mergedretVal1.0 
- 		 jump %findRoot.exitBB1
- 
- %findRoot.exitBB1:
- 		 store  @pnt   %_gpnt1.5 
- 		 ret  %mergedretVal1.2 
- 
- }
- define i32 @__init   {
- %__init.entryBB1:
- 		 %__t1.0  =  call getInt  
- 		 %_gn1.0  = move  %__t1.0 
- 		 %__t2.0  =  call getInt  
- 		 %_gm1.0  = move  %__t2.0 
- 		 %__t3.0  =   shl  %_gm1.0   2 
- 		 %__t3.1  =   add  %__t3.0   4 
- 		 %__t4.0  = alloc  %__t3.1 
- 		 store  %__t4.0   %_gm1.0 
- 		 %_gedges1.0  = move  %__t4.0 
- 		 %__t5.0  =   shl  %_gm1.0   2 
- 		 %__t5.1  =   add  %__t5.0   4 
- 		 %__t6.0  = alloc  %__t5.1 
- 		 store  %__t6.0   %_gm1.0 
- 		 %_gbuffer1.0  = move  %__t6.0 
- 		 %__i1.1  = move  0 
+ %__if_end1:
+ 		 %__i1.2  = move  0 
  		 jump %__forcondBB1
  
  %__forcondBB1:
- 		 %__t7.0  = slt  %__i1.1   %_gm1.0 
- 		 br  %__t7.0  %__forbodyBB1 %__afterForBB1 
+ 		 %__t4.0  = slt  %__i1.2   5 
+ 		 br  %__t4.0  %__forbodyBB1 %__afterForBB1 
  
  %__forbodyBB1:
- 		 %__t8.0  = alloc  12 
- 		 %__t9.0  =   shl  %__i1.1   2 
- 		 %__t10.0  =   add  %__t9.0   4 
- 		 %__t11.0  =   add  %_gedges1.0   %__t10.0 
- 		 store  %__t11.0   %__t8.0 
- 		 %__t12.0  =  call getInt  
- 		 %__t13.0  =   shl  %__i1.1   2 
- 		 %__t14.0  =   add  %__t13.0   4 
- 		 %__t15.0  =   add  %_gedges1.0   %__t14.0 
- 		 %__t16.0  = load  %__t15.0 
- 		 %__t17.0  =   add  %__t16.0   0 
- 		 store  %__t17.0   %__t12.0 
- 		 %__t18.0  =  call getInt  
- 		 %__t19.0  =   shl  %__i1.1   2 
- 		 %__t20.0  =   add  %__t19.0   4 
- 		 %__t21.0  =   add  %_gedges1.0   %__t20.0 
- 		 %__t22.0  = load  %__t21.0 
- 		 %__t23.0  =   add  %__t22.0   4 
- 		 store  %__t23.0   %__t18.0 
- 		 %__t24.0  =  call getInt  
- 		 %__t25.0  =   shl  %__i1.1   2 
- 		 %__t26.0  =   add  %__t25.0   4 
- 		 %__t27.0  =   add  %_gedges1.0   %__t26.0 
- 		 %__t28.0  = load  %__t27.0 
- 		 %__t29.0  =   add  %__t28.0   8 
- 		 store  %__t29.0   %__t24.0 
- 		 %__i1.5  =   add  %__i1.1   1 
- 		 %__i1.1  = move  %__i1.5 
+ 		 %__t5.0  =   shl  %__i1.2   2 
+ 		 %__t6.0  =   add  %__t5.0   4 
+ 		 %__t7.0  =   add  %__target1.1   %__t6.0 
+ 		 store  %__t7.0   0 
+ 		 %__i1.13  =   add  %__i1.2   1 
+ 		 %__i1.2  = move  %__i1.13 
  		 jump %__forcondBB1
  
  %__afterForBB1:
- 		 %__t30.0  =   shl  %_gn1.0   2 
- 		 %__t30.1  =   add  %__t30.0   4 
- 		 %__t31.0  = alloc  %__t30.1 
- 		 store  %__t31.0   %_gn1.0 
- 		 %_gpnt1.0  = move  %__t31.0 
- 		 %__i1.3  = move  0 
+ 		 %__i1.4  = move  0 
  		 jump %__forcondBB2
  
  %__forcondBB2:
- 		 %__t32.0  = slt  %__i1.3   %_gn1.0 
- 		 br  %__t32.0  %__forbodyBB2 %_afterCallBB1 
+ 		 %__t8.0  = slt  %__i1.4   40 
+ 		 br  %__t8.0  %__forbodyBB2 %__afterForBB2 
  
- %_afterCallBB1:
- 		 %_copy_r1.0  = move  %_gm1.0 
- 		 %__t33.0  = seq  1   %_copy_r1.0 
- 		 br  %__t33.0  %paracopy1 %_copy_if_end1 
- 
- %_copy_if_end1:
- 		 %__t34.0  =   add  0   %_copy_r1.0 
- 		 %__t35.0  =   shr  %__t34.0   1 
- 		 %__mid1.1  = move  %__t35.0 
- 		 store  @buffer   %_gbuffer1.0 
- 		 store  @edges   %_gedges1.0 
- 		 call sort  0   %__mid1.1   
- 		 %_gedges1.2  = load  @edges 
- 		 %_gbuffer1.2  = load  @buffer 
- 		 store  @buffer   %_gbuffer1.2 
- 		 store  @edges   %_gedges1.2 
- 		 call sort  %__mid1.1   %_copy_r1.0   
- 		 %_gedges1.3  = load  @edges 
- 		 %_gbuffer1.3  = load  @buffer 
- 		 %__rpos1.1  = move  %__mid1.1 
- 		 %__rpos1.2  = move  %__rpos1.1 
- 		 %__lpos1.2  = move  0 
- 		 %__i2.2  = move  0 
- 		 jump %_copy_forcondBB1
- 
- %_copy_forcondBB1:
- 		 %__t36.0  =   sub  %_copy_r1.0   0 
- 		 %__t37.0  = slt  %__i2.2   %__t36.0 
- 		 br  %__t37.0  %_copy_forbodyBB1 %_copy_afterForBB1 
- 
- %_copy_afterForBB1:
- 		 %__i2.5  = move  0 
- 		 jump %_copy_forcondBB2
- 
- %_copy_forcondBB2:
- 		 %__t38.0  = slt  %__i2.5   %__t36.0 
- 		 br  %__t38.0  %_copy_forbodyBB2 %paracopy2 
- 
- %_copy_forbodyBB2:
- 		 %__t39.0  =   shl  %__i2.5   2 
- 		 %__t40.0  =   add  %__t39.0   4 
- 		 %__t41.0  =   add  %_gbuffer1.3   %__t40.0 
- 		 %__t42.0  =   add  0   %__i2.5 
- 		 %__t43.0  =   shl  %__t42.0   2 
- 		 %__t44.0  =   add  %__t43.0   4 
- 		 %__t45.0  =   add  %_gedges1.3   %__t44.0 
- 		 %__t46.0  = load  %__t41.0 
- 		 store  %__t45.0   %__t46.0 
- 		 %__i2.6  =   add  %__i2.5   1 
- 		 %__i2.5  = move  %__i2.6 
- 		 jump %_copy_forcondBB2
- 
- %paracopy2:
- 		 %_gedges1.1  = move  %_gedges1.3 
- 		 %_gbuffer1.1  = move  %_gbuffer1.3 
- 		 jump %afterCallBB1
- 
- %_copy_forbodyBB1:
- 		 %__t47.0  = seq  %__lpos1.2   %__mid1.1 
- 		 br  %__t47.0  %_copy_if_thenBB1 %_copy_if_end2 
- 
- %_copy_if_thenBB1:
- 		 %__t48.0  = move  %__rpos1.2 
- 		 %__rpos1.4  =   add  %__rpos1.2   1 
- 		 %__t49.0  =   shl  %__t48.0   2 
- 		 %__t50.0  =   add  %__t49.0   4 
- 		 %__t51.0  =   add  %_gedges1.3   %__t50.0 
- 		 %__t52.0  =   shl  %__i2.2   2 
- 		 %__t53.0  =   add  %__t52.0   4 
- 		 %__t54.0  =   add  %_gbuffer1.3   %__t53.0 
- 		 %__t55.0  = load  %__t51.0 
- 		 store  %__t54.0   %__t55.0 
- 		 %__lpos1.5  = move  %__lpos1.2 
- 		 %__rpos1.5  = move  %__rpos1.4 
- 		 jump %_copy_forupdateBB1
- 
- %_copy_if_end2:
- 		 %__t56.0  = seq  %__rpos1.2   %_copy_r1.0 
- 		 br  %__t56.0  %_copy_if_thenBB2 %_copy_if_end3 
- 
- %_copy_if_end3:
- 		 %__t57.0  =   shl  %__rpos1.2   2 
- 		 %__t58.0  =   add  %__t57.0   4 
- 		 %__t59.0  =   add  %_gedges1.3   %__t58.0 
- 		 %__t60.0  = load  %__t59.0 
- 		 %__t61.0  =   add  %__t60.0   8 
- 		 %__t62.0  =   shl  %__lpos1.2   2 
- 		 %__t63.0  =   add  %__t62.0   4 
- 		 %__t64.0  =   add  %_gedges1.3   %__t63.0 
- 		 %__t65.0  = load  %__t64.0 
- 		 %__t66.0  =   add  %__t65.0   8 
- 		 %__t67.0  = load  %__t66.0 
- 		 %__t68.0  = load  %__t61.0 
- 		 %__t69.0  = slt  %__t67.0   %__t68.0 
- 		 br  %__t69.0  %_copy_if_thenBB3 %_copy_if_end4 
- 
- %_copy_if_end4:
- 		 %__t70.0  = move  %__rpos1.2 
- 		 %__rpos1.3  =   add  %__rpos1.2   1 
- 		 %__t71.0  =   shl  %__t70.0   2 
- 		 %__t72.0  =   add  %__t71.0   4 
- 		 %__t73.0  =   add  %_gedges1.3   %__t72.0 
- 		 %__t74.0  =   shl  %__i2.2   2 
- 		 %__t75.0  =   add  %__t74.0   4 
- 		 %__t76.0  =   add  %_gbuffer1.3   %__t75.0 
- 		 %__t77.0  = load  %__t73.0 
- 		 store  %__t76.0   %__t77.0 
- 		 %__lpos1.5  = move  %__lpos1.2 
- 		 %__rpos1.5  = move  %__rpos1.3 
- 		 jump %_copy_forupdateBB1
- 
- %_copy_if_thenBB3:
- 		 %__t78.0  = move  %__lpos1.2 
- 		 %__lpos1.4  =   add  %__lpos1.2   1 
- 		 %__t79.0  =   shl  %__t78.0   2 
- 		 %__t80.0  =   add  %__t79.0   4 
- 		 %__t81.0  =   add  %_gedges1.3   %__t80.0 
- 		 %__t82.0  =   shl  %__i2.2   2 
- 		 %__t83.0  =   add  %__t82.0   4 
- 		 %__t84.0  =   add  %_gbuffer1.3   %__t83.0 
- 		 %__t85.0  = load  %__t81.0 
- 		 store  %__t84.0   %__t85.0 
- 		 %__lpos1.5  = move  %__lpos1.4 
- 		 %__rpos1.5  = move  %__rpos1.2 
- 		 jump %_copy_forupdateBB1
- 
- %_copy_if_thenBB2:
- 		 %__t86.0  = move  %__lpos1.2 
- 		 %__lpos1.3  =   add  %__lpos1.2   1 
- 		 %__t87.0  =   shl  %__t86.0   2 
- 		 %__t88.0  =   add  %__t87.0   4 
- 		 %__t89.0  =   add  %_gedges1.3   %__t88.0 
- 		 %__t90.0  =   shl  %__i2.2   2 
- 		 %__t91.0  =   add  %__t90.0   4 
- 		 %__t92.0  =   add  %_gbuffer1.3   %__t91.0 
- 		 %__t93.0  = load  %__t89.0 
- 		 store  %__t92.0   %__t93.0 
- 		 %__lpos1.5  = move  %__lpos1.3 
- 		 %__rpos1.5  = move  %__rpos1.2 
- 		 jump %_copy_forupdateBB1
- 
- %_copy_forupdateBB1:
- 		 %__i2.3  =   add  %__i2.2   1 
- 		 %__lpos1.2  = move  %__lpos1.5 
- 		 %__rpos1.2  = move  %__rpos1.5 
- 		 %__i2.2  = move  %__i2.3 
- 		 jump %_copy_forcondBB1
- 
- %paracopy1:
- 		 %_gedges1.1  = move  %_gedges1.0 
- 		 %_gbuffer1.1  = move  %_gbuffer1.0 
- 		 jump %afterCallBB1
- 
- %afterCallBB1:
- 		 %_gpnt1.1  = move  %_gpnt1.0 
- 		 %_i1.1  = move  0 
- 		 %_ans1.1  = move  0 
+ %__forbodyBB2:
+ 		 %__t9.0  =   shr  %__i1.4   2 
+ 		 %__t10.0  =   and  %__t9.0   1 
+ 		 %__t11.0  =   sub  1   %__t10.0 
+ 		 %__t12.2  =   shl  %__t11.0   4 
+ 		 %__t13.0  =   add  %__i1.4   4 
+ 		 %__t14.0  =  call string.substring  %__input1.1 %__i1.4   %__t13.0   
+ 		 %_x1.2  = move  %__t14.0 
+ 		 %_i1.3  = move  0 
+ 		 %_result1.3  = move  0 
  		 jump %_forcondBB1
  
  %_forcondBB1:
- 		 %_t1.0  = slt  %_i1.1   %_gm1.0 
- 		 br  %_t1.0  %_forbodyBB1 %afterCallBB2 
+ 		 %_t6.0  =  call string.length  %_x1.2 
+ 		 %_t7.0  = slt  %_i1.3   %_t6.0 
+ 		 br  %_t7.0  %_forbodyBB1 %_afterForBB1 
+ 
+ %_afterForBB1:
+ 		 %_mergedretVal1.3  = move  %_result1.3 
+ 		 %_mergedretVal1.4  = move  %_mergedretVal1.3 
+ 		 jump %afterCallBB2
  
  %_forbodyBB1:
- 		 %_t2.0  =   shl  %_i1.1   2 
- 		 %_t3.0  =   add  %_t2.0   4 
- 		 %_t4.0  =   add  %_gedges1.1   %_t3.0 
- 		 %_t5.0  = load  %_t4.0 
- 		 %_t6.0  =   add  %_t5.0   4 
- 		 %_t7.0  = load  %_t6.0 
- 		 %_copy_x1.1  = move  %_t7.0 
- 		 %__t94.0  =   shl  %_copy_x1.1   2 
- 		 %__t95.0  =   add  %__t94.0   4 
- 		 %__t96.0  =   add  %_gpnt1.1   %__t95.0 
- 		 %__t97.0  = load  %__t96.0 
- 		 %__t98.0  = seq  %__t97.0   -1 
- 		 br  %__t98.0  %_copy_if_thenBB4 %_copy_if_end5 
+ 		 %_t8.0  =  call string.ord  %_x1.2 %_i1.3   
+ 		 %_digit1.3  = move  %_t8.0 
+ 		 %_t9.0  = sge  %_digit1.3   48 
+ 		 br  %_t9.0  %_ifTrue1 %_if_elseBB2 
  
- %_copy_if_thenBB4:
- 		 %__mergedretVal1.3  = move  %_copy_x1.1 
- 		 %__mergedretVal1.1  = move  %__mergedretVal1.3 
- 		 %_gpnt1.2  = move  %_gpnt1.1 
- 		 jump %afterCallBB3
+ %_ifTrue1:
+ 		 %_t10.0  = sle  %_digit1.3   57 
+ 		 br  %_t10.0  %_if_thenBB3 %_if_elseBB2 
  
- %_copy_if_end5:
- 		 %__t99.0  =   shl  %_copy_x1.1   2 
- 		 %__t100.0  =   add  %__t99.0   4 
- 		 %__t101.0  =   add  %_gpnt1.1   %__t100.0 
- 		 %__t102.0  = load  %__t101.0 
- 		 %_copy_x2.2  = move  %__t102.0 
- 		 %__t103.0  =   shl  %_copy_x2.2   2 
- 		 %__t104.0  =   add  %__t103.0   4 
- 		 %__t105.0  =   add  %_gpnt1.1   %__t104.0 
- 		 %__t106.0  = load  %__t105.0 
- 		 %__t107.0  = seq  %__t106.0   -1 
- 		 br  %__t107.0  %_copy_if_thenBB5 %_copy_if_end6 
+ %_if_elseBB2:
+ 		 %_t11.0  = sge  %_digit1.3   65 
+ 		 br  %_t11.0  %_ifTrue2 %_if_elseBB3 
  
- %_copy_if_thenBB5:
- 		 %__mergedretVal2.4  = move  %_copy_x2.2 
- 		 %__mergedretVal2.2  = move  %__mergedretVal2.4 
- 		 %_gpnt1.14  = move  %_gpnt1.1 
- 		 jump %afterCallBB4
+ %_ifTrue2:
+ 		 %_t12.0  = sle  %_digit1.3   70 
+ 		 br  %_t12.0  %_if_thenBB4 %_if_elseBB3 
  
- %_copy_if_end6:
- 		 %__t108.0  =   shl  %_copy_x2.2   2 
- 		 %__t109.0  =   add  %__t108.0   4 
- 		 %__t110.0  =   add  %_gpnt1.1   %__t109.0 
- 		 %__t111.0  = load  %__t110.0 
- 		 %_copy_x3.3  = move  %__t111.0 
- 		 %__t112.0  =   shl  %_copy_x3.3   2 
- 		 %__t113.0  =   add  %__t112.0   4 
- 		 %__t114.0  =   add  %_gpnt1.1   %__t113.0 
- 		 %__t115.0  = load  %__t114.0 
- 		 %__t116.0  = seq  %__t115.0   -1 
- 		 br  %__t116.0  %_copy_if_thenBB6 %_copy_if_end7 
- 
- %_copy_if_thenBB6:
- 		 %__mergedretVal3.4  = move  %_copy_x3.3 
- 		 %__mergedretVal3.5  = move  %__mergedretVal3.4 
- 		 %_gpnt1.16  = move  %_gpnt1.1 
- 		 jump %afterCallBB5
- 
- %_copy_if_end7:
- 		 %__t117.0  =   shl  %_copy_x3.3   2 
- 		 %__t118.0  =   add  %__t117.0   4 
- 		 %__t119.0  =   add  %_gpnt1.1   %__t118.0 
- 		 %__t120.0  = load  %__t119.0 
- 		 store  @pnt   %_gpnt1.1 
- 		 %__t121.0  =  call findRoot  %__t120.0   
- 		 %_gpnt1.15  = load  @pnt 
- 		 %__y1.0  = move  %__t121.0 
- 		 %__t122.0  =   shl  %_copy_x3.3   2 
- 		 %__t123.0  =   add  %__t122.0   4 
- 		 %__t124.0  =   add  %_gpnt1.15   %__t123.0 
- 		 store  %__t124.0   %__y1.0 
- 		 %__mergedretVal3.3  = move  %__y1.0 
- 		 %__mergedretVal3.5  = move  %__mergedretVal3.3 
- 		 %_gpnt1.16  = move  %_gpnt1.15 
- 		 jump %afterCallBB5
- 
- %afterCallBB5:
- 		 %__t125.0  = move  %__mergedretVal3.5 
- 		 %__y2.0  = move  %__t125.0 
- 		 %__t126.0  =   shl  %_copy_x2.2   2 
- 		 %__t127.0  =   add  %__t126.0   4 
- 		 %__t128.0  =   add  %_gpnt1.16   %__t127.0 
- 		 store  %__t128.0   %__y2.0 
- 		 %__mergedretVal2.3  = move  %__y2.0 
- 		 %__mergedretVal2.2  = move  %__mergedretVal2.3 
- 		 %_gpnt1.14  = move  %_gpnt1.16 
- 		 jump %afterCallBB4
- 
- %afterCallBB4:
- 		 %__t129.0  = move  %__mergedretVal2.2 
- 		 %__y3.0  = move  %__t129.0 
- 		 %__t130.0  =   shl  %_copy_x1.1   2 
- 		 %__t131.0  =   add  %__t130.0   4 
- 		 %__t132.0  =   add  %_gpnt1.14   %__t131.0 
- 		 store  %__t132.0   %__y3.0 
- 		 %__mergedretVal1.2  = move  %__y3.0 
- 		 %__mergedretVal1.1  = move  %__mergedretVal1.2 
- 		 %_gpnt1.2  = move  %_gpnt1.14 
- 		 jump %afterCallBB3
- 
- %afterCallBB3:
- 		 %_t8.1  = move  %__mergedretVal1.1 
- 		 %_t9.0  =   shl  %_i1.1   2 
- 		 %_t10.0  =   add  %_t9.0   4 
- 		 %_t11.0  =   add  %_gedges1.1   %_t10.0 
- 		 %_t12.0  = load  %_t11.0 
- 		 %_t13.0  =   add  %_t12.0   0 
- 		 %_t14.0  = load  %_t13.0 
- 		 %_copy_x4.1  = move  %_t14.0 
- 		 %__t133.0  =   shl  %_copy_x4.1   2 
- 		 %__t134.0  =   add  %__t133.0   4 
- 		 %__t135.0  =   add  %_gpnt1.2   %__t134.0 
- 		 %__t136.0  = load  %__t135.0 
- 		 %__t137.0  = seq  %__t136.0   -1 
- 		 br  %__t137.0  %_copy_if_thenBB7 %_copy_if_end8 
- 
- %_copy_if_end8:
- 		 %__t138.0  =   shl  %_copy_x4.1   2 
- 		 %__t139.0  =   add  %__t138.0   4 
- 		 %__t140.0  =   add  %_gpnt1.2   %__t139.0 
- 		 %__t141.0  = load  %__t140.0 
- 		 %_copy_x5.2  = move  %__t141.0 
- 		 %__t142.0  =   shl  %_copy_x5.2   2 
- 		 %__t143.0  =   add  %__t142.0   4 
- 		 %__t144.0  =   add  %_gpnt1.2   %__t143.0 
- 		 %__t145.0  = load  %__t144.0 
- 		 %__t146.0  = seq  %__t145.0   -1 
- 		 br  %__t146.0  %_copy_if_thenBB8 %_copy_if_end9 
- 
- %_copy_if_end9:
- 		 %__t147.0  =   shl  %_copy_x5.2   2 
- 		 %__t148.0  =   add  %__t147.0   4 
- 		 %__t149.0  =   add  %_gpnt1.2   %__t148.0 
- 		 %__t150.0  = load  %__t149.0 
- 		 %_copy_x6.3  = move  %__t150.0 
- 		 %__t151.0  =   shl  %_copy_x6.3   2 
- 		 %__t152.0  =   add  %__t151.0   4 
- 		 %__t153.0  =   add  %_gpnt1.2   %__t152.0 
- 		 %__t154.0  = load  %__t153.0 
- 		 %__t155.0  = seq  %__t154.0   -1 
- 		 br  %__t155.0  %_copy_if_thenBB9 %_copy_if_end10 
- 
- %_copy_if_thenBB9:
- 		 %__mergedretVal4.5  = move  %_copy_x6.3 
- 		 %__mergedretVal4.4  = move  %__mergedretVal4.5 
- 		 %_gpnt1.13  = move  %_gpnt1.2 
- 		 jump %afterCallBB6
- 
- %_copy_if_end10:
- 		 %__t156.0  =   shl  %_copy_x6.3   2 
- 		 %__t157.0  =   add  %__t156.0   4 
- 		 %__t158.0  =   add  %_gpnt1.2   %__t157.0 
- 		 %__t159.0  = load  %__t158.0 
- 		 store  @pnt   %_gpnt1.2 
- 		 %__t160.0  =  call findRoot  %__t159.0   
- 		 %_gpnt1.12  = load  @pnt 
- 		 %__y4.0  = move  %__t160.0 
- 		 %__t161.0  =   shl  %_copy_x6.3   2 
- 		 %__t162.0  =   add  %__t161.0   4 
- 		 %__t163.0  =   add  %_gpnt1.12   %__t162.0 
- 		 store  %__t163.0   %__y4.0 
- 		 %__mergedretVal4.3  = move  %__y4.0 
- 		 %__mergedretVal4.4  = move  %__mergedretVal4.3 
- 		 %_gpnt1.13  = move  %_gpnt1.12 
- 		 jump %afterCallBB6
- 
- %afterCallBB6:
- 		 %__t164.0  = move  %__mergedretVal4.4 
- 		 %__y5.0  = move  %__t164.0 
- 		 %__t165.0  =   shl  %_copy_x5.2   2 
- 		 %__t166.0  =   add  %__t165.0   4 
- 		 %__t167.0  =   add  %_gpnt1.13   %__t166.0 
- 		 store  %__t167.0   %__y5.0 
- 		 %__mergedretVal5.4  = move  %__y5.0 
- 		 %__mergedretVal5.2  = move  %__mergedretVal5.4 
- 		 %_gpnt1.11  = move  %_gpnt1.13 
- 		 jump %afterCallBB7
- 
- %_copy_if_thenBB8:
- 		 %__mergedretVal5.3  = move  %_copy_x5.2 
- 		 %__mergedretVal5.2  = move  %__mergedretVal5.3 
- 		 %_gpnt1.11  = move  %_gpnt1.2 
- 		 jump %afterCallBB7
- 
- %afterCallBB7:
- 		 %__t168.0  = move  %__mergedretVal5.2 
- 		 %__y6.0  = move  %__t168.0 
- 		 %__t169.0  =   shl  %_copy_x4.1   2 
- 		 %__t170.0  =   add  %__t169.0   4 
- 		 %__t171.0  =   add  %_gpnt1.11   %__t170.0 
- 		 store  %__t171.0   %__y6.0 
- 		 %__mergedretVal6.3  = move  %__y6.0 
- 		 %__mergedretVal6.1  = move  %__mergedretVal6.3 
- 		 %_gpnt1.3  = move  %_gpnt1.11 
- 		 jump %afterCallBB8
- 
- %_copy_if_thenBB7:
- 		 %__mergedretVal6.2  = move  %_copy_x4.1 
- 		 %__mergedretVal6.1  = move  %__mergedretVal6.2 
- 		 %_gpnt1.3  = move  %_gpnt1.2 
- 		 jump %afterCallBB8
- 
- %afterCallBB8:
- 		 %_t15.0  = move  %__mergedretVal6.1 
- 		 %_t16.0  = seq  %_t15.0   %_t8.1 
- 		 br  %_t16.0  %paracopy3 %_if_end1 
- 
- %paracopy3:
- 		 %_gpnt1.4  = move  %_gpnt1.3 
- 		 %_ans1.2  = move  %_ans1.1 
+ %_if_thenBB4:
+ 		 %_t13.0  =   shl  %_result1.3   4 
+ 		 %_t14.0  =   add  %_t13.0   %_digit1.3 
+ 		 %_t15.0  =   sub  %_t14.0   65 
+ 		 %_t16.0  =   add  %_t15.0   10 
+ 		 %_result1.7  = move  %_t16.0 
+ 		 %_result1.5  = move  %_result1.7 
  		 jump %_forupdateBB1
  
- %_if_end1:
- 		 %_t17.0  =   shl  %_i1.1   2 
- 		 %_t18.0  =   add  %_t17.0   4 
- 		 %_t19.0  =   add  %_gedges1.1   %_t18.0 
- 		 %_t20.0  = load  %_t19.0 
- 		 %_t21.0  =   add  %_t20.0   0 
- 		 %_t22.0  = load  %_t21.0 
- 		 %_t23.0  =   shl  %_i1.1   2 
- 		 %_t24.0  =   add  %_t23.0   4 
- 		 %_t25.0  =   add  %_gedges1.1   %_t24.0 
- 		 %_t26.0  = load  %_t25.0 
- 		 %_t27.0  =   add  %_t26.0   4 
- 		 %_t28.0  = load  %_t27.0 
- 		 %__x1.0  = move  %_t22.0 
- 		 %__y7.2  = move  %_t28.0 
- 		 %_copy_x7.2  = move  %__x1.0 
- 		 %__t172.0  =   shl  %_copy_x7.2   2 
- 		 %__t173.0  =   add  %__t172.0   4 
- 		 %__t174.0  =   add  %_gpnt1.3   %__t173.0 
- 		 %__t175.0  = load  %__t174.0 
- 		 %__t176.0  = seq  %__t175.0   -1 
- 		 br  %__t176.0  %_copy_if_thenBB10 %_copy_if_end11 
+ %_if_elseBB3:
+ 		 %_t17.0  = sge  %_digit1.3   97 
+ 		 br  %_t17.0  %_ifTrue3 %_if_elseBB4 
  
- %_copy_if_end11:
- 		 %__t177.0  =   shl  %_copy_x7.2   2 
- 		 %__t178.0  =   add  %__t177.0   4 
- 		 %__t179.0  =   add  %_gpnt1.3   %__t178.0 
- 		 %__t180.0  = load  %__t179.0 
- 		 %_copy_x8.2  = move  %__t180.0 
- 		 %__t181.0  =   shl  %_copy_x8.2   2 
- 		 %__t182.0  =   add  %__t181.0   4 
- 		 %__t183.0  =   add  %_gpnt1.3   %__t182.0 
- 		 %__t184.0  = load  %__t183.0 
- 		 %__t185.0  = seq  %__t184.0   -1 
- 		 br  %__t185.0  %_copy_if_thenBB11 %_copy_if_end12 
+ %_ifTrue3:
+ 		 %_t18.0  = sle  %_digit1.3   102 
+ 		 br  %_t18.0  %_if_thenBB5 %_if_elseBB4 
  
- %_copy_if_thenBB11:
- 		 %__mergedretVal7.4  = move  %_copy_x8.2 
- 		 %_gpnt1.6  = move  %_gpnt1.3 
- 		 %__mergedretVal7.3  = move  %__mergedretVal7.4 
- 		 jump %afterCallBB9
+ %_if_thenBB5:
+ 		 %_t19.0  =   shl  %_result1.3   4 
+ 		 %_t20.0  =   add  %_t19.0   %_digit1.3 
+ 		 %_t21.0  =   sub  %_t20.0   97 
+ 		 %_t22.0  =   add  %_t21.0   10 
+ 		 %_result1.6  = move  %_t22.0 
+ 		 %_result1.5  = move  %_result1.6 
+ 		 jump %_forupdateBB1
  
- %_copy_if_end12:
- 		 %__t186.0  =   shl  %_copy_x8.2   2 
- 		 %__t187.0  =   add  %__t186.0   4 
- 		 %__t188.0  =   add  %_gpnt1.3   %__t187.0 
- 		 %__t189.0  = load  %__t188.0 
- 		 store  @pnt   %_gpnt1.3 
- 		 %__t190.0  =  call findRoot  %__t189.0   
- 		 %_gpnt1.5  = load  @pnt 
- 		 %__y8.0  = move  %__t190.0 
- 		 %__t191.0  =   shl  %_copy_x8.2   2 
- 		 %__t192.0  =   add  %__t191.0   4 
- 		 %__t193.0  =   add  %_gpnt1.5   %__t192.0 
- 		 store  %__t193.0   %__y8.0 
- 		 %__mergedretVal7.2  = move  %__y8.0 
- 		 %_gpnt1.6  = move  %_gpnt1.5 
- 		 %__mergedretVal7.3  = move  %__mergedretVal7.2 
- 		 jump %afterCallBB9
+ %_if_elseBB4:
+ 		 %_mergedretVal1.4  = move  0 
+ 		 jump %afterCallBB2
  
- %afterCallBB9:
- 		 %__t194.0  = move  %__mergedretVal7.3 
- 		 %__y9.0  = move  %__t194.0 
- 		 %__t195.0  =   shl  %_copy_x7.2   2 
- 		 %__t196.0  =   add  %__t195.0   4 
- 		 %__t197.0  =   add  %_gpnt1.6   %__t196.0 
- 		 store  %__t197.0   %__y9.0 
- 		 %__mergedretVal8.2  = move  %__y9.0 
- 		 %_gpnt1.7  = move  %_gpnt1.6 
- 		 %__mergedretVal8.4  = move  %__mergedretVal8.2 
- 		 jump %afterCallBB10
+ %afterCallBB2:
+ 		 %__t15.0  = move  %_mergedretVal1.4 
+ 		 %__t16.0  =   shl  %__t15.0   %__t12.2 
+ 		 %__t17.0  =   shr  %__i1.4   3 
+ 		 %__t18.0  =   shl  %__t17.0   2 
+ 		 %__t19.0  =   add  %__t18.0   4 
+ 		 %__t20.0  =   add  %__target1.1   %__t19.0 
+ 		 %__t21.0  = load  %__t20.0 
+ 		 %__t22.0  =   or  %__t21.0   %__t16.0 
+ 		 %__t23.0  =   shr  %__i1.4   3 
+ 		 %__t24.0  =   shl  %__t23.0   2 
+ 		 %__t25.0  =   add  %__t24.0   4 
+ 		 %__t26.0  =   add  %__target1.1   %__t25.0 
+ 		 store  %__t26.0   %__t22.0 
+ 		 %__t27.0  =   add  %__i1.4   4 
+ 		 %__i1.12  = move  %__t27.0 
+ 		 %__i1.4  = move  %__i1.12 
+ 		 jump %__forcondBB2
  
- %_copy_if_thenBB10:
- 		 %__mergedretVal8.3  = move  %_copy_x7.2 
- 		 %_gpnt1.7  = move  %_gpnt1.3 
- 		 %__mergedretVal8.4  = move  %__mergedretVal8.3 
- 		 jump %afterCallBB10
- 
- %afterCallBB10:
- 		 %__t198.0  = move  %__mergedretVal8.4 
- 		 %__px1.2  = move  %__t198.0 
- 		 %_copy_x9.2  = move  %__y7.2 
- 		 %__t199.0  =   shl  %_copy_x9.2   2 
- 		 %__t200.0  =   add  %__t199.0   4 
- 		 %__t201.0  =   add  %_gpnt1.7   %__t200.0 
- 		 %__t202.0  = load  %__t201.0 
- 		 %__t203.0  = seq  %__t202.0   -1 
- 		 br  %__t203.0  %_copy_if_thenBB12 %_copy_if_end13 
- 
- %_copy_if_end13:
- 		 %__t204.0  =   shl  %_copy_x9.2   2 
- 		 %__t205.0  =   add  %__t204.0   4 
- 		 %__t206.0  =   add  %_gpnt1.7   %__t205.0 
- 		 %__t207.0  = load  %__t206.0 
- 		 %_copy_x10.3  = move  %__t207.0 
- 		 %__t208.0  =   shl  %_copy_x10.3   2 
- 		 %__t209.0  =   add  %__t208.0   4 
- 		 %__t210.0  =   add  %_gpnt1.7   %__t209.0 
- 		 %__t211.0  = load  %__t210.0 
- 		 %__t212.0  = seq  %__t211.0   -1 
- 		 br  %__t212.0  %_copy_if_thenBB13 %_copy_if_end14 
- 
- %_copy_if_thenBB13:
- 		 %__mergedretVal9.5  = move  %_copy_x10.3 
- 		 %__mergedretVal9.4  = move  %__mergedretVal9.5 
- 		 %_gpnt1.10  = move  %_gpnt1.7 
- 		 jump %afterCallBB11
- 
- %_copy_if_end14:
- 		 %__t213.0  =   shl  %_copy_x10.3   2 
- 		 %__t214.0  =   add  %__t213.0   4 
- 		 %__t215.0  =   add  %_gpnt1.7   %__t214.0 
- 		 %__t216.0  = load  %__t215.0 
- 		 store  @pnt   %_gpnt1.7 
- 		 %__t217.0  =  call findRoot  %__t216.0   
- 		 %_gpnt1.9  = load  @pnt 
- 		 %__y10.0  = move  %__t217.0 
- 		 %__t218.0  =   shl  %_copy_x10.3   2 
- 		 %__t219.0  =   add  %__t218.0   4 
- 		 %__t220.0  =   add  %_gpnt1.9   %__t219.0 
- 		 store  %__t220.0   %__y10.0 
- 		 %__mergedretVal9.3  = move  %__y10.0 
- 		 %__mergedretVal9.4  = move  %__mergedretVal9.3 
- 		 %_gpnt1.10  = move  %_gpnt1.9 
- 		 jump %afterCallBB11
- 
- %afterCallBB11:
- 		 %__t221.0  = move  %__mergedretVal9.4 
- 		 %__y11.0  = move  %__t221.0 
- 		 %__t222.0  =   shl  %_copy_x9.2   2 
- 		 %__t223.0  =   add  %__t222.0   4 
- 		 %__t224.0  =   add  %_gpnt1.10   %__t223.0 
- 		 store  %__t224.0   %__y11.0 
- 		 %__mergedretVal10.4  = move  %__y11.0 
- 		 %__mergedretVal10.2  = move  %__mergedretVal10.4 
- 		 %_gpnt1.8  = move  %_gpnt1.10 
- 		 jump %afterCallBB12
- 
- %_copy_if_thenBB12:
- 		 %__mergedretVal10.3  = move  %_copy_x9.2 
- 		 %__mergedretVal10.2  = move  %__mergedretVal10.3 
- 		 %_gpnt1.8  = move  %_gpnt1.7 
- 		 jump %afterCallBB12
- 
- %afterCallBB12:
- 		 %__t225.0  = move  %__mergedretVal10.2 
- 		 %__py1.2  = move  %__t225.0 
- 		 %__t226.0  = seq  %__px1.2   %__py1.2 
- 		 br  %__t226.0  %_afterCallBB2 %__if_end1 
- 
- %__if_end1:
- 		 %__t227.0  =   shl  %__px1.2   2 
- 		 %__t228.0  =   add  %__t227.0   4 
- 		 %__t229.0  =   add  %_gpnt1.8   %__t228.0 
- 		 store  %__t229.0   %__py1.2 
- 		 jump %_afterCallBB2
- 
- %_afterCallBB2:
- 		 %_t29.0  =   shl  %_i1.1   2 
- 		 %_t30.0  =   add  %_t29.0   4 
- 		 %_t31.0  =   add  %_gedges1.1   %_t30.0 
- 		 %_t32.0  = load  %_t31.0 
- 		 %_t33.0  =   add  %_t32.0   8 
- 		 %_t34.0  = load  %_t33.0 
- 		 %_t35.0  =   add  %_ans1.1   %_t34.0 
- 		 %_ans1.3  = move  %_t35.0 
- 		 %_gpnt1.4  = move  %_gpnt1.8 
- 		 %_ans1.2  = move  %_ans1.3 
+ %_if_thenBB3:
+ 		 %_t23.0  =   shl  %_result1.3   4 
+ 		 %_t24.0  =   add  %_t23.0   %_digit1.3 
+ 		 %_t25.0  =   sub  %_t24.0   48 
+ 		 %_result1.4  = move  %_t25.0 
+ 		 %_result1.5  = move  %_result1.4 
  		 jump %_forupdateBB1
  
  %_forupdateBB1:
- 		 %_i1.2  =   add  %_i1.1   1 
- 		 %_i1.1  = move  %_i1.2 
- 		 %_gpnt1.1  = move  %_gpnt1.4 
- 		 %_ans1.1  = move  %_ans1.2 
+ 		 %_i1.4  =   add  %_i1.3   1 
+ 		 %_i1.3  = move  %_i1.4 
+ 		 %_result1.3  = move  %_result1.5 
  		 jump %_forcondBB1
  
- %afterCallBB2:
- 		 call printlnInt  %_ans1.1   
- 		 store  @pnt   %_gpnt1.1 
- 		 store  @buffer   %_gbuffer1.1 
- 		 store  @edges   %_gedges1.1 
- 		 ret  0 
+ %__afterForBB2:
+ 		 %__digit1.2  = move  1 
+ 		 jump %__forcondBB3
  
- %__forbodyBB2:
- 		 %__t230.0  =   shl  %__i1.3   2 
- 		 %__t231.0  =   add  %__t230.0   4 
- 		 %__t232.0  =   add  %_gpnt1.0   %__t231.0 
- 		 store  %__t232.0   -1 
- 		 %__i1.4  =   add  %__i1.3   1 
- 		 %__i1.3  = move  %__i1.4 
- 		 jump %__forcondBB2
+ %__forcondBB3:
+ 		 %__t28.0  = sle  %__digit1.2   4 
+ 		 br  %__t28.0  %__forbodyBB3 %__afterForBB3 
+ 
+ %__forbodyBB3:
+ 		 %__i1.7  = move  0 
+ 		 jump %__forcondBB4
+ 
+ %__forcondBB4:
+ 		 %__t29.0  = slt  %__i1.7   %__digit1.2 
+ 		 br  %__t29.0  %__forbodyBB4 %__whileBodyBB1 
+ 
+ %__whileBodyBB1:
+ 		 %_input2.3  = move  %_ginputBuffer1.0 
+ 		 %_length1.3  = move  %__digit1.2 
+ 		 %_t26.0  =   add  %_length1.3   64 
+ 		 %_t27.0  =   sub  %_t26.0   56 
+ 		 %_t28.0  =   shr  %_t27.0   6 
+ 		 %_t29.0  =   add  %_t28.0   1 
+ 		 %_nChunk1.3  = move  %_t29.0 
+ 		 %_t30.0  = sgt  %_nChunk1.3   100 
+ 		 br  %_t30.0  %_if_thenBB6 %_if_end2 
+ 
+ %_if_end2:
+ 		 %_i2.5  = move  0 
+ 		 jump %_forcondBB2
+ 
+ %_forcondBB2:
+ 		 %_t31.0  = slt  %_i2.5   %_nChunk1.3 
+ 		 br  %_t31.0  %_forbodyBB2 %_afterForBB2 
+ 
+ %_afterForBB2:
+ 		 %_i2.8  = move  0 
+ 		 jump %_forcondBB3
+ 
+ %_forcondBB3:
+ 		 %_t32.0  = slt  %_i2.8   %_length1.3 
+ 		 br  %_t32.0  %_forbodyBB3 %_afterForBB3 
+ 
+ %_afterForBB3:
+ 		 %_t33.0  =   and  %_i2.8   3 
+ 		 %_t34.0  =   sub  3   %_t33.0 
+ 		 %_t35.0  =   shl  %_t34.0   3 
+ 		 %_t36.0  =   shl  128   %_t35.0 
+ 		 %_t37.0  =   shr  %_i2.8   6 
+ 		 %_t38.0  =   shl  %_t37.0   2 
+ 		 %_t39.0  =   add  %_t38.0   4 
+ 		 %_t40.0  =   add  %_gchunks1.0   %_t39.0 
+ 		 %_t41.0  =   and  %_i2.8   63 
+ 		 %_t42.0  =   shr  %_t41.0   2 
+ 		 %_t43.0  = load  %_t40.0 
+ 		 %_t44.0  =   shl  %_t42.0   2 
+ 		 %_t45.0  =   add  %_t44.0   4 
+ 		 %_t46.0  =   add  %_t43.0   %_t45.0 
+ 		 %_t47.0  = load  %_t46.0 
+ 		 %_t48.0  =   or  %_t47.0   %_t36.0 
+ 		 %_t49.0  =   shr  %_i2.8   6 
+ 		 %_t50.0  =   shl  %_t49.0   2 
+ 		 %_t51.0  =   add  %_t50.0   4 
+ 		 %_t52.0  =   add  %_gchunks1.0   %_t51.0 
+ 		 %_t53.0  =   and  %_i2.8   63 
+ 		 %_t54.0  =   shr  %_t53.0   2 
+ 		 %_t55.0  = load  %_t52.0 
+ 		 %_t56.0  =   shl  %_t54.0   2 
+ 		 %_t57.0  =   add  %_t56.0   4 
+ 		 %_t58.0  =   add  %_t55.0   %_t57.0 
+ 		 store  %_t58.0   %_t48.0 
+ 		 %_t59.0  =   shl  %_length1.3   3 
+ 		 %_t60.0  =   sub  %_nChunk1.3   1 
+ 		 %_t61.0  =   shl  %_t60.0   2 
+ 		 %_t62.0  =   add  %_t61.0   4 
+ 		 %_t63.0  =   add  %_gchunks1.0   %_t62.0 
+ 		 %_t64.0  = load  %_t63.0 
+ 		 %_t65.0  =   add  %_t64.0   64 
+ 		 store  %_t65.0   %_t59.0 
+ 		 %_t66.0  =   shr  %_length1.3   29 
+ 		 %_t67.0  =   and  %_t66.0   7 
+ 		 %_t68.0  =   sub  %_nChunk1.3   1 
+ 		 %_t69.0  =   shl  %_t68.0   2 
+ 		 %_t70.0  =   add  %_t69.0   4 
+ 		 %_t71.0  =   add  %_gchunks1.0   %_t70.0 
+ 		 %_t72.0  = load  %_t71.0 
+ 		 %_t73.0  =   add  %_t72.0   60 
+ 		 store  %_t73.0   %_t67.0 
+ 		 %_h11.5  = move  -271733879 
+ 		 %_h41.5  = move  -1009589776 
+ 		 %_h31.5  = move  271733878 
+ 		 %_h21.5  = move  -1732584194 
+ 		 %_i2.11  = move  0 
+ 		 %_h01.5  = move  1732584193 
+ 		 jump %_forcondBB4
+ 
+ %_forcondBB4:
+ 		 %_t74.0  = slt  %_i2.11   %_nChunk1.3 
+ 		 br  %_t74.0  %_forbodyBB4 %_afterForBB4 
+ 
+ %_forbodyBB4:
+ 		 %_j1.10  = move  16 
+ 		 jump %_forcondBB5
+ 
+ %_forcondBB5:
+ 		 %_t75.0  = slt  %_j1.10   80 
+ 		 br  %_t75.0  %_forbodyBB5 %_afterForBB5 
+ 
+ %_forbodyBB5:
+ 		 %_t76.0  =   shl  %_i2.11   2 
+ 		 %_t77.0  =   add  %_t76.0   4 
+ 		 %_t78.0  =   add  %_gchunks1.0   %_t77.0 
+ 		 %_t79.0  =   sub  %_j1.10   16 
+ 		 %_t80.0  = load  %_t78.0 
+ 		 %_t81.0  =   shl  %_t79.0   2 
+ 		 %_t82.0  =   add  %_t81.0   4 
+ 		 %_t83.0  =   add  %_t80.0   %_t82.0 
+ 		 %_t84.0  =   shl  %_i2.11   2 
+ 		 %_t85.0  =   add  %_t84.0   4 
+ 		 %_t86.0  =   add  %_gchunks1.0   %_t85.0 
+ 		 %_t87.0  =   sub  %_j1.10   14 
+ 		 %_t88.0  = load  %_t86.0 
+ 		 %_t89.0  =   shl  %_t87.0   2 
+ 		 %_t90.0  =   add  %_t89.0   4 
+ 		 %_t91.0  =   add  %_t88.0   %_t90.0 
+ 		 %_t92.0  =   shl  %_i2.11   2 
+ 		 %_t93.0  =   add  %_t92.0   4 
+ 		 %_t94.0  =   add  %_gchunks1.0   %_t93.0 
+ 		 %_t95.0  =   sub  %_j1.10   8 
+ 		 %_t96.0  = load  %_t94.0 
+ 		 %_t97.0  =   shl  %_t95.0   2 
+ 		 %_t98.0  =   add  %_t97.0   4 
+ 		 %_t99.0  =   add  %_t96.0   %_t98.0 
+ 		 %_t100.0  =   shl  %_i2.11   2 
+ 		 %_t101.0  =   add  %_t100.0   4 
+ 		 %_t102.0  =   add  %_gchunks1.0   %_t101.0 
+ 		 %_t103.0  =   sub  %_j1.10   3 
+ 		 %_t104.0  = load  %_t102.0 
+ 		 %_t105.0  =   shl  %_t103.0   2 
+ 		 %_t106.0  =   add  %_t105.0   4 
+ 		 %_t107.0  =   add  %_t104.0   %_t106.0 
+ 		 %_t108.0  = load  %_t107.0 
+ 		 %_t109.0  = load  %_t99.0 
+ 		 %_t110.0  =   xor  %_t108.0   %_t109.0 
+ 		 %_t111.0  = load  %_t91.0 
+ 		 %_t112.0  =   xor  %_t110.0   %_t111.0 
+ 		 %_t113.0  = load  %_t83.0 
+ 		 %_t114.0  =   xor  %_t112.0   %_t113.0 
+ 		 %__x1.6  = move  %_t114.0 
+ 		 %__t30.0  =   shr  %__x1.6   31 
+ 		 %__t31.0  =   and  %__t30.0   1 
+ 		 %__t32.0  =   and  %__x1.6   2147483647 
+ 		 %__t33.0  =   shl  %__t32.0   1 
+ 		 %__t34.0  =   or  %__t33.0   %__t31.0 
+ 		 %__mergedretVal1.9  = move  %__t34.0 
+ 		 %__mergedretVal1.6  = move  %__mergedretVal1.9 
+ 		 %_t115.0  = move  %__mergedretVal1.6 
+ 		 %_t116.0  =   shl  %_i2.11   2 
+ 		 %_t117.0  =   add  %_t116.0   4 
+ 		 %_t118.0  =   add  %_gchunks1.0   %_t117.0 
+ 		 %_t119.0  = load  %_t118.0 
+ 		 %_t120.0  =   shl  %_j1.10   2 
+ 		 %_t121.0  =   add  %_t120.0   4 
+ 		 %_t122.0  =   add  %_t119.0   %_t121.0 
+ 		 store  %_t122.0   %_t115.0 
+ 		 %_j1.14  =   add  %_j1.10   1 
+ 		 %_j1.10  = move  %_j1.14 
+ 		 jump %_forcondBB5
+ 
+ %_afterForBB5:
+ 		 %_a1.5  = move  %_h01.5 
+ 		 %_b1.5  = move  %_h11.5 
+ 		 %_c1.5  = move  %_h21.5 
+ 		 %_d1.5  = move  %_h31.5 
+ 		 %_e1.5  = move  %_h41.5 
+ 		 %_b1.6  = move  %_b1.5 
+ 		 %_e1.6  = move  %_e1.5 
+ 		 %_c1.6  = move  %_c1.5 
+ 		 %_a1.6  = move  %_a1.5 
+ 		 %_d1.6  = move  %_d1.5 
+ 		 %_j1.12  = move  0 
+ 		 jump %_forcondBB6
+ 
+ %_forcondBB6:
+ 		 %_t123.0  = slt  %_j1.12   80 
+ 		 br  %_t123.0  %_forbodyBB6 %_afterForBB6 
+ 
+ %_afterForBB6:
+ 		 %__x2.0  = move  %_h01.5 
+ 		 %__y1.0  = move  %_a1.6 
+ 		 %__t35.0  =   and  %__y1.0   65535 
+ 		 %__t36.0  =   and  %__x2.0   65535 
+ 		 %__t37.0  =   add  %__t36.0   %__t35.0 
+ 		 %__low1.0  = move  %__t37.0 
+ 		 %__t38.0  =   shr  %__low1.0   16 
+ 		 %__t39.0  =   shr  %__y1.0   16 
+ 		 %__t40.0  =   and  %__t39.0   65535 
+ 		 %__t41.0  =   shr  %__x2.0   16 
+ 		 %__t42.0  =   and  %__t41.0   65535 
+ 		 %__t43.0  =   add  %__t42.0   %__t40.0 
+ 		 %__t44.0  =   add  %__t43.0   %__t38.0 
+ 		 %__t45.0  =   and  %__t44.0   65535 
+ 		 %__high1.0  = move  %__t45.0 
+ 		 %__t46.0  =   and  %__low1.0   65535 
+ 		 %__t47.0  =   shl  %__high1.0   16 
+ 		 %__t48.0  =   or  %__t47.0   %__t46.0 
+ 		 %_t124.0  = move  %__t48.0 
+ 		 %_h01.6  = move  %_t124.0 
+ 		 %__x3.0  = move  %_h11.5 
+ 		 %__y2.0  = move  %_b1.6 
+ 		 %__t49.0  =   and  %__y2.0   65535 
+ 		 %__t50.0  =   and  %__x3.0   65535 
+ 		 %__t51.0  =   add  %__t50.0   %__t49.0 
+ 		 %__low2.0  = move  %__t51.0 
+ 		 %__t52.0  =   shr  %__low2.0   16 
+ 		 %__t53.0  =   shr  %__y2.0   16 
+ 		 %__t54.0  =   and  %__t53.0   65535 
+ 		 %__t55.0  =   shr  %__x3.0   16 
+ 		 %__t56.0  =   and  %__t55.0   65535 
+ 		 %__t57.0  =   add  %__t56.0   %__t54.0 
+ 		 %__t58.0  =   add  %__t57.0   %__t52.0 
+ 		 %__t59.0  =   and  %__t58.0   65535 
+ 		 %__high2.0  = move  %__t59.0 
+ 		 %__t60.0  =   and  %__low2.0   65535 
+ 		 %__t61.0  =   shl  %__high2.0   16 
+ 		 %__t62.0  =   or  %__t61.0   %__t60.0 
+ 		 %_t125.0  = move  %__t62.0 
+ 		 %_h11.6  = move  %_t125.0 
+ 		 %__x4.0  = move  %_h21.5 
+ 		 %__y3.0  = move  %_c1.6 
+ 		 %__t63.0  =   and  %__y3.0   65535 
+ 		 %__t64.0  =   and  %__x4.0   65535 
+ 		 %__t65.0  =   add  %__t64.0   %__t63.0 
+ 		 %__low3.0  = move  %__t65.0 
+ 		 %__t66.0  =   shr  %__low3.0   16 
+ 		 %__t67.0  =   shr  %__y3.0   16 
+ 		 %__t68.0  =   and  %__t67.0   65535 
+ 		 %__t69.0  =   shr  %__x4.0   16 
+ 		 %__t70.0  =   and  %__t69.0   65535 
+ 		 %__t71.0  =   add  %__t70.0   %__t68.0 
+ 		 %__t72.0  =   add  %__t71.0   %__t66.0 
+ 		 %__t73.0  =   and  %__t72.0   65535 
+ 		 %__high3.0  = move  %__t73.0 
+ 		 %__t74.0  =   and  %__low3.0   65535 
+ 		 %__t75.0  =   shl  %__high3.0   16 
+ 		 %__t76.0  =   or  %__t75.0   %__t74.0 
+ 		 %_t126.0  = move  %__t76.0 
+ 		 %_h21.6  = move  %_t126.0 
+ 		 %__x5.0  = move  %_h31.5 
+ 		 %__y4.0  = move  %_d1.6 
+ 		 %__t77.0  =   and  %__y4.0   65535 
+ 		 %__t78.0  =   and  %__x5.0   65535 
+ 		 %__t79.0  =   add  %__t78.0   %__t77.0 
+ 		 %__low4.0  = move  %__t79.0 
+ 		 %__t80.0  =   shr  %__low4.0   16 
+ 		 %__t81.0  =   shr  %__y4.0   16 
+ 		 %__t82.0  =   and  %__t81.0   65535 
+ 		 %__t83.0  =   shr  %__x5.0   16 
+ 		 %__t84.0  =   and  %__t83.0   65535 
+ 		 %__t85.0  =   add  %__t84.0   %__t82.0 
+ 		 %__t86.0  =   add  %__t85.0   %__t80.0 
+ 		 %__t87.0  =   and  %__t86.0   65535 
+ 		 %__high4.0  = move  %__t87.0 
+ 		 %__t88.0  =   and  %__low4.0   65535 
+ 		 %__t89.0  =   shl  %__high4.0   16 
+ 		 %__t90.0  =   or  %__t89.0   %__t88.0 
+ 		 %_t127.0  = move  %__t90.0 
+ 		 %_h31.6  = move  %_t127.0 
+ 		 %__x6.0  = move  %_h41.5 
+ 		 %__y5.0  = move  %_e1.6 
+ 		 %__t91.0  =   and  %__y5.0   65535 
+ 		 %__t92.0  =   and  %__x6.0   65535 
+ 		 %__t93.0  =   add  %__t92.0   %__t91.0 
+ 		 %__low5.0  = move  %__t93.0 
+ 		 %__t94.0  =   shr  %__low5.0   16 
+ 		 %__t95.0  =   shr  %__y5.0   16 
+ 		 %__t96.0  =   and  %__t95.0   65535 
+ 		 %__t97.0  =   shr  %__x6.0   16 
+ 		 %__t98.0  =   and  %__t97.0   65535 
+ 		 %__t99.0  =   add  %__t98.0   %__t96.0 
+ 		 %__t100.0  =   add  %__t99.0   %__t94.0 
+ 		 %__t101.0  =   and  %__t100.0   65535 
+ 		 %__high5.0  = move  %__t101.0 
+ 		 %__t102.0  =   and  %__low5.0   65535 
+ 		 %__t103.0  =   shl  %__high5.0   16 
+ 		 %__t104.0  =   or  %__t103.0   %__t102.0 
+ 		 %_t128.0  = move  %__t104.0 
+ 		 %_h41.6  = move  %_t128.0 
+ 		 %_i2.12  =   add  %_i2.11   1 
+ 		 %_h11.5  = move  %_h11.6 
+ 		 %_h41.5  = move  %_h41.6 
+ 		 %_h31.5  = move  %_h31.6 
+ 		 %_h21.5  = move  %_h21.6 
+ 		 %_i2.11  = move  %_i2.12 
+ 		 %_h01.5  = move  %_h01.6 
+ 		 jump %_forcondBB4
+ 
+ %_forbodyBB6:
+ 		 %_t129.0  = slt  %_j1.12   20 
+ 		 br  %_t129.0  %_if_thenBB7 %_if_elseBB5 
+ 
+ %_if_elseBB5:
+ 		 %_t130.0  = slt  %_j1.12   40 
+ 		 br  %_t130.0  %_if_thenBB8 %_if_elseBB6 
+ 
+ %_if_elseBB6:
+ 		 %_t131.0  = slt  %_j1.12   60 
+ 		 br  %_t131.0  %_if_thenBB9 %_if_elseBB7 
+ 
+ %_if_thenBB9:
+ 		 %_t132.0  =   and  %_c1.6   %_d1.6 
+ 		 %_t133.0  =   and  %_b1.6   %_d1.6 
+ 		 %_t134.0  =   and  %_b1.6   %_c1.6 
+ 		 %_t135.0  =   or  %_t134.0   %_t133.0 
+ 		 %_t136.0  =   or  %_t135.0   %_t132.0 
+ 		 %_f1.10  = move  %_t136.0 
+ 		 %_f1.6  = move  %_f1.10 
+ 		 %_k1.6  = move  -1894007588 
+ 		 jump %_if_end3
+ 
+ %_if_elseBB7:
+ 		 %_t137.0  =   xor  %_b1.6   %_c1.6 
+ 		 %_t138.0  =   xor  %_t137.0   %_d1.6 
+ 		 %_f1.9  = move  %_t138.0 
+ 		 %_f1.6  = move  %_f1.9 
+ 		 %_k1.6  = move  -899497514 
+ 		 jump %_if_end3
+ 
+ %_if_thenBB8:
+ 		 %_t139.0  =   xor  %_b1.6   %_c1.6 
+ 		 %_t140.0  =   xor  %_t139.0   %_d1.6 
+ 		 %_f1.8  = move  %_t140.0 
+ 		 %_f1.6  = move  %_f1.8 
+ 		 %_k1.6  = move  1859775393 
+ 		 jump %_if_end3
+ 
+ %_if_thenBB7:
+ 		 %_t141.0  =  not  %_b1.6 
+ 		 %_t142.0  =   and  %_t141.0   %_d1.6 
+ 		 %_t143.0  =   and  %_b1.6   %_c1.6 
+ 		 %_t144.0  =   or  %_t143.0   %_t142.0 
+ 		 %_f1.7  = move  %_t144.0 
+ 		 %_f1.6  = move  %_f1.7 
+ 		 %_k1.6  = move  1518500249 
+ 		 jump %_if_end3
+ 
+ %_if_end3:
+ 		 %__x7.6  = move  %_a1.6 
+ 		 %__t105.0  =   shr  %__x7.6   27 
+ 		 %__t106.0  =   and  %__t105.0   31 
+ 		 %__t107.0  =   and  %__x7.6   134217727 
+ 		 %__t108.0  =   shl  %__t107.0   5 
+ 		 %__t109.0  =   or  %__t108.0   %__t106.0 
+ 		 %__mergedretVal2.9  = move  %__t109.0 
+ 		 %__mergedretVal2.7  = move  %__mergedretVal2.9 
+ 		 %_t145.0  = move  %__mergedretVal2.7 
+ 		 %__x8.0  = move  %_t145.0 
+ 		 %__y6.0  = move  %_e1.6 
+ 		 %__t110.0  =   and  %__y6.0   65535 
+ 		 %__t111.0  =   and  %__x8.0   65535 
+ 		 %__t112.0  =   add  %__t111.0   %__t110.0 
+ 		 %__low6.0  = move  %__t112.0 
+ 		 %__t113.0  =   shr  %__low6.0   16 
+ 		 %__t114.0  =   shr  %__y6.0   16 
+ 		 %__t115.0  =   and  %__t114.0   65535 
+ 		 %__t116.0  =   shr  %__x8.0   16 
+ 		 %__t117.0  =   and  %__t116.0   65535 
+ 		 %__t118.0  =   add  %__t117.0   %__t115.0 
+ 		 %__t119.0  =   add  %__t118.0   %__t113.0 
+ 		 %__t120.0  =   and  %__t119.0   65535 
+ 		 %__high6.0  = move  %__t120.0 
+ 		 %__t121.0  =   and  %__low6.0   65535 
+ 		 %__t122.0  =   shl  %__high6.0   16 
+ 		 %__t123.0  =   or  %__t122.0   %__t121.0 
+ 		 %_t146.0  = move  %__t123.0 
+ 		 %__x9.0  = move  %_f1.6 
+ 		 %__y7.0  = move  %_k1.6 
+ 		 %__t124.0  =   and  %__y7.0   65535 
+ 		 %__t125.0  =   and  %__x9.0   65535 
+ 		 %__t126.0  =   add  %__t125.0   %__t124.0 
+ 		 %__low7.0  = move  %__t126.0 
+ 		 %__t127.0  =   shr  %__low7.0   16 
+ 		 %__t128.0  =   shr  %__y7.0   16 
+ 		 %__t129.0  =   and  %__t128.0   65535 
+ 		 %__t130.0  =   shr  %__x9.0   16 
+ 		 %__t131.0  =   and  %__t130.0   65535 
+ 		 %__t132.0  =   add  %__t131.0   %__t129.0 
+ 		 %__t133.0  =   add  %__t132.0   %__t127.0 
+ 		 %__t134.0  =   and  %__t133.0   65535 
+ 		 %__high7.0  = move  %__t134.0 
+ 		 %__t135.0  =   and  %__low7.0   65535 
+ 		 %__t136.0  =   shl  %__high7.0   16 
+ 		 %__t137.0  =   or  %__t136.0   %__t135.0 
+ 		 %_t147.0  = move  %__t137.0 
+ 		 %__x10.0  = move  %_t146.0 
+ 		 %__y8.0  = move  %_t147.0 
+ 		 %__t138.0  =   and  %__y8.0   65535 
+ 		 %__t139.0  =   and  %__x10.0   65535 
+ 		 %__t140.0  =   add  %__t139.0   %__t138.0 
+ 		 %__low8.0  = move  %__t140.0 
+ 		 %__t141.0  =   shr  %__low8.0   16 
+ 		 %__t142.0  =   shr  %__y8.0   16 
+ 		 %__t143.0  =   and  %__t142.0   65535 
+ 		 %__t144.0  =   shr  %__x10.0   16 
+ 		 %__t145.0  =   and  %__t144.0   65535 
+ 		 %__t146.0  =   add  %__t145.0   %__t143.0 
+ 		 %__t147.0  =   add  %__t146.0   %__t141.0 
+ 		 %__t148.0  =   and  %__t147.0   65535 
+ 		 %__high8.0  = move  %__t148.0 
+ 		 %__t149.0  =   and  %__low8.0   65535 
+ 		 %__t150.0  =   shl  %__high8.0   16 
+ 		 %__t151.0  =   or  %__t150.0   %__t149.0 
+ 		 %_t148.0  = move  %__t151.0 
+ 		 %_t149.0  =   shl  %_i2.11   2 
+ 		 %_t150.0  =   add  %_t149.0   4 
+ 		 %_t151.0  =   add  %_gchunks1.0   %_t150.0 
+ 		 %_t152.0  = load  %_t151.0 
+ 		 %_t153.0  =   shl  %_j1.12   2 
+ 		 %_t154.0  =   add  %_t153.0   4 
+ 		 %_t155.0  =   add  %_t152.0   %_t154.0 
+ 		 %_t156.0  = load  %_t155.0 
+ 		 %__x11.0  = move  %_t148.0 
+ 		 %__y9.0  = move  %_t156.0 
+ 		 %__t152.0  =   and  %__y9.0   65535 
+ 		 %__t153.0  =   and  %__x11.0   65535 
+ 		 %__t154.0  =   add  %__t153.0   %__t152.0 
+ 		 %__low9.0  = move  %__t154.0 
+ 		 %__t155.0  =   shr  %__low9.0   16 
+ 		 %__t156.0  =   shr  %__y9.0   16 
+ 		 %__t157.0  =   and  %__t156.0   65535 
+ 		 %__t158.0  =   shr  %__x11.0   16 
+ 		 %__t159.0  =   and  %__t158.0   65535 
+ 		 %__t160.0  =   add  %__t159.0   %__t157.0 
+ 		 %__t161.0  =   add  %__t160.0   %__t155.0 
+ 		 %__t162.0  =   and  %__t161.0   65535 
+ 		 %__high9.0  = move  %__t162.0 
+ 		 %__t163.0  =   and  %__low9.0   65535 
+ 		 %__t164.0  =   shl  %__high9.0   16 
+ 		 %__t165.0  =   or  %__t164.0   %__t163.0 
+ 		 %_t157.0  = move  %__t165.0 
+ 		 %_temp1.6  = move  %_t157.0 
+ 		 %_e1.7  = move  %_d1.6 
+ 		 %_d1.7  = move  %_c1.6 
+ 		 %__x12.6  = move  %_b1.6 
+ 		 %__t166.0  =   shr  %__x12.6   2 
+ 		 %__t167.0  =   and  %__t166.0   1073741823 
+ 		 %__t168.0  =   and  %__x12.6   3 
+ 		 %__t169.0  =   shl  %__t168.0   30 
+ 		 %__t170.0  =   or  %__t169.0   %__t167.0 
+ 		 %__mergedretVal3.7  = move  %__t170.0 
+ 		 %__mergedretVal3.6  = move  %__mergedretVal3.7 
+ 		 %_t158.0  = move  %__mergedretVal3.6 
+ 		 %_c1.7  = move  %_t158.0 
+ 		 %_b1.7  = move  %_a1.6 
+ 		 %_a1.7  = move  %_temp1.6 
+ 		 %_j1.13  =   add  %_j1.12   1 
+ 		 %_b1.6  = move  %_b1.7 
+ 		 %_e1.6  = move  %_e1.7 
+ 		 %_c1.6  = move  %_c1.7 
+ 		 %_a1.6  = move  %_a1.7 
+ 		 %_d1.6  = move  %_d1.7 
+ 		 %_j1.12  = move  %_j1.13 
+ 		 jump %_forcondBB6
+ 
+ %_afterForBB4:
+ 		 %_t159.0  =   add  %_goutputBuffer1.0   4 
+ 		 store  %_t159.0   %_h01.5 
+ 		 %_t160.0  =   add  %_goutputBuffer1.0   8 
+ 		 store  %_t160.0   %_h11.5 
+ 		 %_t161.0  =   add  %_goutputBuffer1.0   12 
+ 		 store  %_t161.0   %_h21.5 
+ 		 %_t162.0  =   add  %_goutputBuffer1.0   16 
+ 		 store  %_t162.0   %_h31.5 
+ 		 %_t163.0  =   add  %_goutputBuffer1.0   20 
+ 		 store  %_t163.0   %_h41.5 
+ 		 %_mergedretVal2.5  = move  %_goutputBuffer1.0 
+ 		 %_mergedretVal2.3  = move  %_mergedretVal2.5 
+ 		 jump %afterCallBB3
+ 
+ %_forbodyBB3:
+ 		 %_t164.0  =   and  %_i2.8   3 
+ 		 %_t165.0  =   sub  3   %_t164.0 
+ 		 %_t166.0  =   shl  %_t165.0   3 
+ 		 %_t167.0  =   shl  %_i2.8   2 
+ 		 %_t168.0  =   add  %_t167.0   4 
+ 		 %_t169.0  =   add  %_input2.3   %_t168.0 
+ 		 %_t170.0  = load  %_t169.0 
+ 		 %_t171.0  =   shl  %_t170.0   %_t166.0 
+ 		 %_t172.0  =   shr  %_i2.8   6 
+ 		 %_t173.0  =   shl  %_t172.0   2 
+ 		 %_t174.0  =   add  %_t173.0   4 
+ 		 %_t175.0  =   add  %_gchunks1.0   %_t174.0 
+ 		 %_t176.0  =   and  %_i2.8   63 
+ 		 %_t177.0  =   shr  %_t176.0   2 
+ 		 %_t178.0  = load  %_t175.0 
+ 		 %_t179.0  =   shl  %_t177.0   2 
+ 		 %_t180.0  =   add  %_t179.0   4 
+ 		 %_t181.0  =   add  %_t178.0   %_t180.0 
+ 		 %_t182.0  = load  %_t181.0 
+ 		 %_t183.0  =   or  %_t182.0   %_t171.0 
+ 		 %_t184.0  =   shr  %_i2.8   6 
+ 		 %_t185.0  =   shl  %_t184.0   2 
+ 		 %_t186.0  =   add  %_t185.0   4 
+ 		 %_t187.0  =   add  %_gchunks1.0   %_t186.0 
+ 		 %_t188.0  =   and  %_i2.8   63 
+ 		 %_t189.0  =   shr  %_t188.0   2 
+ 		 %_t190.0  = load  %_t187.0 
+ 		 %_t191.0  =   shl  %_t189.0   2 
+ 		 %_t192.0  =   add  %_t191.0   4 
+ 		 %_t193.0  =   add  %_t190.0   %_t192.0 
+ 		 store  %_t193.0   %_t183.0 
+ 		 %_i2.9  =   add  %_i2.8   1 
+ 		 %_i2.8  = move  %_i2.9 
+ 		 jump %_forcondBB3
+ 
+ %_forbodyBB2:
+ 		 %_j1.6  = move  0 
+ 		 jump %_forcondBB7
+ 
+ %_forcondBB7:
+ 		 %_t194.0  = slt  %_j1.6   80 
+ 		 br  %_t194.0  %_forbodyBB7 %_forupdateBB2 
+ 
+ %_forupdateBB2:
+ 		 %_i2.6  =   add  %_i2.5   1 
+ 		 %_i2.5  = move  %_i2.6 
+ 		 jump %_forcondBB2
+ 
+ %_forbodyBB7:
+ 		 %_t195.0  =   shl  %_i2.5   2 
+ 		 %_t196.0  =   add  %_t195.0   4 
+ 		 %_t197.0  =   add  %_gchunks1.0   %_t196.0 
+ 		 %_t198.0  = load  %_t197.0 
+ 		 %_t199.0  =   shl  %_j1.6   2 
+ 		 %_t200.0  =   add  %_t199.0   4 
+ 		 %_t201.0  =   add  %_t198.0   %_t200.0 
+ 		 store  %_t201.0   0 
+ 		 %_j1.7  =   add  %_j1.6   1 
+ 		 %_j1.6  = move  %_j1.7 
+ 		 jump %_forcondBB7
+ 
+ %_if_thenBB6:
+ 		 call println  @constStr_4   
+ 		 %_mergedretVal2.3  = move  0 
+ 		 jump %afterCallBB3
+ 
+ %afterCallBB3:
+ 		 %__t171.0  = move  %_mergedretVal2.3 
+ 		 %__out1.0  = move  %__t171.0 
+ 		 %_a2.3  = move  %__out1.0 
+ 		 %_b2.3  = move  %__target1.1 
+ 		 %_t202.0  = load  %_b2.3 
+ 		 %_t203.0  = load  %_a2.3 
+ 		 %_t204.0  = sne  %_t203.0   %_t202.0 
+ 		 br  %_t204.0  %_if_thenBB10 %_if_end4 
+ 
+ %_if_thenBB10:
+ 		 %_mergedretVal3.6  = move  0 
+ 		 jump %afterCallBB4
+ 
+ %_if_end4:
+ 		 %_i3.4  = move  0 
+ 		 jump %_forcondBB8
+ 
+ %_forcondBB8:
+ 		 %_t205.0  = load  %_a2.3 
+ 		 %_t206.0  = slt  %_i3.4   %_t205.0 
+ 		 br  %_t206.0  %_forbodyBB8 %_afterForBB7 
+ 
+ %_afterForBB7:
+ 		 %_mergedretVal3.6  = move  1 
+ 		 jump %afterCallBB4
+ 
+ %_forbodyBB8:
+ 		 %_t207.0  =   shl  %_i3.4   2 
+ 		 %_t208.0  =   add  %_t207.0   4 
+ 		 %_t209.0  =   add  %_b2.3   %_t208.0 
+ 		 %_t210.0  =   shl  %_i3.4   2 
+ 		 %_t211.0  =   add  %_t210.0   4 
+ 		 %_t212.0  =   add  %_a2.3   %_t211.0 
+ 		 %_t213.0  = load  %_t212.0 
+ 		 %_t214.0  = load  %_t209.0 
+ 		 %_t215.0  = sne  %_t213.0   %_t214.0 
+ 		 br  %_t215.0  %_if_thenBB11 %_forupdateBB3 
+ 
+ %_if_thenBB11:
+ 		 %_mergedretVal3.6  = move  0 
+ 		 jump %afterCallBB4
+ 
+ %afterCallBB4:
+ 		 %__t172.0  = move  %_mergedretVal3.6 
+ 		 br  %__t172.0  %__if_thenBB2 %__if_end2 
+ 
+ %__if_thenBB2:
+ 		 %__i1.10  = move  0 
+ 		 jump %__forcondBB5
+ 
+ %__forcondBB5:
+ 		 %__t173.0  = slt  %__i1.10   %__digit1.2 
+ 		 br  %__t173.0  %__forbodyBB5 %__afterForBB4 
+ 
+ %__forbodyBB5:
+ 		 %__t174.0  =   shl  %__i1.10   2 
+ 		 %__t175.0  =   add  %__t174.0   4 
+ 		 %__t176.0  =   add  %_ginputBuffer1.0   %__t175.0 
+ 		 %__t177.0  = load  %__t176.0 
+ 		 %_x2.2  = move  %__t177.0 
+ 		 %_t216.0  = sge  %_x2.2   32 
+ 		 br  %_t216.0  %_ifTrue4 %_if_end5 
+ 
+ %_ifTrue4:
+ 		 %_t217.0  = sle  %_x2.2   126 
+ 		 br  %_t217.0  %_if_thenBB12 %_if_end5 
+ 
+ %_if_thenBB12:
+ 		 %_t218.0  =   sub  %_x2.2   32 
+ 		 %_t219.0  =   sub  %_x2.2   31 
+ 		 %_t220.0  =  call string.substring  %_gasciiTable1.0 %_t218.0   %_t219.0   
+ 		 %_mergedretVal4.3  = move  %_t220.0 
+ 		 %_mergedretVal4.2  = move  %_mergedretVal4.3 
+ 		 jump %afterCallBB5
+ 
+ %_if_end5:
+ 		 %_mergedretVal4.4  = move  @constStr_0 
+ 		 %_mergedretVal4.2  = move  %_mergedretVal4.4 
+ 		 jump %afterCallBB5
+ 
+ %afterCallBB5:
+ 		 %__t178.0  = move  %_mergedretVal4.2 
+ 		 call print  %__t178.0   
+ 		 %__i1.11  =   add  %__i1.10   1 
+ 		 %__i1.10  = move  %__i1.11 
+ 		 jump %__forcondBB5
+ 
+ %__afterForBB4:
+ 		 call println  @constStr_0   
+ 		 jump %_whileBodyBB1
+ 
+ %__if_end2:
+ 		 %_now1.3  = move  %_ginputBuffer1.0 
+ 		 %_length2.0  = move  %__digit1.2 
+ 		 %_t221.0  =   sub  %_length2.0   1 
+ 		 %_i4.3  = move  %_t221.0 
+ 		 %_i4.4  = move  %_i4.3 
+ 		 jump %_forcondBB9
+ 
+ %_forcondBB9:
+ 		 %_t222.0  = sge  %_i4.4   0 
+ 		 br  %_t222.0  %_forbodyBB9 %_afterForBB8 
+ 
+ %_forbodyBB9:
+ 		 %_t223.0  =   shl  %_i4.4   2 
+ 		 %_t224.0  =   add  %_t223.0   4 
+ 		 %_t225.0  =   add  %_now1.3   %_t224.0 
+ 		 %_t226.0  = load  %_t225.0 
+ 		 %__now1.4  = move  %_t226.0 
+ 		 %__t179.0  = seq  %__now1.4   122 
+ 		 br  %__t179.0  %__if_thenBB3 %__if_end3 
+ 
+ %__if_thenBB3:
+ 		 %__mergedretVal4.7  = move  -1 
+ 		 jump %_afterCallBB1
+ 
+ %__if_end3:
+ 		 %__t180.0  = seq  %__now1.4   90 
+ 		 br  %__t180.0  %__if_thenBB4 %__if_end4 
+ 
+ %__if_thenBB4:
+ 		 %__mergedretVal4.7  = move  97 
+ 		 jump %_afterCallBB1
+ 
+ %__if_end4:
+ 		 %__t181.0  = seq  %__now1.4   57 
+ 		 br  %__t181.0  %__if_thenBB5 %__if_end5 
+ 
+ %__if_end5:
+ 		 %__t182.0  =   add  %__now1.4   1 
+ 		 %__mergedretVal4.5  = move  %__t182.0 
+ 		 %__mergedretVal4.7  = move  %__mergedretVal4.5 
+ 		 jump %_afterCallBB1
+ 
+ %__if_thenBB5:
+ 		 %__mergedretVal4.7  = move  65 
+ 		 jump %_afterCallBB1
+ 
+ %_afterCallBB1:
+ 		 %_t227.0  = move  %__mergedretVal4.7 
+ 		 %_t228.0  =   shl  %_i4.4   2 
+ 		 %_t229.0  =   add  %_t228.0   4 
+ 		 %_t230.0  =   add  %_now1.3   %_t229.0 
+ 		 store  %_t230.0   %_t227.0 
+ 		 %_t231.0  =   shl  %_i4.4   2 
+ 		 %_t232.0  =   add  %_t231.0   4 
+ 		 %_t233.0  =   add  %_now1.3   %_t232.0 
+ 		 %_t234.0  = load  %_t233.0 
+ 		 %_t235.0  = seq  %_t234.0   -1 
+ 		 br  %_t235.0  %_if_thenBB13 %_if_elseBB8 
+ 
+ %_if_thenBB13:
+ 		 %_t236.0  =   shl  %_i4.4   2 
+ 		 %_t237.0  =   add  %_t236.0   4 
+ 		 %_t238.0  =   add  %_now1.3   %_t237.0 
+ 		 store  %_t238.0   48 
+ 		 %_i4.5  =   sub  %_i4.4   1 
+ 		 %_i4.4  = move  %_i4.5 
+ 		 jump %_forcondBB9
+ 
+ %_if_elseBB8:
+ 		 %_mergedretVal5.5  = move  1 
+ 		 jump %afterCallBB6
+ 
+ %_afterForBB8:
+ 		 %_mergedretVal5.5  = move  0 
+ 		 jump %afterCallBB6
+ 
+ %afterCallBB6:
+ 		 %__t183.0  = move  %_mergedretVal5.5 
+ 		 br  %__t183.0  %__whileBodyBB1 %__forupdateBB1 
+ 
+ %__forupdateBB1:
+ 		 %__digit1.3  =   add  %__digit1.2   1 
+ 		 %__digit1.2  = move  %__digit1.3 
+ 		 jump %__forcondBB3
+ 
+ %_forupdateBB3:
+ 		 %_i3.5  =   add  %_i3.4   1 
+ 		 %_i3.4  = move  %_i3.5 
+ 		 jump %_forcondBB8
+ 
+ %__forbodyBB4:
+ 		 %__t184.0  =   shl  %__i1.7   2 
+ 		 %__t185.0  =   add  %__t184.0   4 
+ 		 %__t186.0  =   add  %_ginputBuffer1.0   %__t185.0 
+ 		 store  %__t186.0   48 
+ 		 %__i1.8  =   add  %__i1.7   1 
+ 		 %__i1.7  = move  %__i1.8 
+ 		 jump %__forcondBB4
+ 
+ %__afterForBB3:
+ 		 call println  @constStr_3   
+ 		 jump %_whileBodyBB1
+ 
+ %_if_thenBB1:
+ 		 %_t239.0  =  call getString  
+ 		 %_input1.0  = move  %_t239.0 
+ 		 %__input2.1  = move  %_input1.0 
+ 		 %__i2.2  = move  0 
+ 		 jump %__forcondBB6
+ 
+ %__forcondBB6:
+ 		 %__t187.0  =  call string.length  %__input2.1 
+ 		 %__t188.0  = slt  %__i2.2   %__t187.0 
+ 		 br  %__t188.0  %__forbodyBB6 %__afterForBB5 
+ 
+ %__forbodyBB6:
+ 		 %__t189.0  =  call string.ord  %__input2.1 %__i2.2   
+ 		 %__t190.0  =   shl  %__i2.2   2 
+ 		 %__t191.0  =   add  %__t190.0   4 
+ 		 %__t192.0  =   add  %_ginputBuffer1.0   %__t191.0 
+ 		 store  %__t192.0   %__t189.0 
+ 		 %__i2.6  =   add  %__i2.2   1 
+ 		 %__i2.2  = move  %__i2.6 
+ 		 jump %__forcondBB6
+ 
+ %__afterForBB5:
+ 		 %__t193.0  =  call string.length  %__input2.1 
+ 		 %_input3.1  = move  %_ginputBuffer1.0 
+ 		 %_length3.1  = move  %__t193.0 
+ 		 %_t240.0  =   add  %_length3.1   64 
+ 		 %_t241.0  =   sub  %_t240.0   56 
+ 		 %_t242.0  =   shr  %_t241.0   6 
+ 		 %_t243.0  =   add  %_t242.0   1 
+ 		 %_nChunk2.1  = move  %_t243.0 
+ 		 %_t244.0  = sgt  %_nChunk2.1   100 
+ 		 br  %_t244.0  %_if_thenBB14 %_if_end6 
+ 
+ %_if_end6:
+ 		 %_i5.2  = move  0 
+ 		 jump %_forcondBB10
+ 
+ %_forcondBB10:
+ 		 %_t245.0  = slt  %_i5.2   %_nChunk2.1 
+ 		 br  %_t245.0  %_forbodyBB10 %_afterForBB9 
+ 
+ %_forbodyBB10:
+ 		 %_j2.10  = move  0 
+ 		 jump %_forcondBB11
+ 
+ %_forcondBB11:
+ 		 %_t246.0  = slt  %_j2.10   80 
+ 		 br  %_t246.0  %_forbodyBB11 %_forupdateBB4 
+ 
+ %_forupdateBB4:
+ 		 %_i5.9  =   add  %_i5.2   1 
+ 		 %_i5.2  = move  %_i5.9 
+ 		 jump %_forcondBB10
+ 
+ %_forbodyBB11:
+ 		 %_t247.0  =   shl  %_i5.2   2 
+ 		 %_t248.0  =   add  %_t247.0   4 
+ 		 %_t249.0  =   add  %_gchunks1.0   %_t248.0 
+ 		 %_t250.0  = load  %_t249.0 
+ 		 %_t251.0  =   shl  %_j2.10   2 
+ 		 %_t252.0  =   add  %_t251.0   4 
+ 		 %_t253.0  =   add  %_t250.0   %_t252.0 
+ 		 store  %_t253.0   0 
+ 		 %_j2.11  =   add  %_j2.10   1 
+ 		 %_j2.10  = move  %_j2.11 
+ 		 jump %_forcondBB11
+ 
+ %_afterForBB9:
+ 		 %_i5.4  = move  0 
+ 		 jump %_forcondBB12
+ 
+ %_forcondBB12:
+ 		 %_t254.0  = slt  %_i5.4   %_length3.1 
+ 		 br  %_t254.0  %_forbodyBB12 %_afterForBB10 
+ 
+ %_forbodyBB12:
+ 		 %_t255.0  =   and  %_i5.4   3 
+ 		 %_t256.0  =   sub  3   %_t255.0 
+ 		 %_t257.0  =   shl  %_t256.0   3 
+ 		 %_t258.0  =   shl  %_i5.4   2 
+ 		 %_t259.0  =   add  %_t258.0   4 
+ 		 %_t260.0  =   add  %_input3.1   %_t259.0 
+ 		 %_t261.0  = load  %_t260.0 
+ 		 %_t262.0  =   shl  %_t261.0   %_t257.0 
+ 		 %_t263.0  =   shr  %_i5.4   6 
+ 		 %_t264.0  =   shl  %_t263.0   2 
+ 		 %_t265.0  =   add  %_t264.0   4 
+ 		 %_t266.0  =   add  %_gchunks1.0   %_t265.0 
+ 		 %_t267.0  =   and  %_i5.4   63 
+ 		 %_t268.0  =   shr  %_t267.0   2 
+ 		 %_t269.0  = load  %_t266.0 
+ 		 %_t270.0  =   shl  %_t268.0   2 
+ 		 %_t271.0  =   add  %_t270.0   4 
+ 		 %_t272.0  =   add  %_t269.0   %_t271.0 
+ 		 %_t273.0  = load  %_t272.0 
+ 		 %_t274.0  =   or  %_t273.0   %_t262.0 
+ 		 %_t275.0  =   shr  %_i5.4   6 
+ 		 %_t276.0  =   shl  %_t275.0   2 
+ 		 %_t277.0  =   add  %_t276.0   4 
+ 		 %_t278.0  =   add  %_gchunks1.0   %_t277.0 
+ 		 %_t279.0  =   and  %_i5.4   63 
+ 		 %_t280.0  =   shr  %_t279.0   2 
+ 		 %_t281.0  = load  %_t278.0 
+ 		 %_t282.0  =   shl  %_t280.0   2 
+ 		 %_t283.0  =   add  %_t282.0   4 
+ 		 %_t284.0  =   add  %_t281.0   %_t283.0 
+ 		 store  %_t284.0   %_t274.0 
+ 		 %_i5.8  =   add  %_i5.4   1 
+ 		 %_i5.4  = move  %_i5.8 
+ 		 jump %_forcondBB12
+ 
+ %_afterForBB10:
+ 		 %_t285.0  =   and  %_i5.4   3 
+ 		 %_t286.0  =   sub  3   %_t285.0 
+ 		 %_t287.0  =   shl  %_t286.0   3 
+ 		 %_t288.0  =   shl  128   %_t287.0 
+ 		 %_t289.0  =   shr  %_i5.4   6 
+ 		 %_t290.0  =   shl  %_t289.0   2 
+ 		 %_t291.0  =   add  %_t290.0   4 
+ 		 %_t292.0  =   add  %_gchunks1.0   %_t291.0 
+ 		 %_t293.0  =   and  %_i5.4   63 
+ 		 %_t294.0  =   shr  %_t293.0   2 
+ 		 %_t295.0  = load  %_t292.0 
+ 		 %_t296.0  =   shl  %_t294.0   2 
+ 		 %_t297.0  =   add  %_t296.0   4 
+ 		 %_t298.0  =   add  %_t295.0   %_t297.0 
+ 		 %_t299.0  = load  %_t298.0 
+ 		 %_t300.0  =   or  %_t299.0   %_t288.0 
+ 		 %_t301.0  =   shr  %_i5.4   6 
+ 		 %_t302.0  =   shl  %_t301.0   2 
+ 		 %_t303.0  =   add  %_t302.0   4 
+ 		 %_t304.0  =   add  %_gchunks1.0   %_t303.0 
+ 		 %_t305.0  =   and  %_i5.4   63 
+ 		 %_t306.0  =   shr  %_t305.0   2 
+ 		 %_t307.0  = load  %_t304.0 
+ 		 %_t308.0  =   shl  %_t306.0   2 
+ 		 %_t309.0  =   add  %_t308.0   4 
+ 		 %_t310.0  =   add  %_t307.0   %_t309.0 
+ 		 store  %_t310.0   %_t300.0 
+ 		 %_t311.0  =   shl  %_length3.1   3 
+ 		 %_t312.0  =   sub  %_nChunk2.1   1 
+ 		 %_t313.0  =   shl  %_t312.0   2 
+ 		 %_t314.0  =   add  %_t313.0   4 
+ 		 %_t315.0  =   add  %_gchunks1.0   %_t314.0 
+ 		 %_t316.0  = load  %_t315.0 
+ 		 %_t317.0  =   add  %_t316.0   64 
+ 		 store  %_t317.0   %_t311.0 
+ 		 %_t318.0  =   shr  %_length3.1   29 
+ 		 %_t319.0  =   and  %_t318.0   7 
+ 		 %_t320.0  =   sub  %_nChunk2.1   1 
+ 		 %_t321.0  =   shl  %_t320.0   2 
+ 		 %_t322.0  =   add  %_t321.0   4 
+ 		 %_t323.0  =   add  %_gchunks1.0   %_t322.0 
+ 		 %_t324.0  = load  %_t323.0 
+ 		 %_t325.0  =   add  %_t324.0   60 
+ 		 store  %_t325.0   %_t319.0 
+ 		 %_h22.2  = move  -1732584194 
+ 		 %_h32.2  = move  271733878 
+ 		 %_i5.6  = move  0 
+ 		 %_h02.2  = move  1732584193 
+ 		 %_h12.2  = move  -271733879 
+ 		 %_h42.2  = move  -1009589776 
+ 		 jump %_forcondBB13
+ 
+ %_forcondBB13:
+ 		 %_t326.0  = slt  %_i5.6   %_nChunk2.1 
+ 		 br  %_t326.0  %_forbodyBB13 %_afterForBB11 
+ 
+ %_forbodyBB13:
+ 		 %_j2.4  = move  16 
+ 		 jump %_forcondBB14
+ 
+ %_forcondBB14:
+ 		 %_t327.0  = slt  %_j2.4   80 
+ 		 br  %_t327.0  %_forbodyBB14 %_afterForBB12 
+ 
+ %_afterForBB12:
+ 		 %_a3.2  = move  %_h02.2 
+ 		 %_b3.2  = move  %_h12.2 
+ 		 %_c2.2  = move  %_h22.2 
+ 		 %_d2.2  = move  %_h32.2 
+ 		 %_e2.2  = move  %_h42.2 
+ 		 %_b3.3  = move  %_b3.2 
+ 		 %_e2.3  = move  %_e2.2 
+ 		 %_c2.3  = move  %_c2.2 
+ 		 %_d2.3  = move  %_d2.2 
+ 		 %_a3.3  = move  %_a3.2 
+ 		 %_j2.6  = move  0 
+ 		 jump %_forcondBB15
+ 
+ %_forcondBB15:
+ 		 %_t328.0  = slt  %_j2.6   80 
+ 		 br  %_t328.0  %_forbodyBB15 %_afterForBB13 
+ 
+ %_forbodyBB15:
+ 		 %_t329.0  = slt  %_j2.6   20 
+ 		 br  %_t329.0  %_if_thenBB15 %_if_elseBB9 
+ 
+ %_if_thenBB15:
+ 		 %_t330.0  =  not  %_b3.3 
+ 		 %_t331.0  =   and  %_t330.0   %_d2.3 
+ 		 %_t332.0  =   and  %_b3.3   %_c2.3 
+ 		 %_t333.0  =   or  %_t332.0   %_t331.0 
+ 		 %_f2.7  = move  %_t333.0 
+ 		 %_f2.6  = move  %_f2.7 
+ 		 %_k2.6  = move  1518500249 
+ 		 jump %_if_end7
+ 
+ %_if_elseBB9:
+ 		 %_t334.0  = slt  %_j2.6   40 
+ 		 br  %_t334.0  %_if_thenBB16 %_if_elseBB10 
+ 
+ %_if_thenBB16:
+ 		 %_t335.0  =   xor  %_b3.3   %_c2.3 
+ 		 %_t336.0  =   xor  %_t335.0   %_d2.3 
+ 		 %_f2.5  = move  %_t336.0 
+ 		 %_f2.6  = move  %_f2.5 
+ 		 %_k2.6  = move  1859775393 
+ 		 jump %_if_end7
+ 
+ %_if_elseBB10:
+ 		 %_t337.0  = slt  %_j2.6   60 
+ 		 br  %_t337.0  %_if_thenBB17 %_if_elseBB11 
+ 
+ %_if_elseBB11:
+ 		 %_t338.0  =   xor  %_b3.3   %_c2.3 
+ 		 %_t339.0  =   xor  %_t338.0   %_d2.3 
+ 		 %_f2.4  = move  %_t339.0 
+ 		 %_f2.6  = move  %_f2.4 
+ 		 %_k2.6  = move  -899497514 
+ 		 jump %_if_end7
+ 
+ %_if_thenBB17:
+ 		 %_t340.0  =   and  %_c2.3   %_d2.3 
+ 		 %_t341.0  =   and  %_b3.3   %_d2.3 
+ 		 %_t342.0  =   and  %_b3.3   %_c2.3 
+ 		 %_t343.0  =   or  %_t342.0   %_t341.0 
+ 		 %_t344.0  =   or  %_t343.0   %_t340.0 
+ 		 %_f2.3  = move  %_t344.0 
+ 		 %_f2.6  = move  %_f2.3 
+ 		 %_k2.6  = move  -1894007588 
+ 		 jump %_if_end7
+ 
+ %_if_end7:
+ 		 %__x13.3  = move  %_a3.3 
+ 		 %__t194.0  =   shr  %__x13.3   27 
+ 		 %__t195.0  =   and  %__t194.0   31 
+ 		 %__t196.0  =   and  %__x13.3   134217727 
+ 		 %__t197.0  =   shl  %__t196.0   5 
+ 		 %__t198.0  =   or  %__t197.0   %__t195.0 
+ 		 %__mergedretVal5.4  = move  %__t198.0 
+ 		 %__mergedretVal5.6  = move  %__mergedretVal5.4 
+ 		 %_t345.0  = move  %__mergedretVal5.6 
+ 		 %__x14.0  = move  %_t345.0 
+ 		 %__y10.0  = move  %_e2.3 
+ 		 %__t199.0  =   and  %__y10.0   65535 
+ 		 %__t200.0  =   and  %__x14.0   65535 
+ 		 %__t201.0  =   add  %__t200.0   %__t199.0 
+ 		 %__low10.0  = move  %__t201.0 
+ 		 %__t202.0  =   shr  %__low10.0   16 
+ 		 %__t203.0  =   shr  %__y10.0   16 
+ 		 %__t204.0  =   and  %__t203.0   65535 
+ 		 %__t205.0  =   shr  %__x14.0   16 
+ 		 %__t206.0  =   and  %__t205.0   65535 
+ 		 %__t207.0  =   add  %__t206.0   %__t204.0 
+ 		 %__t208.0  =   add  %__t207.0   %__t202.0 
+ 		 %__t209.0  =   and  %__t208.0   65535 
+ 		 %__high10.0  = move  %__t209.0 
+ 		 %__t210.0  =   and  %__low10.0   65535 
+ 		 %__t211.0  =   shl  %__high10.0   16 
+ 		 %__t212.0  =   or  %__t211.0   %__t210.0 
+ 		 %_t346.0  = move  %__t212.0 
+ 		 %__x15.0  = move  %_f2.6 
+ 		 %__y11.0  = move  %_k2.6 
+ 		 %__t213.0  =   and  %__y11.0   65535 
+ 		 %__t214.0  =   and  %__x15.0   65535 
+ 		 %__t215.0  =   add  %__t214.0   %__t213.0 
+ 		 %__low11.0  = move  %__t215.0 
+ 		 %__t216.0  =   shr  %__low11.0   16 
+ 		 %__t217.0  =   shr  %__y11.0   16 
+ 		 %__t218.0  =   and  %__t217.0   65535 
+ 		 %__t219.0  =   shr  %__x15.0   16 
+ 		 %__t220.0  =   and  %__t219.0   65535 
+ 		 %__t221.0  =   add  %__t220.0   %__t218.0 
+ 		 %__t222.0  =   add  %__t221.0   %__t216.0 
+ 		 %__t223.0  =   and  %__t222.0   65535 
+ 		 %__high11.0  = move  %__t223.0 
+ 		 %__t224.0  =   and  %__low11.0   65535 
+ 		 %__t225.0  =   shl  %__high11.0   16 
+ 		 %__t226.0  =   or  %__t225.0   %__t224.0 
+ 		 %_t347.0  = move  %__t226.0 
+ 		 %__x16.0  = move  %_t346.0 
+ 		 %__y12.0  = move  %_t347.0 
+ 		 %__t227.0  =   and  %__y12.0   65535 
+ 		 %__t228.0  =   and  %__x16.0   65535 
+ 		 %__t229.0  =   add  %__t228.0   %__t227.0 
+ 		 %__low12.0  = move  %__t229.0 
+ 		 %__t230.0  =   shr  %__low12.0   16 
+ 		 %__t231.0  =   shr  %__y12.0   16 
+ 		 %__t232.0  =   and  %__t231.0   65535 
+ 		 %__t233.0  =   shr  %__x16.0   16 
+ 		 %__t234.0  =   and  %__t233.0   65535 
+ 		 %__t235.0  =   add  %__t234.0   %__t232.0 
+ 		 %__t236.0  =   add  %__t235.0   %__t230.0 
+ 		 %__t237.0  =   and  %__t236.0   65535 
+ 		 %__high12.0  = move  %__t237.0 
+ 		 %__t238.0  =   and  %__low12.0   65535 
+ 		 %__t239.0  =   shl  %__high12.0   16 
+ 		 %__t240.0  =   or  %__t239.0   %__t238.0 
+ 		 %_t348.0  = move  %__t240.0 
+ 		 %_t349.0  =   shl  %_i5.6   2 
+ 		 %_t350.0  =   add  %_t349.0   4 
+ 		 %_t351.0  =   add  %_gchunks1.0   %_t350.0 
+ 		 %_t352.0  = load  %_t351.0 
+ 		 %_t353.0  =   shl  %_j2.6   2 
+ 		 %_t354.0  =   add  %_t353.0   4 
+ 		 %_t355.0  =   add  %_t352.0   %_t354.0 
+ 		 %_t356.0  = load  %_t355.0 
+ 		 %__x17.0  = move  %_t348.0 
+ 		 %__y13.0  = move  %_t356.0 
+ 		 %__t241.0  =   and  %__y13.0   65535 
+ 		 %__t242.0  =   and  %__x17.0   65535 
+ 		 %__t243.0  =   add  %__t242.0   %__t241.0 
+ 		 %__low13.0  = move  %__t243.0 
+ 		 %__t244.0  =   shr  %__low13.0   16 
+ 		 %__t245.0  =   shr  %__y13.0   16 
+ 		 %__t246.0  =   and  %__t245.0   65535 
+ 		 %__t247.0  =   shr  %__x17.0   16 
+ 		 %__t248.0  =   and  %__t247.0   65535 
+ 		 %__t249.0  =   add  %__t248.0   %__t246.0 
+ 		 %__t250.0  =   add  %__t249.0   %__t244.0 
+ 		 %__t251.0  =   and  %__t250.0   65535 
+ 		 %__high13.0  = move  %__t251.0 
+ 		 %__t252.0  =   and  %__low13.0   65535 
+ 		 %__t253.0  =   shl  %__high13.0   16 
+ 		 %__t254.0  =   or  %__t253.0   %__t252.0 
+ 		 %_t357.0  = move  %__t254.0 
+ 		 %_temp2.3  = move  %_t357.0 
+ 		 %_e2.4  = move  %_d2.3 
+ 		 %_d2.4  = move  %_c2.3 
+ 		 %__x18.3  = move  %_b3.3 
+ 		 %__t255.0  =   shr  %__x18.3   2 
+ 		 %__t256.0  =   and  %__t255.0   1073741823 
+ 		 %__t257.0  =   and  %__x18.3   3 
+ 		 %__t258.0  =   shl  %__t257.0   30 
+ 		 %__t259.0  =   or  %__t258.0   %__t256.0 
+ 		 %__mergedretVal6.4  = move  %__t259.0 
+ 		 %__mergedretVal6.6  = move  %__mergedretVal6.4 
+ 		 %_t358.0  = move  %__mergedretVal6.6 
+ 		 %_c2.4  = move  %_t358.0 
+ 		 %_b3.4  = move  %_a3.3 
+ 		 %_a3.4  = move  %_temp2.3 
+ 		 %_j2.7  =   add  %_j2.6   1 
+ 		 %_b3.3  = move  %_b3.4 
+ 		 %_e2.3  = move  %_e2.4 
+ 		 %_c2.3  = move  %_c2.4 
+ 		 %_j2.6  = move  %_j2.7 
+ 		 %_d2.3  = move  %_d2.4 
+ 		 %_a3.3  = move  %_a3.4 
+ 		 jump %_forcondBB15
+ 
+ %_afterForBB13:
+ 		 %__x19.0  = move  %_h02.2 
+ 		 %__y14.0  = move  %_a3.3 
+ 		 %__t260.0  =   and  %__y14.0   65535 
+ 		 %__t261.0  =   and  %__x19.0   65535 
+ 		 %__t262.0  =   add  %__t261.0   %__t260.0 
+ 		 %__low14.0  = move  %__t262.0 
+ 		 %__t263.0  =   shr  %__low14.0   16 
+ 		 %__t264.0  =   shr  %__y14.0   16 
+ 		 %__t265.0  =   and  %__t264.0   65535 
+ 		 %__t266.0  =   shr  %__x19.0   16 
+ 		 %__t267.0  =   and  %__t266.0   65535 
+ 		 %__t268.0  =   add  %__t267.0   %__t265.0 
+ 		 %__t269.0  =   add  %__t268.0   %__t263.0 
+ 		 %__t270.0  =   and  %__t269.0   65535 
+ 		 %__high14.0  = move  %__t270.0 
+ 		 %__t271.0  =   and  %__low14.0   65535 
+ 		 %__t272.0  =   shl  %__high14.0   16 
+ 		 %__t273.0  =   or  %__t272.0   %__t271.0 
+ 		 %_t359.0  = move  %__t273.0 
+ 		 %_h02.3  = move  %_t359.0 
+ 		 %__x20.0  = move  %_h12.2 
+ 		 %__y15.0  = move  %_b3.3 
+ 		 %__t274.0  =   and  %__y15.0   65535 
+ 		 %__t275.0  =   and  %__x20.0   65535 
+ 		 %__t276.0  =   add  %__t275.0   %__t274.0 
+ 		 %__low15.0  = move  %__t276.0 
+ 		 %__t277.0  =   shr  %__low15.0   16 
+ 		 %__t278.0  =   shr  %__y15.0   16 
+ 		 %__t279.0  =   and  %__t278.0   65535 
+ 		 %__t280.0  =   shr  %__x20.0   16 
+ 		 %__t281.0  =   and  %__t280.0   65535 
+ 		 %__t282.0  =   add  %__t281.0   %__t279.0 
+ 		 %__t283.0  =   add  %__t282.0   %__t277.0 
+ 		 %__t284.0  =   and  %__t283.0   65535 
+ 		 %__high15.0  = move  %__t284.0 
+ 		 %__t285.0  =   and  %__low15.0   65535 
+ 		 %__t286.0  =   shl  %__high15.0   16 
+ 		 %__t287.0  =   or  %__t286.0   %__t285.0 
+ 		 %_t360.0  = move  %__t287.0 
+ 		 %_h12.3  = move  %_t360.0 
+ 		 %__x21.0  = move  %_h22.2 
+ 		 %__y16.0  = move  %_c2.3 
+ 		 %__t288.0  =   and  %__y16.0   65535 
+ 		 %__t289.0  =   and  %__x21.0   65535 
+ 		 %__t290.0  =   add  %__t289.0   %__t288.0 
+ 		 %__low16.0  = move  %__t290.0 
+ 		 %__t291.0  =   shr  %__low16.0   16 
+ 		 %__t292.0  =   shr  %__y16.0   16 
+ 		 %__t293.0  =   and  %__t292.0   65535 
+ 		 %__t294.0  =   shr  %__x21.0   16 
+ 		 %__t295.0  =   and  %__t294.0   65535 
+ 		 %__t296.0  =   add  %__t295.0   %__t293.0 
+ 		 %__t297.0  =   add  %__t296.0   %__t291.0 
+ 		 %__t298.0  =   and  %__t297.0   65535 
+ 		 %__high16.0  = move  %__t298.0 
+ 		 %__t299.0  =   and  %__low16.0   65535 
+ 		 %__t300.0  =   shl  %__high16.0   16 
+ 		 %__t301.0  =   or  %__t300.0   %__t299.0 
+ 		 %_t361.0  = move  %__t301.0 
+ 		 %_h22.3  = move  %_t361.0 
+ 		 %__x22.0  = move  %_h32.2 
+ 		 %__y17.0  = move  %_d2.3 
+ 		 %__t302.0  =   and  %__y17.0   65535 
+ 		 %__t303.0  =   and  %__x22.0   65535 
+ 		 %__t304.0  =   add  %__t303.0   %__t302.0 
+ 		 %__low17.0  = move  %__t304.0 
+ 		 %__t305.0  =   shr  %__low17.0   16 
+ 		 %__t306.0  =   shr  %__y17.0   16 
+ 		 %__t307.0  =   and  %__t306.0   65535 
+ 		 %__t308.0  =   shr  %__x22.0   16 
+ 		 %__t309.0  =   and  %__t308.0   65535 
+ 		 %__t310.0  =   add  %__t309.0   %__t307.0 
+ 		 %__t311.0  =   add  %__t310.0   %__t305.0 
+ 		 %__t312.0  =   and  %__t311.0   65535 
+ 		 %__high17.0  = move  %__t312.0 
+ 		 %__t313.0  =   and  %__low17.0   65535 
+ 		 %__t314.0  =   shl  %__high17.0   16 
+ 		 %__t315.0  =   or  %__t314.0   %__t313.0 
+ 		 %_t362.0  = move  %__t315.0 
+ 		 %_h32.3  = move  %_t362.0 
+ 		 %__x23.0  = move  %_h42.2 
+ 		 %__y18.0  = move  %_e2.3 
+ 		 %__t316.0  =   and  %__y18.0   65535 
+ 		 %__t317.0  =   and  %__x23.0   65535 
+ 		 %__t318.0  =   add  %__t317.0   %__t316.0 
+ 		 %__low18.0  = move  %__t318.0 
+ 		 %__t319.0  =   shr  %__low18.0   16 
+ 		 %__t320.0  =   shr  %__y18.0   16 
+ 		 %__t321.0  =   and  %__t320.0   65535 
+ 		 %__t322.0  =   shr  %__x23.0   16 
+ 		 %__t323.0  =   and  %__t322.0   65535 
+ 		 %__t324.0  =   add  %__t323.0   %__t321.0 
+ 		 %__t325.0  =   add  %__t324.0   %__t319.0 
+ 		 %__t326.0  =   and  %__t325.0   65535 
+ 		 %__high18.0  = move  %__t326.0 
+ 		 %__t327.0  =   and  %__low18.0   65535 
+ 		 %__t328.0  =   shl  %__high18.0   16 
+ 		 %__t329.0  =   or  %__t328.0   %__t327.0 
+ 		 %_t363.0  = move  %__t329.0 
+ 		 %_h42.3  = move  %_t363.0 
+ 		 %_i5.7  =   add  %_i5.6   1 
+ 		 %_h22.2  = move  %_h22.3 
+ 		 %_h32.2  = move  %_h32.3 
+ 		 %_i5.6  = move  %_i5.7 
+ 		 %_h02.2  = move  %_h02.3 
+ 		 %_h12.2  = move  %_h12.3 
+ 		 %_h42.2  = move  %_h42.3 
+ 		 jump %_forcondBB13
+ 
+ %_forbodyBB14:
+ 		 %_t364.0  =   shl  %_i5.6   2 
+ 		 %_t365.0  =   add  %_t364.0   4 
+ 		 %_t366.0  =   add  %_gchunks1.0   %_t365.0 
+ 		 %_t367.0  =   sub  %_j2.4   16 
+ 		 %_t368.0  = load  %_t366.0 
+ 		 %_t369.0  =   shl  %_t367.0   2 
+ 		 %_t370.0  =   add  %_t369.0   4 
+ 		 %_t371.0  =   add  %_t368.0   %_t370.0 
+ 		 %_t372.0  =   shl  %_i5.6   2 
+ 		 %_t373.0  =   add  %_t372.0   4 
+ 		 %_t374.0  =   add  %_gchunks1.0   %_t373.0 
+ 		 %_t375.0  =   sub  %_j2.4   14 
+ 		 %_t376.0  = load  %_t374.0 
+ 		 %_t377.0  =   shl  %_t375.0   2 
+ 		 %_t378.0  =   add  %_t377.0   4 
+ 		 %_t379.0  =   add  %_t376.0   %_t378.0 
+ 		 %_t380.0  =   shl  %_i5.6   2 
+ 		 %_t381.0  =   add  %_t380.0   4 
+ 		 %_t382.0  =   add  %_gchunks1.0   %_t381.0 
+ 		 %_t383.0  =   sub  %_j2.4   8 
+ 		 %_t384.0  = load  %_t382.0 
+ 		 %_t385.0  =   shl  %_t383.0   2 
+ 		 %_t386.0  =   add  %_t385.0   4 
+ 		 %_t387.0  =   add  %_t384.0   %_t386.0 
+ 		 %_t388.0  =   shl  %_i5.6   2 
+ 		 %_t389.0  =   add  %_t388.0   4 
+ 		 %_t390.0  =   add  %_gchunks1.0   %_t389.0 
+ 		 %_t391.0  =   sub  %_j2.4   3 
+ 		 %_t392.0  = load  %_t390.0 
+ 		 %_t393.0  =   shl  %_t391.0   2 
+ 		 %_t394.0  =   add  %_t393.0   4 
+ 		 %_t395.0  =   add  %_t392.0   %_t394.0 
+ 		 %_t396.0  = load  %_t395.0 
+ 		 %_t397.0  = load  %_t387.0 
+ 		 %_t398.0  =   xor  %_t396.0   %_t397.0 
+ 		 %_t399.0  = load  %_t379.0 
+ 		 %_t400.0  =   xor  %_t398.0   %_t399.0 
+ 		 %_t401.0  = load  %_t371.0 
+ 		 %_t402.0  =   xor  %_t400.0   %_t401.0 
+ 		 %__x24.3  = move  %_t402.0 
+ 		 %__t330.0  =   shr  %__x24.3   31 
+ 		 %__t331.0  =   and  %__t330.0   1 
+ 		 %__t332.0  =   and  %__x24.3   2147483647 
+ 		 %__t333.0  =   shl  %__t332.0   1 
+ 		 %__t334.0  =   or  %__t333.0   %__t331.0 
+ 		 %__mergedretVal7.6  = move  %__t334.0 
+ 		 %__mergedretVal7.5  = move  %__mergedretVal7.6 
+ 		 %_t403.0  = move  %__mergedretVal7.5 
+ 		 %_t404.0  =   shl  %_i5.6   2 
+ 		 %_t405.0  =   add  %_t404.0   4 
+ 		 %_t406.0  =   add  %_gchunks1.0   %_t405.0 
+ 		 %_t407.0  = load  %_t406.0 
+ 		 %_t408.0  =   shl  %_j2.4   2 
+ 		 %_t409.0  =   add  %_t408.0   4 
+ 		 %_t410.0  =   add  %_t407.0   %_t409.0 
+ 		 store  %_t410.0   %_t403.0 
+ 		 %_j2.8  =   add  %_j2.4   1 
+ 		 %_j2.4  = move  %_j2.8 
+ 		 jump %_forcondBB14
+ 
+ %_afterForBB11:
+ 		 %_t411.0  =   add  %_goutputBuffer1.0   4 
+ 		 store  %_t411.0   %_h02.2 
+ 		 %_t412.0  =   add  %_goutputBuffer1.0   8 
+ 		 store  %_t412.0   %_h12.2 
+ 		 %_t413.0  =   add  %_goutputBuffer1.0   12 
+ 		 store  %_t413.0   %_h22.2 
+ 		 %_t414.0  =   add  %_goutputBuffer1.0   16 
+ 		 store  %_t414.0   %_h32.2 
+ 		 %_t415.0  =   add  %_goutputBuffer1.0   20 
+ 		 store  %_t415.0   %_h42.2 
+ 		 %_mergedretVal6.2  = move  %_goutputBuffer1.0 
+ 		 %_mergedretVal6.3  = move  %_mergedretVal6.2 
+ 		 jump %afterCallBB7
+ 
+ %_if_thenBB14:
+ 		 call println  @constStr_4   
+ 		 %_mergedretVal6.3  = move  0 
+ 		 jump %afterCallBB7
+ 
+ %afterCallBB7:
+ 		 %__t335.0  = move  %_mergedretVal6.3 
+ 		 %__result1.1  = move  %__t335.0 
+ 		 %__i2.4  = move  0 
+ 		 jump %__forcondBB7
+ 
+ %__forcondBB7:
+ 		 %__t336.0  = load  %__result1.1 
+ 		 %__t337.0  = slt  %__i2.4   %__t336.0 
+ 		 br  %__t337.0  %__forbodyBB7 %_afterCallBB2 
+ 
+ %_afterCallBB2:
+ 		 call println  @constStr_0   
+ 		 jump %_whileBodyBB1
+ 
+ %__forbodyBB7:
+ 		 %__t338.0  =   shl  %__i2.4   2 
+ 		 %__t339.0  =   add  %__t338.0   4 
+ 		 %__t340.0  =   add  %__result1.1   %__t339.0 
+ 		 %__t341.0  = load  %__t340.0 
+ 		 %_x3.2  = move  %__t341.0 
+ 		 %_ret1.2  = move  @constStr_0 
+ 		 %_ret1.3  = move  %_ret1.2 
+ 		 %_i6.3  = move  28 
+ 		 jump %_forcondBB16
+ 
+ %_forcondBB16:
+ 		 %_t416.0  = sge  %_i6.3   0 
+ 		 br  %_t416.0  %_forbodyBB16 %afterCallBB8 
+ 
+ %afterCallBB8:
+ 		 %__t342.0  = move  %_ret1.3 
+ 		 call print  %__t342.0   
+ 		 %__i2.5  =   add  %__i2.4   1 
+ 		 %__i2.4  = move  %__i2.5 
+ 		 jump %__forcondBB7
+ 
+ %_forbodyBB16:
+ 		 %_t417.0  =   shr  %_x3.2   %_i6.3 
+ 		 %_t418.0  =   and  %_t417.0   15 
+ 		 %_digit2.3  = move  %_t418.0 
+ 		 %_t419.0  = slt  %_digit2.3   10 
+ 		 br  %_t419.0  %_if_thenBB18 %_if_elseBB12 
+ 
+ %_if_elseBB12:
+ 		 %_t420.0  =   add  65   %_digit2.3 
+ 		 %_t421.0  =   sub  %_t420.0   10 
+ 		 %__x25.4  = move  %_t421.0 
+ 		 %__t343.0  = sge  %__x25.4   32 
+ 		 br  %__t343.0  %__ifTrue1 %__if_end6 
+ 
+ %__ifTrue1:
+ 		 %__t344.0  = sle  %__x25.4   126 
+ 		 br  %__t344.0  %__if_thenBB6 %__if_end6 
+ 
+ %__if_end6:
+ 		 %__mergedretVal8.6  = move  @constStr_0 
+ 		 %__mergedretVal8.4  = move  %__mergedretVal8.6 
+ 		 jump %_afterCallBB3
+ 
+ %__if_thenBB6:
+ 		 %__t345.0  =   sub  %__x25.4   32 
+ 		 %__t346.0  =   sub  %__x25.4   31 
+ 		 %__t347.0  =  call string.substring  %_gasciiTable1.0 %__t345.0   %__t346.0   
+ 		 %__mergedretVal8.5  = move  %__t347.0 
+ 		 %__mergedretVal8.4  = move  %__mergedretVal8.5 
+ 		 jump %_afterCallBB3
+ 
+ %_afterCallBB3:
+ 		 %_t422.0  = move  %__mergedretVal8.4 
+ 		 %_t423.0  =  call string.add  %_ret1.3   %_t422.0   
+ 		 %_ret1.6  = move  %_t423.0 
+ 		 %_ret1.5  = move  %_ret1.6 
+ 		 jump %_forupdateBB5
+ 
+ %_if_thenBB18:
+ 		 %_t424.0  =   add  48   %_digit2.3 
+ 		 %__x26.3  = move  %_t424.0 
+ 		 %__t348.0  = sge  %__x26.3   32 
+ 		 br  %__t348.0  %__ifTrue2 %__if_end7 
+ 
+ %__ifTrue2:
+ 		 %__t349.0  = sle  %__x26.3   126 
+ 		 br  %__t349.0  %__if_thenBB7 %__if_end7 
+ 
+ %__if_thenBB7:
+ 		 %__t350.0  =   sub  %__x26.3   32 
+ 		 %__t351.0  =   sub  %__x26.3   31 
+ 		 %__t352.0  =  call string.substring  %_gasciiTable1.0 %__t350.0   %__t351.0   
+ 		 %__mergedretVal9.5  = move  %__t352.0 
+ 		 %__mergedretVal9.3  = move  %__mergedretVal9.5 
+ 		 jump %_afterCallBB4
+ 
+ %__if_end7:
+ 		 %__mergedretVal9.4  = move  @constStr_0 
+ 		 %__mergedretVal9.3  = move  %__mergedretVal9.4 
+ 		 jump %_afterCallBB4
+ 
+ %_afterCallBB4:
+ 		 %_t425.0  = move  %__mergedretVal9.3 
+ 		 %_t426.0  =  call string.add  %_ret1.3   %_t425.0   
+ 		 %_ret1.4  = move  %_t426.0 
+ 		 %_ret1.5  = move  %_ret1.4 
+ 		 jump %_forupdateBB5
+ 
+ %_forupdateBB5:
+ 		 %_t427.0  =   sub  %_i6.3   4 
+ 		 %_i6.4  = move  %_t427.0 
+ 		 %_ret1.3  = move  %_ret1.5 
+ 		 %_i6.3  = move  %_i6.4 
+ 		 jump %_forcondBB16
+ 
+ %afterCallBB1:
+ 		 ret  0 
  
  }

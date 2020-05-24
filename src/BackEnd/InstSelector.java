@@ -428,6 +428,7 @@ public class InstSelector {
                         bInst.condInst = null;
                     }
                     inst.linkNext(new JumpInst(inst.curBB, elseBB));
+                    bb.insttail = inst.next;
                 }
             }
         }

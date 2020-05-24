@@ -1,6 +1,5 @@
 package AST;
 
-import FrontEnd.ASTVisitor;
 import Utils.Location;
 
 abstract public class TypeNode extends ASTNode {

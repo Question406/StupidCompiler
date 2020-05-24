@@ -3,8 +3,6 @@ package AST;
 import FrontEnd.ASTVisitor;
 import Utils.Location;
 
-import java.util.ArrayList;
-
 public class VarDefStatNode extends StatNode {
     VarDefsNode varDefs;
 

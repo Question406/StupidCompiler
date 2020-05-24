@@ -1,11 +1,9 @@
 package AST;
 
 import FrontEnd.ASTVisitor;
-import IR.Operand.Variable;
 import Utils.DebugOption;
 import Utils.Location;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ProgramNode extends ASTNode {

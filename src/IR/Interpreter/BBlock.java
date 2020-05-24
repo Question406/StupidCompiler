@@ -1,7 +1,5 @@
 package IR.Interpreter;
 
-import IR.BasicBlock;
-
 import java.util.ArrayList;
 
 class BBlock {

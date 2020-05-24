@@ -1,6 +1,9 @@
 package FrontEnd.Semantic.Type;
 
-import AST.*;
+import AST.ArrayTypeNode;
+import AST.TypeNode;
+import AST.VarTypeNode;
+import AST.VoidTypeNode;
 import IR.Operand.Operand;
 
 abstract public class Type {

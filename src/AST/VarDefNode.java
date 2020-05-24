@@ -3,8 +3,6 @@ package AST;
 import FrontEnd.ASTVisitor;
 import Utils.Location;
 
-import java.util.ArrayList;
-
 public class VarDefNode extends DefNode {
     TypeNode type;
     String ID;

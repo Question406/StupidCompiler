@@ -1,7 +1,5 @@
 package FrontEnd.Semantic.Type;
 
-import AST.FunctionTypeNode;
-import AST.TypeNode;
 import IR.Operand.Operand;
 
 import java.util.ArrayList;

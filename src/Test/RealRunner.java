@@ -100,8 +100,8 @@ public class RealRunner {
 
     private void PrintASM(boolean inFile) throws Exception {
 //        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
-        // File file = new File("test.s");
-        File file = new File("output.s");
+        //  File file = new File("test.s");
+       File file = new File("output.s");
         PrintStream out = (inFile) ? new PrintStream(file) : System.out;
         ASMPrinter asmPrinter = new ASMPrinter(out);
         asmPrinter.visit(IRRoot);
@@ -195,13 +195,15 @@ public class RealRunner {
         InstSelector instSelector = new InstSelector(IRRoot);
         LoopAnalysis loopAnalysis = new LoopAnalysis(IRRoot);
         RegAllocater regAllocater = new RegAllocater(IRRoot, loopAnalysis);
+        ASMSimplifier asmSimplifier = new ASMSimplifier(IRRoot);
         loopAnalysis.run();
         instSelector.run();
 
-        File file = new File("naive.s");
-        PrintStream out = new PrintStream(file);
-        ASMPrinter asmPrinter = new ASMPrinter(out);
-        asmPrinter.visit(IRRoot);
+//        File file = new File("naive.s");
+//        PrintStream out = new PrintStream(file);
+//        ASMPrinter asmPrinter = new ASMPrinter(out);
+//        asmPrinter.visit(IRRoot);
+//        asmSimplifier.run();
         long startTime = System.nanoTime();
         regAllocater.run();
         long endTime = System.nanoTime() - startTime;

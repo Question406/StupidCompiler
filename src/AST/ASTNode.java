@@ -1,8 +1,6 @@
 package AST;
 
 import FrontEnd.ASTVisitor;
-import FrontEnd.Semantic.Entity.Entity;
-import FrontEnd.Semantic.Scope.GlobalScope;
 import FrontEnd.Semantic.Scope.Scope;
 import Utils.Location;
 

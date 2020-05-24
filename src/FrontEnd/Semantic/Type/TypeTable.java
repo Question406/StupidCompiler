@@ -1,16 +1,12 @@
 package FrontEnd.Semantic.Type;
 
 import AST.*;
-import FrontEnd.Semantic.Scope.LocalScope;
 import Utils.Exception.SemanticException;
 import Utils.Location;
 import Utils.Tuple;
 
-import javax.swing.text.StyledEditorKit;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TypeTable {

@@ -1,11 +1,9 @@
 package AST;
 
 import FrontEnd.ASTVisitor;
-import FrontEnd.Semantic.Scope.GlobalScope;
 import FrontEnd.Semantic.Scope.LocalScope;
 import FrontEnd.Semantic.Type.FunctionType;
 import FrontEnd.Semantic.Type.Type;
-import Utils.Exception.SemanticException;
 import Utils.Location;
 
 import java.util.ArrayList;

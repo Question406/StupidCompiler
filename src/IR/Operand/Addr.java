@@ -1,7 +1,6 @@
 package IR.Operand;
 
 import FrontEnd.Semantic.Entity.Entity;
-import FrontEnd.Semantic.Entity.VariableEntity;
 
 // for store, TODO: still need completing
 public class Addr extends Operand {

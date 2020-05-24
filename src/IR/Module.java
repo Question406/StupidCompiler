@@ -1,8 +1,6 @@
 package IR;
 
-import AST.FuncDefNode;
 import IR.Operand.ConstString;
-import IR.Operand.Operand;
 import IR.Operand.Variable;
 
 import java.util.HashMap;

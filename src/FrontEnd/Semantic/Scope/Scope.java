@@ -1,12 +1,9 @@
 package FrontEnd.Semantic.Scope;
 
 import AST.DefNode;
-import AST.VarDefNode;
 import FrontEnd.Semantic.Entity.Entity;
-import FrontEnd.Semantic.SemanticAnalyzer;
 import Utils.Exception.SemanticException;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 abstract public class Scope {

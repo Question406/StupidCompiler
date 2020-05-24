@@ -1,7 +1,6 @@
 package AST;
 
 import FrontEnd.ASTVisitor;
-import FrontEnd.Semantic.Type.ArrayType;
 import Utils.Location;
 
 import java.util.ArrayList;

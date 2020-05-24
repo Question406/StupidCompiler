@@ -4,17 +4,13 @@ import AST.*;
 import FrontEnd.Semantic.Entity.Entity;
 import FrontEnd.Semantic.Entity.FunctionEntity;
 import FrontEnd.Semantic.Entity.VariableEntity;
-import FrontEnd.Semantic.Type.Type;
 import FrontEnd.Semantic.Type.TypeTable;
 import Utils.Exception.SemanticException;
 import Utils.Location;
 
-import javax.management.StandardEmitterMBean;
-import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 public class GlobalScope extends Scope {
     Map<String, Entity> entityMap;

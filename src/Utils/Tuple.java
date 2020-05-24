@@ -1,7 +1,6 @@
 package Utils;
 
 import AST.TypeNode;
-import FrontEnd.Semantic.Type.Type;
 
 public class Tuple {
     TypeNode first;

@@ -1,6 +1,9 @@
 package FrontEnd.Semantic.Entity;
 
-import AST.*;
+import AST.BlockStatNode;
+import AST.FuncDefNode;
+import AST.TypeNode;
+import AST.VoidTypeNode;
 import FrontEnd.Semantic.Scope.LocalScope;
 import FrontEnd.Semantic.Scope.Scope;
 

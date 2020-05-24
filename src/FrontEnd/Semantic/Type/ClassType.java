@@ -3,13 +3,10 @@ package FrontEnd.Semantic.Type;
 import AST.ConstructorTypeNode;
 import AST.FunctionTypeNode;
 import AST.TypeNode;
-import FrontEnd.Semantic.Entity.FunctionEntity;
-import FrontEnd.Semantic.Entity.VariableEntity;
 import IR.Operand.Operand;
 import Utils.CompileOption;
 import Utils.Tuple;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ClassType extends Type {

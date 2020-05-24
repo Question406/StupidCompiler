@@ -1,12 +1,10 @@
 package AST;
 
 import FrontEnd.ASTVisitor;
-import FrontEnd.Semantic.Scope.GlobalScope;
 import FrontEnd.Semantic.Scope.LocalScope;
 import Utils.DebugOption;
 import Utils.Location;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BlockStatNode extends StatNode {

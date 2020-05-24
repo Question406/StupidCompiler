@@ -7,16 +7,13 @@ import FrontEnd.Semantic.Entity.FunctionEntity;
 import FrontEnd.Semantic.Entity.VariableEntity;
 import FrontEnd.Semantic.Scope.*;
 import FrontEnd.Semantic.Type.*;
-import IR.Function;
 import Utils.BinaryOperator;
 import Utils.ErrorHandler;
 import Utils.Exception.SemanticException;
 import Utils.Location;
 import Utils.UnaryOperator;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 public class SemanticAnalyzer implements ASTVisitor {

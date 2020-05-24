@@ -14,7 +14,9 @@ import RISCV.StackLoc;
 
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class ASMPrinter implements IRVisitor {
 
@@ -75,6 +77,28 @@ public class ASMPrinter implements IRVisitor {
         );
     }
 
+    private void optimizeBBPrint(BasicBlock cur, Set<BasicBlock> visited) {
+        var insttail = cur.insttail;
+        if (insttail instanceof RetInst) {
+            visit(cur);
+            visited.add(cur);
+            return;
+        }
+        BasicBlock nxt = null;
+        assert insttail instanceof JumpInst;
+        if(!visited.contains(((JumpInst) insttail).jumpTo)) {
+            insttail.RMSelf();
+            nxt = ((JumpInst) insttail).jumpTo;
+        }
+        visit(cur);
+        visited.add(cur);
+        if (nxt != null)
+            optimizeBBPrint(nxt, visited);
+        for (var other : cur.succBBs)
+            if (!visited.contains(other))
+                optimizeBBPrint(other, visited);
+    }
+
     @Override
     public void visit(Function node) {
         var name = node.getFuncname();
@@ -87,14 +111,15 @@ public class ASMPrinter implements IRVisitor {
         println(".type\t" + name + ",@function");
         indentSub();
         println(name + ":");
-        for (var i = 0; i < node.BBs.size(); i++) {
-            if (i != node.BBs.size() - 1)
-                nextBB = node.BBs.get(i + 1);
-            node.BBs.get(i).accept(this);
-        }
+//        for (var i = 0; i < node.BBs.size(); i++) {
+//            if (i != node.BBs.size() - 1)
+//                nextBB = node.BBs.get(i + 1);
+//            node.BBs.get(i).accept(this);
+//        }
 //        node.BBs.forEach(bb->{
 //            bb.accept(this);
 //        });
+        optimizeBBPrint(node.entryBB, new LinkedHashSet<BasicBlock>());
         println("\t\t\t\t\t\t\t\t # func end");
         indentAdd();
     }
@@ -240,7 +265,7 @@ public class ASMPrinter implements IRVisitor {
 
     @Override
     public void visit(JumpInst node) {
-        if (nextBB != null && node.jumpTo != nextBB)
+//        if (nextBB != null && node.jumpTo != nextBB)
             println("j\t" + BBgetName(node.jumpTo));
     }
 
