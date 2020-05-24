@@ -46,6 +46,10 @@ public class BranchInst extends Instruction {
         ArrayList<Operand> res = new ArrayList<Operand>();
         if (! (cond instanceof ConstInt))
             res.add(cond);
+        if (condInst != null){
+            res.add(condInst.lhs);
+            res.add(condInst.rhs);
+        }
         return res;
     }
 

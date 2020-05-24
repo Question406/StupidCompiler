@@ -9,6 +9,7 @@ import IR.Operand.Operand;
 import IR.Operand.VirReg;
 import Optim.SSAConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,12 +30,14 @@ public class LA extends Instruction {
 
     @Override
     public Operand getDefReg() {
-        return null;
+        return res;
     }
 
     @Override
     public List<Operand> getUseRegs() {
-        return null;
+        ArrayList<Operand> res = new ArrayList<>();
+        res.add(from);
+        return res;
     }
 
     @Override

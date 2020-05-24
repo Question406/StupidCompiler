@@ -25,7 +25,7 @@ public class InstSelector {
     Module program;
 
     int MAXIMM = (1 << 11) - 1;
-    int MINIMM = -(1 << 11);
+    int MINIMM = - (1 << 11);
 
     public InstSelector(Module program) {
         this.program = program;

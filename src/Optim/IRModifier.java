@@ -2,10 +2,13 @@ package Optim;
 
 import IR.Function;
 import IR.IRPrinter;
+import IR.Instruction.BinOpInst;
 import IR.Instruction.FuncCallInst;
 import IR.Instruction.Instruction;
 import IR.Instruction.LoadInst;
 import IR.Module;
+import IR.Operand.ConstInt;
+import Utils.BinaryOperator;
 
 // just some stupid optimize
 public class IRModifier extends Optimizer {
@@ -53,6 +56,12 @@ public class IRModifier extends Optimizer {
                         var res = ((FuncCallInst) inst).res;
                         inst.linkPrev(new LoadInst(inst.curBB, res, ((FuncCallInst) inst).thisPointer));
                         inst.RMSelf();
+                    }
+                }
+                if (inst instanceof BinOpInst) {
+                    if (((BinOpInst) inst).op == BinaryOperator.SUB && ((BinOpInst) inst).rhs instanceof ConstInt) {
+                        ((BinOpInst) inst).op = BinaryOperator.ADD;
+                        ((BinOpInst) inst).rhs = new ConstInt(- ((ConstInt) ((BinOpInst) inst).rhs).getVal());
                     }
                 }
             }
