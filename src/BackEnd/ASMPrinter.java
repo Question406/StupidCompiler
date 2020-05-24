@@ -14,6 +14,7 @@ import RISCV.StackLoc;
 
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -115,10 +116,10 @@ public class ASMPrinter implements IRVisitor {
 //                nextBB = node.BBs.get(i + 1);
 //            node.BBs.get(i).accept(this);
 //        }
-        node.BBs.forEach(bb->{
-            bb.accept(this);
-        });
-//        optimizeBBPrint(node.entryBB, new LinkedHashSet<BasicBlock>());
+//        node.BBs.forEach(bb->{
+//            bb.accept(this);
+//        });
+        optimizeBBPrint(node.entryBB, new LinkedHashSet<BasicBlock>());
         println("\t\t\t\t\t\t\t\t # func end");
         indentAdd();
     }

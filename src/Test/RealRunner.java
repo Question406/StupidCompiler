@@ -153,26 +153,17 @@ public class RealRunner {
 
         boolean changed = true;
         dominaceTreeBuilder.run();
-//        PrintIR(false);
         while (changed) {
             changed = false;
-            changed |= dvnt.run();
-            changed |= cfgSimplifier.run();
-            dominaceTreeBuilder.run();
-            // PrintIR(true);
             changed |= SCCPAnalyzer.run();
             changed |= cfgSimplifier.run();
-            // PrintIR(false);
+            dominaceTreeBuilder.run();
+            changed |= dvnt.run();
+            changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
             changed |= deadCodeElim.run();
             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
-//            changed |= licm.run();
-//            PrintIR(false);
-//            dominaceTreeBuilder.run();
-//            changed |= cfgSimplifier.run();
-//            PrintIR(false);
-//            dominaceTreeBuilder.run();
         }
 
         ssaDestructor.run();
@@ -199,11 +190,11 @@ public class RealRunner {
         loopAnalysis.run();
         instSelector.run();
 
-        File file = new File("naive.s");
-        PrintStream out = new PrintStream(file);
-        ASMPrinter asmPrinter = new ASMPrinter(out);
-        asmPrinter.visit(IRRoot);
-//        asmSimplifier.run();
+//        File file = new File("naive.s");
+//        PrintStream out = new PrintStream(file);
+//        ASMPrinter asmPrinter = new ASMPrinter(out);
+//        asmPrinter.visit(IRRoot);
+        // asmSimplifier.run();
         long startTime = System.nanoTime();
         regAllocater.run();
         long endTime = System.nanoTime() - startTime;

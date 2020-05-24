@@ -47,6 +47,8 @@ public class StoreInst extends Instruction {
             retval.add(storeTo);
         if (!(res instanceof ConstInt))
             retval.add(res);
+        if (helper != null && !(helper instanceof  ConstInt))
+            retval.add(helper);
         return retval;
     }
 

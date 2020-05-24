@@ -1,9 +1,11 @@
 package Optim;
 
 import IR.Function;
+import IR.IRPrinter;
 import IR.Instruction.Instruction;
 import IR.Instruction.StoreInst;
 import IR.Module;
+import RISCV.RISCV_Info;
 
 public class ASMSimplifier extends Optimizer {
     public ASMSimplifier(Module program) {
@@ -20,6 +22,8 @@ public class ASMSimplifier extends Optimizer {
         return false;
     }
 
+    IRPrinter irPrinter = new IRPrinter(System.err);
+
     private void run(Function func) {
         boolean thisChanged = true;
         while (thisChanged) {
@@ -32,6 +36,8 @@ public class ASMSimplifier extends Optimizer {
                     if (inst instanceof StoreInst || inst.getDefReg() == null)
                         continue;
                     if (inst.getDefReg().usedInstructions.size() == 0) {
+                        if (RISCV_Info.virtualPhyRegs.containsValue(inst.getDefReg()))
+                            continue;
                         thisChanged = true;
                         System.out.println("asm worked");
                         inst.RMSelf();

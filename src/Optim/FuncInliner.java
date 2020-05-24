@@ -52,7 +52,7 @@ public class FuncInliner {
         functionfunc_call_infoMap.clear();
         InstsCnt();
         DeadFuncElem();
-        TryRecursiveInline(); // TODO: seems codegen doesn't contain testcase that need this
+        TryRecursiveInline();
         functionfunc_call_infoMap.clear();
         InstsCnt();
         DeadFuncElem();

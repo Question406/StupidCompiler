@@ -28,6 +28,16 @@ public class LoopAnalysis extends Optimizer {
         return false;
     }
 
+    private boolean dominates(Function func, BasicBlock b1, BasicBlock b2) {
+        if (b1 == b2) return true;
+        while (b2 != null && b2 != func.entryBB) {
+            b2 = b2.IDom;
+            if (b1 == b2) return true;
+        }
+        return false;
+    }
+
+
     public void run(Function function) {
         ComputeIDomBB(function);
         ComputeDomFrontier(function);
@@ -38,7 +48,8 @@ public class LoopAnalysis extends Optimizer {
         loopExits.clear();
         for (var bb : function.getReversePostOrderBBs()) {
             for (var succ : bb.succBBs) {
-                if (succ.DomBBs.contains(bb)) { // a back edge
+//                if (succ.DomBBs.contains(bb)) { // a back edge
+                if (dominates(function, succ, bb)) {
                     Headers.add(succ);
                     Backers.computeIfAbsent(succ, k -> new HashSet<>());
                     Backers.get(succ).add(bb);
