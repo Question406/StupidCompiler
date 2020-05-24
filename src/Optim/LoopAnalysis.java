@@ -55,12 +55,12 @@ public class LoopAnalysis extends Optimizer {
             for (BasicBlock backer : Backers.get(loopHeader)) {
                 workList.add(backer);
                 loopGroups.get(loopHeader).add(backer);
-                for (; !workList.isEmpty(); ) {
+                while (!workList.isEmpty()) {
                     BasicBlock nowBlock = workList.pop();
                     for (BasicBlock predecessor : nowBlock.predBBs)
                         if (!loopGroups.get(loopHeader).contains(predecessor)) {
-                            loopGroups.get(loopHeader).add(predecessor);
                             workList.add(predecessor);
+                            loopGroups.get(loopHeader).add(predecessor);
                             belongingLoopHeaders.computeIfAbsent(predecessor, k -> new HashSet<>());
                             belongingLoopHeaders.get(predecessor).add(loopHeader);
                         }

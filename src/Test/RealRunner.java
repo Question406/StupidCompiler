@@ -129,7 +129,7 @@ public class RealRunner {
     }
 
     private void Optimize() throws Exception {
-        // PrintIR(true);
+        PrintIR(true);
         GlobalOptimize();
         CFGSimplify();
         DominaceTreeBuilder dominaceTreeBuilder = new DominaceTreeBuilder(IRRoot);

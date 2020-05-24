@@ -128,9 +128,6 @@ public abstract class Optimizer {
         RPOBBs.forEach(bb -> bb.DomBBs = new HashSet<BasicBlock>());
         for (var bb : RPOBBs) {
             if (bb == function.entryBB) continue;
-            if (bb.IDom == null) {
-                System.out.println("12");
-            }
             bb.IDom.DomBBs.add(bb);
         }
     }

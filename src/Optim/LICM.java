@@ -2,15 +2,14 @@ package Optim;
 
 import IR.BasicBlock;
 import IR.Function;
+import IR.IRPrinter;
 import IR.Instruction.*;
 import IR.Module;
+import IR.Operand.ConstInt;
 import IR.Operand.Operand;
 import IR.Operand.VirReg;
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 // loop invariant code motion, based on Tiger book
 // as we're doing LICM in SSA form, each virReg has only one def
@@ -21,6 +20,8 @@ public class LICM extends Optimizer {
 
     Set<Operand> invariants = new HashSet<>();
     Boolean thisChanged = true;
+
+    IRPrinter irPrinter = new IRPrinter(System.out);
 
     public LICM(Module program, AliasAnalysis aliasAnalysis, LoopAnalysis loopAnalysis) {
         super(program);
@@ -42,13 +43,6 @@ public class LICM extends Optimizer {
     private void run (Function func) {
         while (thisChanged) {
             thisChanged = false;
-            func.CalcReversePostOrderBBs();
-            try {
-                ComputeIDomBB(func);
-            } catch (Exception e) {
-                System.out.println("damn");
-            }
-
             defUseCalC(func);
             loopAnalysis.run(func);
             invariants.clear();
@@ -59,7 +53,8 @@ public class LICM extends Optimizer {
                 findInvariant(header);
                 hoist(header);
             }
-//            func.CalcReversePostOrderBBs();
+            func.CalcReversePostOrderBBs();
+//            irPrinter.visit(func);
         }
     }
 
@@ -79,6 +74,7 @@ public class LICM extends Optimizer {
                     }
                     if (flag) {
                         invariants.add(inst.getDefReg());
+                        return;
                     }
                 }
         }
@@ -94,10 +90,15 @@ public class LICM extends Optimizer {
         if (invariants.size() != 0) {
             var preHeader = new BasicBlock(header.getFunc(), "pre_" + header.name);
             preHeader.addInst(new JumpInst(preHeader, header));
-            preHeader.succBBs.add(header);
+            ArrayList<BasicBlock> toRM = new ArrayList<>();
             for (var pred : header.predBBs)
-                if (!loopAnalysis.loopGroups.get(header).contains(pred))
+                if (!loopAnalysis.loopGroups.get(header).contains(pred)) {
                     pred.newJumpTo(header, preHeader);
+                    toRM.add(pred);
+                }
+            preHeader.succBBs.add(header);
+            header.predBBs.add(preHeader);
+            header.predBBs.removeAll(toRM);
             // modify phi insts
             for (var inst = header.insthead; inst instanceof PhiInst; inst = inst.next) {
                 Map<BasicBlock, Operand> pathInPreHeader = new LinkedHashMap<>();
@@ -115,6 +116,8 @@ public class LICM extends Optimizer {
                 newPhi.from = pathInPreHeader;
                 if (newPhi.from.size() == 1) {
                     var movefrom = newPhi.from.values().iterator().next();
+                    if (movefrom == null)
+                        movefrom = new ConstInt(0);
                     newPhi.linkPrev(new MoveInst(newPhi.curBB, newPhi.res, movefrom));
                     newPhi.RMSelf();
                 }

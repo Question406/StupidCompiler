@@ -20,6 +20,7 @@ public class ASMPrinter implements IRVisitor {
 
     Map<BasicBlock, String> BBnameMap;
     Map<String, Integer> BBnameCntMap;
+    BasicBlock nextBB;
 
     public ASMPrinter(PrintStream out) {
         this.out = out;
@@ -86,9 +87,14 @@ public class ASMPrinter implements IRVisitor {
         println(".type\t" + name + ",@function");
         indentSub();
         println(name + ":");
-        node.BBs.forEach(bb->{
-            bb.accept(this);
-        });
+        for (var i = 0; i < node.BBs.size(); i++) {
+            if (i != node.BBs.size() - 1)
+                nextBB = node.BBs.get(i + 1);
+            node.BBs.get(i).accept(this);
+        }
+//        node.BBs.forEach(bb->{
+//            bb.accept(this);
+//        });
         println("\t\t\t\t\t\t\t\t # func end");
         indentAdd();
     }
@@ -234,7 +240,8 @@ public class ASMPrinter implements IRVisitor {
 
     @Override
     public void visit(JumpInst node) {
-        println("j\t"+BBgetName(node.jumpTo));
+        if (nextBB != null && node.jumpTo != nextBB)
+            println("j\t" + BBgetName(node.jumpTo));
     }
 
     @Override

@@ -151,6 +151,11 @@ public class DVNT extends Optimizer {
 //            } else if (inst instanceof MoveInst) {
 //                if (((MoveInst) inst).moveFrom instanceof VirReg) {
 //                    valMap.put(((MoveInst) inst).moveTo, ((MoveInst) inst).moveFrom);
+////                    if (!((MoveInst) inst).moveTo.name.endsWith("t"))
+////                        ((MoveInst) inst).moveFrom.name = ((MoveInst) inst).moveTo.name;
+////                    else if (!((MoveInst) inst).moveFrom.name.endsWith("t"))
+////                        ((MoveInst) inst).moveTo.name = ((MoveInst) inst).moveFrom.name;
+//
 //                    curVals.add(((MoveInst) inst).moveTo);
 //                    inst.RMSelf();
 //                    System.out.println("dvnt move worked");

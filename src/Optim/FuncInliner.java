@@ -327,18 +327,17 @@ public class FuncInliner {
         Map<BasicBlock, BasicBlock> BBRenameMap = new HashMap<BasicBlock, BasicBlock>();
         program.getGlobalVar().values().forEach(globalVal-> regRenameMap.put(globalVal, globalVal));
         program.getStringPool().values().forEach(globalStr -> regRenameMap.put(globalStr, globalStr));
-        if (callInst.thisPointer != null) {
-            VirReg newParaReg = new VirReg("_this");
-            callInst.linkPrev(new MoveInst(oldBB, newParaReg, callInst.thisPointer));
-            regRenameMap.put(CallTo.thisPointer, newParaReg);
-        }
-
         for (int i = 0; i < callInst.params.size(); i++) {
             var para = callInst.params.get(i);
             var oldNameThere = CallTo.args.get(i);
             VirReg newParaReg = new VirReg("_" + oldNameThere.getName());
             callInst.linkPrev(new MoveInst(oldBB, newParaReg, para));
             regRenameMap.put(oldNameThere, newParaReg);
+        }
+        if (callInst.thisPointer != null) {
+            VirReg newParaReg = new VirReg("_this");
+            callInst.linkPrev(new MoveInst(oldBB, newParaReg, callInst.thisPointer));
+            regRenameMap.put(CallTo.thisPointer, newParaReg);
         }
         callInst.RMSelf();
         BBRenameMap.put(CallTo.entryBB, oldBB);

@@ -102,9 +102,9 @@ public class IRBuilder implements ASTVisitor {
                 ArrayList<VarDefNode> others = new ArrayList<VarDefNode>();
                 ArrayList<VarDefNode> bools = new ArrayList<VarDefNode>();
                 for (var var : ((ClassDefNode) def).getInclassVar()) {
-                    if (typeTable.get(var.getType()) instanceof BoolType)
-                        bools.add(var);
-                    else
+//                    if (typeTable.get(var.getType()) instanceof BoolType)
+//                        bools.add(var);
+//                    else
                         others.add(var);
                 }
                 int offset = 0;
@@ -113,11 +113,11 @@ public class IRBuilder implements ASTVisitor {
                     entity.setOffset(offset);
                     offset += CompileOption.INTSIZE;
                 }
-                for (var var : bools) {
-                    VariableEntity entity = (VariableEntity) curClassScope.get(var.getID());
-                    entity.setOffset(offset);
-                    offset += CompileOption.BOOLSIZE;
-                }
+//                for (var var : bools) {
+//                    VariableEntity entity = (VariableEntity) curClassScope.get(var.getID());
+//                    entity.setOffset(offset);
+//                    offset += CompileOption.BOOLSIZE;
+//                }
                 ClassType type = (ClassType) typeTable.get(((ClassDefNode) def).getClassType());
                 type.setSize(offset);
             }
