@@ -596,9 +596,6 @@ public class SCCP extends Optimizer implements IRVisitor {
 
     @Override
     public void visit(BasicBlock node) {
-//        if (node.getName().equals("_afterForBB")){
-//            System.out.print("123");
-//        }
         for (var inst = node.insthead; inst != null; inst = inst.next)
             inst.accept(this);
     }

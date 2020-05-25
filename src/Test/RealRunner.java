@@ -91,7 +91,6 @@ public class RealRunner {
     }
 
     private void PrintIR(boolean inFile) throws Exception {
-//        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
         File file = new File("ir_out.txt");
         PrintStream out = (inFile) ? new PrintStream(file) : System.out;
         IRPrinter irPrinter = new IRPrinter(out);
@@ -99,7 +98,6 @@ public class RealRunner {
     }
 
     private void PrintASM(boolean inFile) throws Exception {
-//        File file = new File("//home//jiyi//IdeaProjects//StupidCompiler_v1//src//for_test//ir_out.txt");
         //  File file = new File("test.s");
         File file = new File("output.s");
         PrintStream out = (inFile) ? new PrintStream(file) : System.err;
@@ -156,6 +154,8 @@ public class RealRunner {
         while (changed) {
             changed = false;
 //            changed |= licm.run();
+//            changed |= cfgSimplifier.run();
+//            dominaceTreeBuilder.run();
             changed |= SCCPAnalyzer.run();
             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
@@ -165,14 +165,14 @@ public class RealRunner {
             changed |= deadCodeElim.run();
             changed |= cfgSimplifier.run();
             dominaceTreeBuilder.run();
-            PrintIR(true);
+//            PrintIR(true);
         }
 
         ssaDestructor.run();
         cfgSimplifier.run();
         dominaceTreeBuilder.run();
         opResolver.run();
-        // PrintIR(true);
+//        PrintIR(true);
     }
 
     private void FrontEnd() throws Exception {
@@ -196,13 +196,13 @@ public class RealRunner {
 //        PrintStream out = new PrintStream(file);
 //        ASMPrinter asmPrinter = new ASMPrinter(out);
 //        asmPrinter.visit(IRRoot);
-        // PrintASM(false);
+//        PrintASM(false);
         asmSimplifier.run();
         long startTime = System.nanoTime();
         regAllocater.run();
         long endTime = System.nanoTime() - startTime;
         System.out.println(endTime);
-        System.err.println("wordless with this stupid compile time out");
+        System.err.println("test what i've submitted");
         PrintASM(true);
     }
 

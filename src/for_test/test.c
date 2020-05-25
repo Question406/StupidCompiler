@@ -1,261 +1,318 @@
 /*
-Test Package: Optim
-Author: Zhekai Zhang, 15
-//#input sha_1.in
-//#output sha_1.ans
+Test Package: Codegen
+Author: 09' Xiao Jia
+Time: 2020-02-02
+Input:
+=== input ===
+=== end ===
+Output:
+=== output ===
+3 5
+5 7
+11 13
+17 19
+29 31
+41 43
+59 61
+71 73
+101 103
+107 109
+137 139
+149 151
+179 181
+191 193
+197 199
+227 229
+239 241
+269 271
+281 283
+311 313
+347 349
+419 421
+431 433
+461 463
+521 523
+569 571
+599 601
+617 619
+641 643
+659 661
+809 811
+821 823
+827 829
+857 859
+881 883
+1019 1021
+1031 1033
+1049 1051
+1061 1063
+1091 1093
+1151 1153
+1229 1231
+1277 1279
+1289 1291
+1301 1303
+1319 1321
+1427 1429
+1451 1453
+1481 1483
+1487 1489
+1607 1609
+1619 1621
+1667 1669
+1697 1699
+1721 1723
+1787 1789
+1871 1873
+1877 1879
+1931 1933
+1949 1951
+1997 1999
+2027 2029
+2081 2083
+2087 2089
+2111 2113
+2129 2131
+2141 2143
+2237 2239
+2267 2269
+2309 2311
+2339 2341
+2381 2383
+2549 2551
+2591 2593
+2657 2659
+2687 2689
+2711 2713
+2729 2731
+2789 2791
+2801 2803
+2969 2971
+2999 3001
+3119 3121
+3167 3169
+3251 3253
+3257 3259
+3299 3301
+3329 3331
+3359 3361
+3371 3373
+3389 3391
+3461 3463
+3467 3469
+3527 3529
+3539 3541
+3557 3559
+3581 3583
+3671 3673
+3767 3769
+3821 3823
+3851 3853
+3917 3919
+3929 3931
+4001 4003
+4019 4021
+4049 4051
+4091 4093
+4127 4129
+4157 4159
+4217 4219
+4229 4231
+4241 4243
+4259 4261
+4271 4273
+4337 4339
+4421 4423
+4481 4483
+4517 4519
+4547 4549
+4637 4639
+4649 4651
+4721 4723
+4787 4789
+4799 4801
+4931 4933
+4967 4969
+5009 5011
+5021 5023
+5099 5101
+5231 5233
+5279 5281
+5417 5419
+5441 5443
+5477 5479
+5501 5503
+5519 5521
+5639 5641
+5651 5653
+5657 5659
+5741 5743
+5849 5851
+5867 5869
+5879 5881
+6089 6091
+6131 6133
+6197 6199
+6269 6271
+6299 6301
+6359 6361
+6449 6451
+6551 6553
+6569 6571
+6659 6661
+6689 6691
+6701 6703
+6761 6763
+6779 6781
+6791 6793
+6827 6829
+6869 6871
+6947 6949
+6959 6961
+7127 7129
+7211 7213
+7307 7309
+7331 7333
+7349 7351
+7457 7459
+7487 7489
+7547 7549
+7559 7561
+7589 7591
+7757 7759
+7877 7879
+7949 7951
+8009 8011
+8087 8089
+8219 8221
+8231 8233
+8291 8293
+8387 8389
+8429 8431
+8537 8539
+8597 8599
+8627 8629
+8819 8821
+8837 8839
+8861 8863
+8969 8971
+8999 9001
+9011 9013
+9041 9043
+9239 9241
+9281 9283
+9341 9343
+9419 9421
+9431 9433
+9437 9439
+9461 9463
+9629 9631
+9677 9679
+9719 9721
+9767 9769
+9857 9859
+9929 9931
+10007 10009
+10037 10039
+10067 10069
+10091 10093
+10139 10141
+10271 10273
+10301 10303
+10331 10333
+10427 10429
+10457 10459
+10499 10501
+10529 10531
+10709 10711
+10859 10861
+10889 10891
+10937 10939
+11057 11059
+11069 11071
+11117 11119
+11159 11161
+11171 11173
+11351 11353
+11489 11491
+11549 11551
+11699 11701
+11717 11719
+11777 11779
+11831 11833
+11939 11941
+11969 11971
+12041 12043
+12071 12073
+12107 12109
+12161 12163
+12239 12241
+12251 12253
+12377 12379
+12539 12541
+12611 12613
+12821 12823
+12917 12919
+13001 13003
+13007 13009
+13217 13219
+13337 13339
+13397 13399
+13679 13681
+13691 13693
+13709 13711
+13721 13723
+13757 13759
+13829 13831
+13877 13879
+13901 13903
+13931 13933
+13997 13999
+14009 14011
+14081 14083
+14249 14251
+14321 14323
+14387 14389
+14447 14449
+14549 14551
+14561 14563
+14591 14593
+14627 14629
+14867 14869
+Total: 272
+=== end ===
 ExitCode: 0
 InstLimit: -1
+Origin Package: Codegen Pretest-564
 */
 
-//Compute and Crack SHA-1
-//by zzk
-
-int hex2int(string x)
-{
-	int i;
-	int result = 0;
-	for(i=0;i<x.length();i++)
-	{
-		int digit = x.ord(i);
-		if(digit >= 48 && digit <= 57)
-			result = result * 16 + digit - 48;
-		else if(digit >= 65 && digit <= 70)
-			result = result * 16 + digit - 65 + 10;
-		else if(digit >= 97 && digit <= 102)
-			result = result * 16 + digit - 97 + 10;
-		else
-			return 0;
-	}
-	return result;
-}
-
-string asciiTable = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-string int2chr(int x)
-{
-	if(x >= 32 && x <= 126)
-		return asciiTable.substring(x-32, x-31);
-	return "";
-}
-string toStringHex(int x)
-{
-	string ret = "";
-	int i;
-	for(i=28;i>=0;i=i-4)
-	{
-		int digit = (x >> i) & 15;
-		if(digit < 10)
-			ret = ret + int2chr(48+digit);
-		else
-			ret = ret + int2chr(65+digit-10);
-	}
-	return ret;
-}
-int rotate_left(int x, int shift)
-{
-	if(shift == 1)
-		return ((x & 2147483647) << 1) | ((x >> 31) & 1);
-	if(shift == 31)
-		return ((x & 1) << 31) | ((x >> 1) & 2147483647);
-	return ((x & ((1 << (32-shift)) - 1)) << shift) | ((x >> (32-shift)) & ((1 << shift) - 1));
-}
-int add(int x, int y)	//to avoid possible undefined behaviour when overflow
-{
-	int low = (x & 65535) + (y & 65535);
-	int high = (((x >> 16) & 65535) + ((y >> 16) & 65535) + (low >> 16)) & 65535;
-	return (high << 16) | (low & 65535);
-}
-int lohi(int lo, int hi)
-{
-	return lo | (hi << 16);
-}
-
-int MAXCHUNK = 100;
-int MAXLENGTH = (MAXCHUNK-1) * 64 - 16;
-int[][] chunks = new int[MAXCHUNK][80];
-int[] inputBuffer = new int[MAXLENGTH];
-int[] outputBuffer = new int[5];
-int[] sha1(int[] input, int length)
-{
-	int nChunk = (length + 64 - 56) / 64 + 1;
-	if(nChunk > MAXCHUNK)
-	{
-		println("nChunk > MAXCHUNK!");
-		return null;
-	}
-	int i;
-	int j;
-	for(i=0;i<nChunk;i++)
-		for(j=0;j<80;j++)
-			chunks[i][j] = 0;
-	for(i=0;i<length;i++)
-		chunks[i/64][i%64/4] = chunks[i/64][i%64/4] | (input[i] << ((3-i%4)*8));
-	chunks[i/64][i%64/4] = chunks[i/64][i%64/4] | (128 << ((3-i%4)*8));
-	chunks[nChunk-1][15] = length << 3;
-	chunks[nChunk-1][14] = (length >> 29) & 7;
-
-	int h0 = 1732584193;  //0x67452301
-	int h1 = lohi(43913, 61389);  //0xEFCDAB89
-	int h2 = lohi(56574, 39098); //0x98BADCFE
-	int h3 = 271733878;   //0x10325476
-	int h4 = lohi(57840, 50130); //0xC3D2E1F0
-	for(i=0;i<nChunk;i++)
-	{
-		for(j=16;j<80;j++)
-			chunks[i][j] = rotate_left(chunks[i][j-3] ^ chunks[i][j-8] ^ chunks[i][j-14] ^ chunks[i][j-16], 1);
-
-		int a = h0;
-		int b = h1;
-		int c = h2;
-		int d = h3;
-		int e = h4;
-		for(j=0;j<80;j++)
-		{
-			int f;
-			int k;
-			if(j<20)
-			{
-				f = (b & c) | ((~b) & d);
-				k = 1518500249; //0x5A827999
-			}
-			else if(j<40)
-			{
-				f = b ^ c ^ d;
-				k = 1859775393; //0x6ED9EBA1
-			}
-			else if(j<60)
-			{
-				f = (b & c) | (b & d) | (c & d);
-				k = lohi(48348, 36635); //0x8F1BBCDC
-			}
-			else
-			{
-				f = b ^ c ^ d;
-				k = lohi(49622, 51810); //0xCA62C1D6
-			}
-			int temp = add(add(add(rotate_left(a, 5), e), add(f, k)), chunks[i][j]);
-			e = d;
-			d = c;
-			c = rotate_left(b, 30);
-			b = a;
-			a = temp;
-		}
-		h0 = add(h0, a);
-		h1 = add(h1, b);
-		h2 = add(h2, c);
-		h3 = add(h3, d);
-		h4 = add(h4, e);
-	}
-	outputBuffer[0] = h0;
-	outputBuffer[1] = h1;
-	outputBuffer[2] = h2;
-	outputBuffer[3] = h3;
-	outputBuffer[4] = h4;
-	return outputBuffer;
-}
-
-void computeSHA1(string input)
-{
-	int i;
-	for(i=0; i<input.length(); i++)
-		inputBuffer[i] = input.ord(i);
-	int[] result = sha1(inputBuffer, input.length());
-	for(i=0; i<result.size(); i++)
-		print(toStringHex(result[i]));
-	println("");
-}
-
-int nextLetter(int now)
-{
-	if(now == 122) //'z'
-		return -1;
-	if(now == 90)  //'Z'
-		return 97; //'a'
-	if(now == 57)  //'9'
-		return 65;
-	return now + 1;
-}
-
-bool nextText(int[] now, int length)
-{
-	int i;
-	for(i=length-1; i>=0; i--)
-	{
-		now[i] = nextLetter(now[i]);
-		if(now[i] == -1)
-			now[i] = 48;	//'0'
-		else
-			return true;
-	}
-	return false;
-}
-
-bool array_equal(int[] a, int[] b)
-{
-	if(a.size() != b.size())
-		return false;
-	int i;
-	for(i=0; i<a.size(); i++)
-		if(a[i] != b[i])
-			return false;
-	return true;
-}
-
-void crackSHA1(string input)
-{
-	int[] target = new int[5];
-	if(input.length() != 40)
-	{
-		println("Invalid input");
-		return;
-	}
-	int i;
-	for(i=0;i<5;i++)
-		target[i] = 0;
-	for(i=0;i<40;i=i+4)
-		target[i/8] = target[i/8] | (hex2int(input.substring(i, i+4)) << (1 - (i / 4) % 2) * 16);
-
-	int MAXDIGIT = 4;
-	int digit;
-	for(digit=1; digit <= MAXDIGIT; digit++)
-	{
-		for(i=0;i<digit;i++)
-			inputBuffer[i] = 48;
-		while(true)
-		{
-			int[] out = sha1(inputBuffer, digit);
-			if(array_equal(out, target))
-			{
-				for(i=0;i<digit;i++)
-					print(int2chr(inputBuffer[i]));
-				println("");
-				return;
-			}
-			if(!nextText(inputBuffer, digit))
-				break;
-		}
-	}
-	println("Not Found!");
-}
+int N = 15000;
+bool[] b = new bool[15001];
+int resultCount = 0;
 
 int main()
 {
-	int op;
-	string input;
-	while(true)
-	{
-		op = getInt();
-		if(op == 0)
-			break;
-		if(op == 1)
-		{
-			input = getString();
-			computeSHA1(input);
-		}
-		else if(op == 2)
-		{
-			input = getString();
-			crackSHA1(input);
-		}
-	}
-	return 0;
+  int i;
+
+  for (i = 1; i <= N; i++) b[i] = true;
+
+  for (i = 2; i <= N; i++) if (b[i])
+  {
+    int count = 2;
+
+    if (i>3 && b[i-2])
+    {
+      resultCount++;
+      println(toString(i-2) + " " + toString(i));
+    }
+
+    while (i*count <= N)
+    {
+      b[i*count] = false;
+      count++;
+    }
+  }
+
+  println("Total: " + toString(resultCount));
+  return 0;
 }

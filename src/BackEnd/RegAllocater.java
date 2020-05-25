@@ -27,24 +27,24 @@ public class RegAllocater {
     IRPrinter irPrinter;
 
     Function curFunc;
-    Set<VirReg> initial = new HashSet<VirReg>();
-    Set<VirReg> precoloured = new HashSet<VirReg>();
-    Set<VirReg> simplifyWorkList = new HashSet<VirReg>();
-    Set<VirReg> freezeWorkList = new HashSet<VirReg>();
-    Set<VirReg> spillWorkList = new HashSet<VirReg>();
-    Set<VirReg> spilledNodes = new HashSet<VirReg>();
-    Set<VirReg> coalescedNodes = new HashSet<VirReg>();
-    Set<VirReg> colouredNodes = new HashSet<VirReg>();
+    Set<VirReg> initial = new LinkedHashSet<VirReg>();
+    Set<VirReg> precoloured = new LinkedHashSet<VirReg>();
+    Set<VirReg> simplifyWorkList = new LinkedHashSet<VirReg>();
+    Set<VirReg> freezeWorkList = new LinkedHashSet<VirReg>();
+    Set<VirReg> spillWorkList = new LinkedHashSet<>();
+    Set<VirReg> spilledNodes = new LinkedHashSet<>();
+    Set<VirReg> coalescedNodes = new LinkedHashSet<>();
+    Set<VirReg> colouredNodes = new LinkedHashSet<>();
 
-    Set<MoveInst> workListMoves = new HashSet<MoveInst>();
-    Set<MoveInst> activeMoves = new HashSet<MoveInst>();
-    Set<MoveInst> coalescedMoves = new HashSet<MoveInst>();
-    Set<MoveInst> constrainedMoves = new HashSet<MoveInst>();
-    Set<MoveInst> frozenMoves = new HashSet<MoveInst>();
+    Set<MoveInst> workListMoves = new LinkedHashSet<>();
+    Set<MoveInst> activeMoves = new LinkedHashSet<>();
+    Set<MoveInst> coalescedMoves = new LinkedHashSet<>();
+    Set<MoveInst> constrainedMoves = new LinkedHashSet<>();
+    Set<MoveInst> frozenMoves = new LinkedHashSet<>();
 
     Stack<VirReg> selectStack = new Stack<VirReg>();
 
-    Set<Edge> adjSet = new HashSet<Edge>();
+    Set<Edge> adjSet = new LinkedHashSet<>();
     LoopAnalysis loopAnalysis = null;
 
     ASMPrinter asmPrinter;
@@ -502,9 +502,6 @@ public class RegAllocater {
             return spillWorkList.iterator().next();
         }
         else{
-//            if (curFunc.funcname.equals("__init")) {
-//                System.err.println("asdg");
-//            }
             Iterator<VirReg> iterator = spillWorkList.iterator();
             VirReg m = null;
             while (iterator.hasNext()) {
@@ -514,18 +511,9 @@ public class RegAllocater {
             }
             while (iterator.hasNext()) {
                 var tmp = iterator.next();
-//                if (!tmp.addForSpill
-//                        && (Math.abs(tmp.spillCost / tmp.degree - m.spillCost / m.degree) < 1e-3)
-//                        && tmp.usedInstructions.size() < m.usedInstructions.size()) {
-//                    m = tmp;
-//                }
-//                else
                 if (!tmp.addForSpill && tmp.spillCost / tmp.degree < m.spillCost / m.degree)
                     m = tmp;
             }
-//            if (m.name.equals("_i")) {
-//                System.err.println("123");
-//            }
             return m;
         }
     }
