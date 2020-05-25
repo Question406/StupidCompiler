@@ -63,6 +63,11 @@ public class IRModifier extends Optimizer {
                         ((BinOpInst) inst).op = BinaryOperator.ADD;
                         ((BinOpInst) inst).rhs = new ConstInt(- ((ConstInt) ((BinOpInst) inst).rhs).getVal());
                     }
+//                    if (((BinOpInst) inst).op == BinaryOperator.SUB && ((BinOpInst) inst).lhs instanceof ConstInt) {
+//                        ((BinOpInst) inst).op = BinaryOperator.ADD;
+//                        var tmp = ((BinOpInst) inst).rhs;
+//
+//                    }
                 }
             }
         }

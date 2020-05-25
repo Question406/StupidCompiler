@@ -502,9 +502,9 @@ public class RegAllocater {
             return spillWorkList.iterator().next();
         }
         else{
-            if (curFunc.funcname.equals("__init")) {
-                System.err.println("asdg");
-            }
+//            if (curFunc.funcname.equals("__init")) {
+//                System.err.println("asdg");
+//            }
             Iterator<VirReg> iterator = spillWorkList.iterator();
             VirReg m = null;
             while (iterator.hasNext()) {

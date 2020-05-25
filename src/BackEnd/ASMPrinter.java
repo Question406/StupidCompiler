@@ -116,10 +116,12 @@ public class ASMPrinter implements IRVisitor {
 //                nextBB = node.BBs.get(i + 1);
 //            node.BBs.get(i).accept(this);
 //        }
-//        node.BBs.forEach(bb->{
-//            bb.accept(this);
-//        });
-        optimizeBBPrint(node.entryBB, new LinkedHashSet<BasicBlock>());
+        if (out == System.err) {
+            node.BBs.forEach(bb->{
+            bb.accept(this);
+            });
+        } else
+            optimizeBBPrint(node.entryBB, new LinkedHashSet<BasicBlock>());
         println("\t\t\t\t\t\t\t\t # func end");
         indentAdd();
     }
@@ -209,11 +211,11 @@ public class ASMPrinter implements IRVisitor {
             condInst.lhs.accept(this);
             printInline(",");
             condInst.rhs.accept(this);
-            printlnInline(",\t" + BBgetName(node.trueBB));
+            printlnInline(",\t" + node.trueBB.getFunc().funcname + BBgetName(node.trueBB));
         } else {
             print("bne\t");
             node.cond.accept(this);
-            printlnInline(", zero, " + BBgetName(node.trueBB));
+            printlnInline(", zero, " + node.trueBB.getFunc().funcname +  BBgetName(node.trueBB));
         }
     }
 
@@ -266,7 +268,7 @@ public class ASMPrinter implements IRVisitor {
     @Override
     public void visit(JumpInst node) {
 //        if (nextBB != null && node.jumpTo != nextBB)
-            println("j\t" + BBgetName(node.jumpTo));
+            println("j\t" + node.jumpTo.getFunc().funcname + BBgetName(node.jumpTo));
     }
 
     @Override
@@ -332,7 +334,7 @@ public class ASMPrinter implements IRVisitor {
 
     @Override
     public void visit(BasicBlock node) {
-        println((BBgetName(node) + ":"));
+        println((node.getFunc().funcname + BBgetName(node) + ":"));
         indentAdd();
         for (var inst = node.insthead; inst != null; inst = inst.next) {
             inst.accept(this);

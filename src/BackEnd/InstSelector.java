@@ -148,9 +148,6 @@ public class InstSelector {
                     var lhs = binInst.lhs;
                     var rhs = binInst.rhs;
                     var op = binInst.op;
-                    if (op == LOGICAND || op == BITWISEAND) {
-                        System.out.println("hello");
-                    }
                     if (op.isCommutative()) {
                         if (lhs instanceof ConstInt && (! (rhs instanceof ConstInt))) { // put const int at rhs
                             binInst.lhs = rhs;
@@ -329,9 +326,13 @@ public class InstSelector {
                     ((StoreInst) inst).byteSize = INTSIZE;
                     var stInst = (StoreInst) inst;
                     if ((stInst.res instanceof ConstInt)) {
-                        VirReg tmp = new VirReg("_t");
-                        stInst.linkPrev(new LI(stInst.curBB, tmp, (ConstInt) stInst.res));
-                        stInst.res = tmp;
+                        if (((ConstInt) stInst.res).getVal() == 0)
+                            stInst.res = RISCV_Info.virtualPhyRegs.get("zero");
+                        else {
+                            VirReg tmp = new VirReg("_t");
+                            stInst.linkPrev(new LI(stInst.curBB, tmp, (ConstInt) stInst.res));
+                            stInst.res = tmp;
+                        }
                     }
                     if (stInst.storeTo instanceof Variable) {
                         VirReg tmpReg = new VirReg("_lobits");
