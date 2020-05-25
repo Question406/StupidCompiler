@@ -194,7 +194,7 @@ public class RealRunner {
 //        PrintStream out = new PrintStream(file);
 //        ASMPrinter asmPrinter = new ASMPrinter(out);
 //        asmPrinter.visit(IRRoot);
-        // asmSimplifier.run();
+        asmSimplifier.run();
         long startTime = System.nanoTime();
         regAllocater.run();
         long endTime = System.nanoTime() - startTime;

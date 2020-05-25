@@ -206,7 +206,6 @@ public class RegAllocater {
     }
 
     private void inner_run() {
-//        System.out.println("inner_run");
         init();
         livenessAnalysis();
         build();
@@ -503,6 +502,9 @@ public class RegAllocater {
             return spillWorkList.iterator().next();
         }
         else{
+            if (curFunc.funcname.equals("__init")) {
+                System.err.println("asdg");
+            }
             Iterator<VirReg> iterator = spillWorkList.iterator();
             VirReg m = null;
             while (iterator.hasNext()) {
@@ -520,6 +522,9 @@ public class RegAllocater {
                 else
                 if (!tmp.addForSpill && tmp.spillCost / tmp.degree < m.spillCost / m.degree)
                     m = tmp;
+            }
+            if (m.name.equals("_i")) {
+                System.err.println("123");
             }
             return m;
         }

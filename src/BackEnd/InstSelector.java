@@ -148,8 +148,11 @@ public class InstSelector {
                     var lhs = binInst.lhs;
                     var rhs = binInst.rhs;
                     var op = binInst.op;
+                    if (op == LOGICAND || op == BITWISEAND) {
+                        System.out.println("hello");
+                    }
                     if (op.isCommutative()) {
-                        if (lhs instanceof ConstInt && (! (rhs instanceof ConstInt))) {
+                        if (lhs instanceof ConstInt && (! (rhs instanceof ConstInt))) { // put const int at rhs
                             binInst.lhs = rhs;
                             binInst.rhs = lhs;
                             lhs = binInst.lhs;
@@ -159,7 +162,7 @@ public class InstSelector {
                     var lhsOpr = getOpr(lhs, false, binInst);
                     var rhsOpr = getOpr(rhs, op == ADD || op == LEFTSHIFT
                             || op == RIGHTSHIFT || op == BITWISEXOR
-                            || op == BITWISEAND || op == BITWISEOR, binInst);
+                            || op == BITWISEAND || op == BITWISEOR || op == LOGICAND, binInst);
                     binInst.lhs = lhsOpr;
                     binInst.rhs = rhsOpr;
                     binInst.isImmInst = rhsOpr instanceof ConstInt;
