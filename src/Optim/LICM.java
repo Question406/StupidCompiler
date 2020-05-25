@@ -52,6 +52,8 @@ public class LICM extends Optimizer {
             for (var header : loopAnalysis.Headers) {
                 findInvariant(header);
                 hoist(header);
+                if (thisChanged)
+                    break;
             }
             func.CalcReversePostOrderBBs();
 //            irPrinter.visit(func);
@@ -74,7 +76,6 @@ public class LICM extends Optimizer {
                     }
                     if (flag) {
                         invariants.add(inst.getDefReg());
-                        return;
                     }
                 }
         }

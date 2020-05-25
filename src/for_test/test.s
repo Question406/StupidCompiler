@@ -5,754 +5,753 @@
 main:
 __init__init.entryBB1:
     addi sp,sp,    -64
-    sw ra, 24(sp) 
-    sw s0, 40(sp) 
-    sw s1, 8(sp) 
-    sw s2, 4(sp) 
-    sw s3, 16(sp) 
-    sw s4, 36(sp) 
-    sw s5, 0(sp) 
+    sw ra, 40(sp) 
+    sw s11, 8(sp) 
+    sw s10, 4(sp) 
+    sw s9, 20(sp) 
+    sw s8, 36(sp) 
+    sw s7, 0(sp) 
     sw s6, 28(sp) 
-    sw s7, 32(sp) 
-    sw s8, 44(sp) 
-    sw s9, 12(sp) 
-    sw s10, 20(sp) 
-    mv	s0,s11 
-    la s5,_globalStr2    
+    sw s5, 32(sp) 
+    sw s4, 44(sp) 
+    sw s3, 12(sp) 
+    sw s2, 24(sp) 
+    sw s1, 16(sp) 
+    mv	s7,s0 
+    la s6,_globalStr2    
     li a0, 404
     call malloc
-    mv	s11,a0 
-    li t4, 100
-    sw t4,0(s11)
-    addi s1,s11,    4
-    addi s4,s11,    400
+    mv	s10,a0 
+    li a1, 100
+    sw a1,0(s10)
+    addi s5,s10,    4
+    addi s8,s10,    400
 __initforcondBB1:
-    ble	s1,s4,	__initforupdateBB1
+    ble	s5,s8,	__initforupdateBB1
 __initafterForBB1:
-    mv	s3,s11 
     li a0, 25284
     call malloc
-    li t4, 6320
-    sw t4,0(a0)
-    mv	s1,a0 
+    li a1, 6320
+    sw a1,0(a0)
+    mv	s4,a0 
     li a0, 24
     call malloc
-    li t4, 5
-    sw t4,0(a0)
-    mv	s7,a0 
+    li a1, 5
+    sw a1,0(a0)
+    mv	s0,a0 
 __init_whileBodyBB1:
     call	getInt
     beq	a0,zero,	__initafterCallBB1
 __init_if_end1:
-    li t4, 1
-    beq	a0,t4,	__init_if_thenBB1
+    li a1, 1
+    beq	a0,a1,	__init_if_thenBB1
 __init_if_elseBB1:
-    li t4, 2
-    beq	a0,t4,	__init_if_thenBB2
+    li a1, 2
+    beq	a0,a1,	__init_if_thenBB2
     j	__init_whileBodyBB1
 __init_if_thenBB2:
     call	getString
-    mv	s6,a0 
+    mv	s11,a0 
     li a0, 24
     call malloc
-    li t4, 5
-    sw t4,0(a0)
-    mv	s4,a0 
-    mv	a0,s6 
+    li a1, 5
+    sw a1,0(a0)
+    mv	s5,a0 
+    mv	a0,s11 
     call	stringLength
-    li t4, 40
-    bne	a0,t4,	__init__if_thenBB1
+    li a1, 40
+    bne	a0,a1,	__init__if_thenBB1
 __init__if_end1:
-    mv	t4,zero 
+    mv	a1,zero 
 __init__forcondBB1:
-    li a5, 5
-    blt	t4,a5,	__init__forbodyBB1
+    li a0, 5
+    blt	a1,a0,	__init__forbodyBB1
 __init__afterForBB1:
     mv	s9,zero 
 __init__forcondBB2:
-    li t4, 40
-    blt	s9,t4,	__init__forbodyBB2
+    li a1, 40
+    blt	s9,a1,	__init__forbodyBB2
 __init__afterForBB2:
-    li s11, 1
+    li s8, 1
 __init__forcondBB3:
-    li t4, 4
-    ble	s11,t4,	__init__forbodyBB3
+    li a1, 4
+    ble	s8,a1,	__init__forbodyBB3
 __init__afterForBB3:
     la a0,_globalStr3    
     call	println
     j	__init_whileBodyBB1
 __init__forbodyBB3:
-    mv	t4,zero 
+    mv	a1,zero 
 __init__forcondBB4:
-    blt	t4,s11,	__init__forbodyBB4
+    blt	a1,s8,	__init__forbodyBB4
 __init__whileBodyBB1:
-    mv	t4,s1 
-    addi a5,s11,    64
-    addi a5,a5,    -56
-    srai a5,a5,    6
-    addi t2,a5,    1
-    li a5, 100
-    bgt	t2,a5,	__init_if_thenBB3
+    mv	a1,s4 
+    addi a0,s8,    64
+    addi a0,a0,    -56
+    srai a0,a0,    6
+    addi t6,a0,    1
+    li a0, 100
+    bgt	t6,a0,	__init_if_thenBB3
 __init_if_end2:
-    mv	a5,zero 
+    mv	a0,zero 
 __init_forcondBB1:
-    blt	a5,t2,	__init_forbodyBB1
+    blt	a0,t6,	__init_forbodyBB1
 __init_afterForBB1:
-    mv	a5,zero 
+    mv	a0,zero 
 __init_forcondBB2:
-    blt	a5,s11,	__init_forbodyBB2
+    blt	a0,s8,	__init_forbodyBB2
 __init_afterForBB2:
-    andi ra,a5,    3
-    li t4, 3
-    sub t4,t4,ra
-    slli t4,t4,    3
-    li ra, 128
-    sll ra,ra,t4
-    srai t4,a5,    6
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add a2,s3,t4
-    andi t4,a5,    63
-    srai t1,t4,    2
-    lw t4, 0(a2)
-    slli a2,t1,    2
-    addi a2,a2,    4
-    add t4,t4,a2
-    lw t4, 0(t4)
-    or ra,t4,ra
-    srai t4,a5,    6
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add a2,s3,t4
-    andi t4,a5,    63
-    srai t4,t4,    2
-    lw a5, 0(a2)
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add t4,a5,t4
-    sw ra,0(t4)
-    slli a5,s11,    3
-    addi t4,t2,    -1
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add t4,s3,t4
-    lw t4, 0(t4)
-    sw a5,64(t4)
-    srai t4,s11,    29
-    andi t4,t4,    7
-    addi a5,t2,    -1
-    slli a5,a5,    2
-    addi a5,a5,    4
-    add a5,s3,a5
-    lw a5, 0(a5)
-    sw t4,60(a5)
-    li a2, -271733879
+    andi a1,a0,    3
+    li t5, 3
+    sub a1,t5,a1
+    slli t5,a1,    3
+    li a1, 128
+    sll t5,a1,t5
+    srai a1,a0,    6
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add t3,s10,a1
+    andi a1,a0,    63
+    srai a1,a1,    2
+    lw t3, 0(t3)
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add a1,t3,a1
+    lw a1, 0(a1)
+    or t5,a1,t5
+    srai a1,a0,    6
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add t3,s10,a1
+    andi a1,a0,    63
+    srai a1,a1,    2
+    lw a0, 0(t3)
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add a1,a0,a1
+    sw t5,0(a1)
+    slli a0,s8,    3
+    addi a1,t6,    -1
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add a1,s10,a1
+    lw a1, 0(a1)
+    sw a0,64(a1)
+    srai a1,s8,    29
+    andi a0,a1,    7
+    addi a1,t6,    -1
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add a1,s10,a1
+    lw a1, 0(a1)
+    sw a0,60(a1)
+    li t3, -1732584194
+    mv	a2,zero 
     li a6, -1009589776
-    li a7, 271733878
-    li ra, -1732584194
-    mv	t6,zero 
-    li t0, 1732584193
+    li t1, 1732584193
+    li a4, 271733878
+    li t4, -271733879
 __init_forcondBB3:
-    blt	t6,t2,	__init_forbodyBB3
+    blt	a2,t6,	__init_forbodyBB3
 __init_afterForBB3:
-    sw t0,4(s7)
-    sw a2,8(s7)
-    sw ra,12(s7)
-    sw a7,16(s7)
-    sw a6,20(s7)
-    mv	a5,s7 
+    sw t1,4(s0)
+    sw t4,8(s0)
+    sw t3,12(s0)
+    sw a4,16(s0)
+    sw a6,20(s0)
+    mv	a0,s0 
 __initafterCallBB2:
-    mv	t4,s4 
-    lw a2, 0(t4)
-    lw ra, 0(a5)
-    bne	ra,a2,	__init_if_thenBB4
+    mv	a1,s5 
+    lw t5, 0(a1)
+    lw t3, 0(a0)
+    bne	t3,t5,	__init_if_thenBB4
 __init_if_end3:
-    mv	ra,zero 
+    mv	t5,zero 
 __init_forcondBB4:
-    lw a2, 0(a5)
-    blt	ra,a2,	__init_forbodyBB4
+    lw t3, 0(a0)
+    blt	t5,t3,	__init_forbodyBB4
 __init_afterForBB4:
-    li t4, 1
+    li a1, 1
 __initafterCallBB3:
-    bne	t4, zero, __init__if_thenBB2
+    bne	a1, zero, __init__if_thenBB2
 __init__if_end2:
-    mv	t4,s1 
-    addi a5,s11,    -1
+    mv	a1,s4 
+    addi a0,s8,    -1
 __init_forcondBB5:
-    bge	a5,zero,	__init_forbodyBB5
+    bge	a0,zero,	__init_forbodyBB5
 __init_afterForBB5:
-    mv	t4,zero 
+    mv	a1,zero 
 __initafterCallBB4:
-    bne	t4, zero, __init__whileBodyBB1
+    bne	a1, zero, __init__whileBodyBB1
 __init__forupdateBB1:
-    addi s11,s11,    1
+    addi s8,s8,    1
     j	__init__forcondBB3
 __init_forbodyBB5:
-    slli ra,a5,    2
-    addi ra,ra,    4
-    add ra,t4,ra
-    lw ra, 0(ra)
-    li a2, 122
-    beq	ra,a2,	__init__if_thenBB3
+    slli t5,a0,    2
+    addi t5,t5,    4
+    add t5,a1,t5
+    lw t5, 0(t5)
+    li t3, 122
+    beq	t5,t3,	__init__if_thenBB3
 __init__if_end3:
-    li a2, 90
-    beq	ra,a2,	__init__if_thenBB4
+    li t3, 90
+    beq	t5,t3,	__init__if_thenBB4
 __init__if_end4:
-    li a2, 57
-    beq	ra,a2,	__init__if_thenBB5
+    li t3, 57
+    beq	t5,t3,	__init__if_thenBB5
 __init__if_end5:
-    addi ra,ra,    1
+    addi t5,t5,    1
 __init_afterCallBB1:
-    slli a2,a5,    2
-    addi a2,a2,    4
-    add a2,t4,a2
-    sw ra,0(a2)
-    slli ra,a5,    2
-    addi ra,ra,    4
-    add ra,t4,ra
-    lw ra, 0(ra)
-    li a2, -1
-    beq	ra,a2,	__init_if_thenBB5
+    slli t3,a0,    2
+    addi t3,t3,    4
+    add t3,a1,t3
+    sw t5,0(t3)
+    slli t5,a0,    2
+    addi t5,t5,    4
+    add t5,a1,t5
+    lw t3, 0(t5)
+    li t5, -1
+    beq	t3,t5,	__init_if_thenBB5
 __init_if_elseBB2:
-    li t4, 1
+    li a1, 1
     j	__initafterCallBB4
 __init_if_thenBB5:
-    slli ra,a5,    2
-    addi ra,ra,    4
-    add a2,t4,ra
-    li ra, 48
-    sw ra,0(a2)
-    addi a5,a5,    -1
+    slli t5,a0,    2
+    addi t5,t5,    4
+    add t3,a1,t5
+    li t5, 48
+    sw t5,0(t3)
+    addi a0,a0,    -1
     j	__init_forcondBB5
 __init__if_thenBB5:
-    li ra, 65
+    li t5, 65
     j	__init_afterCallBB1
 __init__if_thenBB4:
-    li ra, 97
+    li t5, 97
     j	__init_afterCallBB1
 __init__if_thenBB3:
-    li ra, -1
+    li t5, -1
     j	__init_afterCallBB1
 __init__if_thenBB2:
-    mv	s4,zero 
+    mv	s5,zero 
 __init__forcondBB5:
-    blt	s4,s11,	__init__forbodyBB5
+    blt	s5,s8,	__init__forbodyBB5
 __init__afterForBB4:
     la a0,_globalStr0    
     call	println
     j	__init_whileBodyBB1
 __init__forbodyBB5:
-    slli t4,s4,    2
-    addi t4,t4,    4
-    add t4,s1,t4
-    lw t4, 0(t4)
-    li a5, 32
-    bge	t4,a5,	__init_ifTrue1
+    slli a1,s5,    2
+    addi a1,a1,    4
+    add a1,s4,a1
+    lw a0, 0(a1)
+    li a1, 32
+    bge	a0,a1,	__init_ifTrue1
 __init_if_end4:
     la a0,_globalStr0    
 __initafterCallBB5:
     call	print
-    addi s4,s4,    1
+    addi s5,s5,    1
     j	__init__forcondBB5
 __init_ifTrue1:
-    li a5, 126
-    ble	t4,a5,	__init_if_thenBB6
+    li a1, 126
+    ble	a0,a1,	__init_if_thenBB6
     j	__init_if_end4
 __init_if_thenBB6:
-    addi a1,t4,    -32
-    addi a2,t4,    -31
-    mv	a0,s5 
+    addi a1,a0,    -32
+    addi a2,a0,    -31
+    mv	a0,s6 
     call	_stringSubstring
     j	__initafterCallBB5
 __init_forbodyBB4:
-    slli a2,ra,    2
-    addi a2,a2,    4
-    add t1,t4,a2
-    slli a2,ra,    2
-    addi a2,a2,    4
-    add a2,a5,a2
-    lw a2, 0(a2)
-    lw t1, 0(t1)
-    bne	a2,t1,	__init_if_thenBB7
+    slli t3,t5,    2
+    addi t3,t3,    4
+    add t4,a1,t3
+    slli t3,t5,    2
+    addi t3,t3,    4
+    add t3,a0,t3
+    lw a7, 0(t3)
+    lw t3, 0(t4)
+    bne	a7,t3,	__init_if_thenBB7
 __init_forupdateBB1:
-    addi ra,ra,    1
+    addi t5,t5,    1
     j	__init_forcondBB4
 __init_if_thenBB7:
-    mv	t4,zero 
+    mv	a1,zero 
     j	__initafterCallBB3
 __init_if_thenBB4:
-    mv	t4,zero 
+    mv	a1,zero 
     j	__initafterCallBB3
 __init_forbodyBB3:
-    li t4, 16
+    li a1, 16
 __init_forcondBB6:
-    li a5, 80
-    blt	t4,a5,	__init_forbodyBB6
+    li a0, 80
+    blt	a1,a0,	__init_forbodyBB6
 __init_afterForBB6:
-    mv	a5,t0 
+    mv	t0,t1 
+    mv	ra,t4 
+    mv	a3,a4 
     mv	a0,a6 
-    mv	t5,a2 
-    mv	t3,ra 
-    mv	a3,a7 
-    mv	t1,zero 
+    mv	t5,t3 
+    mv	a7,zero 
 __init_forcondBB7:
-    li t4, 80
-    blt	t1,t4,	__init_forbodyBB7
+    li a1, 80
+    blt	a7,a1,	__init_forbodyBB7
 __init_afterForBB7:
-    li t4, 65535
-    and t4,a5,t4
-    li t1, 65535
-    and t1,t0,t1
-    add t4,t1,t4
-    srai a1,t4,    16
-    srai a5,a5,    16
-    li t1, 65535
-    and a4,a5,t1
+    li a1, 65535
+    and a7,t0,a1
+    li a1, 65535
+    and a1,t1,a1
+    add a7,a1,a7
+    srai t2,a7,    16
     srai a5,t0,    16
-    li t1, 65535
-    and a5,a5,t1
-    add a5,a5,a4
-    add t1,a5,a1
+    li a1, 65535
+    and a1,a5,a1
+    srai t1,t1,    16
     li a5, 65535
     and a5,t1,a5
-    li t1, 65535
-    and t4,t4,t1
-    slli a5,a5,    16
-    or t0,a5,t4
-    li t4, 65535
-    and t4,t5,t4
+    add a1,a5,a1
+    add a5,a1,t2
+    li a1, 65535
+    and a1,a5,a1
     li a5, 65535
-    and a5,a2,a5
-    add a5,a5,t4
-    srai a4,a5,    16
-    srai t1,t5,    16
-    li t4, 65535
-    and t1,t1,t4
-    srai t4,a2,    16
-    li a2, 65535
-    and t4,t4,a2
-    add t4,t4,t1
-    add a2,t4,a4
-    li t4, 65535
-    and t4,a2,t4
-    li a2, 65535
-    and a5,a5,a2
-    slli t4,t4,    16
-    or a2,t4,a5
-    li t4, 65535
-    and a5,t3,t4
-    li t4, 65535
-    and t4,ra,t4
-    add a5,t4,a5
-    srai t5,a5,    16
-    srai t4,t3,    16
-    li t1, 65535
-    and t1,t4,t1
-    srai t4,ra,    16
-    li ra, 65535
-    and t4,t4,ra
-    add t4,t4,t1
-    add t4,t4,t5
-    li ra, 65535
-    and t4,t4,ra
-    li ra, 65535
-    and a5,a5,ra
-    slli t4,t4,    16
-    or ra,t4,a5
-    li t4, 65535
-    and a5,a3,t4
-    li t4, 65535
-    and t4,a7,t4
-    add a5,t4,a5
-    srai t3,a5,    16
-    srai t4,a3,    16
-    li t1, 65535
-    and t4,t4,t1
-    srai a7,a7,    16
-    li t1, 65535
-    and t1,a7,t1
-    add t4,t1,t4
-    add t4,t4,t3
-    li t1, 65535
-    and t4,t4,t1
-    li t1, 65535
-    and a5,a5,t1
-    slli t4,t4,    16
-    or a7,t4,a5
-    li t4, 65535
-    and a5,a0,t4
-    li t4, 65535
-    and t4,a6,t4
-    add t4,t4,a5
-    srai t1,t4,    16
-    srai a3,a0,    16
+    and a7,a7,a5
+    slli a1,a1,    16
+    or t1,a1,a7
+    li a1, 65535
+    and a7,ra,a1
+    li a1, 65535
+    and a1,t4,a1
+    add a1,a1,a7
+    srai a7,a1,    16
+    srai ra,ra,    16
     li a5, 65535
-    and a3,a3,a5
-    srai a5,a6,    16
-    li a6, 65535
-    and a5,a5,a6
-    add a5,a5,a3
-    add t1,a5,t1
+    and ra,ra,a5
+    srai t4,t4,    16
     li a5, 65535
-    and a5,t1,a5
-    li t1, 65535
-    and t4,t4,t1
-    slli a5,a5,    16
-    or a6,a5,t4
-    addi t6,t6,    1
+    and t4,t4,a5
+    add t4,t4,ra
+    add t4,t4,a7
+    li a7, 65535
+    and t4,t4,a7
+    li a7, 65535
+    and a1,a1,a7
+    slli t4,t4,    16
+    or t4,t4,a1
+    li a1, 65535
+    and a7,t5,a1
+    li a1, 65535
+    and a1,t3,a1
+    add a7,a1,a7
+    srai ra,a7,    16
+    srai a1,t5,    16
+    li t5, 65535
+    and t5,a1,t5
+    srai a1,t3,    16
+    li t3, 65535
+    and a1,a1,t3
+    add a1,a1,t5
+    add t5,a1,ra
+    li a1, 65535
+    and a1,t5,a1
+    li t5, 65535
+    and t5,a7,t5
+    slli a1,a1,    16
+    or t3,a1,t5
+    li a1, 65535
+    and t5,a3,a1
+    li a1, 65535
+    and a1,a4,a1
+    add t5,a1,t5
+    srai a7,t5,    16
+    srai a1,a3,    16
+    li ra, 65535
+    and a5,a1,ra
+    srai a1,a4,    16
+    li ra, 65535
+    and a1,a1,ra
+    add a1,a1,a5
+    add a7,a1,a7
+    li a1, 65535
+    and a1,a7,a1
+    li a7, 65535
+    and t5,t5,a7
+    slli a1,a1,    16
+    or a4,a1,t5
+    li a1, 65535
+    and t5,a0,a1
+    li a1, 65535
+    and a1,a6,a1
+    add a1,a1,t5
+    srai a7,a1,    16
+    srai t5,a0,    16
+    li a0, 65535
+    and t5,t5,a0
+    srai a0,a6,    16
+    li ra, 65535
+    and a0,a0,ra
+    add a0,a0,t5
+    add t5,a0,a7
+    li a0, 65535
+    and a0,t5,a0
+    li t5, 65535
+    and a1,a1,t5
+    slli a0,a0,    16
+    or a6,a0,a1
+    addi a2,a2,    1
     j	__init_forcondBB3
 __init_forbodyBB7:
-    li t4, 20
-    blt	t1,t4,	__init_if_thenBB8
+    li a1, 20
+    blt	a7,a1,	__init_if_thenBB8
 __init_if_elseBB3:
-    li t4, 40
-    blt	t1,t4,	__init_if_thenBB9
+    li a1, 40
+    blt	a7,a1,	__init_if_thenBB9
 __init_if_elseBB4:
-    li t4, 60
-    blt	t1,t4,	__init_if_thenBB10
+    li a1, 60
+    blt	a7,a1,	__init_if_thenBB10
 __init_if_elseBB5:
-    xor t4,t5,t3
-    xor a4,t4,a3
+    xor a1,ra,t5
+    xor t2,a1,a3
     li a1, -899497514
 __init_if_end5:
-    srai t4,a5,    27
-    andi s10,t4,    31
-    li t4, 134217727
-    and t4,a5,t4
-    slli t4,t4,    5
-    or s10,t4,s10
-    li t4, 65535
-    and s6,a0,t4
-    li t4, 65535
-    and t4,s10,t4
-    add t4,t4,s6
-    srai s6,t4,    16
-    srai s2,a0,    16
-    li a0, 65535
-    and s2,s2,a0
-    srai a0,s10,    16
-    li s10, 65535
-    and a0,a0,s10
-    add a0,a0,s2
-    add a0,a0,s6
-    li s10, 65535
-    and a0,a0,s10
-    li s10, 65535
-    and t4,t4,s10
-    slli a0,a0,    16
-    or a0,a0,t4
-    li t4, 65535
-    and s10,a1,t4
-    li t4, 65535
-    and t4,a4,t4
-    add t4,t4,s10
-    srai s10,t4,    16
-    srai s6,a1,    16
-    li a1, 65535
-    and a1,s6,a1
-    srai a4,a4,    16
-    li s6, 65535
-    and a4,a4,s6
-    add a4,a4,a1
-    add a4,a4,s10
-    li a1, 65535
-    and a4,a4,a1
-    li a1, 65535
-    and t4,t4,a1
-    slli a4,a4,    16
-    or t4,a4,t4
-    li a4, 65535
-    and a4,t4,a4
-    li a1, 65535
-    and a1,a0,a1
-    add a4,a1,a4
-    srai a1,a4,    16
-    srai s10,t4,    16
-    li t4, 65535
-    and s10,s10,t4
+    srai a5,t0,    27
+    andi s9,a5,    31
+    li a5, 134217727
+    and a5,t0,a5
+    slli a5,a5,    5
+    or a5,a5,s9
+    li s9, 65535
+    and s11,a0,s9
+    li s9, 65535
+    and s9,a5,s9
+    add s9,s9,s11
+    srai s11,s9,    16
     srai a0,a0,    16
-    li t4, 65535
-    and t4,a0,t4
-    add t4,t4,s10
-    add a0,t4,a1
-    li t4, 65535
-    and t4,a0,t4
-    li a0, 65535
-    and a0,a4,a0
-    slli t4,t4,    16
-    or a4,t4,a0
-    slli t4,t6,    2
-    addi t4,t4,    4
-    add t4,s3,t4
-    lw t4, 0(t4)
-    slli a0,t1,    2
-    addi a0,a0,    4
-    add t4,t4,a0
-    lw t4, 0(t4)
-    li a0, 65535
-    and a1,t4,a0
-    li a0, 65535
-    and a0,a4,a0
-    add a0,a0,a1
-    srai s10,a0,    16
-    srai t4,t4,    16
+    li s2, 65535
+    and s2,a0,s2
+    srai a0,a5,    16
+    li a5, 65535
+    and a0,a0,a5
+    add a0,a0,s2
+    add a0,a0,s11
+    li a5, 65535
+    and a0,a0,a5
+    li a5, 65535
+    and a5,s9,a5
+    slli a0,a0,    16
+    or a0,a0,a5
+    li a5, 65535
+    and a5,a1,a5
+    li s9, 65535
+    and s9,t2,s9
+    add a5,s9,a5
+    srai s11,a5,    16
+    srai a1,a1,    16
+    li s9, 65535
+    and s9,a1,s9
+    srai a1,t2,    16
+    li t2, 65535
+    and a1,a1,t2
+    add a1,a1,s9
+    add t2,a1,s11
     li a1, 65535
-    and t4,t4,a1
-    srai a4,a4,    16
+    and a1,t2,a1
+    li t2, 65535
+    and a5,a5,t2
+    slli a1,a1,    16
+    or a1,a1,a5
+    li a5, 65535
+    and a5,a1,a5
+    li t2, 65535
+    and t2,a0,t2
+    add a5,t2,a5
+    srai t2,a5,    16
+    srai a1,a1,    16
+    li s9, 65535
+    and s9,a1,s9
+    srai a1,a0,    16
+    li a0, 65535
+    and a1,a1,a0
+    add a1,a1,s9
+    add a1,a1,t2
+    li a0, 65535
+    and a1,a1,a0
+    li a0, 65535
+    and a0,a5,a0
+    slli a1,a1,    16
+    or a5,a1,a0
+    slli a1,a2,    2
+    addi a1,a1,    4
+    add a1,s10,a1
+    lw a0, 0(a1)
+    slli a1,a7,    2
+    addi a1,a1,    4
+    add a1,a0,a1
+    lw a0, 0(a1)
     li a1, 65535
-    and a4,a4,a1
-    add t4,a4,t4
-    add t4,t4,s10
-    li a4, 65535
-    and t4,t4,a4
-    li a4, 65535
-    and a0,a0,a4
-    slli t4,t4,    16
-    or t4,t4,a0
+    and t2,a0,a1
+    li a1, 65535
+    and a1,a5,a1
+    add a1,a1,t2
+    srai s9,a1,    16
+    srai t2,a0,    16
+    li a0, 65535
+    and a0,t2,a0
+    srai t2,a5,    16
+    li a5, 65535
+    and a5,t2,a5
+    add a0,a5,a0
+    add a0,a0,s9
+    li a5, 65535
+    and a0,a0,a5
+    li a5, 65535
+    and a5,a1,a5
+    slli a1,a0,    16
+    or a1,a1,a5
     mv	a0,a3 
-    mv	a3,t3 
-    srai a4,t5,    2
-    li t3, 1073741823
-    and t3,a4,t3
-    andi t5,t5,    3
+    mv	a3,t5 
+    srai t5,ra,    2
+    li a5, 1073741823
+    and a5,t5,a5
+    andi t5,ra,    3
     slli t5,t5,    30
-    or t3,t5,t3
-    addi t1,t1,    1
-    mv	t5,a5 
-    mv	a5,t4 
+    or t5,t5,a5
+    mv	ra,t0 
+    addi a7,a7,    1
+    mv	t0,a1 
     j	__init_forcondBB7
 __init_if_thenBB10:
-    and a4,t3,a3
-    and a1,t5,a3
-    and t4,t5,t3
-    or t4,t4,a1
-    or a4,t4,a4
+    and a5,t5,a3
+    and a1,ra,a3
+    and t2,ra,t5
+    or a1,t2,a1
+    or t2,a1,a5
     li a1, -1894007588
     j	__init_if_end5
 __init_if_thenBB9:
-    xor t4,t5,t3
-    xor a4,t4,a3
+    xor a1,ra,t5
+    xor t2,a1,a3
     li a1, 1859775393
     j	__init_if_end5
 __init_if_thenBB8:
-    xori t4,t5,    -1
-    and t4,t4,a3
-    and a4,t5,t3
-    or a4,a4,t4
+    xori a1,ra,    -1
+    and a5,a1,a3
+    and a1,ra,t5
+    or t2,a1,a5
     li a1, 1518500249
     j	__init_if_end5
 __init_forbodyBB6:
-    slli a5,t6,    2
-    addi a5,a5,    4
-    add t1,s3,a5
-    addi a5,t4,    -16
-    lw t1, 0(t1)
-    slli a5,a5,    2
-    addi a5,a5,    4
-    add a3,t1,a5
-    slli a5,t6,    2
-    addi a5,a5,    4
-    add a5,s3,a5
-    addi t1,t4,    -14
-    lw t3, 0(a5)
-    slli a5,t1,    2
-    addi a5,a5,    4
-    add t5,t3,a5
-    slli a5,t6,    2
-    addi a5,a5,    4
-    add t1,s3,a5
-    addi a5,t4,    -8
-    lw t1, 0(t1)
-    slli a5,a5,    2
-    addi a5,a5,    4
-    add t1,t1,a5
-    slli a5,t6,    2
-    addi a5,a5,    4
-    add a5,s3,a5
-    addi t3,t4,    -3
+    slli a0,a2,    2
+    addi a0,a0,    4
+    add a0,s10,a0
+    addi a7,a1,    -16
+    lw t5, 0(a0)
+    slli a0,a7,    2
+    addi a0,a0,    4
+    add a7,t5,a0
+    slli a0,a2,    2
+    addi a0,a0,    4
+    add a0,s10,a0
+    addi ra,a1,    -14
+    lw t5, 0(a0)
+    slli a0,ra,    2
+    addi a0,a0,    4
+    add ra,t5,a0
+    slli a0,a2,    2
+    addi a0,a0,    4
+    add a0,s10,a0
+    addi a5,a1,    -8
+    lw t5, 0(a0)
+    slli a0,a5,    2
+    addi a0,a0,    4
+    add t5,t5,a0
+    slli a0,a2,    2
+    addi a0,a0,    4
+    add a5,s10,a0
+    addi a0,a1,    -3
     lw a5, 0(a5)
-    slli t3,t3,    2
-    addi t3,t3,    4
-    add a5,a5,t3
-    lw t3, 0(a5)
-    lw a5, 0(t1)
-    xor a5,t3,a5
-    lw t1, 0(t5)
-    xor t1,a5,t1
-    lw a5, 0(a3)
-    xor a5,t1,a5
-    srai t1,a5,    31
-    andi t1,t1,    1
-    li a3, 2147483647
-    and a5,a5,a3
-    slli a5,a5,    1
-    or a5,a5,t1
-    slli t1,t6,    2
-    addi t1,t1,    4
-    add t1,s3,t1
-    lw a3, 0(t1)
-    slli t1,t4,    2
-    addi t1,t1,    4
-    add t1,a3,t1
-    sw a5,0(t1)
-    addi t4,t4,    1
+    slli a0,a0,    2
+    addi a0,a0,    4
+    add a0,a5,a0
+    lw a0, 0(a0)
+    lw t5, 0(t5)
+    xor a0,a0,t5
+    lw t5, 0(ra)
+    xor a0,a0,t5
+    lw t5, 0(a7)
+    xor a0,a0,t5
+    srai t5,a0,    31
+    andi t5,t5,    1
+    li a7, 2147483647
+    and a0,a0,a7
+    slli a0,a0,    1
+    or a0,a0,t5
+    slli t5,a2,    2
+    addi t5,t5,    4
+    add t5,s10,t5
+    lw a7, 0(t5)
+    slli t5,a1,    2
+    addi t5,t5,    4
+    add t5,a7,t5
+    sw a0,0(t5)
+    addi a1,a1,    1
     j	__init_forcondBB6
 __init_forbodyBB2:
-    andi ra,a5,    3
-    li a2, 3
-    sub ra,a2,ra
-    slli ra,ra,    3
-    slli a2,a5,    2
-    addi a2,a2,    4
-    add a2,t4,a2
-    lw a2, 0(a2)
-    sll a2,a2,ra
-    srai ra,a5,    6
-    slli ra,ra,    2
-    addi ra,ra,    4
-    add t1,s3,ra
-    andi ra,a5,    63
-    srai ra,ra,    2
-    lw t1, 0(t1)
-    slli ra,ra,    2
-    addi ra,ra,    4
-    add ra,t1,ra
-    lw ra, 0(ra)
-    or a2,ra,a2
-    srai ra,a5,    6
-    slli ra,ra,    2
-    addi ra,ra,    4
-    add t1,s3,ra
-    andi ra,a5,    63
-    srai ra,ra,    2
-    lw t1, 0(t1)
-    slli ra,ra,    2
-    addi ra,ra,    4
-    add ra,t1,ra
-    sw a2,0(ra)
-    addi a5,a5,    1
+    andi t5,a0,    3
+    li t3, 3
+    sub t5,t3,t5
+    slli t3,t5,    3
+    slli t5,a0,    2
+    addi t5,t5,    4
+    add t5,a1,t5
+    lw t5, 0(t5)
+    sll t5,t5,t3
+    srai t3,a0,    6
+    slli t3,t3,    2
+    addi t3,t3,    4
+    add t4,s10,t3
+    andi t3,a0,    63
+    srai t3,t3,    2
+    lw t4, 0(t4)
+    slli t3,t3,    2
+    addi t3,t3,    4
+    add t3,t4,t3
+    lw t3, 0(t3)
+    or t4,t3,t5
+    srai t5,a0,    6
+    slli t5,t5,    2
+    addi t5,t5,    4
+    add t3,s10,t5
+    andi t5,a0,    63
+    srai t5,t5,    2
+    lw t3, 0(t3)
+    slli t5,t5,    2
+    addi t5,t5,    4
+    add t5,t3,t5
+    sw t4,0(t5)
+    addi a0,a0,    1
     j	__init_forcondBB2
 __init_forbodyBB1:
-    mv	ra,zero 
+    mv	t5,zero 
 __init_forcondBB8:
-    li a2, 80
-    blt	ra,a2,	__init_forbodyBB8
+    li t3, 80
+    blt	t5,t3,	__init_forbodyBB8
 __init_forupdateBB2:
-    addi a5,a5,    1
+    addi a0,a0,    1
     j	__init_forcondBB1
 __init_forbodyBB8:
-    slli a2,a5,    2
-    addi a2,a2,    4
-    add a2,s3,a2
-    lw a2, 0(a2)
-    slli t1,ra,    2
-    addi t1,t1,    4
-    add a2,a2,t1
-    sw zero,0(a2)
-    addi ra,ra,    1
+    slli t3,a0,    2
+    addi t3,t3,    4
+    add t3,s10,t3
+    lw t4, 0(t3)
+    slli t3,t5,    2
+    addi t3,t3,    4
+    add t3,t4,t3
+    sw zero,0(t3)
+    addi t5,t5,    1
     j	__init_forcondBB8
 __init_if_thenBB3:
     la a0,_globalStr4    
     call	println
-    mv	a5,zero 
+    mv	a0,zero 
     j	__initafterCallBB2
 __init__forbodyBB4:
-    slli a5,t4,    2
-    addi a5,a5,    4
-    add a5,s1,a5
-    li ra, 48
-    sw ra,0(a5)
-    addi t4,t4,    1
+    slli a0,a1,    2
+    addi a0,a0,    4
+    add t5,s4,a0
+    li a0, 48
+    sw a0,0(t5)
+    addi a1,a1,    1
     j	__init__forcondBB4
 __init__forbodyBB2:
-    srai t4,s9,    2
-    andi a5,t4,    1
-    li t4, 1
-    sub t4,t4,a5
-    slli s8,t4,    4
+    srai a1,s9,    2
+    andi a0,a1,    1
+    li a1, 1
+    sub a1,a1,a0
+    slli s1,a1,    4
     addi a2,s9,    4
-    mv	a0,s6 
+    mv	a0,s11 
     mv	a1,s9 
     call	_stringSubstring
-    mv	s11,a0 
+    mv	s3,a0 
     mv	s2,zero 
-    mv	s10,zero 
+    mv	s8,zero 
 __init_forcondBB9:
-    mv	a0,s11 
+    mv	a0,s3 
     call	stringLength
     blt	s2,a0,	__init_forbodyBB9
 __init_afterForBB8:
-    mv	t4,s10 
+    mv	a1,s8 
 __initafterCallBB6:
-    sll a5,t4,s8
-    srai t4,s9,    3
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add t4,s4,t4
-    lw t4, 0(t4)
-    or t4,t4,a5
-    srai a5,s9,    3
-    slli a5,a5,    2
-    addi a5,a5,    4
-    add a5,s4,a5
-    sw t4,0(a5)
-    addi t4,s9,    4
-    mv	s9,t4 
+    sll a1,a1,s1
+    srai a0,s9,    3
+    slli a0,a0,    2
+    addi a0,a0,    4
+    add a0,s5,a0
+    lw a0, 0(a0)
+    or a0,a0,a1
+    srai a1,s9,    3
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add a1,s5,a1
+    sw a0,0(a1)
+    addi a1,s9,    4
+    mv	s9,a1 
     j	__init__forcondBB2
 __init_forbodyBB9:
-    mv	a0,s11 
+    mv	a0,s3 
     mv	a1,s2 
     call	_stringOrd
-    li t4, 48
-    bge	a0,t4,	__init_ifTrue2
+    li a1, 48
+    bge	a0,a1,	__init_ifTrue2
 __init_if_elseBB6:
-    li t4, 65
-    bge	a0,t4,	__init_ifTrue3
+    li a1, 65
+    bge	a0,a1,	__init_ifTrue3
 __init_if_elseBB7:
-    li t4, 97
-    bge	a0,t4,	__init_ifTrue4
+    li a1, 97
+    bge	a0,a1,	__init_ifTrue4
 __init_if_elseBB8:
-    mv	t4,zero 
+    mv	a1,zero 
     j	__initafterCallBB6
 __init_ifTrue4:
-    li t4, 102
-    ble	a0,t4,	__init_if_thenBB11
+    li a1, 102
+    ble	a0,a1,	__init_if_thenBB11
     j	__init_if_elseBB8
 __init_if_thenBB11:
-    slli t4,s10,    4
-    add t4,t4,a0
-    addi t4,t4,    -97
-    addi a5,t4,    10
+    slli a1,s8,    4
+    add a1,a1,a0
+    addi a1,a1,    -97
+    addi a1,a1,    10
 __init_forupdateBB3:
-    addi t4,s2,    1
-    mv	s2,t4 
-    mv	s10,a5 
+    addi a0,s2,    1
+    mv	s2,a0 
+    mv	s8,a1 
     j	__init_forcondBB9
 __init_ifTrue3:
-    li t4, 70
-    ble	a0,t4,	__init_if_thenBB12
+    li a1, 70
+    ble	a0,a1,	__init_if_thenBB12
     j	__init_if_elseBB7
 __init_if_thenBB12:
-    slli t4,s10,    4
-    add t4,t4,a0
-    addi t4,t4,    -65
-    addi a5,t4,    10
+    slli a1,s8,    4
+    add a1,a1,a0
+    addi a1,a1,    -65
+    addi a1,a1,    10
     j	__init_forupdateBB3
 __init_ifTrue2:
-    li t4, 57
-    ble	a0,t4,	__init_if_thenBB13
+    li a1, 57
+    ble	a0,a1,	__init_if_thenBB13
     j	__init_if_elseBB6
 __init_if_thenBB13:
-    slli t4,s10,    4
-    add t4,t4,a0
-    addi a5,t4,    -48
+    slli a1,s8,    4
+    add a1,a1,a0
+    addi a1,a1,    -48
     j	__init_forupdateBB3
 __init__forbodyBB1:
-    slli a5,t4,    2
-    addi a5,a5,    4
-    add a5,s4,a5
-    sw zero,0(a5)
-    addi t4,t4,    1
+    slli a0,a1,    2
+    addi a0,a0,    4
+    add a0,s5,a0
+    sw zero,0(a0)
+    addi a1,a1,    1
     j	__init__forcondBB1
 __init__if_thenBB1:
     la a0,_globalStr1    
@@ -760,573 +759,572 @@ __init__if_thenBB1:
     j	__init_whileBodyBB1
 __init_if_thenBB1:
     call	getString
-    mv	s4,a0 
-    mv	s11,zero 
+    mv	s5,a0 
+    mv	s8,zero 
 __init__forcondBB6:
-    mv	a0,s4 
+    mv	a0,s5 
     call	stringLength
-    blt	s11,a0,	__init__forbodyBB6
+    blt	s8,a0,	__init__forbodyBB6
 __init__afterForBB5:
-    mv	a0,s4 
+    mv	a0,s5 
     call	stringLength
-    mv	t4,s1 
-    addi a5,a0,    64
-    addi a5,a5,    -56
-    srai a5,a5,    6
-    addi t0,a5,    1
-    li a5, 100
-    bgt	t0,a5,	__init_if_thenBB14
+    mv	a1,s4 
+    addi t5,a0,    64
+    addi t5,t5,    -56
+    srai t5,t5,    6
+    addi a5,t5,    1
+    li t5, 100
+    bgt	a5,t5,	__init_if_thenBB14
 __init_if_end6:
-    mv	a5,zero 
+    mv	t5,zero 
 __init_forcondBB10:
-    blt	a5,t0,	__init_forbodyBB10
+    blt	t5,a5,	__init_forbodyBB10
 __init_afterForBB9:
-    mv	a5,zero 
+    mv	t5,zero 
 __init_forcondBB11:
-    blt	a5,a0,	__init_forbodyBB11
+    blt	t5,a0,	__init_forbodyBB11
 __init_afterForBB10:
-    andi t4,a5,    3
-    li ra, 3
-    sub t4,ra,t4
-    slli t4,t4,    3
-    li ra, 128
-    sll a2,ra,t4
-    srai t4,a5,    6
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add ra,s3,t4
-    andi t4,a5,    63
-    srai t4,t4,    2
-    lw ra, 0(ra)
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add t4,ra,t4
-    lw t4, 0(t4)
-    or a2,t4,a2
-    srai t4,a5,    6
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add ra,s3,t4
-    andi t4,a5,    63
-    srai t4,t4,    2
-    lw a5, 0(ra)
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add t4,a5,t4
-    sw a2,0(t4)
-    slli t4,a0,    3
-    addi a5,t0,    -1
-    slli a5,a5,    2
-    addi a5,a5,    4
-    add a5,s3,a5
-    lw a5, 0(a5)
-    sw t4,64(a5)
-    srai t4,a0,    29
-    andi a5,t4,    7
-    addi t4,t0,    -1
-    slli t4,t4,    2
-    addi t4,t4,    4
-    add t4,s3,t4
-    lw t4, 0(t4)
-    sw a5,60(t4)
-    li a3, -1732584194
-    li t6, 271733878
-    mv	a6,zero 
-    li a5, 1732584193
-    li t2, -271733879
-    li a7, -1009589776
+    andi a1,t5,    3
+    li t3, 3
+    sub a1,t3,a1
+    slli t3,a1,    3
+    li a1, 128
+    sll t4,a1,t3
+    srai a1,t5,    6
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add t3,s10,a1
+    andi a1,t5,    63
+    srai a1,a1,    2
+    lw t3, 0(t3)
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add a1,t3,a1
+    lw a1, 0(a1)
+    or t4,a1,t4
+    srai a1,t5,    6
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add t3,s10,a1
+    andi a1,t5,    63
+    srai a1,a1,    2
+    lw t5, 0(t3)
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add a1,t5,a1
+    sw t4,0(a1)
+    slli a1,a0,    3
+    addi t5,a5,    -1
+    slli t5,t5,    2
+    addi t5,t5,    4
+    add t5,s10,t5
+    lw t5, 0(t5)
+    sw a1,64(t5)
+    srai a1,a0,    29
+    andi a0,a1,    7
+    addi a1,a5,    -1
+    slli a1,a1,    2
+    addi a1,a1,    4
+    add a1,s10,a1
+    lw a1, 0(a1)
+    sw a0,60(a1)
+    li t3, -271733879
+    li t1, -1732584194
+    li a1, -1009589776
+    li a4, 1732584193
+    mv	t6,zero 
+    li a6, 271733878
 __init_forcondBB12:
-    blt	a6,t0,	__init_forbodyBB12
+    blt	t6,a5,	__init_forbodyBB12
 __init_afterForBB11:
-    sw a5,4(s7)
-    sw t2,8(s7)
-    sw a3,12(s7)
-    sw t6,16(s7)
-    sw a7,20(s7)
-    mv	s11,s7 
+    sw a4,4(s0)
+    sw t3,8(s0)
+    sw t1,12(s0)
+    sw a6,16(s0)
+    sw a1,20(s0)
+    mv	s5,s0 
 __initafterCallBB7:
-    mv	s2,zero 
+    mv	s11,zero 
 __init__forcondBB7:
-    lw t4, 0(s11)
-    blt	s2,t4,	__init__forbodyBB7
+    lw a1, 0(s5)
+    blt	s11,a1,	__init__forbodyBB7
 __init_afterCallBB2:
     la a0,_globalStr0    
     call	println
     j	__init_whileBodyBB1
 __init__forbodyBB7:
-    slli t4,s2,    2
-    addi t4,t4,    4
-    add t4,s11,t4
-    lw s10, 0(t4)
-    la s4,_globalStr0    
-    li s6, 28
+    slli a1,s11,    2
+    addi a1,a1,    4
+    add a1,s5,a1
+    lw s9, 0(a1)
+    la s8,_globalStr0    
+    li s2, 28
 __init_forcondBB13:
-    bge	s6,zero,	__init_forbodyBB13
+    bge	s2,zero,	__init_forbodyBB13
 __initafterCallBB8:
-    mv	a0,s4 
+    mv	a0,s8 
     call	print
-    addi s2,s2,    1
+    addi s11,s11,    1
     j	__init__forcondBB7
 __init_forbodyBB13:
-    sra t4,s10,s6
-    andi t4,t4,    15
-    li a5, 10
-    blt	t4,a5,	__init_if_thenBB15
+    sra a1,s9,s2
+    andi a1,a1,    15
+    li a0, 10
+    blt	a1,a0,	__init_if_thenBB15
 __init_if_elseBB9:
-    addi t4,t4,    65
-    addi t4,t4,    -10
-    li a5, 32
-    bge	t4,a5,	__init__ifTrue1
+    addi a1,a1,    65
+    addi a0,a1,    -10
+    li a1, 32
+    bge	a0,a1,	__init__ifTrue1
 __init__if_end6:
-    la a0,_globalStr0    
+    la a1,_globalStr0    
 __init_afterCallBB3:
-    mv	a1,a0 
-    mv	a0,s4 
+    mv	a0,s8 
     call	_stringAdd
-    mv	s4,a0 
+    mv	s8,a0 
 __init_forupdateBB4:
-    addi s6,s6,    -4
+    addi s2,s2,    -4
     j	__init_forcondBB13
 __init__ifTrue1:
-    li a5, 126
-    ble	t4,a5,	__init__if_thenBB6
+    li a1, 126
+    ble	a0,a1,	__init__if_thenBB6
     j	__init__if_end6
 __init__if_thenBB6:
-    addi a1,t4,    -32
-    addi a2,t4,    -31
-    mv	a0,s5 
-    call	_stringSubstring
-    j	__init_afterCallBB3
-__init_if_thenBB15:
-    addi t4,t4,    48
-    li a5, 32
-    bge	t4,a5,	__init__ifTrue2
-__init__if_end7:
-    la a1,_globalStr0    
-__init_afterCallBB4:
-    mv	a0,s4 
-    call	_stringAdd
-    mv	s4,a0 
-    j	__init_forupdateBB4
-__init__ifTrue2:
-    li a5, 126
-    ble	t4,a5,	__init__if_thenBB7
-    j	__init__if_end7
-__init__if_thenBB7:
-    addi a1,t4,    -32
-    addi a2,t4,    -31
-    mv	a0,s5 
+    addi a1,a0,    -32
+    addi a2,a0,    -31
+    mv	a0,s6 
     call	_stringSubstring
     mv	a1,a0 
+    j	__init_afterCallBB3
+__init_if_thenBB15:
+    addi a0,a1,    48
+    li a1, 32
+    bge	a0,a1,	__init__ifTrue2
+__init__if_end7:
+    la a0,_globalStr0    
+__init_afterCallBB4:
+    mv	a1,a0 
+    mv	a0,s8 
+    call	_stringAdd
+    mv	s8,a0 
+    j	__init_forupdateBB4
+__init__ifTrue2:
+    li a1, 126
+    ble	a0,a1,	__init__if_thenBB7
+    j	__init__if_end7
+__init__if_thenBB7:
+    addi a1,a0,    -32
+    addi a2,a0,    -31
+    mv	a0,s6 
+    call	_stringSubstring
     j	__init_afterCallBB4
 __init_forbodyBB12:
-    li t4, 16
+    li t5, 16
 __init_forcondBB14:
-    li ra, 80
-    blt	t4,ra,	__init_forbodyBB14
+    li a0, 80
+    blt	t5,a0,	__init_forbodyBB14
 __init_afterForBB12:
-    mv	a2,a5 
-    mv	t3,a3 
-    mv	a0,t6 
-    mv	ra,a7 
-    mv	t5,t2 
-    mv	a1,zero 
+    mv	a7,a4 
+    mv	t0,t3 
+    mv	a3,t1 
+    mv	a2,a6 
+    mv	a0,a1 
+    mv	t2,zero 
 __init_forcondBB15:
-    li t4, 80
-    blt	a1,t4,	__init_forbodyBB15
+    li t5, 80
+    blt	t2,t5,	__init_forbodyBB15
 __init_afterForBB13:
-    li t4, 65535
-    and t1,a2,t4
-    li t4, 65535
-    and t4,a5,t4
-    add t4,t4,t1
-    srai t1,t4,    16
-    srai a4,a2,    16
-    li a2, 65535
-    and a4,a4,a2
-    srai a5,a5,    16
-    li a2, 65535
-    and a5,a5,a2
-    add a5,a5,a4
-    add a2,a5,t1
-    li a5, 65535
-    and a5,a2,a5
-    li a2, 65535
-    and t4,t4,a2
-    slli a5,a5,    16
-    or a5,a5,t4
-    li t4, 65535
-    and a2,t5,t4
-    li t4, 65535
-    and t4,t2,t4
-    add t4,t4,a2
-    srai a4,t4,    16
-    srai t1,t5,    16
-    li a2, 65535
-    and t1,t1,a2
-    srai a2,t2,    16
-    li t2, 65535
-    and a2,a2,t2
-    add a2,a2,t1
-    add a2,a2,a4
-    li t1, 65535
-    and a2,a2,t1
-    li t1, 65535
-    and t1,t4,t1
-    slli t4,a2,    16
-    or t2,t4,t1
-    li t4, 65535
-    and t4,t3,t4
-    li a2, 65535
-    and a2,a3,a2
-    add t4,a2,t4
-    srai t5,t4,    16
-    srai a2,t3,    16
-    li t1, 65535
-    and a2,a2,t1
-    srai t1,a3,    16
-    li a3, 65535
-    and t1,t1,a3
-    add a2,t1,a2
-    add a2,a2,t5
-    li t1, 65535
-    and a2,a2,t1
-    li t1, 65535
-    and t1,t4,t1
-    slli t4,a2,    16
-    or a3,t4,t1
-    li t4, 65535
-    and a2,a0,t4
-    li t4, 65535
-    and t4,t6,t4
-    add a2,t4,a2
-    srai t5,a2,    16
-    srai t1,a0,    16
-    li t4, 65535
-    and t3,t1,t4
-    srai t4,t6,    16
-    li t1, 65535
-    and t4,t4,t1
-    add t4,t4,t3
-    add t1,t4,t5
-    li t4, 65535
-    and t4,t1,t4
-    li t1, 65535
-    and a2,a2,t1
-    slli t4,t4,    16
-    or t6,t4,a2
-    li t4, 65535
-    and a2,ra,t4
+    li t5, 65535
+    and t4,a7,t5
+    li t5, 65535
+    and t5,a4,t5
+    add t5,t5,t4
+    srai t2,t5,    16
+    srai a7,a7,    16
     li t4, 65535
     and t4,a7,t4
-    add a2,t4,a2
-    srai t1,a2,    16
-    srai ra,ra,    16
+    srai ra,a4,    16
+    li a7, 65535
+    and a7,ra,a7
+    add t4,a7,t4
+    add a7,t4,t2
     li t4, 65535
-    and t3,ra,t4
-    srai ra,a7,    16
-    li t4, 65535
-    and t4,ra,t4
-    add t4,t4,t3
-    add ra,t4,t1
-    li t4, 65535
-    and t4,ra,t4
-    li ra, 65535
-    and ra,a2,ra
+    and t4,a7,t4
+    li a7, 65535
+    and t5,t5,a7
     slli t4,t4,    16
-    or a7,t4,ra
-    addi a6,a6,    1
+    or a4,t4,t5
+    li t5, 65535
+    and t4,t0,t5
+    li t5, 65535
+    and t5,t3,t5
+    add t5,t5,t4
+    srai a7,t5,    16
+    srai t4,t0,    16
+    li ra, 65535
+    and t4,t4,ra
+    srai t3,t3,    16
+    li ra, 65535
+    and t3,t3,ra
+    add t3,t3,t4
+    add t3,t3,a7
+    li t4, 65535
+    and t3,t3,t4
+    li t4, 65535
+    and t5,t5,t4
+    slli t3,t3,    16
+    or t3,t3,t5
+    li t5, 65535
+    and t4,a3,t5
+    li t5, 65535
+    and t5,t1,t5
+    add t5,t5,t4
+    srai ra,t5,    16
+    srai t4,a3,    16
+    li a7, 65535
+    and a7,t4,a7
+    srai t1,t1,    16
+    li t4, 65535
+    and t4,t1,t4
+    add t4,t4,a7
+    add a7,t4,ra
+    li t4, 65535
+    and t4,a7,t4
+    li a7, 65535
+    and a7,t5,a7
+    slli t5,t4,    16
+    or t1,t5,a7
+    li t5, 65535
+    and t5,a2,t5
+    li t4, 65535
+    and t4,a6,t4
+    add t5,t4,t5
+    srai ra,t5,    16
+    srai a7,a2,    16
+    li t4, 65535
+    and a7,a7,t4
+    srai t4,a6,    16
+    li a2, 65535
+    and t4,t4,a2
+    add t4,t4,a7
+    add t4,t4,ra
+    li a7, 65535
+    and t4,t4,a7
+    li a7, 65535
+    and a7,t5,a7
+    slli t5,t4,    16
+    or a6,t5,a7
+    li t5, 65535
+    and t4,a0,t5
+    li t5, 65535
+    and t5,a1,t5
+    add t5,t5,t4
+    srai a7,t5,    16
+    srai a0,a0,    16
+    li t4, 65535
+    and a0,a0,t4
+    srai t4,a1,    16
+    li a1, 65535
+    and a1,t4,a1
+    add a1,a1,a0
+    add a1,a1,a7
+    li a0, 65535
+    and a1,a1,a0
+    li a0, 65535
+    and a0,t5,a0
+    slli a1,a1,    16
+    or a1,a1,a0
+    addi t6,t6,    1
     j	__init_forcondBB12
 __init_forbodyBB15:
-    li t4, 20
-    blt	a1,t4,	__init_if_thenBB16
+    li t5, 20
+    blt	t2,t5,	__init_if_thenBB16
 __init_if_elseBB10:
-    li t4, 40
-    blt	a1,t4,	__init_if_thenBB17
+    li t5, 40
+    blt	t2,t5,	__init_if_thenBB17
 __init_if_elseBB11:
-    li t4, 60
-    blt	a1,t4,	__init_if_thenBB18
+    li t5, 60
+    blt	t2,t5,	__init_if_thenBB18
 __init_if_elseBB12:
-    xor t4,t5,t3
-    xor a4,t4,a0
-    li t4, -899497514
+    xor t5,t0,a3
+    xor s5,t5,a2
+    li ra, -899497514
 __init_if_end7:
-    srai t1,a2,    27
-    andi t1,t1,    31
-    li s11, 134217727
-    and s11,a2,s11
-    slli s11,s11,    5
-    or t1,s11,t1
-    li s11, 65535
-    and s4,ra,s11
-    li s11, 65535
-    and s11,t1,s11
-    add s11,s11,s4
-    srai s4,s11,    16
-    srai ra,ra,    16
-    li s10, 65535
-    and ra,ra,s10
-    srai t1,t1,    16
-    li s10, 65535
-    and t1,t1,s10
-    add ra,t1,ra
-    add t1,ra,s4
+    srai t5,a7,    27
+    andi t4,t5,    31
+    li t5, 134217727
+    and t5,a7,t5
+    slli t5,t5,    5
+    or t5,t5,t4
+    li t4, 65535
+    and t4,a0,t4
+    li s8, 65535
+    and s8,t5,s8
+    add t4,s8,t4
+    srai s9,t4,    16
+    srai a0,a0,    16
+    li s8, 65535
+    and s8,a0,s8
+    srai t5,t5,    16
+    li a0, 65535
+    and a0,t5,a0
+    add a0,a0,s8
+    add a0,a0,s9
+    li t5, 65535
+    and a0,a0,t5
+    li t5, 65535
+    and t5,t4,t5
+    slli a0,a0,    16
+    or a0,a0,t5
+    li t5, 65535
+    and t5,ra,t5
+    li t4, 65535
+    and t4,s5,t4
+    add t4,t4,t5
+    srai t5,t4,    16
+    srai s8,ra,    16
     li ra, 65535
-    and ra,t1,ra
-    li t1, 65535
-    and t1,s11,t1
-    slli ra,ra,    16
-    or ra,ra,t1
-    li t1, 65535
-    and s11,t4,t1
-    li t1, 65535
-    and t1,a4,t1
-    add t1,t1,s11
-    srai s4,t1,    16
-    srai t4,t4,    16
-    li s11, 65535
-    and s11,t4,s11
-    srai a4,a4,    16
-    li t4, 65535
-    and t4,a4,t4
-    add t4,t4,s11
-    add a4,t4,s4
-    li t4, 65535
-    and t4,a4,t4
-    li a4, 65535
-    and t1,t1,a4
-    slli t4,t4,    16
-    or t4,t4,t1
-    li t1, 65535
-    and t1,t4,t1
-    li a4, 65535
-    and a4,ra,a4
-    add t1,a4,t1
-    srai s11,t1,    16
-    srai a4,t4,    16
-    li t4, 65535
-    and a4,a4,t4
-    srai ra,ra,    16
-    li t4, 65535
-    and t4,ra,t4
-    add t4,t4,a4
-    add ra,t4,s11
-    li t4, 65535
-    and t4,ra,t4
+    and s8,s8,ra
+    srai s5,s5,    16
     li ra, 65535
-    and ra,t1,ra
-    slli t4,t4,    16
-    or ra,t4,ra
-    slli t4,a6,    2
-    addi t4,t4,    4
-    add t4,s3,t4
-    lw t1, 0(t4)
-    slli t4,a1,    2
-    addi t4,t4,    4
-    add t4,t1,t4
-    lw t1, 0(t4)
-    li t4, 65535
-    and a4,t1,t4
-    li t4, 65535
-    and t4,ra,t4
-    add t4,t4,a4
-    srai s11,t4,    16
-    srai t1,t1,    16
-    li a4, 65535
-    and t1,t1,a4
-    srai a4,ra,    16
+    and ra,s5,ra
+    add ra,ra,s8
+    add t5,ra,t5
     li ra, 65535
-    and ra,a4,ra
-    add ra,ra,t1
-    add ra,ra,s11
-    li t1, 65535
-    and ra,ra,t1
-    li t1, 65535
-    and t4,t4,t1
-    slli ra,ra,    16
-    or t1,ra,t4
-    mv	t4,t3 
-    srai ra,t5,    2
-    li t3, 1073741823
-    and t3,ra,t3
-    andi ra,t5,    3
-    slli ra,ra,    30
-    or t3,ra,t3
-    mv	t5,a2 
-    addi a1,a1,    1
-    mv	ra,a0 
-    mv	a0,t4 
-    mv	a2,t1 
+    and t5,t5,ra
+    li ra, 65535
+    and t4,t4,ra
+    slli t5,t5,    16
+    or t4,t5,t4
+    li t5, 65535
+    and ra,t4,t5
+    li t5, 65535
+    and t5,a0,t5
+    add t5,t5,ra
+    srai ra,t5,    16
+    srai s5,t4,    16
+    li t4, 65535
+    and s5,s5,t4
+    srai t4,a0,    16
+    li a0, 65535
+    and a0,t4,a0
+    add a0,a0,s5
+    add a0,a0,ra
+    li t4, 65535
+    and a0,a0,t4
+    li t4, 65535
+    and t5,t5,t4
+    slli a0,a0,    16
+    or t4,a0,t5
+    slli a0,t6,    2
+    addi a0,a0,    4
+    add a0,s10,a0
+    lw a0, 0(a0)
+    slli t5,t2,    2
+    addi t5,t5,    4
+    add a0,a0,t5
+    lw a0, 0(a0)
+    li t5, 65535
+    and ra,a0,t5
+    li t5, 65535
+    and t5,t4,t5
+    add t5,t5,ra
+    srai s5,t5,    16
+    srai a0,a0,    16
+    li ra, 65535
+    and ra,a0,ra
+    srai a0,t4,    16
+    li t4, 65535
+    and a0,a0,t4
+    add a0,a0,ra
+    add t4,a0,s5
+    li a0, 65535
+    and a0,t4,a0
+    li t4, 65535
+    and t5,t5,t4
+    slli a0,a0,    16
+    or t5,a0,t5
+    mv	a0,a2 
+    mv	a2,a3 
+    srai ra,t0,    2
+    li t4, 1073741823
+    and ra,ra,t4
+    andi t4,t0,    3
+    slli t4,t4,    30
+    or a3,t4,ra
+    mv	t0,a7 
+    addi t2,t2,    1
+    mv	a7,t5 
     j	__init_forcondBB15
 __init_if_thenBB18:
-    and a4,t3,a0
-    and t4,t5,a0
-    and t1,t5,t3
-    or t4,t1,t4
-    or a4,t4,a4
-    li t4, -1894007588
+    and t5,a3,a2
+    and t4,t0,a2
+    and ra,t0,a3
+    or t4,ra,t4
+    or s5,t4,t5
+    li ra, -1894007588
     j	__init_if_end7
 __init_if_thenBB17:
-    xor t4,t5,t3
-    xor a4,t4,a0
-    li t4, 1859775393
+    xor t5,t0,a3
+    xor s5,t5,a2
+    li ra, 1859775393
     j	__init_if_end7
 __init_if_thenBB16:
-    xori t4,t5,    -1
-    and t4,t4,a0
-    and t1,t5,t3
-    or a4,t1,t4
-    li t4, 1518500249
+    xori t5,t0,    -1
+    and t5,t5,a2
+    and t4,t0,a3
+    or s5,t4,t5
+    li ra, 1518500249
     j	__init_if_end7
 __init_forbodyBB14:
-    slli ra,a6,    2
-    addi ra,ra,    4
-    add ra,s3,ra
-    addi t1,t4,    -16
-    lw a2, 0(ra)
-    slli ra,t1,    2
-    addi ra,ra,    4
-    add a2,a2,ra
-    slli ra,a6,    2
-    addi ra,ra,    4
-    add ra,s3,ra
-    addi t1,t4,    -14
-    lw t3, 0(ra)
-    slli ra,t1,    2
-    addi ra,ra,    4
-    add t3,t3,ra
-    slli ra,a6,    2
-    addi ra,ra,    4
-    add ra,s3,ra
-    addi t1,t4,    -8
-    lw t5, 0(ra)
-    slli ra,t1,    2
-    addi ra,ra,    4
-    add t1,t5,ra
-    slli ra,a6,    2
-    addi ra,ra,    4
-    add ra,s3,ra
-    addi t5,t4,    -3
-    lw ra, 0(ra)
-    slli t5,t5,    2
-    addi t5,t5,    4
-    add ra,ra,t5
-    lw ra, 0(ra)
-    lw t1, 0(t1)
-    xor t1,ra,t1
-    lw ra, 0(t3)
-    xor t1,t1,ra
-    lw ra, 0(a2)
-    xor ra,t1,ra
-    srai a2,ra,    31
-    andi a2,a2,    1
-    li t1, 2147483647
-    and ra,ra,t1
-    slli ra,ra,    1
-    or ra,ra,a2
-    slli a2,a6,    2
-    addi a2,a2,    4
-    add a2,s3,a2
-    lw t1, 0(a2)
-    slli a2,t4,    2
-    addi a2,a2,    4
-    add a2,t1,a2
-    sw ra,0(a2)
-    addi t4,t4,    1
+    slli a0,t6,    2
+    addi a0,a0,    4
+    add a0,s10,a0
+    addi t4,t5,    -16
+    lw a0, 0(a0)
+    slli t4,t4,    2
+    addi t4,t4,    4
+    add a0,a0,t4
+    slli t4,t6,    2
+    addi t4,t4,    4
+    add t4,s10,t4
+    addi ra,t5,    -14
+    lw a7, 0(t4)
+    slli t4,ra,    2
+    addi t4,t4,    4
+    add ra,a7,t4
+    slli t4,t6,    2
+    addi t4,t4,    4
+    add t4,s10,t4
+    addi a2,t5,    -8
+    lw a7, 0(t4)
+    slli t4,a2,    2
+    addi t4,t4,    4
+    add a7,a7,t4
+    slli t4,t6,    2
+    addi t4,t4,    4
+    add a2,s10,t4
+    addi t4,t5,    -3
+    lw a2, 0(a2)
+    slli t4,t4,    2
+    addi t4,t4,    4
+    add t4,a2,t4
+    lw t4, 0(t4)
+    lw a7, 0(a7)
+    xor t4,t4,a7
+    lw a7, 0(ra)
+    xor t4,t4,a7
+    lw a0, 0(a0)
+    xor a0,t4,a0
+    srai t4,a0,    31
+    andi a7,t4,    1
+    li t4, 2147483647
+    and a0,a0,t4
+    slli a0,a0,    1
+    or a0,a0,a7
+    slli t4,t6,    2
+    addi t4,t4,    4
+    add t4,s10,t4
+    lw t4, 0(t4)
+    slli a7,t5,    2
+    addi a7,a7,    4
+    add t4,t4,a7
+    sw a0,0(t4)
+    addi t5,t5,    1
     j	__init_forcondBB14
 __init_forbodyBB11:
-    andi a2,a5,    3
-    li ra, 3
-    sub ra,ra,a2
-    slli ra,ra,    3
-    slli a2,a5,    2
-    addi a2,a2,    4
-    add a2,t4,a2
-    lw a2, 0(a2)
-    sll ra,a2,ra
-    srai a2,a5,    6
-    slli a2,a2,    2
-    addi a2,a2,    4
-    add t1,s3,a2
-    andi a2,a5,    63
-    srai a2,a2,    2
-    lw t1, 0(t1)
-    slli a2,a2,    2
-    addi a2,a2,    4
-    add a2,t1,a2
-    lw a2, 0(a2)
-    or a2,a2,ra
-    srai ra,a5,    6
-    slli ra,ra,    2
-    addi ra,ra,    4
-    add t1,s3,ra
-    andi ra,a5,    63
-    srai ra,ra,    2
-    lw t1, 0(t1)
-    slli ra,ra,    2
-    addi ra,ra,    4
-    add ra,t1,ra
-    sw a2,0(ra)
-    addi a5,a5,    1
+    andi t4,t5,    3
+    li t3, 3
+    sub t3,t3,t4
+    slli t3,t3,    3
+    slli t4,t5,    2
+    addi t4,t4,    4
+    add t4,a1,t4
+    lw t4, 0(t4)
+    sll t4,t4,t3
+    srai t3,t5,    6
+    slli t3,t3,    2
+    addi t3,t3,    4
+    add t3,s10,t3
+    andi a7,t5,    63
+    srai ra,a7,    2
+    lw a7, 0(t3)
+    slli t3,ra,    2
+    addi t3,t3,    4
+    add t3,a7,t3
+    lw t3, 0(t3)
+    or t4,t3,t4
+    srai t3,t5,    6
+    slli t3,t3,    2
+    addi t3,t3,    4
+    add a7,s10,t3
+    andi t3,t5,    63
+    srai t3,t3,    2
+    lw a7, 0(a7)
+    slli t3,t3,    2
+    addi t3,t3,    4
+    add t3,a7,t3
+    sw t4,0(t3)
+    addi t5,t5,    1
     j	__init_forcondBB11
 __init_forbodyBB10:
-    mv	ra,zero 
+    mv	t3,zero 
 __init_forcondBB16:
-    li a2, 80
-    blt	ra,a2,	__init_forbodyBB16
+    li t4, 80
+    blt	t3,t4,	__init_forbodyBB16
 __init_forupdateBB5:
-    addi a5,a5,    1
+    addi t5,t5,    1
     j	__init_forcondBB10
 __init_forbodyBB16:
-    slli a2,a5,    2
-    addi a2,a2,    4
-    add a2,s3,a2
-    lw a2, 0(a2)
-    slli t1,ra,    2
-    addi t1,t1,    4
-    add a2,a2,t1
-    sw zero,0(a2)
-    addi ra,ra,    1
+    slli t4,t5,    2
+    addi t4,t4,    4
+    add t4,s10,t4
+    lw a7, 0(t4)
+    slli t4,t3,    2
+    addi t4,t4,    4
+    add t4,a7,t4
+    sw zero,0(t4)
+    addi t3,t3,    1
     j	__init_forcondBB16
 __init_if_thenBB14:
     la a0,_globalStr4    
     call	println
-    mv	s11,zero 
+    mv	s5,zero 
     j	__initafterCallBB7
 __init__forbodyBB6:
-    mv	a0,s4 
-    mv	a1,s11 
+    mv	a0,s5 
+    mv	a1,s8 
     call	_stringOrd
-    slli t4,s11,    2
-    addi t4,t4,    4
-    add t4,s1,t4
-    sw a0,0(t4)
-    addi s11,s11,    1
+    slli a1,s8,    2
+    addi a1,a1,    4
+    add a1,s4,a1
+    sw a0,0(a1)
+    addi s8,s8,    1
     j	__init__forcondBB6
 __initafterCallBB1:
-    mv	s11,s0 
-    lw s10, 20(sp) 
-    lw s9, 12(sp) 
-    lw s8, 44(sp) 
-    lw s7, 32(sp) 
+    mv	s0,s7 
+    lw s1, 16(sp) 
+    lw s2, 24(sp) 
+    lw s3, 12(sp) 
+    lw s4, 44(sp) 
+    lw s5, 32(sp) 
     lw s6, 28(sp) 
-    lw s5, 0(sp) 
-    lw s4, 36(sp) 
-    lw s3, 16(sp) 
-    lw s2, 4(sp) 
-    lw s1, 8(sp) 
-    lw s0, 40(sp) 
-    lw ra, 24(sp) 
+    lw s7, 0(sp) 
+    lw s8, 36(sp) 
+    lw s9, 20(sp) 
+    lw s10, 4(sp) 
+    lw s11, 8(sp) 
+    lw ra, 40(sp) 
     mv	a0,zero 
     addi sp,sp,    64
     ret
 __initforupdateBB1:
     li a0, 324
     call malloc
-    li t4, 80
-    sw t4,0(a0)
-    sw a0,0(s1)
-    addi s1,s1,    4
+    li a1, 80
+    sw a1,0(a0)
+    sw a0,0(s5)
+    addi s5,s5,    4
     j	__initforcondBB1
 								 # func end
     .section	.sdata,"aw",@progbits

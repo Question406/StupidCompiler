@@ -514,18 +514,18 @@ public class RegAllocater {
             }
             while (iterator.hasNext()) {
                 var tmp = iterator.next();
-                if (!tmp.addForSpill
-                        && (Math.abs(tmp.spillCost / tmp.degree - m.spillCost / m.degree) < 1e-3)
-                        && tmp.usedInstructions.size() < m.usedInstructions.size()) {
-                    m = tmp;
-                }
-                else
+//                if (!tmp.addForSpill
+//                        && (Math.abs(tmp.spillCost / tmp.degree - m.spillCost / m.degree) < 1e-3)
+//                        && tmp.usedInstructions.size() < m.usedInstructions.size()) {
+//                    m = tmp;
+//                }
+//                else
                 if (!tmp.addForSpill && tmp.spillCost / tmp.degree < m.spillCost / m.degree)
                     m = tmp;
             }
-            if (m.name.equals("_i")) {
-                System.err.println("123");
-            }
+//            if (m.name.equals("_i")) {
+//                System.err.println("123");
+//            }
             return m;
         }
     }

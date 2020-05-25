@@ -1,14 +1,34 @@
-
-exit code: 0
+ code: 0
 memory leak: 1
-time: 1395690610
+time: 1387068282
 # instructions:
-# simple  = 658040866 (including unconditional jump)
+# simple  = 654591738 (including unconditional jump)
 # mul     = 0
-# cache   = 35943218
+# cache   = 36029438
 # br      = 18364481
 # div     = 0
-# mem     = 6982709 (a.k.a cache miss)
+# mem     = 6896489 (a.k.a cache miss)
 # libcIO  = 15
 # libcMem = 521
 # jumpCnt = 12546254
+# regCnt = 221060100
+# immCnt = 323545610
+
+
+
+exit code: 0
+memory leak: 1
+time: 1392242045
+# instructions:
+# simple  = 654591821 (including unconditional jump)
+# mul     = 0
+# cache   = 35943210
+# br      = 18364481
+# div     = 0
+# mem     = 6982717 (a.k.a cache miss)
+# libcIO  = 15
+# libcMem = 521
+# jumpCnt = 12546254
+# regCnt = 221060100
+# immCnt = 323545693
+
