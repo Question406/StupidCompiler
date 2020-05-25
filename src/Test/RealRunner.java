@@ -196,12 +196,13 @@ public class RealRunner {
 //        PrintStream out = new PrintStream(file);
 //        ASMPrinter asmPrinter = new ASMPrinter(out);
 //        asmPrinter.visit(IRRoot);
-        PrintASM(false);
+        // PrintASM(false);
         asmSimplifier.run();
         long startTime = System.nanoTime();
         regAllocater.run();
         long endTime = System.nanoTime() - startTime;
         System.out.println(endTime);
+        System.err.println("wordless with this stupid compile time out");
         PrintASM(true);
     }
 
